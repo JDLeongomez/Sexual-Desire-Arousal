@@ -396,8 +396,7 @@ We used \texttt{summary} (regression-type tables of estimates) instead on ANOVA-
 \StringTok{                              }\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{textit\{p\}{-}values that represent main effects and interactions }
 \StringTok{                              in an ANOVA{-}type manner (i.e. the intercept is the grand mean of }
 \StringTok{                              all cells, and estimates are differences between each category}
-\StringTok{                              mean and the mean of all categories; see }
-\StringTok{                              }\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{cite\{kaufmanContrastCodingLeast1974,keppelDataAnalysisResearch1989\}).}
+\StringTok{                              mean and the mean of all categories).}
 \StringTok{                              }\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{textit\{Single\} was used as reference category}
 \StringTok{                              for relationship status, }\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{textit\{Men\} for gender, }
 \StringTok{                              and }\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{textit\{Solitary\} for  sexual desire dimension.}
@@ -1338,7 +1337,7 @@ Table of Cronbach's \(\alpha\) for construct variables.
 \toprule
 Variable & Gender & Items & $n$ & $\alpha$ & $2.5\% CI$ & $97.5\% CI$\\
 \midrule
- & Men & 5 & 139 & 0.82 & 0.71 & 0.88\\
+ & Men & 5 & 139 & 0.82 & 0.72 & 0.88\\
 \cmidrule{2-7}
 \multirow{-2}{*}{\raggedright\arraybackslash MGH-SFQ} & Women & 4 & 181 & 0.86 & 0.82 & 0.90\\
 \cmidrule{1-7}
@@ -1346,11 +1345,11 @@ MGSS sexual satisfaction (General) &  & 5 & 188 & 0.92 & 0.88 & 0.94\\
 \cmidrule{1-7}
 MGSS sexual satisfaction (Partner) &  & 5 & 187 & 0.91 & 0.85 & 0.95\\
 \cmidrule{1-7}
-Dyadic sexual desire (Partner) &  & 5 & 309 & 0.90 & 0.87 & 0.92\\
+Dyadic sexual desire (Partner) &  & 5 & 309 & 0.90 & 0.88 & 0.92\\
 \cmidrule{1-7}
 Solitary sexual desire &  & 4 & 314 & 0.91 & 0.89 & 0.93\\
 \cmidrule{1-7}
-Dyadic sexual desire (Attractive person) &  & 4 & 320 & 0.89 & 0.87 & 0.91\\
+Dyadic sexual desire (Attractive person) &  & 4 & 320 & 0.89 & 0.86 & 0.91\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
@@ -1535,8 +1534,7 @@ Gender [Women] × Relationship [Stable] × Dimension [Partner DSD] & 0.59 & 0.31
                               \textit{p}-values that represent main effects and interactions 
                               in an ANOVA-type manner (i.e. the intercept is the grand mean of 
                               all cells, and estimates are differences between each category
-                              mean and the mean of all categories; see 
-                              \cite{kaufmanContrastCodingLeast1974,keppelDataAnalysisResearch1989}).
+                              mean and the mean of all categories).
                               \textit{Single} was used as reference category
                               for relationship status, \textit{Men} for gender, 
                               and \textit{Solitary} for  sexual desire dimension.
@@ -1549,7 +1547,7 @@ Gender [Women] × Relationship [Stable] × Dimension [Partner DSD] & 0.59 & 0.31
 \hypertarget{post-hoc-comparisons}{%
 \paragraph{\texorpdfstring{\emph{Post-hoc} comparisons}{Post-hoc comparisons}}\label{post-hoc-comparisons}}
 
-Because only the main effect of (sexual desire) dimension, and the interaction between relationship (type) and dimension are significant, we explored the interaction by estimated marginal means, as well as comparing the three relationship types for each sexual desire dimension.
+Because only the main effect of (sexual desire) dimension, and the interaction between relationship (type) and dimension are significant, we explored the interaction using estimated marginal means, as well as comparing the relationship types for each of the three sexual desire dimensions.
 
 Table of estimated marginal means and contrasts between sexual desire dimension. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package (\protect\hyperlink{ref-emmeanscit}{Lenth, 2022}).
 
@@ -1628,7 +1626,7 @@ Table of estimated marginal means and contrasts between sexual desire dimension.
   \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \StringTok{"EMM = estimated marginal mean.}
 \StringTok{           Degrees of freedom ($df$) were calculated }
 \StringTok{           using the Satterthwaite approximation.}
-\StringTok{           Bonferroni Confidence level adjustment was used."}\NormalTok{,}
+\StringTok{           Bonferroni adjustment was used."}\NormalTok{,}
            \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
            \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
            \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{)}
@@ -1657,7 +1655,7 @@ Solitary & 15.82 & 0.45 & 808.08 & 14.73 & 16.91 & Dyadic (Partner) - Solitary &
 \item EMM = estimated marginal mean.
            Degrees of freedom ($df$) were calculated 
            using the Satterthwaite approximation.
-           Bonferroni Confidence level adjustment was used.
+           Bonferroni adjustment was used.
 \end{tablenotes}
 \end{threeparttable}}
 \end{table}
@@ -1725,7 +1723,7 @@ Table of estimated marginal means and contrasts between relationship status for 
   \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \StringTok{"EMM = estimated marginal mean.}
 \StringTok{           Degrees of freedom ($df$) were calculated }
 \StringTok{           using the Satterthwaite approximation.}
-\StringTok{           Bonferroni Confidence level adjustment was used."}\NormalTok{,}
+\StringTok{           Bonferroni adjustment was used."}\NormalTok{,}
            \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
            \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
            \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{)}
@@ -1766,7 +1764,7 @@ Relationship & EMM & $SE$ & $df$ & $2.5\% CI$ & $97.5\% CI$ & Contrast & Differe
 \item EMM = estimated marginal mean.
            Degrees of freedom ($df$) were calculated 
            using the Satterthwaite approximation.
-           Bonferroni Confidence level adjustment was used.
+           Bonferroni adjustment was used.
 \end{tablenotes}
 \end{threeparttable}}
 \end{table}
@@ -2120,6 +2118,104 @@ Relationship [Stable] × Gender [Women] × Stimulus sex [Female] × Dyadic sexua
 \hypertarget{post-hoc-comparisons-1}{%
 \subparagraph{\texorpdfstring{\emph{Post-hoc} comparisons}{Post-hoc comparisons}}\label{post-hoc-comparisons-1}}
 
+We further explored the interaction between gender and stimuli sex using estimated marginal means,
+as well as comparing subjective sexual arousal between stimuli sex for each participant gender.
+
+Table \ref{tab:tab-m2a-emms}. Estimated marginal means and contrasts of subjective arousal between stimulus sex by participant gender
+
+Table of estimated marginal means and contrasts between stimulus sex for each participant gender. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package (\protect\hyperlink{ref-emmeanscit}{Lenth, 2022}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{emms.m2a }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2a, }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimulus sex}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|}\NormalTok{ Gender,}
+                    \AttributeTok{adjust =} \StringTok{"bonferroni"}\NormalTok{) }\CommentTok{\#asymptotic degrees of freedom}
+
+\NormalTok{emms.m2a.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m2a)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\StringTok{"Stimulus sex"} \OtherTok{=}\NormalTok{ Stimulus.sex) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{"Subjective sexual arousal"} \OtherTok{=}\NormalTok{ emmean)}
+
+\NormalTok{t.m2a }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m2a) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value))}
+
+\NormalTok{t.m2a.f }\OtherTok{\textless{}{-}}\NormalTok{ t.m2a }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{insertRows}\NormalTok{(}\DecValTok{2}\NormalTok{, }\AttributeTok{new =} \ConstantTok{NA}\NormalTok{)}
+
+\FunctionTok{merge}\NormalTok{(emms.m2a.tab, t.m2a.f, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{18}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{unite}\NormalTok{(Contrast, group1, group2, }\AttributeTok{sep =} \StringTok{" {-} "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"Contrast"}\NormalTok{, str\_replace\_all, }\StringTok{"NA {-} NA"}\NormalTok{, }\StringTok{" "}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
+          \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
+          \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
+          \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
+          \AttributeTok{caption =} \StringTok{"Estimated marginal means of subjective sexual arousal for gender by}
+\StringTok{        stimulus sex, in response to erotic stimuli"}\NormalTok{,}
+          \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Stimulus sex"}\NormalTok{,}
+                        \StringTok{"EMM"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"Contrast"}\NormalTok{,}
+                        \StringTok{"Difference"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$z$"}\NormalTok{,}
+                        \StringTok{"$p$"}\NormalTok{),}
+          \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pack\_rows}\NormalTok{(}\AttributeTok{group\_label =} \StringTok{"Women"}\NormalTok{,}
+            \AttributeTok{start\_row =} \DecValTok{1}\NormalTok{,}
+            \AttributeTok{end\_row =} \DecValTok{2}\NormalTok{,}
+            \AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pack\_rows}\NormalTok{(}\AttributeTok{group\_label =} \StringTok{"Men"}\NormalTok{,}
+            \AttributeTok{start\_row =} \DecValTok{3}\NormalTok{,}
+            \AttributeTok{end\_row =} \DecValTok{4}\NormalTok{,}
+            \AttributeTok{hline\_before =} \ConstantTok{TRUE}\NormalTok{,}
+            \AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{5}\NormalTok{, }\StringTok{"Contrasts"} \OtherTok{=} \DecValTok{5}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \StringTok{"EMM = estimated marginal mean.}
+\StringTok{           No degrees of freedom are reported, as an asymptotic method was used. }
+\StringTok{           Because of this, }\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{textit\{z\} rather that }\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{textit\{t\} scores are reported.}
+\StringTok{           Bonferroni adjustment was used."}\NormalTok{,}
+           \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+
+\caption{\label{tab:tab-m2a-emms}Estimated marginal means of subjective sexual arousal for gender by
+        stimulus sex, in response to erotic stimuli}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{threeparttable}
+\begin{tabular}[t]{lccccclccc}
+\toprule
+\multicolumn{5}{c}{ } & \multicolumn{5}{c}{Contrasts} \\
+\cmidrule(l{3pt}r{3pt}){6-10}
+Stimulus sex & EMM & $SE$ & $2.5\% CI$ & $97.5\% CI$ & Contrast & Difference & $SE$ & $z$ & $p$\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{10}{l}{\textbf{Women}}\\
+\hspace{1em}Female & 1.55 & 0.12 & 1.29 & 1.81 & Female - Male & -0.71 & 0.13 & -5.50 & \textbf{< 0.0001}\\
+\hspace{1em}Male & 2.26 & 0.09 & 2.07 & 2.45 &  &  &  &  & \\
+\addlinespace[0.3em]
+\hline
+\multicolumn{10}{l}{\textbf{Men}}\\
+\hspace{1em}Female & 3.64 & 0.14 & 3.32 & 3.96 & Female - Male & 2.54 & 0.15 & 16.44 & \textbf{< 0.0001}\\
+\hspace{1em}Male & 1.10 & 0.10 & 0.87 & 1.33 &  &  &  &  & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[para]
+\item \textit{Note: } 
+\item EMM = estimated marginal mean.
+           No degrees of freedom are reported, as an asymptotic method was used. 
+           Because of this, \textit{z} rather that \textit{t} scores are reported.
+           Bonferroni adjustment was used.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
 \hypertarget{figure-reffigfig-h2a.-subjective-sexual-arousal-to-erotic-stimuli-main-effects-and-interactions}{%
 \paragraph{Figure \ref{fig:fig-h2a}. Subjective sexual arousal to erotic stimuli: Main effects and interactions}\label{figure-reffigfig-h2a.-subjective-sexual-arousal-to-erotic-stimuli-main-effects-and-interactions}}
 
@@ -2143,17 +2239,10 @@ This figure summarizes the results of hypothesis 2a.
   \FunctionTok{theme\_tq}\NormalTok{()}
 
 \CommentTok{\# Figure interaction between Stimulus sex and gender}
-\DocumentationTok{\#\# Calculate estimated marginal means}
-\NormalTok{emms.m2a }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2a, }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimulus sex}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|}\NormalTok{ Gender,}
-                    \AttributeTok{adjust =} \StringTok{"bonferroni"}\NormalTok{) }\CommentTok{\#asymptotic degrees of freedom}
-\NormalTok{emms.m2a.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m2a)) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{rename}\NormalTok{(}\StringTok{"Stimulus sex"} \OtherTok{=}\NormalTok{ Stimulus.sex) }\SpecialCharTok{|\textgreater{}} 
-  \FunctionTok{mutate}\NormalTok{(}\StringTok{"Subjective sexual arousal"} \OtherTok{=}\NormalTok{ emmean)}
-\NormalTok{t.m2a }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m2a) }\SpecialCharTok{|\textgreater{}} 
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value))}
+\DocumentationTok{\#\# Add predicted values to data frame}
 \NormalTok{m2a.dat }\OtherTok{\textless{}{-}}\NormalTok{ m2a}\SpecialCharTok{@}\NormalTok{frame }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{predict}\NormalTok{(m2a))}
-\DocumentationTok{\#\# plot}
+\DocumentationTok{\#\# Plot}
 \NormalTok{h2a}\FloatTok{.3} \OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2a.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Stimulus sex}\StringTok{\textasciigrave{}}\NormalTok{, }
                              \AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}}\NormalTok{, }
                              \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimulus sex}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
@@ -2242,7 +2331,7 @@ This figure summarizes the results of hypothesis 2a.
 \begin{figure}
 \centering
 \includegraphics{Deseo_excitacion_sexual_files/figure-latex/fig-h2a-1.pdf}
-\caption{\label{fig:fig-h2a}Subjective sexual arousal to erotic stimuli: Significant main effects and interactions of model 2A. \textbf{(a)} Main effect of Solitary sexual desire on Subjective sexual arousal; \textbf{(b)} main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal; \textbf{(c)} interaction between Stimulus sex and gender (significant effects of stimulus sex by participant gender are represented with lines and stars: ****\emph{p} \textless{} 0.0001. White dots and black bars represent estimated marginal means and 95\% CI, calculated from 1000 bootstraped simulations); \textbf{(d)} interaction between Stimulus sex and Dyadic sexual desire (Attractive person); \textbf{(e)} interaction between Stimulus sex, gender and Dyadic sexual desire (Attractive person); \textbf{(f)} interaction between Relationship, gender and Dyadic sexual desire (Partner); \textbf{(g)} interaction between Relationship, Stimulus sex and Dyadic sexual desire (Partner). For detailed results of the model, see Table \ref{tab:tab-m2a}). \emph{Women} and \emph{Men} refer to the gender of the participants and \emph{Female} and \emph{Male} to the sex of the stimuli. To better represent the associations between predictor variables and subjective sexual arousal within the model (i.e.~when including all other effects), in all cases the \emph{Y} axis represents values predicted by the model instead of raw values.}
+\caption{\label{fig:fig-h2a}Subjective sexual arousal to erotic stimuli: Significant main effects and interactions of model 2A. \textbf{(a)} Main effect of Solitary sexual desire on Subjective sexual arousal; \textbf{(b)} main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal; \textbf{(c)} interaction between Stimulus sex and gender (significant effects of stimulus sex by participant gender are represented with lines and stars: ****\emph{p} \textless{} 0.0001. White dots and black bars represent estimated marginal means and 95\% CI, calculated from 1000 bootstraped simulations; for detailed results, see Table \ref{tab:tab-m2a-emms}); \textbf{(d)} interaction between Stimulus sex and Dyadic sexual desire (Attractive person); \textbf{(e)} interaction between Stimulus sex, gender and Dyadic sexual desire (Attractive person); \textbf{(f)} interaction between Relationship, gender and Dyadic sexual desire (Partner); \textbf{(g)} interaction between Relationship, Stimulus sex and Dyadic sexual desire (Partner). For detailed results of the model, see Table \ref{tab:tab-m2a}). \emph{Women} and \emph{Men} refer to the gender of the participants and \emph{Female} and \emph{Male} to the sex of the stimuli. To better represent the associations between predictor variables and subjective sexual arousal within the model (i.e.~when including all other effects), in all cases the \emph{Y} axis represents values predicted by the model instead of raw values.}
 \end{figure}
 
 \hypertarget{hypothesis2b}{%
@@ -2503,6 +2592,107 @@ Relationship [Stable] × Gender [Women] × Stimulus sex [Female] × Dyadic sexua
 \end{threeparttable}}
 \end{table}
 
+\hypertarget{post-hoc-comparisons-2}{%
+\subparagraph{\texorpdfstring{\emph{Post-hoc} comparisons}{Post-hoc comparisons}}\label{post-hoc-comparisons-2}}
+
+We further explored the interaction between gender and stimuli sex using estimated marginal means,
+as well as comparing subjective sexual arousal between stimuli sex for each participant gender.
+
+Table \ref{tab:tab-m2b-emms}. Estimated marginal means and contrasts of subjective arousal between stimulus sex by participant gender
+
+Table of estimated marginal means and contrasts between stimulus sex for each participant gender. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package (\protect\hyperlink{ref-emmeanscit}{Lenth, 2022}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{emms.m2b }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2b, }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimulus sex}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|}\NormalTok{ Gender,}
+                    \AttributeTok{adjust =} \StringTok{"bonferroni"}\NormalTok{) }\CommentTok{\#asymptotic degrees of freedom}
+
+\NormalTok{emms.m2b.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m2b)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\StringTok{"Stimulus sex"} \OtherTok{=}\NormalTok{ Stimulus.sex) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{"Subjective sexual arousal"} \OtherTok{=}\NormalTok{ emmean)}
+
+\NormalTok{t.m2b }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m2b) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value))}
+
+\NormalTok{t.m2b.f }\OtherTok{\textless{}{-}}\NormalTok{ t.m2b }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{insertRows}\NormalTok{(}\DecValTok{2}\NormalTok{, }\AttributeTok{new =} \ConstantTok{NA}\NormalTok{)}
+
+\FunctionTok{merge}\NormalTok{(emms.m2b.tab, t.m2b.f, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{18}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{unite}\NormalTok{(Contrast, group1, group2, }\AttributeTok{sep =} \StringTok{" {-} "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"Contrast"}\NormalTok{, str\_replace\_all, }\StringTok{"NA {-} NA"}\NormalTok{, }\StringTok{" "}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
+          \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
+          \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
+          \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
+          \AttributeTok{caption =} \StringTok{"Estimated marginal means of subjective sexual arousal for gender by}
+\StringTok{        stimulus sex, in response to non{-}erotic stimuli"}\NormalTok{,}
+          \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Stimulus sex"}\NormalTok{,}
+                        \StringTok{"EMM"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"Contrast"}\NormalTok{,}
+                        \StringTok{"Difference"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$z$"}\NormalTok{,}
+                        \StringTok{"$p$"}\NormalTok{),}
+          \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pack\_rows}\NormalTok{(}\AttributeTok{group\_label =} \StringTok{"Women"}\NormalTok{,}
+            \AttributeTok{start\_row =} \DecValTok{1}\NormalTok{,}
+            \AttributeTok{end\_row =} \DecValTok{2}\NormalTok{,}
+            \AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pack\_rows}\NormalTok{(}\AttributeTok{group\_label =} \StringTok{"Men"}\NormalTok{,}
+            \AttributeTok{start\_row =} \DecValTok{3}\NormalTok{,}
+            \AttributeTok{end\_row =} \DecValTok{4}\NormalTok{,}
+            \AttributeTok{hline\_before =} \ConstantTok{TRUE}\NormalTok{,}
+            \AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{5}\NormalTok{, }\StringTok{"Contrasts"} \OtherTok{=} \DecValTok{5}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \StringTok{"EMM = estimated marginal mean.}
+\StringTok{           No degrees of freedom are reported, as an asymptotic method was used. }
+\StringTok{           Because of this, }\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{textit\{z\} rather that }\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{textit\{t\} scores are reported.}
+\StringTok{           Bonferroni adjustment was used."}\NormalTok{,}
+           \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+
+\caption{\label{tab:tab-m2b-emms}Estimated marginal means of subjective sexual arousal for gender by
+        stimulus sex, in response to non-erotic stimuli}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{threeparttable}
+\begin{tabular}[t]{lccccclccc}
+\toprule
+\multicolumn{5}{c}{ } & \multicolumn{5}{c}{Contrasts} \\
+\cmidrule(l{3pt}r{3pt}){6-10}
+Stimulus sex & EMM & $SE$ & $2.5\% CI$ & $97.5\% CI$ & Contrast & Difference & $SE$ & $z$ & $p$\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{10}{l}{\textbf{Women}}\\
+\hspace{1em}Female & 1.16 & 0.10 & 0.93 & 1.38 & Female - Male & -0.60 & 0.11 & -5.27 & \textbf{< 0.0001}\\
+\hspace{1em}Male & 1.76 & 0.07 & 1.60 & 1.91 &  &  &  &  & \\
+\addlinespace[0.3em]
+\hline
+\multicolumn{10}{l}{\textbf{Men}}\\
+\hspace{1em}Female & 2.40 & 0.12 & 2.13 & 2.67 & Female - Male & 1.36 & 0.14 & 9.88 & \textbf{< 0.0001}\\
+\hspace{1em}Male & 1.04 & 0.08 & 0.86 & 1.22 &  &  &  &  & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[para]
+\item \textit{Note: } 
+\item EMM = estimated marginal mean.
+           No degrees of freedom are reported, as an asymptotic method was used. 
+           Because of this, \textit{z} rather that \textit{t} scores are reported.
+           Bonferroni adjustment was used.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
 \hypertarget{figure-reffigfig-h2b.-subjective-sexual-arousal-to-non-erotic-stimuli-main-effects-and-interactions}{%
 \paragraph{Figure \ref{fig:fig-h2b}. Subjective sexual arousal to non-erotic stimuli: Main effects and interactions}\label{figure-reffigfig-h2b.-subjective-sexual-arousal-to-non-erotic-stimuli-main-effects-and-interactions}}
 
@@ -2519,14 +2709,7 @@ This figure summarizes the results of hypothesis 2b.
   \FunctionTok{theme\_tq}\NormalTok{()}
 
 \CommentTok{\# Figure interaction between Stimulus sex and gender}
-\DocumentationTok{\#\# Calculate estimated marginal means}
-\NormalTok{emms.m2b }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2b, }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimulus sex}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|}\NormalTok{ Gender,}
-                    \AttributeTok{adjust =} \StringTok{"bonferroni"}\NormalTok{) }\CommentTok{\#asymptotic degrees of freedom}
-\NormalTok{emms.m2b.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m2b)) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{rename}\NormalTok{(}\StringTok{"Stimulus sex"} \OtherTok{=}\NormalTok{ Stimulus.sex) }\SpecialCharTok{|\textgreater{}} 
-  \FunctionTok{mutate}\NormalTok{(}\StringTok{"Subjective sexual arousal"} \OtherTok{=}\NormalTok{ emmean)}
-\NormalTok{t.m2b }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m2b) }\SpecialCharTok{|\textgreater{}} 
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value))}
+\DocumentationTok{\#\# Add predicted values to data frame}
 \NormalTok{m2b.dat }\OtherTok{\textless{}{-}}\NormalTok{ m2b}\SpecialCharTok{@}\NormalTok{frame }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{predict}\NormalTok{(m2b))}
 \DocumentationTok{\#\# plot}
@@ -2599,7 +2782,7 @@ This figure summarizes the results of hypothesis 2b.
 \begin{figure}
 \centering
 \includegraphics{Deseo_excitacion_sexual_files/figure-latex/fig-h2b-1.pdf}
-\caption{\label{fig:fig-h2b}Subjective sexual arousal to non-erotic stimuli: Significant main effects and interactions of model 2B. \textbf{(a)} Main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal; \textbf{(b)} interaction between Stimulus sex and gender (significant effects of stimulus sex by participant gender are represented with lines and stars: ****\emph{p} \textless{} 0.0001. White dots and black bars represent estimated marginal means and 95\% CI, calculated from 1000 bootstraped simulations); \textbf{(c)} interaction between Gender and Solitary sexual desire; \textbf{(d)} interaction between Stimulus sex and Solitary sexual desire; \textbf{(e)} interaction between Stimulus sex, gender and Dyadic sexual desire (Attractive person). For detailed results of the model, see Table \ref{tab:tab-m2b}). \emph{Women} and \emph{Men} refer to the gender of the participants and \emph{Female} and \emph{Male} to the sex of the stimuli. To better represent the associations between predictor variables and subjective sexual arousal within the model (i.e.~when including all other effects), in all cases the \emph{Y} axis represents values predicted by the model instead of raw values.}
+\caption{\label{fig:fig-h2b}Subjective sexual arousal to non-erotic stimuli: Significant main effects and interactions of model 2B. \textbf{(a)} Main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal; \textbf{(b)} interaction between Stimulus sex and gender (significant effects of stimulus sex by participant gender are represented with lines and stars: ****\emph{p} \textless{} 0.0001. White dots and black bars represent estimated marginal means and 95\% CI, calculated from 1000 bootstraped simulations; for detailed results, see Table \ref{tab:tab-m2b-emms})); \textbf{(c)} interaction between Gender and Solitary sexual desire; \textbf{(d)} interaction between Stimulus sex and Solitary sexual desire; \textbf{(e)} interaction between Stimulus sex, gender and Dyadic sexual desire (Attractive person). For detailed results of the model, see Table \ref{tab:tab-m2b}). \emph{Women} and \emph{Men} refer to the gender of the participants and \emph{Female} and \emph{Male} to the sex of the stimuli. To better represent the associations between predictor variables and subjective sexual arousal within the model (i.e.~when including all other effects), in all cases the \emph{Y} axis represents values predicted by the model instead of raw values.}
 \end{figure}
 
 \hypertarget{session}{%

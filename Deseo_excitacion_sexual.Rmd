@@ -281,8 +281,7 @@ summary.sig <- function(mod, custom_caption) {
                               \\\\textit{p}-values that represent main effects and interactions 
                               in an ANOVA-type manner (i.e. the intercept is the grand mean of 
                               all cells, and estimates are differences between each category
-                              mean and the mean of all categories; see 
-                              \\\\cite{kaufmanContrastCodingLeast1974,keppelDataAnalysisResearch1989}).
+                              mean and the mean of all categories).
                               \\\\textit{Single} was used as reference category
                               for relationship status, \\\\textit{Men} for gender, 
                               and \\\\textit{Solitary} for  sexual desire dimension.
@@ -1096,7 +1095,7 @@ summary.sig(m1, "Sexual desire by relationship type, sexual desire dimension and
 
 #### *Post-hoc* comparisons
 
-Because only the main effect of (sexual desire) dimension, and the interaction between relationship (type) and dimension are significant, we explored the interaction by estimated marginal means, as well as comparing the three relationship types for each sexual desire dimension.
+Because only the main effect of (sexual desire) dimension, and the interaction between relationship (type) and dimension are significant, we explored the interaction using estimated marginal means, as well as comparing the relationship types for each of the three sexual desire dimensions.
 
 Table of estimated marginal means and contrasts between sexual desire dimension. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
 
@@ -1173,7 +1172,7 @@ merge(emms.m1a.tab, t.m1a, by = 0, all = TRUE) |>
   footnote(general = "EMM = estimated marginal mean.
            Degrees of freedom ($df$) were calculated 
            using the Satterthwaite approximation.
-           Bonferroni Confidence level adjustment was used.",
+           Bonferroni adjustment was used.",
            threeparttable = TRUE,
            footnote_as_chunk = TRUE,
            escape = FALSE)
@@ -1240,7 +1239,7 @@ merge(emms.m1b.tab, t.m1b.f, by = 0, all = TRUE) |>
   footnote(general = "EMM = estimated marginal mean.
            Degrees of freedom ($df$) were calculated 
            using the Satterthwaite approximation.
-           Bonferroni Confidence level adjustment was used.",
+           Bonferroni adjustment was used.",
            threeparttable = TRUE,
            footnote_as_chunk = TRUE,
            escape = FALSE)
@@ -1416,11 +1415,73 @@ summary.sig.boot(mod = m2a,
 
 ##### *Post-hoc* comparisons
 
+We further explored the interaction between gender and stimuli sex using estimated marginal means, 
+as well as comparing subjective sexual arousal between stimuli sex for each participant gender.
+
+###### Table \@ref(tab:tab-m2a-emms). Estimated marginal means and contrasts of subjective arousal between stimulus sex by participant gender
+
+Table of estimated marginal means and contrasts between stimulus sex for each participant gender. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+```{r tab-m2a-emms, message = FALSE, warning = FALSE}
+emms.m2a <- emmeans(m2a, ~ factor(`Stimulus sex`) | Gender,
+                    adjust = "bonferroni") #asymptotic degrees of freedom
+
+emms.m2a.tab <- tibble(data.frame(emms.m2a)) |>
+  rename("Stimulus sex" = Stimulus.sex) |> 
+  mutate("Subjective sexual arousal" = emmean)
+
+t.m2a <- contr.stars(emms.m2a) |> 
+  mutate(p.value = pval.lev(p.value))
+
+t.m2a.f <- t.m2a |> 
+  insertRows(2, new = NA)
+
+merge(emms.m2a.tab, t.m2a.f, by = 0, all = TRUE) |>
+  select(-c(1,3,6,9,12,15,18)) |> 
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", " ") |> 
+  kable(digits = 2,
+          booktabs = TRUE,
+          align = c("l", rep("c", 5), "l", rep("c", 5)),
+          linesep = "",
+          caption = "Estimated marginal means of subjective sexual arousal for gender by
+        stimulus sex, in response to erotic stimuli",
+          col.names = c("Stimulus sex",
+                        "EMM",
+                        "$SE$",
+                        "$2.5\\% CI$",
+                        "$97.5\\% CI$",
+                        "Contrast",
+                        "Difference",
+                        "$SE$",
+                        "$z$",
+                        "$p$"),
+          escape = FALSE) |>
+  pack_rows(group_label = "Women",
+            start_row = 1,
+            end_row = 2,
+            bold = TRUE) |>
+  pack_rows(group_label = "Men",
+            start_row = 3,
+            end_row = 4,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  add_header_above(c(" " = 5, "Contrasts" = 5)) |> 
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(general = "EMM = estimated marginal mean.
+           No degrees of freedom are reported, as an asymptotic method was used. 
+           Because of this, \\\\textit{z} rather that \\\\textit{t} scores are reported.
+           Bonferroni adjustment was used.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
 #### Figure \@ref(fig:fig-h2a). Subjective sexual arousal to erotic stimuli: Main effects and interactions
 
 This figure summarizes the results of hypothesis 2a. 
 
-```{r fig-h2a, results = "hold", fig.height = 12, fig.cap = "Subjective sexual arousal to erotic stimuli: Significant main effects and interactions of model 2A. **(a)** Main effect of Solitary sexual desire on Subjective sexual arousal; **(b)** main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal; **(c)** interaction between Stimulus sex and gender (significant effects of stimulus sex by participant gender are represented with lines and stars: \\*\\*\\*\\**p* < 0.0001. White dots and black bars represent estimated marginal means and 95% CI, calculated from 1000 bootstraped simulations); **(d)** interaction between Stimulus sex and Dyadic sexual desire (Attractive person); **(e)** interaction between Stimulus sex, gender and Dyadic sexual desire (Attractive person); **(f)** interaction between Relationship, gender and Dyadic sexual desire (Partner); **(g)** interaction between Relationship, Stimulus sex and Dyadic sexual desire (Partner). For detailed results of the model, see Table \\@ref(tab:tab-m2a)). *Women* and *Men* refer to the gender of the participants and *Female* and *Male* to the sex of the stimuli. To better represent the associations between predictor variables and subjective sexual arousal within the model (i.e. when including all other effects), in all cases the *Y* axis represents values predicted by the model instead of raw values.", warning = FALSE, message = FALSE}
+```{r fig-h2a, results = "hold", fig.height = 12, fig.cap = "Subjective sexual arousal to erotic stimuli: Significant main effects and interactions of model 2A. **(a)** Main effect of Solitary sexual desire on Subjective sexual arousal; **(b)** main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal; **(c)** interaction between Stimulus sex and gender (significant effects of stimulus sex by participant gender are represented with lines and stars: \\*\\*\\*\\**p* < 0.0001. White dots and black bars represent estimated marginal means and 95% CI, calculated from 1000 bootstraped simulations; for detailed results, see Table \\@ref(tab:tab-m2a-emms)); **(d)** interaction between Stimulus sex and Dyadic sexual desire (Attractive person); **(e)** interaction between Stimulus sex, gender and Dyadic sexual desire (Attractive person); **(f)** interaction between Relationship, gender and Dyadic sexual desire (Partner); **(g)** interaction between Relationship, Stimulus sex and Dyadic sexual desire (Partner). For detailed results of the model, see Table \\@ref(tab:tab-m2a)). *Women* and *Men* refer to the gender of the participants and *Female* and *Male* to the sex of the stimuli. To better represent the associations between predictor variables and subjective sexual arousal within the model (i.e. when including all other effects), in all cases the *Y* axis represents values predicted by the model instead of raw values.", warning = FALSE, message = FALSE}
 # Figure main effect of Solitary sexual desire on Subjective sexual arousal
 h2a.1 <- ggplot(m2a@frame, aes(x = `Solitary sexual desire (C)`, y = predict(m2a))) +
   geom_jitter(alpha =  0.01) +
@@ -1437,17 +1498,10 @@ h2a.2 <- ggplot(m2a@frame, aes(x = `Dyadic sexual desire (Attractive person) (C)
   theme_tq()
 
 # Figure interaction between Stimulus sex and gender
-## Calculate estimated marginal means
-emms.m2a <- emmeans(m2a, ~ factor(`Stimulus sex`) | Gender,
-                    adjust = "bonferroni") #asymptotic degrees of freedom
-emms.m2a.tab <- tibble(data.frame(emms.m2a)) |>
-  rename("Stimulus sex" = Stimulus.sex) |> 
-  mutate("Subjective sexual arousal" = emmean)
-t.m2a <- contr.stars(emms.m2a) |> 
-  mutate(p.value = pval.lev(p.value))
+## Add predicted values to data frame
 m2a.dat <- m2a@frame |> 
   mutate(`Subjective sexual arousal` = predict(m2a))
-## plot
+## Plot
 h2a.3 <- ggplot(m2a.dat, aes(x = `Stimulus sex`, 
                              y = `Subjective sexual arousal`, 
                              color = `Stimulus sex`)) +
@@ -1556,7 +1610,8 @@ m2b <- lmer(`Subjective sexual arousal` ~
             Relationship * Gender * `Stimulus sex` * `Dyadic sexual desire (Partner) (C)` +
             (1 | `Stimulus code`) +
             (1 + `Stimulus sex` | Participant),
-           data = dat.nero)
+           data = dat.nero,
+           control = lmerControl(optimizer = "bobyqa"))
 ```
 
 ##### Model assumptions
@@ -1618,11 +1673,76 @@ summary.sig.boot(mod = m2b,
                  custom_caption = "Subjective sexual arousal in response to non-erotic stimuli, by relationship type, gender, stimulus sex, and the three dimensions of sexual desire dimension")
 ```
 
+##### *Post-hoc* comparisons
+
+We further explored the interaction between gender and stimuli sex using estimated marginal means, 
+as well as comparing subjective sexual arousal between stimuli sex for each participant gender.
+
+###### Table \@ref(tab:tab-m2b-emms). Estimated marginal means and contrasts of subjective arousal between stimulus sex by participant gender
+
+Table of estimated marginal means and contrasts between stimulus sex for each participant gender. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+```{r tab-m2b-emms, message = FALSE, warning = FALSE}
+emms.m2b <- emmeans(m2b, ~ factor(`Stimulus sex`) | Gender,
+                    adjust = "bonferroni") #asymptotic degrees of freedom
+
+emms.m2b.tab <- tibble(data.frame(emms.m2b)) |>
+  rename("Stimulus sex" = Stimulus.sex) |> 
+  mutate("Subjective sexual arousal" = emmean)
+
+t.m2b <- contr.stars(emms.m2b) |> 
+  mutate(p.value = pval.lev(p.value))
+
+t.m2b.f <- t.m2b |> 
+  insertRows(2, new = NA)
+
+merge(emms.m2b.tab, t.m2b.f, by = 0, all = TRUE) |>
+  select(-c(1,3,6,9,12,15,18)) |> 
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", " ") |> 
+  kable(digits = 2,
+          booktabs = TRUE,
+          align = c("l", rep("c", 5), "l", rep("c", 5)),
+          linesep = "",
+          caption = "Estimated marginal means of subjective sexual arousal for gender by
+        stimulus sex, in response to non-erotic stimuli",
+          col.names = c("Stimulus sex",
+                        "EMM",
+                        "$SE$",
+                        "$2.5\\% CI$",
+                        "$97.5\\% CI$",
+                        "Contrast",
+                        "Difference",
+                        "$SE$",
+                        "$z$",
+                        "$p$"),
+          escape = FALSE) |>
+  pack_rows(group_label = "Women",
+            start_row = 1,
+            end_row = 2,
+            bold = TRUE) |>
+  pack_rows(group_label = "Men",
+            start_row = 3,
+            end_row = 4,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  add_header_above(c(" " = 5, "Contrasts" = 5)) |> 
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(general = "EMM = estimated marginal mean.
+           No degrees of freedom are reported, as an asymptotic method was used. 
+           Because of this, \\\\textit{z} rather that \\\\textit{t} scores are reported.
+           Bonferroni adjustment was used.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+
 #### Figure \@ref(fig:fig-h2b). Subjective sexual arousal to non-erotic stimuli: Main effects and interactions
 
 This figure summarizes the results of hypothesis 2b.
 
-```{r fig-h2b, results = "hold", fig.height = 9, fig.cap = "Subjective sexual arousal to non-erotic stimuli: Significant main effects and interactions of model 2B. **(a)** Main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal; **(b)** interaction between Stimulus sex and gender (significant effects of stimulus sex by participant gender are represented with lines and stars: \\*\\*\\*\\**p* < 0.0001. White dots and black bars represent estimated marginal means and 95% CI, calculated from 1000 bootstraped simulations); **(c)** interaction between Gender and Solitary sexual desire; **(d)** interaction between Stimulus sex and Solitary sexual desire; **(e)** interaction between Stimulus sex, gender and Dyadic sexual desire (Attractive person). For detailed results of the model, see Table \\@ref(tab:tab-m2b)). *Women* and *Men* refer to the gender of the participants and *Female* and *Male* to the sex of the stimuli. To better represent the associations between predictor variables and subjective sexual arousal within the model (i.e. when including all other effects), in all cases the *Y* axis represents values predicted by the model instead of raw values.", warning = FALSE, message = FALSE}
+```{r fig-h2b, results = "hold", fig.height = 9, fig.cap = "Subjective sexual arousal to non-erotic stimuli: Significant main effects and interactions of model 2B. **(a)** Main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal; **(b)** interaction between Stimulus sex and gender (significant effects of stimulus sex by participant gender are represented with lines and stars: \\*\\*\\*\\**p* < 0.0001. White dots and black bars represent estimated marginal means and 95% CI, calculated from 1000 bootstraped simulations; for detailed results, see Table \\@ref(tab:tab-m2b-emms)); **(c)** interaction between Gender and Solitary sexual desire; **(d)** interaction between Stimulus sex and Solitary sexual desire; **(e)** interaction between Stimulus sex, gender and Dyadic sexual desire (Attractive person). For detailed results of the model, see Table \\@ref(tab:tab-m2b)). *Women* and *Men* refer to the gender of the participants and *Female* and *Male* to the sex of the stimuli. To better represent the associations between predictor variables and subjective sexual arousal within the model (i.e. when including all other effects), in all cases the *Y* axis represents values predicted by the model instead of raw values.", warning = FALSE, message = FALSE}
 # Figure main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal
 h2b.1 <- ggplot(m2b@frame, aes(x = `Dyadic sexual desire (Attractive person) (C)`,
                                y = predict(m2b))) +
@@ -1632,14 +1752,7 @@ h2b.1 <- ggplot(m2b@frame, aes(x = `Dyadic sexual desire (Attractive person) (C)
   theme_tq()
 
 # Figure interaction between Stimulus sex and gender
-## Calculate estimated marginal means
-emms.m2b <- emmeans(m2b, ~ factor(`Stimulus sex`) | Gender,
-                    adjust = "bonferroni") #asymptotic degrees of freedom
-emms.m2b.tab <- tibble(data.frame(emms.m2b)) |>
-  rename("Stimulus sex" = Stimulus.sex) |> 
-  mutate("Subjective sexual arousal" = emmean)
-t.m2b <- contr.stars(emms.m2b) |> 
-  mutate(p.value = pval.lev(p.value))
+## Add predicted values to data frame
 m2b.dat <- m2b@frame |> 
   mutate(`Subjective sexual arousal` = predict(m2b))
 ## plot
@@ -1667,29 +1780,32 @@ h2b.2 <- ggplot(m2b.dat, aes(x = `Stimulus sex`,
   theme(legend.position = "none")
 
 # Figure interaction between gender and Solitary sexual desire
-h2b.3 <- interact_plot(m2b, pred = "Solitary sexual desire (C)", 
-              modx = "Gender",
-              interval = TRUE,
-              colors = color.Gender,
-              y.label = "Subjective sexual\narousal") +
+h2b.3 <- interact_plot(m2b, 
+                       pred = "Solitary sexual desire (C)",
+                       modx = "Gender",
+                       interval = TRUE,
+                       colors = color.Gender,
+                       y.label = "Subjective sexual\narousal") +
   theme_tq()
 
 # Figure interaction between Stimulus sex and Solitary sexual desire
-h2b.4 <- interact_plot(m2b, pred = "Solitary sexual desire (C)", 
-              modx = "Stimulus sex",
-              interval = TRUE,
-              colors = color.StimuliSex,
-              y.label = " ") +
+h2b.4 <- interact_plot(m2b, 
+                       pred = "Solitary sexual desire (C)",
+                       modx = "Stimulus sex",
+                       interval = TRUE,
+                       colors = color.StimuliSex,
+                       y.label = " ") +
   theme_tq()
 
 # Figure interaction between Stimulus sex, gender and Dyadic sexual desire (Attractive person)
-h2b.5 <- interact_plot(m2b, pred = "Dyadic sexual desire (Attractive person) (C)", 
-              modx = "Stimulus sex",
-              mod2 = "Gender",
-              interval = TRUE,
-              colors = color.StimuliSex,
-              y.label = "Subjective sexual\narousal",
-              mod2.labels = c("Women", "Men")) +
+h2b.5 <- interact_plot(m2b, 
+                       pred = "Dyadic sexual desire (Attractive person) (C)", 
+                       modx = "Stimulus sex",
+                       mod2 = "Gender",
+                       interval = TRUE,
+                       colors = color.StimuliSex,
+                       y.label = "Subjective sexual\narousal",
+                       mod2.labels = c("Women", "Men")) +
   theme_tq()
 
 # Full figure for hypothesis 2b
