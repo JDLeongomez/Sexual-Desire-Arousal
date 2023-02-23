@@ -1,0 +1,60 @@
+title: Relationship between subjective sexual arousal to erotic and non-erotic stimuli and sexual desire
+subtitle: Code and analyses
+author:
+  - name: Milena Vásquez-Amézquita \orcidlink{0000-0001-7317-8430}
+    correspondence: false
+  - name: Juan David Leongómez \orcidlink{0000-0002-0092-6298}
+    correspondence: false
+date: "`r Sys.setlocale('LC_TIME','English');format(Sys.Date(),'%d %B, %Y')`"
+output:
+  bookdown::pdf_document2:
+    highlight: zenburn
+    number_sections: yes
+    keep_tex:  true
+    toc: no
+    pandoc_args:
+      - '--lua-filter=lua/scholarly-metadata.lua'
+      - '--lua-filter=lua/author-info-blocks.lua'
+classoption: 
+      - bookmarksnumbered
+editor_options:
+  chunk_output_type: console
+geometry: margin=2cm
+header-includes: 
+  \usepackage{caption} 
+  \usepackage{float} 
+  \floatplacement{figure}{H} 
+  \usepackage[utf8]{inputenc} 
+  \usepackage{fancyhdr}
+  \pagestyle{fancy} 
+  \usepackage{hanging}
+  \lhead{Vásquez-Amézquita \& Leongómez} 
+  \rhead{\textit{Desire and sexual arousal}} 
+  \renewcommand{\abstractname}{Description} 
+  \usepackage{orcidlink}
+  \newcommand{\opensupplement}{\setcounter{table}{0}
+    \renewcommand{\thetable}{S\arabic{table}} \setcounter{figure}{0}
+    \renewcommand{\thefigure}{S\arabic{figure}}}
+  \newcommand{\closesupplement}{\setcounter{table}{0}
+    \renewcommand{\thetable}{\arabic{table}} \setcounter{figure}{0}
+    \renewcommand{\thefigure}{\arabic{figure}}}
+  \usepackage{multirow,booktabs,setspace}
+  \DeclareCaptionLabelSeparator{point}{. }
+  \DeclareCaptionLabelSeparator{point}{. }
+  \captionsetup[table]{labelfont=bf,
+    textfont=it,
+    format=plain,
+    labelsep=point,
+    skip=5pt}
+  \captionsetup[figure]{labelfont=bf,
+    format=plain,
+    justification=justified,
+    singlelinecheck=false,
+    labelsep=point,
+    skip=5pt}
+always_allow_html: yes
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl
+bibliography: Bib/Bibliography.bib
+urlcolor: blue
+linkcolor: gray
+link-citations: true
