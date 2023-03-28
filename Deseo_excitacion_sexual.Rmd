@@ -1,5 +1,5 @@
 ---
-title: Relationship between subjective sexual arousal to erotic and non-erotic stimuli and sexual desire
+title: Are there differences in the predictive relationship between trait sexual desire and subjective sexual arousal toward sexual stimuli dependent on gender and relationship status?
 subtitle: Code and analyses
 author:
   - name: Milena Vásquez-Amézquita \orcidlink{0000-0001-7317-8430}
@@ -79,13 +79,15 @@ JDL: \href{mailto:jleongomez@unbosque.edu.co}{jleongomez@unbosque.edu.co}.
 \leftskip3em
 \rightskip\leftskip
 ```
+
 This document contains all code, and step by step explanations for all analyses, figures and tables (including supplementary figures and tables) for:
 
 ```{=latex}
 \begin{hangparas}{.25in}{1}
-Vásquez-Amézquita, M., Martínez-González, M. B., \& Leongómez, J. D. (in prep). \textit{Relationship between subjective sexual arousal to erotic and non-erotic stimuli and sexual desire.}
+Vásquez-Amézquita, M., Martínez-González, M. B., \& Leongómez, J. D. (in prep). \textit{Are there differences in the predictive relationship between trait sexual desire and subjective sexual arousal toward sexual stimuli dependent on gender and relationship status?}
 \end{hangparas}
 ```
+
 Data available from the Open Science Framework (OSF): <https://doi.org/10.XXXXX/OSF.IO/XXXXX>. All analyses were planned by Milena Vásquez-Amézquita and Juan David Leongómez. This document and its underlying code were created in `R Markdown` by Juan David Leongómez using \LaTeX.
 
 ------------------------------------------------------------------------
@@ -590,19 +592,8 @@ dat <- read.csv("Data/BD_Heterosexuales_Vertical_BIG.csv") |>
   mutate(Sexo_Estimulo = factor(Sexo_Estimulo)) |>
   mutate(PrefSex = factor(PrefSex)) |>
   mutate(EstRel = factor(EstRel)) |>
-  # Recode factor levels
-  mutate(Contenido_Estimulo = recode_factor(Contenido_Estimulo, 
-                                            Erotico = "Erotic", 
-                                            No_erotico = "Non-erotic")) |> 
-  mutate(Sexo = recode_factor(Sexo, 
-                              Femenino = "Women", 
-                              Masculino = "Men")) |>
-  mutate(Sexo_Estimulo = recode_factor(Sexo_Estimulo,
-                                       Femenino = "Female", 
-                                       Masculino = "Male")) |>
-  mutate(PrefSex = recode_factor(PrefSex, 
-                                 Hombre = "Male", 
-                                 Mujer = "Female")) |>
+  mutate(Escolaridad = factor(Escolaridad)) |>
+  mutate(Religion = factor(Religion)) |>
   # Rename variables to English
   rename(Participant = Participante,
          Age = EdadParticipante,
@@ -623,7 +614,7 @@ dat <- read.csv("Data/BD_Heterosexuales_Vertical_BIG.csv") |>
          `Age at first intercourse` = Primera.ExpSex,
          `Consented to first intercourse` = ConExpSex,
          `Number of sexual partners` = Numero.Parejas,
-         `Pronography consumed last month` = Pornografia_ultimo_mes,
+         `Pornography consumed last month` = Pornografia_ultimo_mes,
          Relationship = TieneRelacion,
          `MGH-SFQ (total)` = MGH.SFQ_Total,
          `Dyadic sexual desire (Partner)` = SD_Diadico_pareja,
@@ -636,20 +627,121 @@ dat <- read.csv("Data/BD_Heterosexuales_Vertical_BIG.csv") |>
          `Stimuli content` = Contenido_Estimulo,
          `Subjective sexual attractiveness` = Atractivo,
          `Subjective sexual arousal` = Excitacion) |>
+  # Recode factor levels
+  mutate(`Stimuli content` = recode_factor(`Stimuli content`, 
+                                            Erotico = "Erotic", 
+                                            No_erotico = "Non-erotic")) |> 
+  mutate(Gender = recode_factor(Gender, 
+                                Femenino = "Women", 
+                                Masculino = "Men")) |>
+  mutate(`Stimuli sex` = recode_factor(`Stimuli sex`,
+                                       Femenino = "Female", 
+                                       Masculino = "Male")) |>
+  mutate(`Preferred sex` = recode_factor(`Preferred sex`,
+                                         Hombre = "Male", 
+                                         Mujer = "Female")) |>
+  mutate(Education = recode(Education,
+                            "Bachillerato" = "High school",
+                            "Universitario" = "University",
+                            "Postgrado" = "Postgraduate")) |>
+  mutate(Religion = recode(Religion,
+                           "1" = "Religious",
+                           "0" = "Non-religious")) |>
+  mutate(`Pornography consumed last month` = recode(`Pornography consumed last month`,
+                                                    "Nunca" = "None",
+                                                    "Una o dos veces" = "1-2 times",
+                                                    "Tres a cinco veces" = "3-5 times",
+                                                    "Mas de 5 veces" = "5 times or more")) |> 
   # Recode relationship type
   mutate(Relationship = recode(`Relationship status`,
                                "Exclusiva/No viven juntos" = "Stable",
                                "Exclusiva/Matrimonio" = "Stable",
                                "No exclusiva" = "Non-stable",
                                "Soltero/sin contactos sexuales en un ano" = "Single",
-                               "Soltero/contactos sexuales en un ano" = "Single")) |> 
-  filter(Relationship != "Non-stable") |> 
+                               "Soltero/contactos sexuales en un ano" = "Single")) |>
+  # Relevel factors
+  mutate(Education = fct_relevel(Education, 
+                                 c("High school", "University", "Postgraduate"))) |> 
+  mutate(`Pornography consumed last month` = fct_relevel(`Pornography consumed last month`,
+                                 c("None", "1-2 times", 
+                                   "3-5 times", "5 times or more"))) |> 
+  # Filter participants in non-stable relationships
+  filter(Relationship != "Non-stable") |>
   droplevels()
 ```
 
 \newpage 
 
 # Descriptives
+
+### Figure \@ref(fig:donut-plot). Sample demographic chacarteristics
+
+Number of participants by demographic category.
+
+```{r donut-plot, results = "hold", fig.height = 7, fig.cap = "Number of participants by gender (left = women, rigth = men), Relationship (stable = top panels, single = bottom panels), Religion (non-religious = left panels by gender, religious = right panels by gender), Education (*X* axis), and pornography consumed during the last month (*Y* axis). The number of participants for each combination of these five variables is displayed as numbers (percentage in brackets), as well as by the color and size of the bubbles .", warning = FALSE, message = FALSE}
+# Get number of participant for each combination of demographic chacarteristic
+dat.demog <- dat |>
+  select(Participant, Gender, Relationship, Education, Religion, 
+         `Pornography consumed last month`) |>
+  group_by(Participant) |> 
+  filter(row_number() == 1) |> 
+  ungroup() |>
+  group_by(Gender, Relationship, Education, Religion, 
+         `Pornography consumed last month`) |>
+  rename(Porn = `Pornography consumed last month`) |> 
+  tally() |> 
+  drop_na(Religion) |> 
+  ungroup()
+
+# Create separate tables by gender
+dat.demog.W <- filter(dat.demog, Gender == "Women")
+dat.demog.M <- filter(dat.demog, Gender == "Men")
+
+# Women
+samp.w <- ggballoonplot(dat.demog.W, x = "Education", y = "Porn", size = "n",
+              fill = "n",
+              facet.by = c("Relationship", "Religion")) +
+  scale_fill_viridis_c(option = "C", limits = c(1, max(dat.demog$n))) +
+  scale_size_continuous(range = c(1, 7), limits = c(1, max(dat.demog$n))) +
+  guides(fill = guide_legend(face = "italic"), 
+         size = guide_legend(face = "italic")) +
+  labs(title = "Women", y = "Pornography consumed last month") +
+  geom_text(aes(label = n), 
+            size = 3, nudge_x = 0.3, nudge_y = 0.1) +
+  geom_text(aes(label = paste0("\n(", 
+                               percent(n/sum(dat.demog$n), accuracy = 0.1), 
+                               ")")), 
+            size = 2.5, nudge_x = 0.3, nudge_y = -0.05) +
+  theme_tq() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.text.y = element_text(angle = 45, vjust = 0.5))
+
+# Men
+samp.m <- ggballoonplot(dat.demog.M, x = "Education", y = "Porn", size = "n",
+              fill = "n",
+              facet.by = c("Relationship", "Religion")) +
+  scale_fill_viridis_c(option = "C", limits = c(1, max(dat.demog$n))) +
+  scale_size_continuous(range = c(1, 7), limits = c(1, max(dat.demog$n))) +
+  guides(fill = guide_legend(face = "italic"), 
+         size = guide_legend(face = "italic")) +
+  labs(title = "Men", y = NULL) +
+  geom_text(aes(label = n), 
+            size = 3, nudge_x = 0.3, nudge_y = 0.1) +
+  geom_text(aes(label = paste0("\n(", 
+                               percent(n/sum(dat.demog$n), accuracy = 0.1), 
+                               ")")), 
+            size = 2.5, nudge_x = 0.3, nudge_y = -0.05) +
+  theme_tq() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.text.y = element_text(angle = 45, vjust = 0.5))
+
+# Full plot
+ggarrange(samp.w, samp.m,
+          widths = c(1.1, 1), 
+          common.legend = TRUE,
+          legend = "bottom")
+```
+
 
 ## Descriptive statistics of the participants by gender
 
@@ -729,7 +821,7 @@ datp <- dat.desc |>
                values_to = "Value") |>
   mutate(Variable = str_wrap(Variable, width = 30))
 
-# Fig S1 (created as 3 separate panels to use a different number of panels per row)
+# Figure created as 3 separate panels (to use a different number of panels per row)
 fs1a <- ggplot(datp |>
                  filter(Variable %in% c("Age",
                                       "Number of sexual partners",

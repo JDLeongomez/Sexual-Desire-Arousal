@@ -147,7 +147,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
-  pdftitle={Relationship between subjective sexual arousal to erotic and non-erotic stimuli and sexual desire},
+  pdftitle={Are there differences in the predictive relationship between trait sexual desire and subjective sexual arousal toward sexual stimuli dependent on gender and relationship status?},
   pdfauthor={Milena Vásquez-Amézquita ; Juan David Leongómez },
   colorlinks=true,
   linkcolor={gray},
@@ -156,7 +156,7 @@
   urlcolor={blue},
   pdfcreator={LaTeX via pandoc}}
 
-\title{Relationship between subjective sexual arousal to erotic and non-erotic stimuli and sexual desire}
+\title{Are there differences in the predictive relationship between trait sexual desire and subjective sexual arousal toward sexual stimuli dependent on gender and relationship status?}
 \usepackage{etoolbox}
 \makeatletter
 \providecommand{\subtitle}[1]{% add subtitle to \maketitle
@@ -165,7 +165,7 @@
 \makeatother
 \subtitle{Code and analyses}
 \author{Milena Vásquez-Amézquita \orcidlink{0000-0001-7317-8430}\textsuperscript{} \and Juan David Leongómez \orcidlink{0000-0002-0092-6298}\textsuperscript{}}
-\date{23 February, 2023}
+\date{28 March, 2023}
 
 \begin{document}
 \maketitle
@@ -188,7 +188,7 @@ JDL: \href{mailto:jleongomez@unbosque.edu.co}{jleongomez@unbosque.edu.co}.
 This document contains all code, and step by step explanations for all analyses, figures and tables (including supplementary figures and tables) for:
 
 \begin{hangparas}{.25in}{1}
-Vásquez-Amézquita, M., Martínez-González, M. B., \& Leongómez, J. D. (in prep). \textit{Relationship between subjective sexual arousal to erotic and non-erotic stimuli and sexual desire.}
+Vásquez-Amézquita, M., Martínez-González, M. B., \& Leongómez, J. D. (in prep). \textit{Are there differences in the predictive relationship between trait sexual desire and subjective sexual arousal toward sexual stimuli dependent on gender and relationship status?}
 \end{hangparas}
 
 Data available from the Open Science Framework (OSF): \url{https://doi.org/10.XXXXX/OSF.IO/XXXXX}. All analyses were planned by Milena Vásquez-Amézquita and Juan David Leongómez. This document and its underlying code were created in \texttt{R\ Markdown} by Juan David Leongómez using \LaTeX.
@@ -223,23 +223,120 @@ All packages used in this file can be directly installed from the Comprehensive 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(readxl)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'readxl' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(ltm)}
 \FunctionTok{library}\NormalTok{(car)}
 \FunctionTok{library}\NormalTok{(lmerTest)}
 \FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'tidyverse' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'tidyr' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'readr' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'forcats' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'lubridate' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(ggpubr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'ggpubr' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(tidyquant)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'xts' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(dplyr)}
 \FunctionTok{library}\NormalTok{(interactions)}
 \FunctionTok{library}\NormalTok{(emmeans)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'emmeans' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(performance)}
 \FunctionTok{library}\NormalTok{(kableExtra)}
 \FunctionTok{library}\NormalTok{(psych)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'psych' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(MetBrewer)}
 \FunctionTok{library}\NormalTok{(ggpmisc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'ggpp' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(scales)}
 \FunctionTok{library}\NormalTok{(effectsize)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'effectsize' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(rstatix)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'rstatix' was built under R version 4.2.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(berryFunctions)}
 \end{Highlighting}
 \end{Shaded}
@@ -717,19 +814,8 @@ Change necessary variables to factor, sort levels, and rename variables
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Sexo\_Estimulo =} \FunctionTok{factor}\NormalTok{(Sexo\_Estimulo)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{PrefSex =} \FunctionTok{factor}\NormalTok{(PrefSex)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{EstRel =} \FunctionTok{factor}\NormalTok{(EstRel)) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Recode factor levels}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Contenido\_Estimulo =} \FunctionTok{recode\_factor}\NormalTok{(Contenido\_Estimulo, }
-                                            \AttributeTok{Erotico =} \StringTok{"Erotic"}\NormalTok{, }
-                                            \AttributeTok{No\_erotico =} \StringTok{"Non{-}erotic"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Sexo =} \FunctionTok{recode\_factor}\NormalTok{(Sexo, }
-                              \AttributeTok{Femenino =} \StringTok{"Women"}\NormalTok{, }
-                              \AttributeTok{Masculino =} \StringTok{"Men"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Sexo\_Estimulo =} \FunctionTok{recode\_factor}\NormalTok{(Sexo\_Estimulo,}
-                                       \AttributeTok{Femenino =} \StringTok{"Female"}\NormalTok{, }
-                                       \AttributeTok{Masculino =} \StringTok{"Male"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{PrefSex =} \FunctionTok{recode\_factor}\NormalTok{(PrefSex, }
-                                 \AttributeTok{Hombre =} \StringTok{"Male"}\NormalTok{, }
-                                 \AttributeTok{Mujer =} \StringTok{"Female"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Escolaridad =} \FunctionTok{factor}\NormalTok{(Escolaridad)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Religion =} \FunctionTok{factor}\NormalTok{(Religion)) }\SpecialCharTok{|\textgreater{}}
   \CommentTok{\# Rename variables to English}
   \FunctionTok{rename}\NormalTok{(}\AttributeTok{Participant =}\NormalTok{ Participante,}
          \AttributeTok{Age =}\NormalTok{ EdadParticipante,}
@@ -750,7 +836,7 @@ Change necessary variables to factor, sort levels, and rename variables
          \StringTok{\textasciigrave{}}\AttributeTok{Age at first intercourse}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Primera.ExpSex,}
          \StringTok{\textasciigrave{}}\AttributeTok{Consented to first intercourse}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ ConExpSex,}
          \StringTok{\textasciigrave{}}\AttributeTok{Number of sexual partners}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Numero.Parejas,}
-         \StringTok{\textasciigrave{}}\AttributeTok{Pronography consumed last month}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Pornografia\_ultimo\_mes,}
+         \StringTok{\textasciigrave{}}\AttributeTok{Pornography consumed last month}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Pornografia\_ultimo\_mes,}
          \AttributeTok{Relationship =}\NormalTok{ TieneRelacion,}
          \StringTok{\textasciigrave{}}\AttributeTok{MGH{-}SFQ (total)}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ MGH.SFQ\_Total,}
          \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner)}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ SD\_Diadico\_pareja,}
@@ -763,14 +849,46 @@ Change necessary variables to factor, sort levels, and rename variables
          \StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Contenido\_Estimulo,}
          \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual attractiveness}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Atractivo,}
          \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Excitacion) }\SpecialCharTok{|\textgreater{}}
+  \CommentTok{\# Recode factor levels}
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{recode\_factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}}\NormalTok{, }
+                                            \AttributeTok{Erotico =} \StringTok{"Erotic"}\NormalTok{, }
+                                            \AttributeTok{No\_erotico =} \StringTok{"Non{-}erotic"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Gender =} \FunctionTok{recode\_factor}\NormalTok{(Gender, }
+                                \AttributeTok{Femenino =} \StringTok{"Women"}\NormalTok{, }
+                                \AttributeTok{Masculino =} \StringTok{"Men"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{recode\_factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{,}
+                                       \AttributeTok{Femenino =} \StringTok{"Female"}\NormalTok{, }
+                                       \AttributeTok{Masculino =} \StringTok{"Male"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Preferred sex}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{recode\_factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Preferred sex}\StringTok{\textasciigrave{}}\NormalTok{,}
+                                         \AttributeTok{Hombre =} \StringTok{"Male"}\NormalTok{, }
+                                         \AttributeTok{Mujer =} \StringTok{"Female"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Education =} \FunctionTok{recode}\NormalTok{(Education,}
+                            \StringTok{"Bachillerato"} \OtherTok{=} \StringTok{"High school"}\NormalTok{,}
+                            \StringTok{"Universitario"} \OtherTok{=} \StringTok{"University"}\NormalTok{,}
+                            \StringTok{"Postgrado"} \OtherTok{=} \StringTok{"Postgraduate"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Religion =} \FunctionTok{recode}\NormalTok{(Religion,}
+                           \StringTok{"1"} \OtherTok{=} \StringTok{"Religious"}\NormalTok{,}
+                           \StringTok{"0"} \OtherTok{=} \StringTok{"Non{-}religious"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pornography consumed last month}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{recode}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pornography consumed last month}\StringTok{\textasciigrave{}}\NormalTok{,}
+                                                    \StringTok{"Nunca"} \OtherTok{=} \StringTok{"None"}\NormalTok{,}
+                                                    \StringTok{"Una o dos veces"} \OtherTok{=} \StringTok{"1{-}2 times"}\NormalTok{,}
+                                                    \StringTok{"Tres a cinco veces"} \OtherTok{=} \StringTok{"3{-}5 times"}\NormalTok{,}
+                                                    \StringTok{"Mas de 5 veces"} \OtherTok{=} \StringTok{"5 times or more"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
   \CommentTok{\# Recode relationship type}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Relationship =} \FunctionTok{recode}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Relationship status}\StringTok{\textasciigrave{}}\NormalTok{,}
                                \StringTok{"Exclusiva/No viven juntos"} \OtherTok{=} \StringTok{"Stable"}\NormalTok{,}
                                \StringTok{"Exclusiva/Matrimonio"} \OtherTok{=} \StringTok{"Stable"}\NormalTok{,}
                                \StringTok{"No exclusiva"} \OtherTok{=} \StringTok{"Non{-}stable"}\NormalTok{,}
                                \StringTok{"Soltero/sin contactos sexuales en un ano"} \OtherTok{=} \StringTok{"Single"}\NormalTok{,}
-                               \StringTok{"Soltero/contactos sexuales en un ano"} \OtherTok{=} \StringTok{"Single"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
-  \FunctionTok{filter}\NormalTok{(Relationship }\SpecialCharTok{!=} \StringTok{"Non{-}stable"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+                               \StringTok{"Soltero/contactos sexuales en un ano"} \OtherTok{=} \StringTok{"Single"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \CommentTok{\# Relevel factors}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Education =} \FunctionTok{fct\_relevel}\NormalTok{(Education, }
+                                 \FunctionTok{c}\NormalTok{(}\StringTok{"High school"}\NormalTok{, }\StringTok{"University"}\NormalTok{, }\StringTok{"Postgraduate"}\NormalTok{))) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pornography consumed last month}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{fct\_relevel}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pornography consumed last month}\StringTok{\textasciigrave{}}\NormalTok{,}
+                                 \FunctionTok{c}\NormalTok{(}\StringTok{"None"}\NormalTok{, }\StringTok{"1{-}2 times"}\NormalTok{, }
+                                   \StringTok{"3{-}5 times"}\NormalTok{, }\StringTok{"5 times or more"}\NormalTok{))) }\SpecialCharTok{|\textgreater{}} 
+  \CommentTok{\# Filter participants in non{-}stable relationships}
+  \FunctionTok{filter}\NormalTok{(Relationship }\SpecialCharTok{!=} \StringTok{"Non{-}stable"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{droplevels}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -779,6 +897,83 @@ Change necessary variables to factor, sort levels, and rename variables
 
 \hypertarget{descriptives}{%
 \section{Descriptives}\label{descriptives}}
+
+\hypertarget{figure-reffigdonut-plot.-sample-demographic-chacarteristics}{%
+\subsubsection{Figure \ref{fig:donut-plot}. Sample demographic chacarteristics}\label{figure-reffigdonut-plot.-sample-demographic-chacarteristics}}
+
+Number of participants by demographic category.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Get number of participant for each combination of demographic chacarteristic}
+\NormalTok{dat.demog }\OtherTok{\textless{}{-}}\NormalTok{ dat }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(Participant, Gender, Relationship, Education, Religion, }
+         \StringTok{\textasciigrave{}}\AttributeTok{Pornography consumed last month}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{group\_by}\NormalTok{(Participant) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{row\_number}\NormalTok{() }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{group\_by}\NormalTok{(Gender, Relationship, Education, Religion, }
+         \StringTok{\textasciigrave{}}\AttributeTok{Pornography consumed last month}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Porn =} \StringTok{\textasciigrave{}}\AttributeTok{Pornography consumed last month}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tally}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{drop\_na}\NormalTok{(Religion) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ungroup}\NormalTok{()}
+
+\CommentTok{\# Create separate tables by gender}
+\NormalTok{dat.demog.W }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(dat.demog, Gender }\SpecialCharTok{==} \StringTok{"Women"}\NormalTok{)}
+\NormalTok{dat.demog.M }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(dat.demog, Gender }\SpecialCharTok{==} \StringTok{"Men"}\NormalTok{)}
+
+\CommentTok{\# Women}
+\NormalTok{samp.w }\OtherTok{\textless{}{-}} \FunctionTok{ggballoonplot}\NormalTok{(dat.demog.W, }\AttributeTok{x =} \StringTok{"Education"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Porn"}\NormalTok{, }\AttributeTok{size =} \StringTok{"n"}\NormalTok{,}
+              \AttributeTok{fill =} \StringTok{"n"}\NormalTok{,}
+              \AttributeTok{facet.by =} \FunctionTok{c}\NormalTok{(}\StringTok{"Relationship"}\NormalTok{, }\StringTok{"Religion"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_viridis\_c}\NormalTok{(}\AttributeTok{option =} \StringTok{"C"}\NormalTok{, }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\FunctionTok{max}\NormalTok{(dat.demog}\SpecialCharTok{$}\NormalTok{n))) }\SpecialCharTok{+}
+  \FunctionTok{scale\_size\_continuous}\NormalTok{(}\AttributeTok{range =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{7}\NormalTok{), }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\FunctionTok{max}\NormalTok{(dat.demog}\SpecialCharTok{$}\NormalTok{n))) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{fill =} \FunctionTok{guide\_legend}\NormalTok{(}\AttributeTok{face =} \StringTok{"italic"}\NormalTok{), }
+         \AttributeTok{size =} \FunctionTok{guide\_legend}\NormalTok{(}\AttributeTok{face =} \StringTok{"italic"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Women"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Pornography consumed last month"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ n), }
+            \AttributeTok{size =} \DecValTok{3}\NormalTok{, }\AttributeTok{nudge\_x =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{nudge\_y =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{("}\NormalTok{, }
+                               \FunctionTok{percent}\NormalTok{(n}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(dat.demog}\SpecialCharTok{$}\NormalTok{n), }\AttributeTok{accuracy =} \FloatTok{0.1}\NormalTok{), }
+                               \StringTok{")"}\NormalTok{)), }
+            \AttributeTok{size =} \FloatTok{2.5}\NormalTok{, }\AttributeTok{nudge\_x =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{nudge\_y =} \SpecialCharTok{{-}}\FloatTok{0.05}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{),}
+        \AttributeTok{axis.text.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{))}
+
+\CommentTok{\# Men}
+\NormalTok{samp.m }\OtherTok{\textless{}{-}} \FunctionTok{ggballoonplot}\NormalTok{(dat.demog.M, }\AttributeTok{x =} \StringTok{"Education"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Porn"}\NormalTok{, }\AttributeTok{size =} \StringTok{"n"}\NormalTok{,}
+              \AttributeTok{fill =} \StringTok{"n"}\NormalTok{,}
+              \AttributeTok{facet.by =} \FunctionTok{c}\NormalTok{(}\StringTok{"Relationship"}\NormalTok{, }\StringTok{"Religion"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_viridis\_c}\NormalTok{(}\AttributeTok{option =} \StringTok{"C"}\NormalTok{, }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\FunctionTok{max}\NormalTok{(dat.demog}\SpecialCharTok{$}\NormalTok{n))) }\SpecialCharTok{+}
+  \FunctionTok{scale\_size\_continuous}\NormalTok{(}\AttributeTok{range =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{7}\NormalTok{), }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\FunctionTok{max}\NormalTok{(dat.demog}\SpecialCharTok{$}\NormalTok{n))) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{fill =} \FunctionTok{guide\_legend}\NormalTok{(}\AttributeTok{face =} \StringTok{"italic"}\NormalTok{), }
+         \AttributeTok{size =} \FunctionTok{guide\_legend}\NormalTok{(}\AttributeTok{face =} \StringTok{"italic"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Men"}\NormalTok{, }\AttributeTok{y =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ n), }
+            \AttributeTok{size =} \DecValTok{3}\NormalTok{, }\AttributeTok{nudge\_x =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{nudge\_y =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{("}\NormalTok{, }
+                               \FunctionTok{percent}\NormalTok{(n}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(dat.demog}\SpecialCharTok{$}\NormalTok{n), }\AttributeTok{accuracy =} \FloatTok{0.1}\NormalTok{), }
+                               \StringTok{")"}\NormalTok{)), }
+            \AttributeTok{size =} \FloatTok{2.5}\NormalTok{, }\AttributeTok{nudge\_x =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{nudge\_y =} \SpecialCharTok{{-}}\FloatTok{0.05}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{),}
+        \AttributeTok{axis.text.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{))}
+
+\CommentTok{\# Full plot}
+\FunctionTok{ggarrange}\NormalTok{(samp.w, samp.m,}
+          \AttributeTok{widths =} \FunctionTok{c}\NormalTok{(}\FloatTok{1.1}\NormalTok{, }\DecValTok{1}\NormalTok{), }
+          \AttributeTok{common.legend =} \ConstantTok{TRUE}\NormalTok{,}
+          \AttributeTok{legend =} \StringTok{"bottom"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{Deseo_excitacion_sexual_files/figure-latex/donut-plot-1.pdf}
+\caption{\label{fig:donut-plot}Number of participants by gender (left = women, rigth = men), Relationship (stable = top panels, single = bottom panels), Religion (non-religious = left panels by gender, religious = right panels by gender), Education (\emph{X} axis), and pornography consumed during the last month (\emph{Y} axis). The number of participants for each combination of these five variables is displayed as numbers (percentage in brackets), as well as by the color and size of the bubbles .}
+\end{figure}
 
 \hypertarget{descriptive-statistics-of-the-participants-by-gender}{%
 \subsection{Descriptive statistics of the participants by gender}\label{descriptive-statistics-of-the-participants-by-gender}}
@@ -978,7 +1173,7 @@ Kernel density distributions by gender.
                \AttributeTok{values\_to =} \StringTok{"Value"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Variable =} \FunctionTok{str\_wrap}\NormalTok{(Variable, }\AttributeTok{width =} \DecValTok{30}\NormalTok{))}
 
-\CommentTok{\# Fig S1 (created as 3 separate panels to use a different number of panels per row)}
+\CommentTok{\# Figure created as 3 separate panels (to use a different number of panels per row)}
 \NormalTok{fs1a }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(datp }\SpecialCharTok{|\textgreater{}}
                  \FunctionTok{filter}\NormalTok{(Variable }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Age"}\NormalTok{,}
                                       \StringTok{"Number of sexual partners"}\NormalTok{,}
@@ -1349,7 +1544,7 @@ Table of Cronbach's \(\alpha\) for construct variables.
 \toprule
 Variable & Gender & Items & $n$ & $\alpha$ & $2.5\% CI$ & $97.5\% CI$\\
 \midrule
- & Men & 5 & 139 & 0.82 & 0.71 & 0.89\\
+ & Men & 5 & 139 & 0.82 & 0.71 & 0.88\\
 \cmidrule{2-7}
 \multirow{-2}{*}{\raggedright\arraybackslash MGH-SFQ} & Women & 4 & 181 & 0.86 & 0.82 & 0.90\\
 \cmidrule{1-7}
@@ -2045,35 +2240,35 @@ Effect & Estimate & Lower 95\% CI & Upper 95\% CI & Std. Error & $df$ &
 (Intercept) & 2.14 & 1.97 & 2.17 & 0.07 & 376.07 & 32.43 & \textbf{< 0.0001}\\
 Relationship [Stable] & 0.05 & 0.04 & 0.06 & 0.06 & 304.00 & 0.77 & 0.44\\
 Gender [Women] & -0.23 & -0.23 & -0.06 & 0.06 & 304.00 & -3.90 & \textbf{< 0.001}\\
-Stimuli sex [Female] & 0.46 & 0.43 & 0.51 & 0.05 & 360.27 & 8.50 & \textbf{< 0.0001}\\
+Stimuli sex [Female] & 0.46 &  &  & 0.05 & 360.27 & 8.50 & \textbf{< 0.0001}\\
 Solitary sexual desire (C) & 0.02 & 0.01 & 0.04 & 0.01 & 304.00 & 2.53 & \textbf{0.0119}\\
 Dyadic sexual desire (Attractive person) (C) & 0.03 & 0.02 & 0.04 & 0.01 & 304.00 & 4.74 & \textbf{< 0.0001}\\
 Dyadic sexual desire (Partner) (C) & 0.00 & -0.01 & 0.00 & 0.01 & 304.00 & 0.36 & 0.72\\
 Relationship [Stable] × Gender [Women] & 0.01 & -0.09 & 0.07 & 0.06 & 304.00 & 0.16 & 0.88\\
-Relationship [Stable] × Stimuli sex [Female] & 0.02 & -0.09 & 0.03 & 0.05 & 304.00 & 0.45 & 0.65\\
-Gender [Women] × Stimuli sex [Female] & -0.81 & -0.90 & -0.68 & 0.05 & 304.00 & -17.66 & \textbf{< 0.0001}\\
+Relationship [Stable] × Stimuli sex [Female] & 0.02 &  &  & 0.05 & 304.00 & 0.45 & 0.65\\
+Gender [Women] × Stimuli sex [Female] & -0.81 &  &  & 0.05 & 304.00 & -17.66 & \textbf{< 0.0001}\\
 Relationship [Stable] × Solitary sexual desire (C) & 0.00 & 0.00 & 0.00 & 0.01 & 304.00 & -0.44 & 0.66\\
 Gender [Women] × Solitary sexual desire (C) & 0.01 & 0.00 & 0.01 & 0.01 & 304.00 & 1.22 & 0.22\\
-Stimuli sex [Female] × Solitary sexual desire (C) & -0.01 & -0.01 & 0.00 & 0.01 & 304.00 & -1.05 & 0.3\\
+Stimuli sex [Female] × Solitary sexual desire (C) & -0.01 &  &  & 0.01 & 304.00 & -1.05 & 0.3\\
 Relationship [Stable] × Dyadic sexual desire (Attractive person) (C) & 0.01 & 0.00 & 0.01 & 0.01 & 304.00 & 1.13 & 0.26\\
 Gender [Women] × Dyadic sexual desire (Attractive person) (C) & 0.00 & -0.01 & 0.00 & 0.01 & 304.00 & -0.29 & 0.77\\
-Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.02 & 0.00 & 0.02 & 0.01 & 304.00 & 2.86 & \textbf{0.0045}\\
+Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.02 &  &  & 0.01 & 304.00 & 2.86 & \textbf{0.0045}\\
 Relationship [Stable] × Dyadic sexual desire (Partner) (C) & 0.00 & -0.01 & 0.01 & 0.01 & 304.00 & -0.51 & 0.61\\
 Gender [Women] × Dyadic sexual desire (Partner) (C) & -0.01 & -0.01 & 0.00 & 0.01 & 304.00 & -1.60 & 0.11\\
-Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.01 & 0.01 & 0.01 & 0.01 & 304.00 & 1.75 & 0.08\\
-Relationship [Stable] × Gender [Women] × Stimuli sex [Female] & 0.00 & -0.10 & 0.09 & 0.05 & 304.00 & 0.04 & 0.97\\
+Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.01 &  &  & 0.01 & 304.00 & 1.75 & 0.08\\
+Relationship [Stable] × Gender [Women] × Stimuli sex [Female] & 0.00 &  &  & 0.05 & 304.00 & 0.04 & 0.97\\
 Relationship [Stable] × Gender [Women] × Solitary sexual desire (C) & 0.00 & 0.00 & 0.01 & 0.01 & 304.00 & 0.36 & 0.72\\
-Relationship [Stable] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & 0.00 & 0.00 & 0.01 & 304.00 & -0.46 & 0.65\\
-Gender [Women] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & -0.01 & 0.00 & 0.01 & 304.00 & -0.12 & 0.91\\
+Relationship [Stable] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 &  &  & 0.01 & 304.00 & -0.46 & 0.65\\
+Gender [Women] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 &  &  & 0.01 & 304.00 & -0.12 & 0.91\\
 Relationship [Stable] × Gender [Women] × Dyadic sexual desire (Attractive person) (C) & -0.01 & -0.01 & 0.00 & 0.01 & 304.00 & -1.29 & 0.2\\
-Relationship [Stable] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.01 & 0.01 & 0.02 & 0.01 & 304.00 & 1.90 & 0.06\\
-Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & -0.02 & -0.03 & -0.02 & 0.01 & 304.00 & -4.33 & \textbf{< 0.0001}\\
+Relationship [Stable] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.01 &  &  & 0.01 & 304.00 & 1.90 & 0.06\\
+Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & -0.02 &  &  & 0.01 & 304.00 & -4.33 & \textbf{< 0.0001}\\
 Relationship [Stable] × Gender [Women] × Dyadic sexual desire (Partner) (C) & 0.01 & 0.01 & 0.02 & 0.01 & 304.00 & 2.20 & \textbf{0.0285}\\
-Relationship [Stable] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & -0.01 & -0.01 & -0.01 & 0.01 & 304.00 & -2.11 & \textbf{0.0357}\\
-Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & -0.01 & -0.01 & 0.00 & 0.01 & 304.00 & -1.08 & 0.28\\
-Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & 0.00 & 0.01 & 0.01 & 304.00 & 0.78 & 0.44\\
-Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.00 & -0.01 & 0.00 & 0.01 & 304.00 & -0.06 & 0.95\\
-Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.00 & -0.01 & 0.00 & 0.01 & 304.00 & -0.61 & 0.54\\
+Relationship [Stable] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & -0.01 &  &  & 0.01 & 304.00 & -2.11 & \textbf{0.0357}\\
+Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & -0.01 &  &  & 0.01 & 304.00 & -1.08 & 0.28\\
+Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 &  &  & 0.01 & 304.00 & 0.78 & 0.44\\
+Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.00 &  &  & 0.01 & 304.00 & -0.06 & 0.95\\
+Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.00 &  &  & 0.01 & 304.00 & -0.61 & 0.54\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
@@ -2926,35 +3121,35 @@ Effect & Estimate & Lower 95\% CI & Upper 95\% CI & Std. Error & $df$ &
 (Intercept) & 1.59 & 1.97 & 2.17 & 0.05 & 330.32 & 29.98 & \textbf{< 0.0001}\\
 Relationship [Stable] & 0.02 & 0.04 & 0.06 & 0.05 & 304.00 & 0.49 & 0.63\\
 Gender [Women] & -0.13 & -0.23 & -0.06 & 0.05 & 304.00 & -2.87 & \textbf{0.0043}\\
-Stimuli sex [Female] & 0.19 & 0.43 & 0.51 & 0.05 & 302.42 & 3.89 & \textbf{< 0.001}\\
+Stimuli sex [Female] & 0.19 &  &  & 0.05 & 302.42 & 3.89 & \textbf{< 0.001}\\
 Solitary sexual desire (C) & 0.00 & 0.01 & 0.04 & 0.01 & 304.00 & 0.05 & 0.96\\
 Dyadic sexual desire (Attractive person) (C) & 0.03 & 0.02 & 0.04 & 0.01 & 304.00 & 5.68 & \textbf{< 0.0001}\\
 Dyadic sexual desire (Partner) (C) & 0.01 & -0.01 & 0.00 & 0.01 & 304.00 & 1.03 & 0.3\\
 Relationship [Stable] × Gender [Women] & -0.01 & -0.09 & 0.07 & 0.05 & 304.00 & -0.29 & 0.77\\
-Relationship [Stable] × Stimuli sex [Female] & 0.03 & -0.09 & 0.03 & 0.04 & 304.00 & 0.85 & 0.39\\
-Gender [Women] × Stimuli sex [Female] & -0.49 & -0.90 & -0.68 & 0.04 & 304.00 & -12.14 & \textbf{< 0.0001}\\
+Relationship [Stable] × Stimuli sex [Female] & 0.03 &  &  & 0.04 & 304.00 & 0.85 & 0.39\\
+Gender [Women] × Stimuli sex [Female] & -0.49 &  &  & 0.04 & 304.00 & -12.14 & \textbf{< 0.0001}\\
 Relationship [Stable] × Solitary sexual desire (C) & 0.00 & 0.00 & 0.00 & 0.01 & 304.00 & -0.39 & 0.69\\
 Gender [Women] × Solitary sexual desire (C) & 0.01 & 0.00 & 0.01 & 0.01 & 304.00 & 2.49 & \textbf{0.0133}\\
-Stimuli sex [Female] × Solitary sexual desire (C) & -0.01 & -0.01 & 0.00 & 0.00 & 304.00 & -2.03 & \textbf{0.0435}\\
+Stimuli sex [Female] × Solitary sexual desire (C) & -0.01 &  &  & 0.00 & 304.00 & -2.03 & \textbf{0.0435}\\
 Relationship [Stable] × Dyadic sexual desire (Attractive person) (C) & 0.00 & 0.00 & 0.01 & 0.01 & 304.00 & 0.28 & 0.78\\
 Gender [Women] × Dyadic sexual desire (Attractive person) (C) & -0.02 & -0.01 & 0.00 & 0.01 & 304.00 & -2.90 & \textbf{0.004}\\
-Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.02 & 0.00 & 0.02 & 0.00 & 304.00 & 3.86 & \textbf{< 0.001}\\
+Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.02 &  &  & 0.00 & 304.00 & 3.86 & \textbf{< 0.001}\\
 Relationship [Stable] × Dyadic sexual desire (Partner) (C) & 0.00 & -0.01 & 0.01 & 0.01 & 304.00 & 0.07 & 0.94\\
 Gender [Women] × Dyadic sexual desire (Partner) (C) & -0.01 & -0.01 & 0.00 & 0.01 & 304.00 & -1.44 & 0.15\\
-Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.01 & 0.01 & 0.01 & 0.00 & 304.00 & 1.10 & 0.27\\
-Relationship [Stable] × Gender [Women] × Stimuli sex [Female] & 0.02 & -0.10 & 0.09 & 0.04 & 304.00 & 0.41 & 0.68\\
+Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.01 &  &  & 0.00 & 304.00 & 1.10 & 0.27\\
+Relationship [Stable] × Gender [Women] × Stimuli sex [Female] & 0.02 &  &  & 0.04 & 304.00 & 0.41 & 0.68\\
 Relationship [Stable] × Gender [Women] × Solitary sexual desire (C) & 0.00 & 0.00 & 0.01 & 0.01 & 304.00 & 0.64 & 0.52\\
-Relationship [Stable] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & 0.00 & 0.00 & 0.00 & 304.00 & 0.21 & 0.83\\
-Gender [Women] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & -0.01 & 0.00 & 0.00 & 304.00 & 0.23 & 0.82\\
+Relationship [Stable] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 &  &  & 0.00 & 304.00 & 0.21 & 0.83\\
+Gender [Women] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 &  &  & 0.00 & 304.00 & 0.23 & 0.82\\
 Relationship [Stable] × Gender [Women] × Dyadic sexual desire (Attractive person) (C) & 0.00 & -0.01 & 0.00 & 0.01 & 304.00 & -0.49 & 0.62\\
-Relationship [Stable] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.00 & 0.01 & 0.02 & 0.00 & 304.00 & 0.58 & 0.56\\
-Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & -0.03 & -0.03 & -0.02 & 0.00 & 304.00 & -5.53 & \textbf{< 0.0001}\\
+Relationship [Stable] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.00 &  &  & 0.00 & 304.00 & 0.58 & 0.56\\
+Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & -0.03 &  &  & 0.00 & 304.00 & -5.53 & \textbf{< 0.0001}\\
 Relationship [Stable] × Gender [Women] × Dyadic sexual desire (Partner) (C) & 0.00 & 0.01 & 0.02 & 0.01 & 304.00 & 0.06 & 0.95\\
-Relationship [Stable] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.00 & -0.01 & -0.01 & 0.00 & 304.00 & -0.57 & 0.57\\
-Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & -0.01 & -0.01 & 0.00 & 0.00 & 304.00 & -1.19 & 0.23\\
-Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & 0.00 & 0.01 & 0.00 & 304.00 & 0.11 & 0.91\\
-Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.00 & -0.01 & 0.00 & 0.00 & 304.00 & 0.48 & 0.63\\
-Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.00 & -0.01 & 0.00 & 0.00 & 304.00 & -0.43 & 0.67\\
+Relationship [Stable] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.00 &  &  & 0.00 & 304.00 & -0.57 & 0.57\\
+Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & -0.01 &  &  & 0.00 & 304.00 & -1.19 & 0.23\\
+Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 &  &  & 0.00 & 304.00 & 0.11 & 0.91\\
+Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.00 &  &  & 0.00 & 304.00 & 0.48 & 0.63\\
+Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.00 &  &  & 0.00 & 304.00 & -0.43 & 0.67\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
@@ -3502,10 +3697,10 @@ This figure summarizes the results of hypothesis 2b.
 \emph{stats}, \emph{graphics}, \emph{grDevices}, \emph{utils}, \emph{datasets}, \emph{methods} and \emph{base}
 
 \textbf{other attached packages:}
-\emph{pander(v.0.6.5)}, \emph{Hmisc(v.4.7-2)}, \emph{Formula(v.1.2-4)}, \emph{survival(v.3.4-0)}, \emph{lattice(v.0.20-45)}, \emph{berryFunctions(v.1.21.14)}, \emph{rstatix(v.0.7.1)}, \emph{effectsize(v.0.8.2)}, \emph{scales(v.1.2.1)}, \emph{ggpmisc(v.0.5.2)}, \emph{ggpp(v.0.5.0)}, \emph{MetBrewer(v.0.2.0)}, \emph{psych(v.2.2.9)}, \emph{kableExtra(v.1.3.4)}, \emph{performance(v.0.10.2)}, \emph{emmeans(v.1.8.4-1)}, \emph{interactions(v.1.1.5)}, \emph{tidyquant(v.1.0.6)}, \emph{quantmod(v.0.4.20)}, \emph{TTR(v.0.24.3)}, \emph{PerformanceAnalytics(v.2.0.4)}, \emph{xts(v.0.12.2)}, \emph{zoo(v.1.8-11)}, \emph{lubridate(v.1.9.0)}, \emph{timechange(v.0.2.0)}, \emph{ggpubr(v.0.5.0)}, \emph{forcats(v.0.5.2)}, \emph{stringr(v.1.5.0)}, \emph{dplyr(v.1.0.10)}, \emph{purrr(v.1.0.1)}, \emph{readr(v.2.1.3)}, \emph{tidyr(v.1.2.1)}, \emph{tibble(v.3.1.8)}, \emph{ggplot2(v.3.4.0)}, \emph{tidyverse(v.1.3.2)}, \emph{lmerTest(v.3.1-3)}, \emph{lme4(v.1.1-31)}, \emph{Matrix(v.1.5-1)}, \emph{car(v.3.1-1)}, \emph{carData(v.3.0-5)}, \emph{ltm(v.1.2-0)}, \emph{polycor(v.0.8-1)}, \emph{msm(v.1.7)}, \emph{MASS(v.7.3-58.1)}, \emph{readxl(v.1.4.1)} and \emph{knitr(v.1.41)}
+\emph{pander(v.0.6.5)}, \emph{Hmisc(v.5.0-1)}, \emph{berryFunctions(v.1.21.14)}, \emph{rstatix(v.0.7.2)}, \emph{effectsize(v.0.8.3)}, \emph{scales(v.1.2.1)}, \emph{ggpmisc(v.0.5.2)}, \emph{ggpp(v.0.5.1)}, \emph{MetBrewer(v.0.2.0)}, \emph{psych(v.2.3.3)}, \emph{kableExtra(v.1.3.4)}, \emph{performance(v.0.10.2)}, \emph{emmeans(v.1.8.5)}, \emph{interactions(v.1.1.5)}, \emph{tidyquant(v.1.0.6)}, \emph{quantmod(v.0.4.20)}, \emph{TTR(v.0.24.3)}, \emph{PerformanceAnalytics(v.2.0.4)}, \emph{xts(v.0.13.0)}, \emph{zoo(v.1.8-11)}, \emph{ggpubr(v.0.6.0)}, \emph{lubridate(v.1.9.2)}, \emph{forcats(v.1.0.0)}, \emph{stringr(v.1.5.0)}, \emph{dplyr(v.1.0.10)}, \emph{purrr(v.1.0.1)}, \emph{readr(v.2.1.4)}, \emph{tidyr(v.1.3.0)}, \emph{tibble(v.3.2.1)}, \emph{ggplot2(v.3.4.1)}, \emph{tidyverse(v.2.0.0)}, \emph{lmerTest(v.3.1-3)}, \emph{lme4(v.1.1-32)}, \emph{Matrix(v.1.5-3)}, \emph{car(v.3.1-1)}, \emph{carData(v.3.0-5)}, \emph{ltm(v.1.2-0)}, \emph{polycor(v.0.8-1)}, \emph{msm(v.1.7)}, \emph{MASS(v.7.3-58.1)}, \emph{readxl(v.1.4.2)} and \emph{knitr(v.1.42)}
 
 \textbf{loaded via a namespace (and not attached):}
-\emph{backports(v.1.4.1)}, \emph{jtools(v.2.2.1)}, \emph{systemfonts(v.1.0.4)}, \emph{splines(v.4.2.2)}, \emph{digest(v.0.6.31)}, \emph{htmltools(v.0.5.4)}, \emph{fansi(v.1.0.3)}, \emph{checkmate(v.2.1.0)}, \emph{magrittr(v.2.0.3)}, \emph{cluster(v.2.1.4)}, \emph{googlesheets4(v.1.0.1)}, \emph{see(v.0.7.4)}, \emph{tzdb(v.0.3.0)}, \emph{modelr(v.0.1.10)}, \emph{svglite(v.2.1.1)}, \emph{jpeg(v.0.1-10)}, \emph{colorspace(v.2.0-3)}, \emph{rvest(v.1.0.3)}, \emph{haven(v.2.5.1)}, \emph{xfun(v.0.36)}, \emph{crayon(v.1.5.2)}, \emph{jsonlite(v.1.8.4)}, \emph{glue(v.1.6.2)}, \emph{gtable(v.0.3.1)}, \emph{gargle(v.1.2.1)}, \emph{webshot(v.0.5.4)}, \emph{MatrixModels(v.0.5-1)}, \emph{Quandl(v.2.11.0)}, \emph{abind(v.1.4-5)}, \emph{SparseM(v.1.81)}, \emph{mvtnorm(v.1.1-3)}, \emph{DBI(v.1.1.3)}, \emph{Rcpp(v.1.0.9)}, \emph{htmlTable(v.2.4.1)}, \emph{viridisLite(v.0.4.1)}, \emph{xtable(v.1.8-4)}, \emph{foreign(v.0.8-83)}, \emph{htmlwidgets(v.1.6.1)}, \emph{datawizard(v.0.6.5)}, \emph{httr(v.1.4.4)}, \emph{RColorBrewer(v.1.1-3)}, \emph{ellipsis(v.0.3.2)}, \emph{pkgconfig(v.2.0.3)}, \emph{farver(v.2.1.1)}, \emph{nnet(v.7.3-18)}, \emph{deldir(v.1.0-6)}, \emph{dbplyr(v.2.3.0)}, \emph{utf8(v.1.2.2)}, \emph{tidyselect(v.1.2.0)}, \emph{labeling(v.0.4.2)}, \emph{rlang(v.1.0.6)}, \emph{munsell(v.0.5.0)}, \emph{cellranger(v.1.1.0)}, \emph{tools(v.4.2.2)}, \emph{cli(v.3.6.0)}, \emph{generics(v.0.1.3)}, \emph{broom(v.1.0.2)}, \emph{evaluate(v.0.19)}, \emph{fastmap(v.1.1.0)}, \emph{yaml(v.2.3.6)}, \emph{fs(v.1.5.2)}, \emph{admisc(v.0.30)}, \emph{nlme(v.3.1-160)}, \emph{quantreg(v.5.94)}, \emph{xml2(v.1.3.3)}, \emph{compiler(v.4.2.2)}, \emph{rstudioapi(v.0.14)}, \emph{curl(v.5.0.0)}, \emph{png(v.0.1-8)}, \emph{ggsignif(v.0.6.4)}, \emph{reprex(v.2.0.2)}, \emph{stringi(v.1.7.12)}, \emph{highr(v.0.10)}, \emph{parameters(v.0.20.1)}, \emph{nloptr(v.2.0.3)}, \emph{vctrs(v.0.5.1)}, \emph{pillar(v.1.8.1)}, \emph{lifecycle(v.1.0.3)}, \emph{estimability(v.1.4.1)}, \emph{data.table(v.1.14.6)}, \emph{cowplot(v.1.1.1)}, \emph{insight(v.0.18.8)}, \emph{patchwork(v.1.1.2)}, \emph{R6(v.2.5.1)}, \emph{latticeExtra(v.0.6-30)}, \emph{bookdown(v.0.31)}, \emph{gridExtra(v.2.3)}, \emph{boot(v.1.3-28)}, \emph{assertthat(v.0.2.1)}, \emph{withr(v.2.5.0)}, \emph{mnormt(v.2.1.1)}, \emph{mgcv(v.1.8-41)}, \emph{bayestestR(v.0.13.0)}, \emph{expm(v.0.999-7)}, \emph{parallel(v.4.2.2)}, \emph{hms(v.1.1.2)}, \emph{rpart(v.4.1.19)}, \emph{quadprog(v.1.5-8)}, \emph{grid(v.4.2.2)}, \emph{coda(v.0.19-4)}, \emph{minqa(v.1.2.5)}, \emph{rmarkdown(v.2.19)}, \emph{googledrive(v.2.0.0)}, \emph{numDeriv(v.2016.8-1.1)}, \emph{base64enc(v.0.1-3)} and \emph{interp(v.1.1-3)}
+\emph{backports(v.1.4.1)}, \emph{jtools(v.2.2.1)}, \emph{systemfonts(v.1.0.4)}, \emph{splines(v.4.2.2)}, \emph{TH.data(v.1.1-1)}, \emph{digest(v.0.6.31)}, \emph{htmltools(v.0.5.4)}, \emph{fansi(v.1.0.4)}, \emph{magrittr(v.2.0.3)}, \emph{checkmate(v.2.1.0)}, \emph{cluster(v.2.1.4)}, \emph{tzdb(v.0.3.0)}, \emph{see(v.0.7.4)}, \emph{sandwich(v.3.0-2)}, \emph{svglite(v.2.1.1)}, \emph{timechange(v.0.2.0)}, \emph{colorspace(v.2.1-0)}, \emph{rvest(v.1.0.3)}, \emph{xfun(v.0.36)}, \emph{crayon(v.1.5.2)}, \emph{jsonlite(v.1.8.4)}, \emph{survival(v.3.4-0)}, \emph{glue(v.1.6.2)}, \emph{gtable(v.0.3.3)}, \emph{webshot(v.0.5.4)}, \emph{MatrixModels(v.0.5-1)}, \emph{Quandl(v.2.11.0)}, \emph{abind(v.1.4-5)}, \emph{SparseM(v.1.81)}, \emph{mvtnorm(v.1.1-3)}, \emph{DBI(v.1.1.3)}, \emph{Rcpp(v.1.0.9)}, \emph{viridisLite(v.0.4.1)}, \emph{xtable(v.1.8-4)}, \emph{htmlTable(v.2.4.1)}, \emph{foreign(v.0.8-83)}, \emph{Formula(v.1.2-5)}, \emph{datawizard(v.0.6.5)}, \emph{htmlwidgets(v.1.6.2)}, \emph{httr(v.1.4.5)}, \emph{pkgconfig(v.2.0.3)}, \emph{farver(v.2.1.1)}, \emph{nnet(v.7.3-18)}, \emph{utf8(v.1.2.3)}, \emph{tidyselect(v.1.2.0)}, \emph{labeling(v.0.4.2)}, \emph{rlang(v.1.1.0)}, \emph{munsell(v.0.5.0)}, \emph{cellranger(v.1.1.0)}, \emph{tools(v.4.2.2)}, \emph{cli(v.3.6.0)}, \emph{generics(v.0.1.3)}, \emph{broom(v.1.0.4)}, \emph{evaluate(v.0.20)}, \emph{fastmap(v.1.1.0)}, \emph{yaml(v.2.3.6)}, \emph{admisc(v.0.31)}, \emph{nlme(v.3.1-160)}, \emph{quantreg(v.5.94)}, \emph{xml2(v.1.3.3)}, \emph{compiler(v.4.2.2)}, \emph{rstudioapi(v.0.14)}, \emph{curl(v.5.0.0)}, \emph{ggsignif(v.0.6.4)}, \emph{stringi(v.1.7.12)}, \emph{highr(v.0.10)}, \emph{parameters(v.0.20.2)}, \emph{lattice(v.0.20-45)}, \emph{nloptr(v.2.0.3)}, \emph{vctrs(v.0.6.0)}, \emph{pillar(v.1.9.0)}, \emph{lifecycle(v.1.0.3)}, \emph{estimability(v.1.4.1)}, \emph{data.table(v.1.14.8)}, \emph{cowplot(v.1.1.1)}, \emph{insight(v.0.19.1)}, \emph{patchwork(v.1.1.2)}, \emph{R6(v.2.5.1)}, \emph{bookdown(v.0.33)}, \emph{gridExtra(v.2.3)}, \emph{codetools(v.0.2-18)}, \emph{boot(v.1.3-28)}, \emph{assertthat(v.0.2.1)}, \emph{withr(v.2.5.0)}, \emph{mnormt(v.2.1.1)}, \emph{multcomp(v.1.4-23)}, \emph{mgcv(v.1.8-41)}, \emph{bayestestR(v.0.13.0)}, \emph{expm(v.0.999-7)}, \emph{parallel(v.4.2.2)}, \emph{hms(v.1.1.3)}, \emph{quadprog(v.1.5-8)}, \emph{grid(v.4.2.2)}, \emph{rpart(v.4.1.19)}, \emph{coda(v.0.19-4)}, \emph{minqa(v.1.2.5)}, \emph{rmarkdown(v.2.20)}, \emph{numDeriv(v.2016.8-1.1)} and \emph{base64enc(v.0.1-3)}
 
 \hypertarget{refs}{%
 \section*{Supplementary references}\label{refs}}
