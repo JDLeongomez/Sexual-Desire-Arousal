@@ -165,7 +165,7 @@
 \makeatother
 \subtitle{Code and analyses}
 \author{Milena Vásquez-Amézquita \orcidlink{0000-0001-7317-8430}\textsuperscript{} \and Juan David Leongómez \orcidlink{0000-0002-0092-6298}\textsuperscript{}}
-\date{28 March, 2023}
+\date{29 March, 2023}
 
 \begin{document}
 \maketitle
@@ -204,7 +204,7 @@ Data available from the Open Science Framework (OSF): \url{https://doi.org/10.XX
 }
 \opensupplement
 
-\newpage
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{preliminaries}{%
 \section{Preliminaries}\label{preliminaries}}
@@ -223,120 +223,23 @@ All packages used in this file can be directly installed from the Comprehensive 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(readxl)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning: package 'readxl' was built under R version 4.2.3
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(ltm)}
 \FunctionTok{library}\NormalTok{(car)}
 \FunctionTok{library}\NormalTok{(lmerTest)}
 \FunctionTok{library}\NormalTok{(tidyverse)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning: package 'tidyverse' was built under R version 4.2.3
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: package 'tidyr' was built under R version 4.2.3
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: package 'readr' was built under R version 4.2.3
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: package 'forcats' was built under R version 4.2.3
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: package 'lubridate' was built under R version 4.2.3
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(ggpubr)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning: package 'ggpubr' was built under R version 4.2.3
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(tidyquant)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning: package 'xts' was built under R version 4.2.3
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(dplyr)}
 \FunctionTok{library}\NormalTok{(interactions)}
 \FunctionTok{library}\NormalTok{(emmeans)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning: package 'emmeans' was built under R version 4.2.3
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(performance)}
 \FunctionTok{library}\NormalTok{(kableExtra)}
 \FunctionTok{library}\NormalTok{(psych)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning: package 'psych' was built under R version 4.2.3
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(MetBrewer)}
 \FunctionTok{library}\NormalTok{(ggpmisc)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning: package 'ggpp' was built under R version 4.2.3
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(scales)}
 \FunctionTok{library}\NormalTok{(effectsize)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning: package 'effectsize' was built under R version 4.2.3
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(rstatix)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning: package 'rstatix' was built under R version 4.2.3
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(berryFunctions)}
 \end{Highlighting}
 \end{Shaded}
@@ -893,13 +796,13 @@ Change necessary variables to factor, sort levels, and rename variables
 \end{Highlighting}
 \end{Shaded}
 
-\newpage
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{descriptives}{%
 \section{Descriptives}\label{descriptives}}
 
-\hypertarget{figure-reffigdonut-plot.-sample-demographic-chacarteristics}{%
-\subsubsection{Figure \ref{fig:donut-plot}. Sample demographic chacarteristics}\label{figure-reffigdonut-plot.-sample-demographic-chacarteristics}}
+\hypertarget{figure-reffigsample-plot.-demographic-chacarteristics-of-the-sample}{%
+\subsubsection{Figure \ref{fig:sample-plot}. Demographic chacarteristics of the sample}\label{figure-reffigsample-plot.-demographic-chacarteristics-of-the-sample}}
 
 Number of participants by demographic category.
 
@@ -971,8 +874,8 @@ Number of participants by demographic category.
 
 \begin{figure}
 \centering
-\includegraphics{Deseo_excitacion_sexual_files/figure-latex/donut-plot-1.pdf}
-\caption{\label{fig:donut-plot}Number of participants by gender (left = women, rigth = men), Relationship (stable = top panels, single = bottom panels), Religion (non-religious = left panels by gender, religious = right panels by gender), Education (\emph{X} axis), and pornography consumed during the last month (\emph{Y} axis). The number of participants for each combination of these five variables is displayed as numbers (percentage in brackets), as well as by the color and size of the bubbles .}
+\includegraphics{Deseo_excitacion_sexual_files/figure-latex/sample-plot-1.pdf}
+\caption{\label{fig:sample-plot}Number of participants by gender (left = women, rigth = men), Relationship (stable = top panels, single = bottom panels), Religion (non-religious = left panels by gender, religious = right panels by gender), Education (\emph{X} axis), and pornography consumed during the last month (\emph{Y} axis). The number of participants for each combination of these five variables is displayed as numbers (percentage in brackets), as well as by the color and size of the bubbles .}
 \end{figure}
 
 \hypertarget{descriptive-statistics-of-the-participants-by-gender}{%
@@ -1174,7 +1077,7 @@ Kernel density distributions by gender.
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Variable =} \FunctionTok{str\_wrap}\NormalTok{(Variable, }\AttributeTok{width =} \DecValTok{30}\NormalTok{))}
 
 \CommentTok{\# Figure created as 3 separate panels (to use a different number of panels per row)}
-\NormalTok{fs1a }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(datp }\SpecialCharTok{|\textgreater{}}
+\NormalTok{fs2a }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(datp }\SpecialCharTok{|\textgreater{}}
                  \FunctionTok{filter}\NormalTok{(Variable }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Age"}\NormalTok{,}
                                       \StringTok{"Number of sexual partners"}\NormalTok{,}
                                       \StringTok{"Subjective sexual}\SpecialCharTok{\textbackslash{}n}\StringTok{attractiveness"}\NormalTok{,}
@@ -1201,7 +1104,7 @@ Kernel density distributions by gender.
              \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
         \FunctionTok{theme\_tq}\NormalTok{()}
 
-\NormalTok{fs1b }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(datp }\SpecialCharTok{|\textgreater{}}
+\NormalTok{fs2b }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(datp }\SpecialCharTok{|\textgreater{}}
                  \FunctionTok{filter}\NormalTok{(Variable }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"MGH{-}SFQ (total)"}\NormalTok{,}
                                         \StringTok{"MGSS sexual satisfaction}\SpecialCharTok{\textbackslash{}n}\StringTok{(General)"}\NormalTok{,}
                                         \StringTok{"MGSS sexual satisfaction}\SpecialCharTok{\textbackslash{}n}\StringTok{(Partner)"}\NormalTok{)),}
@@ -1226,7 +1129,7 @@ Kernel density distributions by gender.
              \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
         \FunctionTok{theme\_tq}\NormalTok{()}
 
-\NormalTok{fs1c }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(datp }\SpecialCharTok{|\textgreater{}}
+\NormalTok{fs2c }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(datp }\SpecialCharTok{|\textgreater{}}
                  \FunctionTok{filter}\NormalTok{(Variable }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Solitary sexual desire"}\NormalTok{,}
                                         \StringTok{"Dyadic sexual desire}\SpecialCharTok{\textbackslash{}n}\StringTok{(Attractive person)"}\NormalTok{,}
                                         \StringTok{"Dyadic sexual desire (Partner)"}\NormalTok{)),}
@@ -1252,7 +1155,7 @@ Kernel density distributions by gender.
         \FunctionTok{theme\_tq}\NormalTok{()}
 
 \CommentTok{\# Full plot}
-\FunctionTok{ggarrange}\NormalTok{(fs1a, fs1b, fs1c,}
+\FunctionTok{ggarrange}\NormalTok{(fs2a, fs2b, fs2c,}
           \AttributeTok{common.legend =} \ConstantTok{TRUE}\NormalTok{,}
           \AttributeTok{legend =} \StringTok{"bottom"}\NormalTok{,}
           \AttributeTok{nrow =} \DecValTok{3}\NormalTok{)}
@@ -1544,7 +1447,7 @@ Table of Cronbach's \(\alpha\) for construct variables.
 \toprule
 Variable & Gender & Items & $n$ & $\alpha$ & $2.5\% CI$ & $97.5\% CI$\\
 \midrule
- & Men & 5 & 139 & 0.82 & 0.71 & 0.88\\
+ & Men & 5 & 139 & 0.82 & 0.72 & 0.88\\
 \cmidrule{2-7}
 \multirow{-2}{*}{\raggedright\arraybackslash MGH-SFQ} & Women & 4 & 181 & 0.86 & 0.82 & 0.90\\
 \cmidrule{1-7}
@@ -1567,6 +1470,8 @@ Dyadic sexual desire (Attractive person) &  & 4 & 320 & 0.89 & 0.87 & 0.91\\
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{hypothesis-tests}{%
 \section{Hypothesis tests}\label{hypothesis-tests}}
@@ -1756,16 +1661,14 @@ Gender [Women] × Relationship [Stable] × Dimension [Partner DSD] & 0.59 & 0.31
 
 Because only the main effect of (sexual desire) dimension, and the interaction between relationship (type) and dimension are significant, we explored the interaction using estimated marginal means, as well as comparing the relationship types for each of the three sexual desire dimensions.
 
-Table of estimated marginal means and contrasts between sexual desire dimension. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package (\protect\hyperlink{ref-emmeanscit}{Lenth, 2022}).
+\hypertarget{table-reftabtab-m1a-emms.-estimated-marginal-means-and-contrasts-between-participants-genders.}{%
+\subparagraph{Table \ref{tab:tab-m1a-emms}. Estimated marginal means and contrasts between participants' genders.}\label{table-reftabtab-m1a-emms.-estimated-marginal-means-and-contrasts-between-participants-genders.}}
 
-\textcolor{red}{¡¡¡¡AGREGAR COLUMNA DF (EN TODAS LAS TABLAS DE CONTRASTES)!!!!!} \textcolor{green}{\textbf{Hecho!}}
-
-\hypertarget{table-reftabtab-m1a-emms.-estimated-marginal-means-and-contrasts-between-relationship-status-types-for-the-three-dimensions-of-sexual-desire.}{%
-\subparagraph{Table \ref{tab:tab-m1a-emms}. Estimated marginal means and contrasts between relationship status types for the three dimensions of sexual desire.}\label{table-reftabtab-m1a-emms.-estimated-marginal-means-and-contrasts-between-relationship-status-types-for-the-three-dimensions-of-sexual-desire.}}
+Table of estimated marginal means and contrasts between genders. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package (\protect\hyperlink{ref-emmeanscit}{Lenth, 2022}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{emms.m1a }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m1, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dimension,}
+\NormalTok{emms.m1a }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m1, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender,}
                     \AttributeTok{adjust =} \StringTok{"bonferroni"}\NormalTok{,}
                     \AttributeTok{lmer.df =} \StringTok{"satterthwaite"}\NormalTok{)}
 
@@ -1773,6 +1676,83 @@ Table of estimated marginal means and contrasts between sexual desire dimension.
   \FunctionTok{mutate}\NormalTok{(}\StringTok{"Sexual desire"} \OtherTok{=}\NormalTok{ emmean)}
 
 \NormalTok{t.m1a }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m1a) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value))}
+
+\FunctionTok{merge}\NormalTok{(emms.m1a.tab, t.m1a, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{16}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{unite}\NormalTok{(Contrast, group1, group2, }\AttributeTok{sep =} \StringTok{" {-} "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"Contrast"}\NormalTok{, str\_replace\_all, }\StringTok{"NA {-} NA"}\NormalTok{, }\StringTok{" "}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
+          \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
+          \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
+          \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
+          \AttributeTok{caption =} \StringTok{"Estimated marginal means each gender"}\NormalTok{,}
+          \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Gender"}\NormalTok{,}
+                        \StringTok{"EMM"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$df$"}\NormalTok{,}
+                        \StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"Contrast"}\NormalTok{,}
+                        \StringTok{"Difference"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$df$"}\NormalTok{,}
+                        \StringTok{"$t$"}\NormalTok{,}
+                        \StringTok{"$p$"}\NormalTok{),}
+          \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{6}\NormalTok{, }\StringTok{"Contrasts"} \OtherTok{=} \DecValTok{6}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \StringTok{"EMM = estimated marginal mean.}
+\StringTok{           Degrees of freedom ($df$) were calculated }
+\StringTok{           using the Satterthwaite approximation.}
+\StringTok{           Bonferroni adjustment was used."}\NormalTok{,}
+           \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+
+\caption{\label{tab:tab-m1a-emms}Estimated marginal means each gender}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{threeparttable}
+\begin{tabular}[t]{lccccclccccc}
+\toprule
+\multicolumn{6}{c}{ } & \multicolumn{6}{c}{Contrasts} \\
+\cmidrule(l{3pt}r{3pt}){7-12}
+Gender & EMM & $SE$ & $df$ & $2.5\% CI$ & $97.5\% CI$ & Contrast & Difference & $SE$ & $df$ & $t$ & $p$\\
+\midrule
+Women & 16.85 & 0.44 & 320.83 & 15.86 & 17.84 & Women - Men & -4.26 & 0.67 & 319.63 & -6.4 & \textbf{< 0.0001}\\
+Men & 21.11 & 0.50 & 318.72 & 19.98 & 22.23 &  &  &  &  &  & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[para]
+\item \textit{Note: } 
+\item EMM = estimated marginal mean.
+           Degrees of freedom ($df$) were calculated 
+           using the Satterthwaite approximation.
+           Bonferroni adjustment was used.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+\hypertarget{table-reftabtab-m1b-emms.-estimated-marginal-means-and-contrasts-between-the-three-dimensions-of-sexual-desire.}{%
+\subparagraph{Table \ref{tab:tab-m1b-emms}. Estimated marginal means and contrasts between the three dimensions of sexual desire.}\label{table-reftabtab-m1b-emms.-estimated-marginal-means-and-contrasts-between-the-three-dimensions-of-sexual-desire.}}
+
+Table of estimated marginal means and contrasts between the three types of sexual desire dimension. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package (\protect\hyperlink{ref-emmeanscit}{Lenth, 2022}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{emms.m1b }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m1, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dimension,}
+                    \AttributeTok{adjust =} \StringTok{"bonferroni"}\NormalTok{,}
+                    \AttributeTok{lmer.df =} \StringTok{"satterthwaite"}\NormalTok{)}
+
+\NormalTok{emms.m1b.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m1b)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{"Sexual desire"} \OtherTok{=}\NormalTok{ emmean)}
+
+\NormalTok{t.m1b }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m1b) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{group1 =} \FunctionTok{recode\_factor}\NormalTok{(group1,}
                                 \StringTok{"Dyadic sexual desire Attractive person"} \OtherTok{=} 
@@ -1785,7 +1765,7 @@ Table of estimated marginal means and contrasts between sexual desire dimension.
                                 \StringTok{"Dyadic sexual desire Partner"} \OtherTok{=} 
                                   \StringTok{"Dyadic sexual desire (Partner)"}\NormalTok{))}
 
-\FunctionTok{merge}\NormalTok{(emms.m1a.tab, t.m1a, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+\FunctionTok{merge}\NormalTok{(emms.m1b.tab, t.m1b, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{16}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Dimension =} \FunctionTok{recode\_factor}\NormalTok{(Dimension   ,}
                                 \StringTok{"Dyadic sexual desire (Attractive person)"} \OtherTok{=} 
@@ -1842,7 +1822,7 @@ Table of estimated marginal means and contrasts between sexual desire dimension.
 
 \begin{table}[H]
 
-\caption{\label{tab:tab-m1a-emms}Estimated marginal means for the three dimensions of sexual desire}
+\caption{\label{tab:tab-m1b-emms}Estimated marginal means for the three dimensions of sexual desire}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{threeparttable}
@@ -1874,21 +1854,21 @@ Table of estimated marginal means and contrasts between relationship status for 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{emms.m1b }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m1, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Relationship }\SpecialCharTok{|}\NormalTok{ Dimension,}
+\NormalTok{emms.m1c }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m1, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Relationship }\SpecialCharTok{|}\NormalTok{ Dimension,}
                     \AttributeTok{adjust =} \StringTok{"bonferroni"}\NormalTok{,}
                     \AttributeTok{lmer.df =} \StringTok{"satterthwaite"}\NormalTok{)}
 
-\NormalTok{emms.m1b.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m1b)) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{emms.m1c.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m1c)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\StringTok{"Sexual desire"} \OtherTok{=}\NormalTok{ emmean)}
 
-\NormalTok{t.m1b }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m1b) }\SpecialCharTok{|\textgreater{}} 
+\NormalTok{t.m1c }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m1c) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value))}
 
-\NormalTok{t.m1b.f }\OtherTok{\textless{}{-}}\NormalTok{ t.m1b }\SpecialCharTok{|\textgreater{}} 
+\NormalTok{t.m1c.f }\OtherTok{\textless{}{-}}\NormalTok{ t.m1c }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{insertRows}\NormalTok{(}\DecValTok{2}\NormalTok{, }\AttributeTok{new =} \ConstantTok{NA}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{insertRows}\NormalTok{(}\DecValTok{4}\NormalTok{, }\AttributeTok{new =} \ConstantTok{NA}\NormalTok{)}
 
-\FunctionTok{merge}\NormalTok{(emms.m1b.tab, t.m1b.f, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+\FunctionTok{merge}\NormalTok{(emms.m1c.tab, t.m1c.f, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{18}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{unite}\NormalTok{(Contrast, group1, group2, }\AttributeTok{sep =} \StringTok{" {-} "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"Contrast"}\NormalTok{, str\_replace\_all, }\StringTok{"NA {-} NA"}\NormalTok{, }\StringTok{" "}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
@@ -1939,7 +1919,7 @@ Table of estimated marginal means and contrasts between relationship status for 
 
 \begin{table}[H]
 
-\caption{\label{tab:tab-m1b-emms}Estimated marginal means for the three dimensions of sexual desire by
+\caption{\label{tab:tab-m1c-emms}Estimated marginal means for the three dimensions of sexual desire by
         relationship status}
 \centering
 \resizebox{\linewidth}{!}{
@@ -1983,12 +1963,12 @@ This figure summarizes the results of hypothesis 1.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Figure Dimension main effect}
-\NormalTok{h1a }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat.comp, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Dimension, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Sexual desire}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{color =}\NormalTok{ Dimension)) }\SpecialCharTok{+}
+\CommentTok{\# Gender main effect}
+\NormalTok{h1a }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat.comp, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Gender, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Sexual desire}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{color =}\NormalTok{ Gender)) }\SpecialCharTok{+}
   \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Dimension) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Dimension) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Gender) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Gender) }\SpecialCharTok{+}
   \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1a.tab, }
                 \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ lower.CL, }\AttributeTok{ymax =}\NormalTok{ upper.CL), }
                 \AttributeTok{colour =} \StringTok{"black"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
@@ -1998,17 +1978,17 @@ This figure summarizes the results of hypothesis 1.
              \AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{stat\_pvalue\_manual}\NormalTok{(t.m1a, }
                      \AttributeTok{label =} \StringTok{"p.signif"}\NormalTok{, }
-                     \AttributeTok{y.position =} \FunctionTok{c}\NormalTok{(}\DecValTok{44}\NormalTok{, }\DecValTok{47}\NormalTok{, }\DecValTok{41}\NormalTok{), }
+                     \AttributeTok{y.position =} \DecValTok{40}\NormalTok{, }
                      \AttributeTok{tip.length =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{color =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{()}
 
-\CommentTok{\# Figure Relationship × Dimension interaction}
-\NormalTok{h1b }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat.comp, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Relationship, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Sexual desire}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{color =}\NormalTok{ Relationship)) }\SpecialCharTok{+}
+\CommentTok{\# Dimension main effect}
+\NormalTok{h1b }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat.comp, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Dimension, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Sexual desire}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{color =}\NormalTok{ Dimension)) }\SpecialCharTok{+}
   \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Relationship) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Relationship) }\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Dimension) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Dimension) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Dimension) }\SpecialCharTok{+}
   \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1b.tab, }
                 \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ lower.CL, }\AttributeTok{ymax =}\NormalTok{ upper.CL), }
                 \AttributeTok{colour =} \StringTok{"black"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
@@ -2018,13 +1998,37 @@ This figure summarizes the results of hypothesis 1.
              \AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{stat\_pvalue\_manual}\NormalTok{(t.m1b, }
                      \AttributeTok{label =} \StringTok{"p.signif"}\NormalTok{, }
-                     \AttributeTok{y.position =} \FunctionTok{c}\NormalTok{(}\DecValTok{34}\NormalTok{, }\DecValTok{40}\NormalTok{, }\DecValTok{33}\NormalTok{), }
+                     \AttributeTok{y.position =} \FunctionTok{c}\NormalTok{(}\DecValTok{44}\NormalTok{, }\DecValTok{47}\NormalTok{, }\DecValTok{41}\NormalTok{), }
                      \AttributeTok{tip.length =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{label\_wrap}\NormalTok{(}\DecValTok{25}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{color =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{()}
 
-\CommentTok{\# Full figure for hypothesis 1 (a and b)}
-\NormalTok{p1f }\OtherTok{\textless{}{-}} \FunctionTok{ggarrange}\NormalTok{(h1a, h1b,}
-                 \AttributeTok{labels =} \StringTok{"auto"}\NormalTok{,}
+\CommentTok{\# Relationship × Dimension interaction}
+\NormalTok{h1c }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat.comp, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Relationship, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Sexual desire}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{color =}\NormalTok{ Relationship)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Relationship) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Relationship) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Dimension) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1c.tab, }
+                \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ lower.CL, }\AttributeTok{ymax =}\NormalTok{ upper.CL), }
+                \AttributeTok{colour =} \StringTok{"black"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1c.tab, }
+             \AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.1}\NormalTok{), }
+             \AttributeTok{shape =} \DecValTok{21}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{,}
+             \AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_pvalue\_manual}\NormalTok{(t.m1c, }
+                     \AttributeTok{label =} \StringTok{"p.signif"}\NormalTok{, }
+                     \AttributeTok{y.position =} \FunctionTok{c}\NormalTok{(}\DecValTok{34}\NormalTok{, }\DecValTok{40}\NormalTok{, }\DecValTok{33}\NormalTok{), }
+                     \AttributeTok{tip.length =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{color =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_tq}\NormalTok{()}
+
+\CommentTok{\# Full figure for hypothesis 1 (a, b and c)}
+\NormalTok{p1f }\OtherTok{\textless{}{-}} \FunctionTok{ggarrange}\NormalTok{(}\FunctionTok{ggarrange}\NormalTok{(h1a, h1b, }\AttributeTok{labels =} \StringTok{"auto"}\NormalTok{),}
+\NormalTok{                 h1c,}
+                 \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{, }\StringTok{"c"}\NormalTok{),}
                  \AttributeTok{legend =} \StringTok{"bottom"}\NormalTok{,}
                  \AttributeTok{nrow =} \DecValTok{2}\NormalTok{)}
 \NormalTok{p1f}
@@ -2034,7 +2038,7 @@ This figure summarizes the results of hypothesis 1.
 \begin{figure}
 \centering
 \includegraphics{Deseo_excitacion_sexual_files/figure-latex/fig-h1-1.pdf}
-\caption{\label{fig:fig-h1}Differences among the three dimensions of sexual desire (Solitary sexual desire, Dyadic sexual desire (Partner), dyadic sexual desire (Attractive person)). \textbf{(a)} Simple comparison between dimensions of sexual desire (for detailed results, see Table \ref{tab:tab-m1a-emms}); \textbf{(b)} Interaction between relationship type and sexual desire dimension (see Table \ref{tab:tab-m1}; for detailed results, see Table \ref{tab:tab-m1b-emms}). White dots and black bars represent estimated marginal means and 95\% CI. In all cases, significant effects are represented with lines and stars: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
+\caption{\label{fig:fig-h1}Differences among the three dimensions of sexual desire (Solitary sexual desire, Dyadic sexual desire (Partner), dyadic sexual desire (Attractive person)). \textbf{(a)} Simple comparison between sexual desire by gender (for detailed results, see Table \ref{tab:tab-m1a-emms}); \textbf{(b)} Simple comparison between dimensions of sexual desire (for detailed results, see Table \ref{tab:tab-m1b-emms}); \textbf{(c)} Interaction between relationship type and sexual desire dimension (see Table \ref{tab:tab-m1}; for detailed results, see Table \ref{tab:tab-m1c-emms}). White dots and black bars represent estimated marginal means and 95\% CI. In all cases, significant effects are represented with lines and stars: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
 \end{figure}
 
 \hypertarget{hypothesis2}{%
@@ -2306,26 +2310,26 @@ Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual
 
 We further explored significant interactions between gender and stimuli sex using estimated marginal means, as well as comparing subjective sexual arousal between stimuli sex for each participant gender.
 
-Table \ref{tab:tab-m2a-emms-c}. Estimated marginal means and contrasts of subjective arousal between stimuli sex by participant gender
+Table \ref{tab:tab-m2a-emms-a}. Estimated marginal means and contrasts of subjective arousal between stimuli sex by participant gender
 
 Table of estimated marginal means and contrasts between stimuli sex for each participant gender. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package (\protect\hyperlink{ref-emmeanscit}{Lenth, 2022}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{emms.m2a\_c }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2a, }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|}\NormalTok{ Gender,}
+\NormalTok{emms.m2a\_a }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2a, }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|}\NormalTok{ Gender,}
                     \AttributeTok{adjust =} \StringTok{"bonferroni"}\NormalTok{) }\CommentTok{\#asymptotic degrees of freedom}
 
-\NormalTok{emms.m2a\_c.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m2a\_c)) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{emms.m2a\_a.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m2a\_a)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{rename}\NormalTok{(}\StringTok{"Stimuli sex"} \OtherTok{=}\NormalTok{ Stimuli.sex) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\StringTok{"Subjective sexual arousal (p)"} \OtherTok{=}\NormalTok{ emmean)}
 
-\NormalTok{t.m2a\_c }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m2a\_c) }\SpecialCharTok{|\textgreater{}} 
+\NormalTok{t.m2a\_a }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m2a\_a) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value))}
 
-\NormalTok{t.m2a\_c.f }\OtherTok{\textless{}{-}}\NormalTok{ t.m2a\_c }\SpecialCharTok{|\textgreater{}} 
+\NormalTok{t.m2a\_a.f }\OtherTok{\textless{}{-}}\NormalTok{ t.m2a\_a }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{insertRows}\NormalTok{(}\DecValTok{2}\NormalTok{, }\AttributeTok{new =} \ConstantTok{NA}\NormalTok{)}
 
-\FunctionTok{merge}\NormalTok{(emms.m2a\_c.tab, t.m2a\_c.f, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+\FunctionTok{merge}\NormalTok{(emms.m2a\_a.tab, t.m2a\_a.f, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{18}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{unite}\NormalTok{(Contrast, group1, group2, }\AttributeTok{sep =} \StringTok{" {-} "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"Contrast"}\NormalTok{, str\_replace\_all, }\StringTok{"NA {-} NA"}\NormalTok{, }\StringTok{" "}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
@@ -2369,7 +2373,7 @@ Table of estimated marginal means and contrasts between stimuli sex for each par
 
 \begin{table}[H]
 
-\caption{\label{tab:tab-m2a-emms-c}Estimated marginal means of subjective sexual arousal for gender by
+\caption{\label{tab:tab-m2a-emms-a}Estimated marginal means of subjective sexual arousal for gender by
         stimuli sex, in response to erotic stimuli}
 \centering
 \resizebox{\linewidth}{!}{
@@ -2401,17 +2405,17 @@ Stimuli sex & EMM & $SE$ & $2.5\% CI$ & $97.5\% CI$ & Contrast & Difference & $S
 \end{threeparttable}}
 \end{table}
 
-Table \ref{tab:tab-m2a-slo-d}. Slope for Dyadic sexual desire (Attractive person) on Subjective sexual arousal by stimuli sex
+Table \ref{tab:tab-m2a-slo-del}. Slope for Dyadic sexual desire (Attractive person) on Subjective sexual arousal by stimuli sex
 
 Table of estimated slopes for Dyadic sexual desire (Attractive person) on Subjective sexual arousal for each stimuli sex from model 2a. Dyadic sexual desire (Attractive person) values were centered. Slopes were calculated using the \texttt{sim\_slopes} function from the \texttt{interactions} package (\protect\hyperlink{ref-interactionscit}{Long, 2019}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{slop.m2a\_d }\OtherTok{\textless{}{-}} \FunctionTok{sim\_slopes}\NormalTok{(m2a,}
+\NormalTok{slop.m2a\_del }\OtherTok{\textless{}{-}} \FunctionTok{sim\_slopes}\NormalTok{(m2a,}
                          \AttributeTok{pred =} \StringTok{"Dyadic sexual desire (Attractive person) (C)"}\NormalTok{, }
                          \AttributeTok{modx =} \StringTok{"Stimuli sex"}\NormalTok{)}
 
-\NormalTok{slop.m2a\_d.tab }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(slop.m2a\_d}\SpecialCharTok{$}\NormalTok{slopes) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{slop.m2a\_del.tab }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(slop.m2a\_del}\SpecialCharTok{$}\NormalTok{slopes) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\SpecialCharTok{:}\DecValTok{7}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, as.numeric)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, round, }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
@@ -2419,7 +2423,7 @@ Table of estimated slopes for Dyadic sexual desire (Attractive person) on Subjec
   \FunctionTok{rename}\NormalTok{(}\StringTok{"Stimuli sex"} \OtherTok{=} \StringTok{"Value.of.Stimuli.sex"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{rename}\NormalTok{(}\AttributeTok{Coefficient =}\NormalTok{ Est.)}
 
-\NormalTok{slop.m2a\_d.tab[,}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{)] }\SpecialCharTok{|\textgreater{}} 
+\NormalTok{slop.m2a\_del.tab[,}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{)] }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev}\NormalTok{(p)) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
         \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
@@ -2444,7 +2448,7 @@ Table of estimated slopes for Dyadic sexual desire (Attractive person) on Subjec
 
 \begin{table}[H]
 
-\caption{\label{tab:tab-m2a-slo-d}Slope for Dyadic sexual desire (Attractive person) on 
+\caption{\label{tab:tab-m2a-slo-del}Slope for Dyadic sexual desire (Attractive person) on 
         Subjective sexual arousal by stimuli sex}
 \centering
 \begin{threeparttable}
@@ -2465,19 +2469,19 @@ Female & 0.051 & 0.030 & 0.072 & 4.754 & \textbf{< 0.0001}\\
 \end{threeparttable}
 \end{table}
 
-Table \ref{tab:tab-m2a-slo-e}. Slope for Dyadic sexual desire (Attractive person) on Subjective sexual arousal by stimuli sex and gender
+Table \ref{tab:tab-m2a-slo-d}. Slope for Dyadic sexual desire (Attractive person) on Subjective sexual arousal by stimuli sex and gender
 
 Table of estimated slopes for Dyadic sexual desire (Attractive person) on Subjective sexual arousal for each stimuli sex and gender from model 2a. Dyadic sexual desire (Attractive person) values were centered. Slopes were calculated using the \texttt{sim\_slopes} function from the \texttt{interactions} package (\protect\hyperlink{ref-interactionscit}{Long, 2019}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{slop.m2a\_e }\OtherTok{\textless{}{-}} \FunctionTok{sim\_slopes}\NormalTok{(m2a, }
+\NormalTok{slop.m2a\_d }\OtherTok{\textless{}{-}} \FunctionTok{sim\_slopes}\NormalTok{(m2a, }
                          \AttributeTok{pred =} \StringTok{"Dyadic sexual desire (Attractive person) (C)"}\NormalTok{, }
                          \AttributeTok{mod2 =} \StringTok{"Gender"}\NormalTok{,}
                          \AttributeTok{modx =} \StringTok{"Stimuli sex"}\NormalTok{)}
 
-\NormalTok{slop.m2a\_e.tab }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(slop.m2a\_e}\SpecialCharTok{$}\NormalTok{slopes[}\DecValTok{1}\NormalTok{]),}
-                        \FunctionTok{data.frame}\NormalTok{(slop.m2a\_e}\SpecialCharTok{$}\NormalTok{slopes[}\DecValTok{2}\NormalTok{])) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{slop.m2a\_d.tab }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(slop.m2a\_d}\SpecialCharTok{$}\NormalTok{slopes[}\DecValTok{1}\NormalTok{]),}
+                        \FunctionTok{data.frame}\NormalTok{(slop.m2a\_d}\SpecialCharTok{$}\NormalTok{slopes[}\DecValTok{2}\NormalTok{])) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\SpecialCharTok{:}\DecValTok{7}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, as.numeric)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, round, }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
@@ -2487,7 +2491,18 @@ Table of estimated slopes for Dyadic sexual desire (Attractive person) on Subjec
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Gender =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Women"}\NormalTok{, }\StringTok{"Men"}\NormalTok{), }\AttributeTok{each =} \DecValTok{2}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\DecValTok{8}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{7}\NormalTok{)}
 
-\NormalTok{slop.m2a\_e.tab[,}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{8}\NormalTok{)] }\SpecialCharTok{|\textgreater{}} 
+\NormalTok{slop.m2a\_d.int }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(slop.m2a\_d}\SpecialCharTok{$}\NormalTok{ints[}\DecValTok{1}\NormalTok{]),}
+                        \FunctionTok{data.frame}\NormalTok{(slop.m2a\_d}\SpecialCharTok{$}\NormalTok{ints[}\DecValTok{2}\NormalTok{])) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\SpecialCharTok{:}\DecValTok{7}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, as.numeric)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, round, }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{sig =} \FunctionTok{pval.stars}\NormalTok{(p)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{rename}\NormalTok{(}\StringTok{"Stimuli sex"} \OtherTok{=} \StringTok{"Value.of.Stimuli.sex"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Coefficient =}\NormalTok{ Est.) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Gender =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Women"}\NormalTok{, }\StringTok{"Men"}\NormalTok{), }\AttributeTok{each =} \DecValTok{2}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\DecValTok{8}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{7}\NormalTok{)}
+
+\NormalTok{slop.m2a\_d.tab[,}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{8}\NormalTok{)] }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev}\NormalTok{(p)) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
         \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{4}\NormalTok{)),}
@@ -2514,7 +2529,7 @@ Table of estimated slopes for Dyadic sexual desire (Attractive person) on Subjec
 
 \begin{table}[H]
 
-\caption{\label{tab:tab-m2a-slo-e}Slope for Dyadic sexual desire (Attractive person) on 
+\caption{\label{tab:tab-m2a-slo-d}Slope for Dyadic sexual desire (Attractive person) on 
         Subjective sexual arousal by stimuli sex and gender}
 \centering
 \begin{threeparttable}
@@ -2540,19 +2555,19 @@ Gender & Stimuli sex & $B$ & $2.5\% CI$ & $97.5\% CI$ & $t$ & $p$\\
 \end{threeparttable}
 \end{table}
 
-Table \ref{tab:tab-m2a-slo-f}. Slope for Dyadic sexual desire (Partner) on Subjective sexual arousal by relationship type and gender
+Table \ref{tab:tab-m2a-slo-e}. Slope for Dyadic sexual desire (Partner) on Subjective sexual arousal by relationship type and gender
 
 Table of estimated slopes for Dyadic sexual desire (Partner) on Subjective sexual arousal for each relationship type and gender from model 2a. Dyadic sexual desire (Partner) were centered Slopes were calculated using the \texttt{sim\_slopes} function from the \texttt{interactions} package (\protect\hyperlink{ref-interactionscit}{Long, 2019}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{slop.m2a\_f }\OtherTok{\textless{}{-}} \FunctionTok{sim\_slopes}\NormalTok{(m2a, }
+\NormalTok{slop.m2a\_e }\OtherTok{\textless{}{-}} \FunctionTok{sim\_slopes}\NormalTok{(m2a, }
                          \AttributeTok{pred =} \StringTok{"Dyadic sexual desire (Partner) (C)"}\NormalTok{, }
                          \AttributeTok{mod2 =} \StringTok{"Gender"}\NormalTok{,}
                          \AttributeTok{modx =} \StringTok{"Relationship"}\NormalTok{)}
 
-\NormalTok{slop.m2a\_f.tab }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(slop.m2a\_f}\SpecialCharTok{$}\NormalTok{slopes[}\DecValTok{1}\NormalTok{]),}
-                        \FunctionTok{data.frame}\NormalTok{(slop.m2a\_f}\SpecialCharTok{$}\NormalTok{slopes[}\DecValTok{2}\NormalTok{])) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{slop.m2a\_e.tab }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(slop.m2a\_e}\SpecialCharTok{$}\NormalTok{slopes[}\DecValTok{1}\NormalTok{]),}
+                        \FunctionTok{data.frame}\NormalTok{(slop.m2a\_e}\SpecialCharTok{$}\NormalTok{slopes[}\DecValTok{2}\NormalTok{])) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\SpecialCharTok{:}\DecValTok{7}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, as.numeric)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, round, }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
@@ -2562,7 +2577,18 @@ Table of estimated slopes for Dyadic sexual desire (Partner) on Subjective sexua
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Gender =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Women"}\NormalTok{, }\StringTok{"Men"}\NormalTok{), }\AttributeTok{each =} \DecValTok{2}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\DecValTok{8}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{7}\NormalTok{)}
 
-\NormalTok{slop.m2a\_f.tab[,}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{8}\NormalTok{)] }\SpecialCharTok{|\textgreater{}} 
+\NormalTok{slop.m2a\_e.int }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(slop.m2a\_e}\SpecialCharTok{$}\NormalTok{ints[}\DecValTok{1}\NormalTok{]),}
+                        \FunctionTok{data.frame}\NormalTok{(slop.m2a\_e}\SpecialCharTok{$}\NormalTok{ints[}\DecValTok{2}\NormalTok{])) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\SpecialCharTok{:}\DecValTok{7}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, as.numeric)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, round, }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{sig =} \FunctionTok{pval.stars}\NormalTok{(p)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{rename}\NormalTok{(}\StringTok{"Relationship"} \OtherTok{=} \StringTok{"Value.of.Relationship"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Coefficient =}\NormalTok{ Est.) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Gender =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Women"}\NormalTok{, }\StringTok{"Men"}\NormalTok{), }\AttributeTok{each =} \DecValTok{2}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\DecValTok{8}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{7}\NormalTok{)}
+
+\NormalTok{slop.m2a\_e.tab[,}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{8}\NormalTok{)] }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev}\NormalTok{(p)) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
         \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
@@ -2589,7 +2615,7 @@ Table of estimated slopes for Dyadic sexual desire (Partner) on Subjective sexua
 
 \begin{table}[H]
 
-\caption{\label{tab:tab-m2a-slo-f}Slope for Dyadic sexual desire (Partner) on 
+\caption{\label{tab:tab-m2a-slo-e}Slope for Dyadic sexual desire (Partner) on 
         Subjective sexual arousal by relationship type and gender}
 \centering
 \begin{threeparttable}
@@ -2615,19 +2641,19 @@ Gender & Relationship & $B$ & $2.5\% CI$ & $97.5\% CI$ & $t$ & $p$\\
 \end{threeparttable}
 \end{table}
 
-Table \ref{tab:tab-m2a-slo-g}. Slope for Dyadic sexual desire (Partner) on Subjective sexual arousal by relationship type and stimuli sex
+Table \ref{tab:tab-m2a-slo-f}. Slope for Dyadic sexual desire (Partner) on Subjective sexual arousal by relationship type and stimuli sex
 
 Table of estimated slopes for Dyadic sexual desire (Partner) on Subjective sexual arousal for each relationship type and stimuli sex from model 2a. Dyadic sexual desire (Partner) were centered Slopes were calculated using the \texttt{sim\_slopes} function from the \texttt{interactions} package (\protect\hyperlink{ref-interactionscit}{Long, 2019}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{slop.m2a\_g }\OtherTok{\textless{}{-}} \FunctionTok{sim\_slopes}\NormalTok{(m2a, }
+\NormalTok{slop.m2a\_f }\OtherTok{\textless{}{-}} \FunctionTok{sim\_slopes}\NormalTok{(m2a, }
                          \AttributeTok{pred =} \StringTok{"Dyadic sexual desire (Partner) (C)"}\NormalTok{, }
                          \AttributeTok{mod2 =} \StringTok{"Stimuli sex"}\NormalTok{,}
                          \AttributeTok{modx =} \StringTok{"Relationship"}\NormalTok{)}
 
-\NormalTok{slop.m2a\_g.tab }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(slop.m2a\_g}\SpecialCharTok{$}\NormalTok{slopes[}\DecValTok{1}\NormalTok{]),}
-                        \FunctionTok{data.frame}\NormalTok{(slop.m2a\_g}\SpecialCharTok{$}\NormalTok{slopes[}\DecValTok{2}\NormalTok{])) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{slop.m2a\_f.tab }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(slop.m2a\_f}\SpecialCharTok{$}\NormalTok{slopes[}\DecValTok{1}\NormalTok{]),}
+                        \FunctionTok{data.frame}\NormalTok{(slop.m2a\_f}\SpecialCharTok{$}\NormalTok{slopes[}\DecValTok{2}\NormalTok{])) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\SpecialCharTok{:}\DecValTok{7}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, as.numeric)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, round, }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
@@ -2637,7 +2663,18 @@ Table of estimated slopes for Dyadic sexual desire (Partner) on Subjective sexua
   \FunctionTok{mutate}\NormalTok{(}\StringTok{"Stimuli sex"} \OtherTok{=} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{), }\AttributeTok{each =} \DecValTok{2}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\DecValTok{8}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{7}\NormalTok{)}
 
-\NormalTok{slop.m2a\_g.tab[,}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{8}\NormalTok{)] }\SpecialCharTok{|\textgreater{}} 
+\NormalTok{slop.m2a\_f.int }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(slop.m2a\_f}\SpecialCharTok{$}\NormalTok{ints[}\DecValTok{1}\NormalTok{]),}
+                        \FunctionTok{data.frame}\NormalTok{(slop.m2a\_f}\SpecialCharTok{$}\NormalTok{ints[}\DecValTok{2}\NormalTok{])) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\SpecialCharTok{:}\DecValTok{7}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, as.numeric)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, round, }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{sig =} \FunctionTok{pval.stars}\NormalTok{(p)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{rename}\NormalTok{(}\StringTok{"Relationship"} \OtherTok{=} \StringTok{"Value.of.Relationship"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Coefficient =}\NormalTok{ Est.) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{"Stimuli sex"} \OtherTok{=} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{), }\AttributeTok{each =} \DecValTok{2}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\DecValTok{8}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{7}\NormalTok{)}
+
+\NormalTok{slop.m2a\_f.tab[,}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{8}\NormalTok{)] }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev}\NormalTok{(p)) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
         \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{4}\NormalTok{)),}
@@ -2664,7 +2701,7 @@ Table of estimated slopes for Dyadic sexual desire (Partner) on Subjective sexua
 
 \begin{table}[H]
 
-\caption{\label{tab:tab-m2a-slo-g}Slope for Dyadic sexual desire (Partner) on 
+\caption{\label{tab:tab-m2a-slo-f}Slope for Dyadic sexual desire (Partner) on 
         Subjective sexual arousal by relationship type and stimuli sex}
 \centering
 \begin{threeparttable}
@@ -2701,8 +2738,32 @@ This figure summarizes the results of hypothesis 2a.
 \NormalTok{m2a.dat }\OtherTok{\textless{}{-}}\NormalTok{ m2a}\SpecialCharTok{@}\NormalTok{frame }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{predict}\NormalTok{(m2a))}
 
+\CommentTok{\# Figure interaction between Stimuli sex and gender}
+\NormalTok{p2a.a }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2a.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, }
+                             \AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}}\NormalTok{, }
+                             \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.01}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Gender) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m2a\_a.tab, }
+                \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL), }
+                \AttributeTok{colour =} \StringTok{"black"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m2a\_a.tab, }
+             \AttributeTok{shape =} \DecValTok{21}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{,}
+             \AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_pvalue\_manual}\NormalTok{(t.m2a\_a, }
+                     \AttributeTok{label =} \StringTok{"p.signif"}\NormalTok{, }
+                     \AttributeTok{y.position =} \FunctionTok{c}\NormalTok{(}\FloatTok{7.4}\NormalTok{,}\FloatTok{7.8}\NormalTok{), }
+                     \AttributeTok{tip.length =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Subjective sexual}\SpecialCharTok{\textbackslash{}n}\StringTok{arousal (predicted)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{8.5}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+
 \DocumentationTok{\#\# Extract slope data from model summary for main effects of continuous predictors}
-\NormalTok{slop.m2a\_ab.tab }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\FunctionTok{summary}\NormalTok{(m2a)}\SpecialCharTok{$}\NormalTok{coefficients) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{slop.m2a\_bc.tab }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\FunctionTok{summary}\NormalTok{(m2a)}\SpecialCharTok{$}\NormalTok{coefficients) }\SpecialCharTok{|\textgreater{}}
                                \FunctionTok{rownames\_to\_column}\NormalTok{(),}
                              \FunctionTok{data.frame}\NormalTok{(m2aCI) }\SpecialCharTok{|\textgreater{}}
                                \FunctionTok{rownames\_to\_column}\NormalTok{(),}
@@ -2712,231 +2773,220 @@ This figure summarizes the results of hypothesis 2a.
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Pr...t.. =} \FunctionTok{pval.lev2}\NormalTok{(Pr...t..))}
 
 \CommentTok{\# Figure main effect of Solitary sexual desire on Subjective sexual arousal}
-\NormalTok{p2a.a }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2a.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Solitary sexual desire (C)}\StringTok{\textasciigrave{}}\NormalTok{, }
+\NormalTok{p2a.b }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2a.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Solitary sexual desire (C)}\StringTok{\textasciigrave{}}\NormalTok{, }
                              \AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =}  \FloatTok{0.01}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Subjective sexual}\SpecialCharTok{\textbackslash{}n}\StringTok{arousal (predicted)"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_ab.tab[}\DecValTok{1}\NormalTok{,],}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{""}\NormalTok{)  }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_bc.tab[}\DecValTok{1}\NormalTok{,],}
             \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =}\ConstantTok{Inf}\NormalTok{,}
                           \AttributeTok{vjust =} \DecValTok{2}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_ab.tab[}\DecValTok{1}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Estimate,}
+            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_bc.tab[}\DecValTok{1}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Estimate,}
                           \StringTok{", IC 95\%["}\NormalTok{,}
-                          \FunctionTok{paste}\NormalTok{(slop.m2a\_ab.tab[}\DecValTok{1}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{X2.}\DecValTok{5}\NormalTok{..,}
-\NormalTok{                                slop.m2a\_ab.tab[}\DecValTok{1}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{X97.}\DecValTok{5}\NormalTok{..,}
+                          \FunctionTok{paste}\NormalTok{(slop.m2a\_bc.tab[}\DecValTok{1}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{X2.}\DecValTok{5}\NormalTok{..,}
+\NormalTok{                                slop.m2a\_bc.tab[}\DecValTok{1}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{X97.}\DecValTok{5}\NormalTok{..,}
                                 \AttributeTok{sep =} \StringTok{", "}\NormalTok{),}
-                          \StringTok{"], p"}\NormalTok{, slop.m2a\_ab.tab[}\DecValTok{1}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Pr...t.., }\StringTok{"*"}\NormalTok{),}
+                          \StringTok{"], p"}\NormalTok{, slop.m2a\_bc.tab[}\DecValTok{1}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Pr...t.., }\StringTok{"*"}\NormalTok{),}
             \AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{()}
 
 \CommentTok{\# Figure main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal}
-\NormalTok{p2a.b }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2a.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Attractive person) (C)}\StringTok{\textasciigrave{}}\NormalTok{, }
+\NormalTok{p2a.c }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2a.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Attractive person) (C)}\StringTok{\textasciigrave{}}\NormalTok{, }
                              \AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =}  \FloatTok{0.01}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{" }\SpecialCharTok{\textbackslash{}n}\StringTok{ "}\NormalTok{)  }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_ab.tab[}\DecValTok{2}\NormalTok{,],}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{""}\NormalTok{)  }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_bc.tab[}\DecValTok{2}\NormalTok{,],}
             \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{,}
             \AttributeTok{vjust =} \DecValTok{2}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_ab.tab[}\DecValTok{2}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Estimate, }
-                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_ab.tab[}\DecValTok{2}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{X2.}\DecValTok{5}\NormalTok{..,}
-\NormalTok{                                             slop.m2a\_ab.tab[}\DecValTok{2}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{X97.}\DecValTok{5}\NormalTok{.., }
+            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_bc.tab[}\DecValTok{2}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Estimate, }
+                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_bc.tab[}\DecValTok{2}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{X2.}\DecValTok{5}\NormalTok{..,}
+\NormalTok{                                             slop.m2a\_bc.tab[}\DecValTok{2}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{X97.}\DecValTok{5}\NormalTok{.., }
                                              \AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
-                          \StringTok{"], p"}\NormalTok{, slop.m2a\_ab.tab[}\DecValTok{2}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Pr...t.., }\StringTok{"****"}\NormalTok{),}
+                          \StringTok{"], p"}\NormalTok{, slop.m2a\_bc.tab[}\DecValTok{2}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Pr...t.., }\StringTok{"****"}\NormalTok{),}
             \AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{()}
 
-\CommentTok{\# Figure interaction between Stimuli sex and gender}
-\NormalTok{p2a.c }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2a.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, }
-                             \AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}}\NormalTok{, }
-                             \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.01}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Gender) }\SpecialCharTok{+}
-  \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m2a\_c.tab, }
-                \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL), }
-                \AttributeTok{colour =} \StringTok{"black"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m2a\_c.tab, }
-             \AttributeTok{shape =} \DecValTok{21}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{,}
-             \AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_pvalue\_manual}\NormalTok{(t.m2a\_c, }
-                     \AttributeTok{label =} \StringTok{"p.signif"}\NormalTok{, }
-                     \AttributeTok{y.position =} \FunctionTok{c}\NormalTok{(}\FloatTok{7.4}\NormalTok{,}\FloatTok{7.8}\NormalTok{), }
-                     \AttributeTok{tip.length =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Subjective sexual}\SpecialCharTok{\textbackslash{}n}\StringTok{arousal (predicted)"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{8.5}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
-
-\CommentTok{\# Figure interaction between Stimuli sex and Dyadic sexual desire (Attractive person)}
+\CommentTok{\# Figure interaction between Stimuli sex, gender and Dyadic sexual desire (Attractive person)}
 \DocumentationTok{\#\# Extract data for by stimuli sex}
-\NormalTok{slop.m2a\_d.tab\_f }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_d.tab, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Female"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{slop.m2a\_d.tab.plot\_f }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_d.tab, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Female"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev2}\NormalTok{(p))}
-\NormalTok{slop.m2a\_d.tab\_m }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_d.tab, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Male"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{slop.m2a\_d.tab.plot\_m }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_d.tab, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Male"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev2}\NormalTok{(p))}
+
+\NormalTok{slop.m2a\_d.tab.plot }\OtherTok{\textless{}{-}}\NormalTok{ slop.m2a\_d.tab }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Int =}\NormalTok{ slop.m2a\_d.int}\SpecialCharTok{$}\NormalTok{Coefficient) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(Gender)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev2}\NormalTok{(p))}
+\NormalTok{slop.m2a\_d.tab.plot\_f }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_d.tab.plot, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Female"}\NormalTok{)}
+\NormalTok{slop.m2a\_d.tab.plot\_m }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_d.tab.plot, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Male"}\NormalTok{)}
 \DocumentationTok{\#\# Plot}
 \NormalTok{p2a.d }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2a.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Attractive person) (C)}\StringTok{\textasciigrave{}}\NormalTok{,}
                              \AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}}\NormalTok{,}
                              \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{fill =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.01}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.4}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{fullrange =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_d.tab.plot\_f,}
+              \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ Coefficient, }
+                  \AttributeTok{intercept =}\NormalTok{ Int,}
+                  \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{),}
+              \AttributeTok{show.legend =} \ConstantTok{NA}\NormalTok{,}
+              \AttributeTok{color =}\NormalTok{ color.StimuliSex[}\DecValTok{1}\NormalTok{],}
+              \AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_d.tab.plot\_m,}
+              \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ Coefficient, }
+                  \AttributeTok{intercept =}\NormalTok{ Int,}
+                  \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{),}
+              \AttributeTok{show.legend =} \ConstantTok{NA}\NormalTok{,}
+              \AttributeTok{color =}\NormalTok{ color.StimuliSex[}\DecValTok{2}\NormalTok{],}
+              \AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{colour =} \FunctionTok{guide\_legend}\NormalTok{(}\AttributeTok{override.aes =} \FunctionTok{list}\NormalTok{(}\AttributeTok{alpha =} \DecValTok{1}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{))) }\SpecialCharTok{+}
   \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_d.tab\_f,}
-            \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{,}
-            \AttributeTok{vjust =} \DecValTok{2}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
-            \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{,}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_d.tab\_f}\SpecialCharTok{$}\NormalTok{Coefficient, }
-                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_d.tab\_f}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
-\NormalTok{                                             slop.m2a\_d.tab\_f}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
-                          \StringTok{"], p"}\NormalTok{, slop.m2a\_d.tab\_f}\SpecialCharTok{$}\NormalTok{p, }
-                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2a\_d.tab\_f}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2a\_d.tab\_f}\SpecialCharTok{$}\NormalTok{sig)),}
-            \AttributeTok{color =}\NormalTok{ color.StimuliSex[}\DecValTok{1}\NormalTok{], }\AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_d.tab\_m,}
-            \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{,}
-            \AttributeTok{vjust =} \DecValTok{4}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
-            \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{,}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_d.tab\_m}\SpecialCharTok{$}\NormalTok{Coefficient, }
-                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_d.tab\_m}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
-\NormalTok{                                             slop.m2a\_d.tab\_m}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
-                          \StringTok{"], p"}\NormalTok{, slop.m2a\_d.tab\_m}\SpecialCharTok{$}\NormalTok{p, }
-                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2a\_d.tab\_m}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2a\_d.tab\_m}\SpecialCharTok{$}\NormalTok{sig)),}
-            \AttributeTok{color =}\NormalTok{ color.StimuliSex[}\DecValTok{2}\NormalTok{], }\AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Subjective sexual}\SpecialCharTok{\textbackslash{}n}\StringTok{arousal (predicted)"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{theme\_tq}\NormalTok{()}
-
-\CommentTok{\# Figure interaction between Stimuli sex, gender and Dyadic sexual desire (Attractive person)}
-\DocumentationTok{\#\# Extract data for by stimuli sex}
-\NormalTok{slop.m2a\_e.tab\_f }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_e.tab, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Female"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev2}\NormalTok{(p))}
-\NormalTok{slop.m2a\_e.tab\_m }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_e.tab, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Male"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev2}\NormalTok{(p))}
-\DocumentationTok{\#\# Plot}
-\NormalTok{p2a.e }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2a.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Attractive person) (C)}\StringTok{\textasciigrave{}}\NormalTok{,}
-                             \AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}}\NormalTok{,}
-                             \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{fill =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.01}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.4}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{fullrange =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\FunctionTok{fct\_relevel}\NormalTok{(Gender, }\StringTok{"Women"}\NormalTok{, }\StringTok{"Men"}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_e.tab\_f,}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_d.tab.plot\_f,}
             \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{,}
             \AttributeTok{vjust =} \DecValTok{2}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
             \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{,}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_e.tab\_f}\SpecialCharTok{$}\NormalTok{Coefficient, }
-                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_e.tab\_f}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
-\NormalTok{                                             slop.m2a\_e.tab\_f}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
-                          \StringTok{"], p"}\NormalTok{, slop.m2a\_e.tab\_f}\SpecialCharTok{$}\NormalTok{p, }
-                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2a\_e.tab\_f}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2a\_e.tab\_f}\SpecialCharTok{$}\NormalTok{sig)),}
+            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_d.tab.plot\_f}\SpecialCharTok{$}\NormalTok{Coefficient, }
+                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_d.tab.plot\_f}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
+\NormalTok{                                             slop.m2a\_d.tab.plot\_f}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
+                          \StringTok{"], p"}\NormalTok{, slop.m2a\_d.tab.plot\_f}\SpecialCharTok{$}\NormalTok{p, }
+                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2a\_d.tab.plot\_f}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2a\_d.tab.plot\_f}\SpecialCharTok{$}\NormalTok{sig)),}
             \AttributeTok{color =}\NormalTok{ color.StimuliSex[}\DecValTok{1}\NormalTok{], }\AttributeTok{size =} \FloatTok{2.5}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_e.tab\_m,}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_d.tab.plot\_m,}
             \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{,}
             \AttributeTok{vjust =} \DecValTok{4}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
             \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{,}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_e.tab\_m}\SpecialCharTok{$}\NormalTok{Coefficient, }
-                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_e.tab\_m}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
-\NormalTok{                                             slop.m2a\_e.tab\_m}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
-                          \StringTok{"], p"}\NormalTok{, slop.m2a\_e.tab\_m}\SpecialCharTok{$}\NormalTok{p, }
-                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2a\_e.tab\_m}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2a\_e.tab\_m}\SpecialCharTok{$}\NormalTok{sig)),}
+            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_d.tab.plot\_m}\SpecialCharTok{$}\NormalTok{Coefficient, }
+                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_d.tab.plot\_m}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
+\NormalTok{                                             slop.m2a\_d.tab.plot\_m}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
+                          \StringTok{"], p"}\NormalTok{, slop.m2a\_d.tab.plot\_m}\SpecialCharTok{$}\NormalTok{p, }
+                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2a\_d.tab.plot\_m}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2a\_d.tab.plot\_m}\SpecialCharTok{$}\NormalTok{sig)),}
             \AttributeTok{color =}\NormalTok{ color.StimuliSex[}\DecValTok{2}\NormalTok{], }\AttributeTok{size =} \FloatTok{2.5}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{" }\SpecialCharTok{\textbackslash{}n}\StringTok{ "}\NormalTok{)  }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Subjective sexual}\SpecialCharTok{\textbackslash{}n}\StringTok{arousal (predicted)"}\NormalTok{) }\SpecialCharTok{+} 
   \FunctionTok{theme\_tq}\NormalTok{()}
 
 \CommentTok{\# Figure interaction between Relationship, gender and Dyadic sexual desire (Partner)}
-\DocumentationTok{\#\# Extract data for by stimuli sex}
-\NormalTok{slop.m2a\_f.tab\_sta }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_f.tab, Relationship }\SpecialCharTok{==} \StringTok{"Stable"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+\DocumentationTok{\#\# Extract data by relationship type}
+\NormalTok{slop.m2a\_e.tab.plot }\OtherTok{\textless{}{-}}\NormalTok{ slop.m2a\_e.tab }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Int =}\NormalTok{ slop.m2a\_e.int}\SpecialCharTok{$}\NormalTok{Coefficient) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(Gender)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev2}\NormalTok{(p))}
-\NormalTok{slop.m2a\_f.tab\_sin }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_f.tab, Relationship }\SpecialCharTok{==} \StringTok{"Single"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev2}\NormalTok{(p))}
+\NormalTok{slop.m2a\_e.tab.plot\_sta }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_e.tab.plot, Relationship }\SpecialCharTok{==} \StringTok{"Stable"}\NormalTok{)}
+\NormalTok{slop.m2a\_e.tab.plot\_sin }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_e.tab.plot, Relationship }\SpecialCharTok{==} \StringTok{"Single"}\NormalTok{)}
 \DocumentationTok{\#\# Plot}
-\NormalTok{p2a.f }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2a.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner) (C)}\StringTok{\textasciigrave{}}\NormalTok{,}
+\NormalTok{p2a.e }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2a.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner) (C)}\StringTok{\textasciigrave{}}\NormalTok{,}
                              \AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}}\NormalTok{,}
                              \AttributeTok{color =}\NormalTok{ Relationship, }\AttributeTok{fill =}\NormalTok{ Relationship)) }\SpecialCharTok{+}
   \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.01}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.4}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{fullrange =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_e.tab.plot\_sta,}
+              \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ Coefficient, }
+                  \AttributeTok{intercept =}\NormalTok{ Int,}
+                  \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{),}
+              \AttributeTok{show.legend =} \ConstantTok{NA}\NormalTok{,}
+              \AttributeTok{color =}\NormalTok{ color.Relationship[}\DecValTok{1}\NormalTok{],}
+              \AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_e.tab.plot\_sin,}
+              \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ Coefficient, }
+                  \AttributeTok{intercept =}\NormalTok{ Int,}
+                  \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{),}
+              \AttributeTok{show.legend =} \ConstantTok{NA}\NormalTok{,}
+              \AttributeTok{color =}\NormalTok{ color.Relationship[}\DecValTok{2}\NormalTok{],}
+              \AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{colour =} \FunctionTok{guide\_legend}\NormalTok{(}\AttributeTok{override.aes =} \FunctionTok{list}\NormalTok{(}\AttributeTok{alpha =} \DecValTok{1}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{))) }\SpecialCharTok{+}
   \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Relationship) }\SpecialCharTok{+}
   \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Relationship) }\SpecialCharTok{+}
   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\FunctionTok{fct\_relevel}\NormalTok{(Gender, }\StringTok{"Women"}\NormalTok{, }\StringTok{"Men"}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_f.tab\_sta,}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_e.tab.plot\_sta,}
             \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{,}
             \AttributeTok{vjust =} \DecValTok{2}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_f.tab\_sta}\SpecialCharTok{$}\NormalTok{Coefficient, }
-                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_f.tab\_sta}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
-\NormalTok{                                             slop.m2a\_f.tab\_sta}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
-                          \StringTok{"], p"}\NormalTok{, slop.m2a\_f.tab\_sta}\SpecialCharTok{$}\NormalTok{p, }
-                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2a\_f.tab\_sta}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2a\_f.tab\_sta}\SpecialCharTok{$}\NormalTok{sig)),}
+            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_e.tab.plot\_sta}\SpecialCharTok{$}\NormalTok{Coefficient, }
+                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_e.tab.plot\_sta}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
+\NormalTok{                                             slop.m2a\_e.tab.plot\_sta}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
+                          \StringTok{"], p"}\NormalTok{, slop.m2a\_e.tab.plot\_sta}\SpecialCharTok{$}\NormalTok{p, }
+                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2a\_e.tab.plot\_sta}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, }
+\NormalTok{                                 slop.m2a\_e.tab.plot\_sta}\SpecialCharTok{$}\NormalTok{sig)),}
             \AttributeTok{color =}\NormalTok{ color.Relationship[}\DecValTok{1}\NormalTok{], }\AttributeTok{size =} \FloatTok{2.5}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_f.tab\_sin,}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_e.tab.plot\_sin,}
             \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{,}
             \AttributeTok{vjust =} \DecValTok{4}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_f.tab\_sin}\SpecialCharTok{$}\NormalTok{Coefficient, }
-                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_f.tab\_sin}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
-\NormalTok{                                             slop.m2a\_f.tab\_sin}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
-                          \StringTok{"], p"}\NormalTok{, slop.m2a\_f.tab\_sin}\SpecialCharTok{$}\NormalTok{p, }
-                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2a\_f.tab\_sin}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2a\_f.tab\_sin}\SpecialCharTok{$}\NormalTok{sig)),}
+            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_e.tab.plot\_sin}\SpecialCharTok{$}\NormalTok{Coefficient, }
+                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_e.tab.plot\_sin}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
+\NormalTok{                                             slop.m2a\_e.tab.plot\_sin}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
+                          \StringTok{"], p"}\NormalTok{, slop.m2a\_e.tab.plot\_sin}\SpecialCharTok{$}\NormalTok{p, }
+                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2a\_e.tab.plot\_sin}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2a\_e.tab.plot\_sin}\SpecialCharTok{$}\NormalTok{sig)),}
             \AttributeTok{color =}\NormalTok{ color.Relationship[}\DecValTok{2}\NormalTok{], }\AttributeTok{size =} \FloatTok{2.5}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Subjective sexual}\SpecialCharTok{\textbackslash{}n}\StringTok{arousal (predicted)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{()}
 
 \CommentTok{\# Figure interaction between Relationship, Stimuli sex and Dyadic sexual desire (Partner)}
-\DocumentationTok{\#\# Extract data for by stimuli sex}
-\NormalTok{slop.m2a\_g.tab\_sta }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_g.tab, Relationship }\SpecialCharTok{==} \StringTok{"Stable"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+\DocumentationTok{\#\# Extract data by relationship type}
+\NormalTok{slop.m2a\_f.tab.plot }\OtherTok{\textless{}{-}}\NormalTok{ slop.m2a\_f.tab }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Int =}\NormalTok{ slop.m2a\_f.int}\SpecialCharTok{$}\NormalTok{Coefficient) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{arrange}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev2}\NormalTok{(p))}
-\NormalTok{slop.m2a\_g.tab\_sin }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_g.tab, Relationship }\SpecialCharTok{==} \StringTok{"Single"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev2}\NormalTok{(p))}
+\NormalTok{slop.m2a\_f.tab.plot\_sta }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_f.tab.plot, Relationship }\SpecialCharTok{==} \StringTok{"Stable"}\NormalTok{)}
+\NormalTok{slop.m2a\_f.tab.plot\_sin }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2a\_f.tab.plot, Relationship }\SpecialCharTok{==} \StringTok{"Single"}\NormalTok{)}
 \DocumentationTok{\#\# Plot}
-\NormalTok{p2a.g }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2a.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner) (C)}\StringTok{\textasciigrave{}}\NormalTok{,}
+\NormalTok{p2a.f }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2a.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner) (C)}\StringTok{\textasciigrave{}}\NormalTok{,}
                              \AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}}\NormalTok{,}
                              \AttributeTok{color =}\NormalTok{ Relationship, }\AttributeTok{fill =}\NormalTok{ Relationship)) }\SpecialCharTok{+}
   \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.01}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.4}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{fullrange =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_f.tab.plot\_sta,}
+              \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ Coefficient, }
+                  \AttributeTok{intercept =}\NormalTok{ Int,}
+                  \AttributeTok{color =}\NormalTok{ Relationship),}
+              \AttributeTok{show.legend =} \ConstantTok{NA}\NormalTok{,}
+              \AttributeTok{color =}\NormalTok{ color.Relationship[}\DecValTok{1}\NormalTok{],}
+              \AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_f.tab.plot\_sin,}
+              \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ Coefficient, }
+                  \AttributeTok{intercept =}\NormalTok{ Int,}
+                  \AttributeTok{color =}\NormalTok{ Relationship),}
+              \AttributeTok{show.legend =} \ConstantTok{NA}\NormalTok{,}
+              \AttributeTok{color =}\NormalTok{ color.Relationship[}\DecValTok{2}\NormalTok{],}
+              \AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{colour =} \FunctionTok{guide\_legend}\NormalTok{(}\AttributeTok{override.aes =} \FunctionTok{list}\NormalTok{(}\AttributeTok{alpha =} \DecValTok{1}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{))) }\SpecialCharTok{+}
   \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Relationship) }\SpecialCharTok{+}
   \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Relationship) }\SpecialCharTok{+}
   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\ErrorTok{\textasciitilde{}}\FunctionTok{fct\_relevel}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_g.tab\_sta,}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_f.tab.plot\_sta,}
             \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{,}
             \AttributeTok{vjust =} \DecValTok{2}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_g.tab\_sta}\SpecialCharTok{$}\NormalTok{Coefficient, }
-                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_g.tab\_sta}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
-\NormalTok{                                             slop.m2a\_g.tab\_sta}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
-                          \StringTok{"], p"}\NormalTok{, slop.m2a\_g.tab\_sta}\SpecialCharTok{$}\NormalTok{p, }
-                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2a\_g.tab\_sta}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2a\_g.tab\_sta}\SpecialCharTok{$}\NormalTok{sig)),}
+            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_f.tab.plot\_sta}\SpecialCharTok{$}\NormalTok{Coefficient, }
+                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_f.tab.plot\_sta}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
+\NormalTok{                                             slop.m2a\_f.tab.plot\_sta}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
+                          \StringTok{"], p"}\NormalTok{, slop.m2a\_f.tab.plot\_sta}\SpecialCharTok{$}\NormalTok{p, }
+                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2a\_f.tab.plot\_sta}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, }
+\NormalTok{                                 slop.m2a\_f.tab.plot\_sta}\SpecialCharTok{$}\NormalTok{sig)),}
             \AttributeTok{color =}\NormalTok{ color.Relationship[}\DecValTok{1}\NormalTok{], }\AttributeTok{size =} \FloatTok{2.5}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_g.tab\_sin,}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2a\_f.tab.plot\_sin,}
             \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{,}
             \AttributeTok{vjust =} \DecValTok{4}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_g.tab\_sin}\SpecialCharTok{$}\NormalTok{Coefficient, }
-                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_g.tab\_sin}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
-\NormalTok{                                             slop.m2a\_g.tab\_sin}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
-                          \StringTok{"], p"}\NormalTok{, slop.m2a\_g.tab\_sin}\SpecialCharTok{$}\NormalTok{p, }
-                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2a\_g.tab\_sin}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2a\_g.tab\_sin}\SpecialCharTok{$}\NormalTok{sig)),}
+            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2a\_f.tab.plot\_sin}\SpecialCharTok{$}\NormalTok{Coefficient, }
+                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2a\_f.tab.plot\_sin}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
+\NormalTok{                                             slop.m2a\_f.tab.plot\_sin}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
+                          \StringTok{"], p"}\NormalTok{, slop.m2a\_f.tab.plot\_sin}\SpecialCharTok{$}\NormalTok{p, }
+                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2a\_f.tab.plot\_sin}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, }
+\NormalTok{                                 slop.m2a\_f.tab.plot\_sin}\SpecialCharTok{$}\NormalTok{sig)),}
             \AttributeTok{color =}\NormalTok{ color.Relationship[}\DecValTok{2}\NormalTok{], }\AttributeTok{size =} \FloatTok{2.5}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{" }\SpecialCharTok{\textbackslash{}n}\StringTok{ "}\NormalTok{)  }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{()}
 
 \CommentTok{\# Full figure for hypothesis 2a}
-\NormalTok{p2af }\OtherTok{\textless{}{-}} \FunctionTok{ggarrange}\NormalTok{(}\FunctionTok{ggarrange}\NormalTok{(}\FunctionTok{ggarrange}\NormalTok{(p2a.a, p2a.b,}
-                                      \AttributeTok{nrow =} \DecValTok{1}\NormalTok{,}
-                                      \AttributeTok{labels =} \StringTok{"auto"}\NormalTok{), }
-\NormalTok{                            p2a.c,}
-                            \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{" "}\NormalTok{, }\StringTok{"c"}\NormalTok{),}
-                            \AttributeTok{nrow =} \DecValTok{2}\NormalTok{), }
-                  \FunctionTok{ggarrange}\NormalTok{(}\FunctionTok{ggarrange}\NormalTok{(p2a.d, p2a.e,}
-                                      \AttributeTok{nrow =} \DecValTok{1}\NormalTok{,}
-                                      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"d"}\NormalTok{, }\StringTok{"e"}\NormalTok{),}
-                                      \AttributeTok{common.legend =} \ConstantTok{TRUE}\NormalTok{,}
-                                      \AttributeTok{legend =} \StringTok{"bottom"}\NormalTok{),}
-                            \FunctionTok{ggarrange}\NormalTok{(p2a.f, p2a.g,}
-                                      \AttributeTok{nrow =} \DecValTok{1}\NormalTok{,}
-                                      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"f"}\NormalTok{, }\StringTok{"g"}\NormalTok{),}
-                                      \AttributeTok{common.legend =} \ConstantTok{TRUE}\NormalTok{,}
-                                      \AttributeTok{legend =} \StringTok{"bottom"}\NormalTok{),}
-                            \AttributeTok{ncol =} \DecValTok{1}\NormalTok{),}
-                  \AttributeTok{nrow =} \DecValTok{2}\NormalTok{,}
-                  \AttributeTok{ncol =} \DecValTok{1}\NormalTok{)}
+\NormalTok{p2af }\OtherTok{\textless{}{-}} \FunctionTok{ggarrange}\NormalTok{(}\FunctionTok{ggarrange}\NormalTok{(p2a.a, p2a.b, p2a.c, }
+                            \AttributeTok{labels =} \StringTok{"auto"}\NormalTok{,}
+                            \AttributeTok{nrow =} \DecValTok{1}\NormalTok{), }
+                  \FunctionTok{ggarrange}\NormalTok{(p2a.d,}
+                            \AttributeTok{nrow =} \DecValTok{1}\NormalTok{,}
+                            \AttributeTok{labels =} \StringTok{"d"}\NormalTok{,}
+                            \AttributeTok{common.legend =} \ConstantTok{TRUE}\NormalTok{,}
+                            \AttributeTok{legend =} \StringTok{"bottom"}\NormalTok{),}
+                  \FunctionTok{ggarrange}\NormalTok{(p2a.e, p2a.f,}
+                            \AttributeTok{nrow =} \DecValTok{1}\NormalTok{,}
+                            \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"e"}\NormalTok{, }\StringTok{"f"}\NormalTok{),}
+                            \AttributeTok{common.legend =} \ConstantTok{TRUE}\NormalTok{,}
+                            \AttributeTok{legend =} \StringTok{"bottom"}\NormalTok{),}
+                            \AttributeTok{ncol =} \DecValTok{1}\NormalTok{)}
 \NormalTok{p2af}
 \end{Highlighting}
 \end{Shaded}
@@ -2944,7 +2994,7 @@ This figure summarizes the results of hypothesis 2a.
 \begin{figure}
 \centering
 \includegraphics{Deseo_excitacion_sexual_files/figure-latex/fig-h2a-1.pdf}
-\caption{\label{fig:fig-h2a}Subjective sexual arousal to erotic stimuli: Significant main effects and interactions of model 2A. For detailed results of the model, see Table \ref{tab:tab-m2a}. \textbf{(a)} Main effect of Solitary sexual desire on Subjective sexual arousal (for detailed results, see Table \ref{tab:tab-m2a}); \textbf{(b)} main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal (for detailed results, see Table \ref{tab:tab-m2a}); \textbf{(c)} interaction between Stimuli sex and gender (significant effects of stimuli sex by participant gender are represented with lines and stars. White dots and black bars represent estimated marginal means and 95\% CI, calculated from 1000 bootstraped simulations; for detailed results, see Table \ref{tab:tab-m2a-emms-c}); \textbf{(d)} interaction between Stimuli sex and Dyadic sexual desire (Attractive person) (for detailed results, see Table \ref{tab:tab-m2a-slo-d}); \textbf{(e)} interaction between Stimuli sex, gender and Dyadic sexual desire (Attractive person) (for detailed results, see Table \ref{tab:tab-m2a-slo-e}); \textbf{(f)} interaction between Relationship, gender and Dyadic sexual desire (Partner) (for detailed results, see Table \ref{tab:tab-m2a-slo-f}); \textbf{(g)} interaction between Relationship, Stimuli sex and Dyadic sexual desire (Partner) (for detailed results, see Table \ref{tab:tab-m2a-slo-g}). \emph{Women} and \emph{Men} refer to the gender of the participants and \emph{Female} and \emph{Male} to the sex of the stimuli. To better represent the associations between predictor variables and subjective sexual arousal within the model (i.e.~when including all other effects), in all cases the \emph{Y} axis represents values predicted by the model instead of raw values. For statistical significance, *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
+\caption{\label{fig:fig-h2a}Subjective sexual arousal to erotic stimuli: Significant main effects and interactions of model 2A. For detailed results of the model, see Table \ref{tab:tab-m2a}. \textbf{(a)} Interaction between Stimuli sex and gender (significant effects of stimuli sex by participant gender are represented with lines and stars. White dots and black bars represent estimated marginal means and 95\% CI, calculated from 1000 bootstraped simulations; for detailed results, see Table \ref{tab:tab-m2a-emms-a}); \textbf{(b)} main effect of Solitary sexual desire on Subjective sexual arousal (for detailed results, see Table \ref{tab:tab-m2a}); \textbf{(c)} main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal (for detailed results, see Table \ref{tab:tab-m2a}); \textbf{(d)} interaction between Stimuli sex, gender and Dyadic sexual desire (Attractive person) (for detailed results, see Table \ref{tab:tab-m2a-slo-d}; slopes for the two-way interaction between Stimuli sex and gender ---not plotted--- are detailed in Table \ref{tab:tab-m2a-slo-del}); \textbf{(e)} interaction between Relationship, gender and Dyadic sexual desire (Partner) (for detailed results, see Table \ref{tab:tab-m2a-slo-e}); \textbf{(f)} interaction between Relationship, Stimuli sex and Dyadic sexual desire (Partner) (for detailed results, see Table \ref{tab:tab-m2a-slo-f}). \emph{Women} and \emph{Men} refer to the gender of the participants and \emph{Female} and \emph{Male} to the sex of the stimuli. To better represent the associations between predictor variables and subjective sexual arousal within the model (i.e.~when including all other effects), in all cases the \emph{Y} axis represents values predicted by the model instead of raw values. For statistical significance, *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
 \end{figure}
 
 \hypertarget{hypothesis2b}{%
@@ -3075,7 +3125,7 @@ Relationship × Gender × Stimuli sex × Dyadic sexual desire (Partner) (C) & 2.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{m2bCI }\OtherTok{\textless{}{-}} \FunctionTok{confint}\NormalTok{(m2b, }
-                 \AttributeTok{method =} \StringTok{"boot"}\NormalTok{, }\CommentTok{\#define bootstrap as the method for computing the confidence intervals}
+                 \AttributeTok{method =} \StringTok{"boot"}\NormalTok{, }\CommentTok{\#define bootstrap as method for confidence intervals}
                  \AttributeTok{nsim =} \DecValTok{4}\NormalTok{, }\CommentTok{\#number of simulations}
                  \AttributeTok{FUN =}\NormalTok{ fixef, }\CommentTok{\#to obtain only estimates for fixed effects}
                  \AttributeTok{parallel =} \StringTok{"multicore"}\NormalTok{, }\CommentTok{\#parallel computation}
@@ -3187,26 +3237,26 @@ Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual
 
 We further explored the interaction between gender and stimuli sex using estimated marginal means, as well as comparing subjective sexual arousal between stimuli sex for each participant gender.
 
-Table \ref{tab:tab-m2b-emms-b}. Estimated marginal means and contrasts of subjective arousal between stimuli sex by participant gender
+Table \ref{tab:tab-m2b-emms-a}. Estimated marginal means and contrasts of subjective arousal between stimuli sex by participant gender
 
 Table of estimated marginal means and contrasts between stimuli sex for each participant gender. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package (\protect\hyperlink{ref-emmeanscit}{Lenth, 2022}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{emms.m2b\_b }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2b, }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|}\NormalTok{ Gender,}
+\NormalTok{emms.m2b\_a }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2b, }\SpecialCharTok{\textasciitilde{}} \FunctionTok{factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|}\NormalTok{ Gender,}
                     \AttributeTok{adjust =} \StringTok{"bonferroni"}\NormalTok{) }\CommentTok{\#asymptotic degrees of freedom}
 
-\NormalTok{emms.m2b\_b.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m2b\_b)) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{emms.m2b\_a.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m2b\_a)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{rename}\NormalTok{(}\StringTok{"Stimuli sex"} \OtherTok{=}\NormalTok{ Stimuli.sex) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\StringTok{"Subjective sexual arousal (p)"} \OtherTok{=}\NormalTok{ emmean)}
 
-\NormalTok{t.m2b\_b }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m2b\_b) }\SpecialCharTok{|\textgreater{}} 
+\NormalTok{t.m2b\_a }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m2b\_a) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value))}
 
-\NormalTok{t.m2b\_b.f }\OtherTok{\textless{}{-}}\NormalTok{ t.m2b\_b }\SpecialCharTok{|\textgreater{}} 
+\NormalTok{t.m2b\_a.f }\OtherTok{\textless{}{-}}\NormalTok{ t.m2b\_a }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{insertRows}\NormalTok{(}\DecValTok{2}\NormalTok{, }\AttributeTok{new =} \ConstantTok{NA}\NormalTok{)}
 
-\FunctionTok{merge}\NormalTok{(emms.m2b\_b.tab, t.m2b\_b.f, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+\FunctionTok{merge}\NormalTok{(emms.m2b\_a.tab, t.m2b\_a.f, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{15}\NormalTok{,}\DecValTok{18}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{unite}\NormalTok{(Contrast, group1, group2, }\AttributeTok{sep =} \StringTok{" {-} "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"Contrast"}\NormalTok{, str\_replace\_all, }\StringTok{"NA {-} NA"}\NormalTok{, }\StringTok{" "}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
@@ -3250,7 +3300,7 @@ Table of estimated marginal means and contrasts between stimuli sex for each par
 
 \begin{table}[H]
 
-\caption{\label{tab:tab-m2b-emms-b}Estimated marginal means of subjective sexual arousal for gender by
+\caption{\label{tab:tab-m2b-emms-a}Estimated marginal means of subjective sexual arousal for gender by
         stimuli sex, in response to non-erotic stimuli}
 \centering
 \resizebox{\linewidth}{!}{
@@ -3284,7 +3334,7 @@ Stimuli sex & EMM & $SE$ & $2.5\% CI$ & $97.5\% CI$ & Contrast & Difference & $S
 
 Table \ref{tab:tab-m2b-slo-c}. Slope for Solitary sexual desire on Subjective sexual arousal by gender
 
-Table of estimated slopes for Solitary sexual desire on Subjective sexual arousal for each gender from model 2b. Dyadic sexual desire (Attractive person) values were centered. Slopes were calculated using the \texttt{sim\_slopes} function from the \texttt{interactions} package (\protect\hyperlink{ref-interactionscit}{Long, 2019}).
+Table of estimated slopes for Solitary sexual desire on Subjective sexual arousal for each gender from model 2b. Solitary sexual desire values were centered. Slopes were calculated using the \texttt{sim\_slopes} function from the \texttt{interactions} package (\protect\hyperlink{ref-interactionscit}{Long, 2019}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3293,6 +3343,14 @@ Table of estimated slopes for Solitary sexual desire on Subjective sexual arousa
                          \AttributeTok{modx =} \StringTok{"Gender"}\NormalTok{)}
 
 \NormalTok{slop.m2b\_c.tab }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(slop.m2b\_c}\SpecialCharTok{$}\NormalTok{slopes) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\SpecialCharTok{:}\DecValTok{7}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, as.numeric)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, round, }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{sig =} \FunctionTok{pval.stars}\NormalTok{(p)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\StringTok{"Gender"} \OtherTok{=} \StringTok{"Value.of.Gender"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Coefficient =}\NormalTok{ Est.)}
+
+\NormalTok{slop.m2b\_c.int }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(slop.m2b\_c}\SpecialCharTok{$}\NormalTok{ints) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\SpecialCharTok{:}\DecValTok{7}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, as.numeric)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, round, }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
@@ -3346,7 +3404,7 @@ Women & 0.013 & 0.000 & 0.027 & 1.917 & 0.06\\
 
 Table \ref{tab:tab-m2b-slo-d}. Slope for Solitary sexual desire on Subjective sexual arousal by stimuli sex
 
-Table of estimated slopes for Solitary sexual desire on Subjective sexual arousal for each stimuli sex from model 2b. Dyadic sexual desire (Attractive person) values were centered. Slopes were calculated using the \texttt{sim\_slopes} function from the \texttt{interactions} package (\protect\hyperlink{ref-interactionscit}{Long, 2019}).
+Table of estimated slopes for Solitary sexual desire on Subjective sexual arousal for each stimuli sex from model 2b. Solitary sexual desire values were centered. Slopes were calculated using the \texttt{sim\_slopes} function from the \texttt{interactions} package (\protect\hyperlink{ref-interactionscit}{Long, 2019}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3355,6 +3413,14 @@ Table of estimated slopes for Solitary sexual desire on Subjective sexual arousa
                          \AttributeTok{modx =} \StringTok{"Stimuli sex"}\NormalTok{)}
 
 \NormalTok{slop.m2b\_d.tab }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(slop.m2b\_d}\SpecialCharTok{$}\NormalTok{slopes) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\SpecialCharTok{:}\DecValTok{7}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, as.numeric)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, round, }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{sig =} \FunctionTok{pval.stars}\NormalTok{(p)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\StringTok{"Stimuli sex"} \OtherTok{=} \StringTok{"Value.of.Stimuli.sex"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Coefficient =}\NormalTok{ Est.)}
+
+\NormalTok{slop.m2b\_d.int }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(slop.m2b\_d}\SpecialCharTok{$}\NormalTok{ints) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\SpecialCharTok{:}\DecValTok{7}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, as.numeric)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, round, }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
@@ -3428,10 +3494,21 @@ Table of estimated slopes for Dyadic sexual desire (Attractive person) on Subjec
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Gender =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Women"}\NormalTok{, }\StringTok{"Men"}\NormalTok{), }\AttributeTok{each =} \DecValTok{2}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\DecValTok{8}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{7}\NormalTok{)}
 
+\NormalTok{slop.m2b\_e.int }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(slop.m2b\_e}\SpecialCharTok{$}\NormalTok{ints[}\DecValTok{1}\NormalTok{]),}
+                        \FunctionTok{data.frame}\NormalTok{(slop.m2b\_e}\SpecialCharTok{$}\NormalTok{ints[}\DecValTok{2}\NormalTok{])) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\SpecialCharTok{:}\DecValTok{7}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, as.numeric)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, round, }\DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{sig =} \FunctionTok{pval.stars}\NormalTok{(p)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{rename}\NormalTok{(}\StringTok{"Stimuli sex"} \OtherTok{=} \StringTok{"Value.of.Stimuli.sex"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Coefficient =}\NormalTok{ Est.) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Gender =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Women"}\NormalTok{, }\StringTok{"Men"}\NormalTok{), }\AttributeTok{each =} \DecValTok{2}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\DecValTok{8}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{7}\NormalTok{)}
+
 \NormalTok{slop.m2b\_e.tab[,}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{8}\NormalTok{)] }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev}\NormalTok{(p)) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
-        \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{4}\NormalTok{)),}
+        \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
         \AttributeTok{caption =} \StringTok{"Slope for Dyadic sexual desire (Attractive person) on }
 \StringTok{        Subjective sexual arousal by stimuli sex and gender"}\NormalTok{,}
         \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Gender"}\NormalTok{,}
@@ -3459,7 +3536,7 @@ Table of estimated slopes for Dyadic sexual desire (Attractive person) on Subjec
         Subjective sexual arousal by stimuli sex and gender}
 \centering
 \begin{threeparttable}
-\begin{tabular}[t]{llccccl}
+\begin{tabular}[t]{llccccc}
 \toprule
 Gender & Stimuli sex & $B$ & $2.5\% CI$ & $97.5\% CI$ & $t$ & $p$\\
 \midrule
@@ -3492,8 +3569,31 @@ This figure summarizes the results of hypothesis 2b.
 \NormalTok{m2b.dat }\OtherTok{\textless{}{-}}\NormalTok{ m2b}\SpecialCharTok{@}\NormalTok{frame }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{predict}\NormalTok{(m2b))}
 
+\CommentTok{\# Figure interaction between Stimuli sex and gender}
+\NormalTok{p2b.a }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2b.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, }
+                             \AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}}\NormalTok{, }
+                             \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.01}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Gender) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m2b\_a.tab, }
+                \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL), }
+                \AttributeTok{colour =} \StringTok{"black"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m2b\_a.tab, }
+             \AttributeTok{shape =} \DecValTok{21}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{,}
+             \AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_pvalue\_manual}\NormalTok{(t.m2b\_a, }
+                     \AttributeTok{label =} \StringTok{"p.signif"}\NormalTok{, }
+                     \AttributeTok{y.position =} \FunctionTok{c}\NormalTok{(}\FloatTok{7.4}\NormalTok{,}\FloatTok{7.8}\NormalTok{), }
+                     \AttributeTok{tip.length =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{" }\SpecialCharTok{\textbackslash{}n}\StringTok{ "}\NormalTok{)  }\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{8.5}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+
 \DocumentationTok{\#\# Extract slope data from model summary for main effects of continuous predictors}
-\NormalTok{slop.m2b\_a.tab }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\FunctionTok{summary}\NormalTok{(m2b)}\SpecialCharTok{$}\NormalTok{coefficients) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{slop.m2b\_b.tab }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\FunctionTok{summary}\NormalTok{(m2b)}\SpecialCharTok{$}\NormalTok{coefficients) }\SpecialCharTok{|\textgreater{}}
                                \FunctionTok{rownames\_to\_column}\NormalTok{(),}
                              \FunctionTok{data.frame}\NormalTok{(m2bCI) }\SpecialCharTok{|\textgreater{}}
                                \FunctionTok{rownames\_to\_column}\NormalTok{(),}
@@ -3503,155 +3603,166 @@ This figure summarizes the results of hypothesis 2b.
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Pr...t.. =} \FunctionTok{pval.lev2}\NormalTok{(Pr...t..))}
 
 \CommentTok{\# \# Figure main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal}
-\NormalTok{p2b.a }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2b.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Attractive person) (C)}\StringTok{\textasciigrave{}}\NormalTok{, }
+\NormalTok{p2b.b }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2b.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Attractive person) (C)}\StringTok{\textasciigrave{}}\NormalTok{, }
                              \AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =}  \FloatTok{0.01}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Subjective sexual}\SpecialCharTok{\textbackslash{}n}\StringTok{arousal (predicted)"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_a.tab[}\DecValTok{6}\NormalTok{,],}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_b.tab[}\DecValTok{6}\NormalTok{,],}
             \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =}\ConstantTok{Inf}\NormalTok{,}
                           \AttributeTok{vjust =} \DecValTok{2}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2b\_a.tab[}\DecValTok{6}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Estimate,}
+            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2b\_b.tab[}\DecValTok{6}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Estimate,}
                           \StringTok{", IC 95\%["}\NormalTok{,}
-                          \FunctionTok{paste}\NormalTok{(slop.m2b\_a.tab[}\DecValTok{6}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{X2.}\DecValTok{5}\NormalTok{..,}
-\NormalTok{                                slop.m2b\_a.tab[}\DecValTok{6}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{X97.}\DecValTok{5}\NormalTok{..,}
+                          \FunctionTok{paste}\NormalTok{(slop.m2b\_b.tab[}\DecValTok{6}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{X2.}\DecValTok{5}\NormalTok{..,}
+\NormalTok{                                slop.m2b\_b.tab[}\DecValTok{6}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{X97.}\DecValTok{5}\NormalTok{..,}
                                 \AttributeTok{sep =} \StringTok{", "}\NormalTok{),}
-                          \StringTok{"], p"}\NormalTok{, slop.m2b\_a.tab[}\DecValTok{6}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Pr...t.., }\StringTok{"****"}\NormalTok{),}
+                          \StringTok{"], p"}\NormalTok{, slop.m2b\_b.tab[}\DecValTok{6}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Pr...t.., }\StringTok{"****"}\NormalTok{),}
             \AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{()}
 
-\CommentTok{\# Figure interaction between Stimuli sex and gender}
-\NormalTok{p2b.b }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2b.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, }
-                             \AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}}\NormalTok{, }
-                             \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_violin}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.01}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Gender) }\SpecialCharTok{+}
-  \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m2b\_b.tab, }
-                \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL), }
-                \AttributeTok{colour =} \StringTok{"black"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m2b\_b.tab, }
-             \AttributeTok{shape =} \DecValTok{21}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{,}
-             \AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_pvalue\_manual}\NormalTok{(t.m2b\_b, }
-                     \AttributeTok{label =} \StringTok{"p.signif"}\NormalTok{, }
-                     \AttributeTok{y.position =} \FunctionTok{c}\NormalTok{(}\FloatTok{7.4}\NormalTok{,}\FloatTok{7.8}\NormalTok{), }
-                     \AttributeTok{tip.length =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{" }\SpecialCharTok{\textbackslash{}n}\StringTok{ "}\NormalTok{)  }\SpecialCharTok{+}
-  \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{8.5}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
-
 \CommentTok{\# Figure interaction between gender and Solitary sexual desire}
 \DocumentationTok{\#\# Extract data for by stimuli sex}
-\NormalTok{slop.m2b\_c.tab\_wom }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2b\_c.tab, Gender }\SpecialCharTok{==} \StringTok{"Women"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{slop.m2b\_c.tab.plot }\OtherTok{\textless{}{-}}\NormalTok{ slop.m2b\_c.tab }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Int =}\NormalTok{ slop.m2b\_c.int}\SpecialCharTok{$}\NormalTok{Coefficient) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(Gender)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev2}\NormalTok{(p))}
-\NormalTok{slop.m2b\_c.tab\_men }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2b\_c.tab, Gender }\SpecialCharTok{==} \StringTok{"Men"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev2}\NormalTok{(p))}
+\NormalTok{slop.m2b\_c.tab.plot\_wom }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2b\_c.tab.plot, Gender }\SpecialCharTok{==} \StringTok{"Women"}\NormalTok{)}
+\NormalTok{slop.m2b\_c.tab.plot\_men }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2b\_c.tab.plot, Gender }\SpecialCharTok{==} \StringTok{"Men"}\NormalTok{)}
 \DocumentationTok{\#\# Plot}
 \NormalTok{p2b.c }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2b.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Solitary sexual desire (C)}\StringTok{\textasciigrave{}}\NormalTok{,}
                              \AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}}\NormalTok{,}
                              \AttributeTok{color =}\NormalTok{ Gender, }\AttributeTok{fill =}\NormalTok{ Gender)) }\SpecialCharTok{+}
   \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.01}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.4}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{fullrange =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_c.tab.plot,}
+              \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ Coefficient, }
+                  \AttributeTok{intercept =}\NormalTok{ Int,}
+                  \AttributeTok{color =}\NormalTok{ Gender),}
+              \AttributeTok{show.legend =} \ConstantTok{NA}\NormalTok{,}
+              \AttributeTok{color =}\NormalTok{ color.Gender,}
+              \AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{colour =} \FunctionTok{guide\_legend}\NormalTok{(}\AttributeTok{override.aes =} \FunctionTok{list}\NormalTok{(}\AttributeTok{alpha =} \DecValTok{1}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{))) }\SpecialCharTok{+}
   \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Gender) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Gender) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_c.tab\_wom,}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_c.tab.plot\_wom,}
             \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{,}
             \AttributeTok{vjust =} \DecValTok{2}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
             \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{,}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2b\_c.tab\_wom}\SpecialCharTok{$}\NormalTok{Coefficient, }
-                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2b\_c.tab\_wom}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
-\NormalTok{                                             slop.m2b\_c.tab\_wom}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
-                          \StringTok{"], p"}\NormalTok{, slop.m2b\_c.tab\_wom}\SpecialCharTok{$}\NormalTok{p, }
-                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2b\_c.tab\_wom}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2b\_c.tab\_wom}\SpecialCharTok{$}\NormalTok{sig)),}
+            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2b\_c.tab.plot\_wom}\SpecialCharTok{$}\NormalTok{Coefficient, }
+                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2b\_c.tab.plot\_wom}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
+\NormalTok{                                             slop.m2b\_c.tab.plot\_wom}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
+                          \StringTok{"], p"}\NormalTok{, slop.m2b\_c.tab.plot\_wom}\SpecialCharTok{$}\NormalTok{p, }
+                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2b\_c.tab.plot\_wom}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, }
+\NormalTok{                                 slop.m2b\_c.tab.plot\_wom}\SpecialCharTok{$}\NormalTok{sig)),}
             \AttributeTok{color =}\NormalTok{ color.Gender[}\DecValTok{1}\NormalTok{], }\AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_c.tab\_men,}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_c.tab.plot\_men,}
             \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{,}
             \AttributeTok{vjust =} \DecValTok{4}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
             \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{,}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2b\_c.tab\_men}\SpecialCharTok{$}\NormalTok{Coefficient, }
-                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2b\_c.tab\_men}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
-\NormalTok{                                             slop.m2b\_c.tab\_men}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
-                          \StringTok{"], p"}\NormalTok{, slop.m2b\_c.tab\_men}\SpecialCharTok{$}\NormalTok{p, }
-                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2b\_c.tab\_men}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2b\_c.tab\_men}\SpecialCharTok{$}\NormalTok{sig)),}
+            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2b\_c.tab.plot\_men}\SpecialCharTok{$}\NormalTok{Coefficient, }
+                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2b\_c.tab.plot\_men}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
+\NormalTok{                                             slop.m2b\_c.tab.plot\_men}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
+                          \StringTok{"], p"}\NormalTok{, slop.m2b\_c.tab.plot\_men}\SpecialCharTok{$}\NormalTok{p, }
+                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2b\_c.tab.plot\_men}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, }
+\NormalTok{                                 slop.m2b\_c.tab.plot\_men}\SpecialCharTok{$}\NormalTok{sig)),}
             \AttributeTok{color =}\NormalTok{ color.Gender[}\DecValTok{2}\NormalTok{], }\AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Subjective sexual}\SpecialCharTok{\textbackslash{}n}\StringTok{arousal (predicted)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{()}
 
 \CommentTok{\# Figure interaction between Stimuli sex and Solitary sexual desire}
 \DocumentationTok{\#\# Extract data for by stimuli sex}
-\NormalTok{slop.m2b\_d.tab\_f }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2b\_d.tab, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Female"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{slop.m2b\_d.tab.plot }\OtherTok{\textless{}{-}}\NormalTok{ slop.m2b\_d.tab }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Int =}\NormalTok{ slop.m2b\_d.int}\SpecialCharTok{$}\NormalTok{Coefficient) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{arrange}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev2}\NormalTok{(p))}
-\NormalTok{slop.m2b\_d.tab\_m }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2b\_d.tab, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Male"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev2}\NormalTok{(p))}
+\NormalTok{slop.m2b\_d.tab.plot\_f }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2b\_d.tab.plot, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Female"}\NormalTok{)}
+\NormalTok{slop.m2b\_d.tab.plot\_m }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2b\_d.tab.plot, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Male"}\NormalTok{)}
 \DocumentationTok{\#\# Plot}
-\NormalTok{p2b.d }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2b.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Attractive person) (C)}\StringTok{\textasciigrave{}}\NormalTok{,}
+\NormalTok{p2b.d }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2b.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Solitary sexual desire (C)}\StringTok{\textasciigrave{}}\NormalTok{,}
                              \AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}}\NormalTok{,}
                              \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{fill =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.01}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.4}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{fullrange =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_d.tab.plot,}
+              \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ Coefficient, }
+                  \AttributeTok{intercept =}\NormalTok{ Int,}
+                  \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{),}
+              \AttributeTok{show.legend =} \ConstantTok{NA}\NormalTok{,}
+              \AttributeTok{color =}\NormalTok{ color.StimuliSex,}
+              \AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{colour =} \FunctionTok{guide\_legend}\NormalTok{(}\AttributeTok{override.aes =} \FunctionTok{list}\NormalTok{(}\AttributeTok{alpha =} \DecValTok{1}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{))) }\SpecialCharTok{+}
   \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_d.tab\_f,}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_d.tab.plot\_f,}
             \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{,}
             \AttributeTok{vjust =} \DecValTok{2}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
             \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{,}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2b\_d.tab\_f}\SpecialCharTok{$}\NormalTok{Coefficient, }
-                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2b\_d.tab\_f}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
-\NormalTok{                                             slop.m2b\_d.tab\_f}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
-                          \StringTok{"], p"}\NormalTok{, slop.m2b\_d.tab\_f}\SpecialCharTok{$}\NormalTok{p, }
-                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2b\_d.tab\_f}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2b\_d.tab\_f}\SpecialCharTok{$}\NormalTok{sig)),}
+            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2b\_d.tab.plot\_f}\SpecialCharTok{$}\NormalTok{Coefficient, }
+                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2b\_d.tab.plot\_f}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
+\NormalTok{                                             slop.m2b\_d.tab.plot\_f}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
+                          \StringTok{"], p"}\NormalTok{, slop.m2b\_d.tab.plot\_f}\SpecialCharTok{$}\NormalTok{p, }
+                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2b\_d.tab.plot\_f}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, }
+\NormalTok{                                 slop.m2b\_d.tab.plot\_f}\SpecialCharTok{$}\NormalTok{sig)),}
             \AttributeTok{color =}\NormalTok{ color.StimuliSex[}\DecValTok{1}\NormalTok{], }\AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_d.tab\_m,}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_d.tab.plot\_m,}
             \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{,}
             \AttributeTok{vjust =} \DecValTok{4}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
             \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{,}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2b\_d.tab\_m}\SpecialCharTok{$}\NormalTok{Coefficient, }
-                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2b\_d.tab\_m}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
-\NormalTok{                                             slop.m2b\_d.tab\_m}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
-                          \StringTok{"], p"}\NormalTok{, slop.m2b\_d.tab\_m}\SpecialCharTok{$}\NormalTok{p, }
-                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2b\_d.tab\_m}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2b\_d.tab\_m}\SpecialCharTok{$}\NormalTok{sig)),}
+            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2b\_d.tab.plot\_m}\SpecialCharTok{$}\NormalTok{Coefficient, }
+                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2b\_d.tab.plot\_m}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
+\NormalTok{                                             slop.m2b\_d.tab.plot\_m}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
+                          \StringTok{"], p"}\NormalTok{, slop.m2b\_d.tab.plot\_m}\SpecialCharTok{$}\NormalTok{p, }
+                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2b\_d.tab.plot\_m}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, }
+\NormalTok{                                 slop.m2b\_d.tab.plot\_m}\SpecialCharTok{$}\NormalTok{sig)),}
             \AttributeTok{color =}\NormalTok{ color.StimuliSex[}\DecValTok{2}\NormalTok{], }\AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{" }\SpecialCharTok{\textbackslash{}n}\StringTok{ "}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{()}
 
 \CommentTok{\# Figure interaction between Stimuli sex, gender and Dyadic sexual desire (Attractive person)}
 \DocumentationTok{\#\# Extract data for by stimuli sex}
-\NormalTok{slop.m2b\_e.tab\_f }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2b\_e.tab, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Female"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{slop.m2b\_e.tab.plot }\OtherTok{\textless{}{-}}\NormalTok{ slop.m2b\_e.tab }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Int =}\NormalTok{ slop.m2b\_e.int}\SpecialCharTok{$}\NormalTok{Coefficient) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{arrange}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev2}\NormalTok{(p))}
-\NormalTok{slop.m2b\_e.tab\_m }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2b\_e.tab, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Male"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p =} \FunctionTok{pval.lev2}\NormalTok{(p))}
+\NormalTok{slop.m2b\_e.tab.plot\_f }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2b\_e.tab.plot, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Female"}\NormalTok{)}
+\NormalTok{slop.m2b\_e.tab.plot\_m }\OtherTok{\textless{}{-}} \FunctionTok{filter}\NormalTok{(slop.m2b\_e.tab.plot, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Male"}\NormalTok{)}
 \DocumentationTok{\#\# Plot}
 \NormalTok{p2b.e }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(m2b.dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Attractive person) (C)}\StringTok{\textasciigrave{}}\NormalTok{,}
                              \AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal (p)}\StringTok{\textasciigrave{}}\NormalTok{,}
                              \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{fill =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
   \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.01}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.4}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{fullrange =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_e.tab.plot\_f,}
+              \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ Coefficient, }
+                  \AttributeTok{intercept =}\NormalTok{ Int,}
+                  \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{),}
+              \AttributeTok{show.legend =} \ConstantTok{NA}\NormalTok{,}
+              \AttributeTok{color =}\NormalTok{ color.StimuliSex[}\DecValTok{1}\NormalTok{],}
+              \AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_e.tab.plot\_m,}
+              \FunctionTok{aes}\NormalTok{(}\AttributeTok{slope =}\NormalTok{ Coefficient, }
+                  \AttributeTok{intercept =}\NormalTok{ Int,}
+                  \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{),}
+              \AttributeTok{show.legend =} \ConstantTok{NA}\NormalTok{,}
+              \AttributeTok{color =}\NormalTok{ color.StimuliSex[}\DecValTok{2}\NormalTok{],}
+              \AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{colour =} \FunctionTok{guide\_legend}\NormalTok{(}\AttributeTok{override.aes =} \FunctionTok{list}\NormalTok{(}\AttributeTok{alpha =} \DecValTok{1}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{))) }\SpecialCharTok{+}
   \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\FunctionTok{fct\_relevel}\NormalTok{(Gender, }\StringTok{"Women"}\NormalTok{, }\StringTok{"Men"}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_e.tab\_f,}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_e.tab.plot\_f,}
             \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{,}
             \AttributeTok{vjust =} \DecValTok{2}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
             \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{,}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2b\_e.tab\_f}\SpecialCharTok{$}\NormalTok{Coefficient, }
-                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2b\_e.tab\_f}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
-\NormalTok{                                             slop.m2b\_e.tab\_f}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
-                          \StringTok{"], p"}\NormalTok{, slop.m2b\_e.tab\_f}\SpecialCharTok{$}\NormalTok{p, }
-                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2b\_e.tab\_f}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2b\_e.tab\_f}\SpecialCharTok{$}\NormalTok{sig)),}
+            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2b\_e.tab.plot\_f}\SpecialCharTok{$}\NormalTok{Coefficient, }
+                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2b\_e.tab.plot\_f}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
+\NormalTok{                                             slop.m2b\_e.tab.plot\_f}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
+                          \StringTok{"], p"}\NormalTok{, slop.m2b\_e.tab.plot\_f}\SpecialCharTok{$}\NormalTok{p, }
+                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2b\_e.tab.plot\_f}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2b\_e.tab.plot\_f}\SpecialCharTok{$}\NormalTok{sig)),}
             \AttributeTok{color =}\NormalTok{ color.StimuliSex[}\DecValTok{1}\NormalTok{], }\AttributeTok{size =} \FloatTok{2.5}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_e.tab\_m,}
+  \FunctionTok{geom\_text}\NormalTok{(}\AttributeTok{data =}\NormalTok{ slop.m2b\_e.tab.plot\_m,}
             \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{y =} \ConstantTok{Inf}\NormalTok{,}
             \AttributeTok{vjust =} \DecValTok{4}\NormalTok{, }\AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.03}\NormalTok{),}
             \AttributeTok{inherit.aes =} \ConstantTok{FALSE}\NormalTok{,}
-            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2b\_e.tab\_m}\SpecialCharTok{$}\NormalTok{Coefficient, }
-                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2b\_e.tab\_m}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
-\NormalTok{                                             slop.m2b\_e.tab\_m}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
-                          \StringTok{"], p"}\NormalTok{, slop.m2b\_e.tab\_m}\SpecialCharTok{$}\NormalTok{p, }
-                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2b\_e.tab\_m}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2b\_e.tab\_m}\SpecialCharTok{$}\NormalTok{sig)),}
+            \AttributeTok{label =} \FunctionTok{paste}\NormalTok{(}\StringTok{"B = "}\NormalTok{, slop.m2b\_e.tab.plot\_m}\SpecialCharTok{$}\NormalTok{Coefficient, }
+                          \StringTok{", IC 95\%["}\NormalTok{, }\FunctionTok{paste}\NormalTok{(slop.m2b\_e.tab.plot\_m}\SpecialCharTok{$}\NormalTok{X2.}\FloatTok{5.}\NormalTok{, }
+\NormalTok{                                             slop.m2b\_e.tab.plot\_m}\SpecialCharTok{$}\NormalTok{X97.}\FloatTok{5.}\NormalTok{, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{), }
+                          \StringTok{"], p"}\NormalTok{, slop.m2b\_e.tab.plot\_m}\SpecialCharTok{$}\NormalTok{p, }
+                          \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(slop.m2b\_e.tab.plot\_m}\SpecialCharTok{$}\NormalTok{sig), }\StringTok{""}\NormalTok{, slop.m2b\_e.tab.plot\_m}\SpecialCharTok{$}\NormalTok{sig)),}
             \AttributeTok{color =}\NormalTok{ color.StimuliSex[}\DecValTok{2}\NormalTok{], }\AttributeTok{size =} \FloatTok{2.5}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Subjective sexual}\SpecialCharTok{\textbackslash{}n}\StringTok{arousal (predicted)"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{()}
@@ -3676,8 +3787,10 @@ This figure summarizes the results of hypothesis 2b.
 \begin{figure}
 \centering
 \includegraphics{Deseo_excitacion_sexual_files/figure-latex/fig-h2b-1.pdf}
-\caption{\label{fig:fig-h2b}Subjective sexual arousal to non-erotic stimuli: Significant main effects and interactions of model 2B. For detailed results of the model, see Table \ref{tab:tab-m2b}. \textbf{(a)} Main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal (for detailed results, see Table \ref{tab:tab-m2b}); \textbf{(b)} interaction between Stimuli sex and gender (significant effects of stimuli sex by participant gender are represented with lines and stars. White dots and black bars represent estimated marginal means and 95\% CI, calculated from 1000 bootstraped simulations; for detailed results, see Table \ref{tab:tab-m2b-emms-b}); \textbf{(c)} interaction between Gender and Solitary sexual desire (for detailed results, see Table \ref{tab:tab-m2b-slo-c}); \textbf{(d)} interaction between Stimuli sex and Solitary sexual desire (for detailed results, see Table \ref{tab:tab-m2b-slo-d}); \textbf{(e)} interaction between Stimuli sex, gender and Dyadic sexual desire (Attractive person) (for detailed results, see Table \ref{tab:tab-m2b-slo-e}). \emph{Women} and \emph{Men} refer to the gender of the participants and \emph{Female} and \emph{Male} to the sex of the stimuli. To better represent the associations between predictor variables and subjective sexual arousal within the model (i.e.~when including all other effects), in all cases the \emph{Y} axis represents values predicted by the model instead of raw values. For statistical significance, *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
+\caption{\label{fig:fig-h2b}Subjective sexual arousal to non-erotic stimuli: Significant main effects and interactions of model 2B. For detailed results of the model, see Table \ref{tab:tab-m2b}. \textbf{(b)} Interaction between Stimuli sex and gender (significant effects of stimuli sex by participant gender are represented with lines and stars. White dots and black bars represent estimated marginal means and 95\% CI, calculated from 1000 bootstraped simulations; for detailed results, see Table \ref{tab:tab-m2b-emms-a}); \textbf{(a)} main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal (for detailed results, see Table \ref{tab:tab-m2b}); \textbf{(c)} interaction between Gender and Solitary sexual desire (for detailed results, see Table \ref{tab:tab-m2b-slo-c}); \textbf{(d)} interaction between Stimuli sex and Solitary sexual desire (for detailed results, see Table \ref{tab:tab-m2b-slo-d}); \textbf{(e)} interaction between Stimuli sex, gender and Dyadic sexual desire (Attractive person) (for detailed results, see Table \ref{tab:tab-m2b-slo-e}). \emph{Women} and \emph{Men} refer to the gender of the participants and \emph{Female} and \emph{Male} to the sex of the stimuli. To better represent the associations between predictor variables and subjective sexual arousal within the model (i.e.~when including all other effects), in all cases the \emph{Y} axis represents values predicted by the model instead of raw values. For statistical significance, *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
 \end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{session}{%
 \section{Session info (for reproducibility)}\label{session}}
@@ -3689,7 +3802,7 @@ This figure summarizes the results of hypothesis 2b.
 \end{Highlighting}
 \end{Shaded}
 
-\textbf{R version 4.2.2 (2022-10-31 ucrt)}
+\textbf{R version 4.2.3 (2023-03-15 ucrt)}
 
 \textbf{Platform:} x86\_64-w64-mingw32/x64 (64-bit)
 
@@ -3697,10 +3810,12 @@ This figure summarizes the results of hypothesis 2b.
 \emph{stats}, \emph{graphics}, \emph{grDevices}, \emph{utils}, \emph{datasets}, \emph{methods} and \emph{base}
 
 \textbf{other attached packages:}
-\emph{pander(v.0.6.5)}, \emph{Hmisc(v.5.0-1)}, \emph{berryFunctions(v.1.21.14)}, \emph{rstatix(v.0.7.2)}, \emph{effectsize(v.0.8.3)}, \emph{scales(v.1.2.1)}, \emph{ggpmisc(v.0.5.2)}, \emph{ggpp(v.0.5.1)}, \emph{MetBrewer(v.0.2.0)}, \emph{psych(v.2.3.3)}, \emph{kableExtra(v.1.3.4)}, \emph{performance(v.0.10.2)}, \emph{emmeans(v.1.8.5)}, \emph{interactions(v.1.1.5)}, \emph{tidyquant(v.1.0.6)}, \emph{quantmod(v.0.4.20)}, \emph{TTR(v.0.24.3)}, \emph{PerformanceAnalytics(v.2.0.4)}, \emph{xts(v.0.13.0)}, \emph{zoo(v.1.8-11)}, \emph{ggpubr(v.0.6.0)}, \emph{lubridate(v.1.9.2)}, \emph{forcats(v.1.0.0)}, \emph{stringr(v.1.5.0)}, \emph{dplyr(v.1.0.10)}, \emph{purrr(v.1.0.1)}, \emph{readr(v.2.1.4)}, \emph{tidyr(v.1.3.0)}, \emph{tibble(v.3.2.1)}, \emph{ggplot2(v.3.4.1)}, \emph{tidyverse(v.2.0.0)}, \emph{lmerTest(v.3.1-3)}, \emph{lme4(v.1.1-32)}, \emph{Matrix(v.1.5-3)}, \emph{car(v.3.1-1)}, \emph{carData(v.3.0-5)}, \emph{ltm(v.1.2-0)}, \emph{polycor(v.0.8-1)}, \emph{msm(v.1.7)}, \emph{MASS(v.7.3-58.1)}, \emph{readxl(v.1.4.2)} and \emph{knitr(v.1.42)}
+\emph{pander(v.0.6.5)}, \emph{Hmisc(v.5.0-1)}, \emph{berryFunctions(v.1.21.14)}, \emph{rstatix(v.0.7.2)}, \emph{effectsize(v.0.8.3)}, \emph{scales(v.1.2.1)}, \emph{ggpmisc(v.0.5.2)}, \emph{ggpp(v.0.5.1)}, \emph{MetBrewer(v.0.2.0)}, \emph{psych(v.2.3.3)}, \emph{kableExtra(v.1.3.4)}, \emph{performance(v.0.10.2)}, \emph{emmeans(v.1.8.5)}, \emph{interactions(v.1.1.5)}, \emph{tidyquant(v.1.0.6)}, \emph{quantmod(v.0.4.20)}, \emph{TTR(v.0.24.3)}, \emph{PerformanceAnalytics(v.2.0.4)}, \emph{xts(v.0.13.0)}, \emph{zoo(v.1.8-11)}, \emph{ggpubr(v.0.6.0)}, \emph{lubridate(v.1.9.2)}, \emph{forcats(v.1.0.0)}, \emph{stringr(v.1.5.0)}, \emph{dplyr(v.1.1.1)}, \emph{purrr(v.1.0.1)}, \emph{readr(v.2.1.4)}, \emph{tidyr(v.1.3.0)}, \emph{tibble(v.3.2.1)}, \emph{ggplot2(v.3.4.1)}, \emph{tidyverse(v.2.0.0)}, \emph{lmerTest(v.3.1-3)}, \emph{lme4(v.1.1-32)}, \emph{Matrix(v.1.5-3)}, \emph{car(v.3.1-1)}, \emph{carData(v.3.0-5)}, \emph{ltm(v.1.2-0)}, \emph{polycor(v.0.8-1)}, \emph{msm(v.1.7)}, \emph{MASS(v.7.3-58.2)}, \emph{readxl(v.1.4.2)} and \emph{knitr(v.1.42)}
 
 \textbf{loaded via a namespace (and not attached):}
-\emph{backports(v.1.4.1)}, \emph{jtools(v.2.2.1)}, \emph{systemfonts(v.1.0.4)}, \emph{splines(v.4.2.2)}, \emph{TH.data(v.1.1-1)}, \emph{digest(v.0.6.31)}, \emph{htmltools(v.0.5.4)}, \emph{fansi(v.1.0.4)}, \emph{magrittr(v.2.0.3)}, \emph{checkmate(v.2.1.0)}, \emph{cluster(v.2.1.4)}, \emph{tzdb(v.0.3.0)}, \emph{see(v.0.7.4)}, \emph{sandwich(v.3.0-2)}, \emph{svglite(v.2.1.1)}, \emph{timechange(v.0.2.0)}, \emph{colorspace(v.2.1-0)}, \emph{rvest(v.1.0.3)}, \emph{xfun(v.0.36)}, \emph{crayon(v.1.5.2)}, \emph{jsonlite(v.1.8.4)}, \emph{survival(v.3.4-0)}, \emph{glue(v.1.6.2)}, \emph{gtable(v.0.3.3)}, \emph{webshot(v.0.5.4)}, \emph{MatrixModels(v.0.5-1)}, \emph{Quandl(v.2.11.0)}, \emph{abind(v.1.4-5)}, \emph{SparseM(v.1.81)}, \emph{mvtnorm(v.1.1-3)}, \emph{DBI(v.1.1.3)}, \emph{Rcpp(v.1.0.9)}, \emph{viridisLite(v.0.4.1)}, \emph{xtable(v.1.8-4)}, \emph{htmlTable(v.2.4.1)}, \emph{foreign(v.0.8-83)}, \emph{Formula(v.1.2-5)}, \emph{datawizard(v.0.6.5)}, \emph{htmlwidgets(v.1.6.2)}, \emph{httr(v.1.4.5)}, \emph{pkgconfig(v.2.0.3)}, \emph{farver(v.2.1.1)}, \emph{nnet(v.7.3-18)}, \emph{utf8(v.1.2.3)}, \emph{tidyselect(v.1.2.0)}, \emph{labeling(v.0.4.2)}, \emph{rlang(v.1.1.0)}, \emph{munsell(v.0.5.0)}, \emph{cellranger(v.1.1.0)}, \emph{tools(v.4.2.2)}, \emph{cli(v.3.6.0)}, \emph{generics(v.0.1.3)}, \emph{broom(v.1.0.4)}, \emph{evaluate(v.0.20)}, \emph{fastmap(v.1.1.0)}, \emph{yaml(v.2.3.6)}, \emph{admisc(v.0.31)}, \emph{nlme(v.3.1-160)}, \emph{quantreg(v.5.94)}, \emph{xml2(v.1.3.3)}, \emph{compiler(v.4.2.2)}, \emph{rstudioapi(v.0.14)}, \emph{curl(v.5.0.0)}, \emph{ggsignif(v.0.6.4)}, \emph{stringi(v.1.7.12)}, \emph{highr(v.0.10)}, \emph{parameters(v.0.20.2)}, \emph{lattice(v.0.20-45)}, \emph{nloptr(v.2.0.3)}, \emph{vctrs(v.0.6.0)}, \emph{pillar(v.1.9.0)}, \emph{lifecycle(v.1.0.3)}, \emph{estimability(v.1.4.1)}, \emph{data.table(v.1.14.8)}, \emph{cowplot(v.1.1.1)}, \emph{insight(v.0.19.1)}, \emph{patchwork(v.1.1.2)}, \emph{R6(v.2.5.1)}, \emph{bookdown(v.0.33)}, \emph{gridExtra(v.2.3)}, \emph{codetools(v.0.2-18)}, \emph{boot(v.1.3-28)}, \emph{assertthat(v.0.2.1)}, \emph{withr(v.2.5.0)}, \emph{mnormt(v.2.1.1)}, \emph{multcomp(v.1.4-23)}, \emph{mgcv(v.1.8-41)}, \emph{bayestestR(v.0.13.0)}, \emph{expm(v.0.999-7)}, \emph{parallel(v.4.2.2)}, \emph{hms(v.1.1.3)}, \emph{quadprog(v.1.5-8)}, \emph{grid(v.4.2.2)}, \emph{rpart(v.4.1.19)}, \emph{coda(v.0.19-4)}, \emph{minqa(v.1.2.5)}, \emph{rmarkdown(v.2.20)}, \emph{numDeriv(v.2016.8-1.1)} and \emph{base64enc(v.0.1-3)}
+\emph{TH.data(v.1.1-1)}, \emph{minqa(v.1.2.5)}, \emph{colorspace(v.2.1-0)}, \emph{ggsignif(v.0.6.4)}, \emph{htmlTable(v.2.4.1)}, \emph{estimability(v.1.4.1)}, \emph{base64enc(v.0.1-3)}, \emph{parameters(v.0.20.2)}, \emph{rstudioapi(v.0.14)}, \emph{farver(v.2.1.1)}, \emph{MatrixModels(v.0.5-1)}, \emph{fansi(v.1.0.4)}, \emph{mvtnorm(v.1.1-3)}, \emph{xml2(v.1.3.3)}, \emph{codetools(v.0.2-19)}, \emph{splines(v.4.2.3)}, \emph{mnormt(v.2.1.1)}, \emph{Formula(v.1.2-5)}, \emph{jsonlite(v.1.8.4)}, \emph{nloptr(v.2.0.3)}, \emph{broom(v.1.0.4)}, \emph{cluster(v.2.1.4)}, \emph{compiler(v.4.2.3)}, \emph{httr(v.1.4.5)}, \emph{backports(v.1.4.1)}, \emph{fastmap(v.1.1.1)}, \emph{cli(v.3.6.1)}, \emph{quantreg(v.5.94)}, \emph{admisc(v.0.31)}, \emph{htmltools(v.0.5.5)}, \emph{tools(v.4.2.3)}, \emph{coda(v.0.19-4)}, \emph{gtable(v.0.3.3)}, \emph{glue(v.1.6.2)}, \emph{Rcpp(v.1.0.10)}, \emph{cellranger(v.1.1.0)}, \emph{vctrs(v.0.6.1)}, \emph{svglite(v.2.1.1)}, \emph{nlme(v.3.1-162)}, \emph{insight(v.0.19.1)}, \emph{xfun(v.0.38)}, \emph{rvest(v.1.0.3)}, \emph{timechange(v.0.2.0)}, \emph{lifecycle(v.1.0.3)}, \emph{hms(v.1.1.3)}, \emph{parallel(v.4.2.3)}, \emph{sandwich(v.3.0-2)}, \emph{SparseM(v.1.81)}, \emph{expm(v.0.999-7)}, \emph{yaml(v.2.3.7)}, \emph{curl(v.5.0.0)}, \emph{see(v.0.7.5)}, \emph{gridExtra(v.2.3)}, \emph{rpart(v.4.1.19)}, \emph{stringi(v.1.7.12)}, \emph{highr(v.0.10)}, \emph{bayestestR(v.0.13.0)}, \emph{checkmate(v.2.1.0)}, \emph{boot(v.1.3-28.1)}, \emph{rlang(v.1.1.0)}, \emph{pkgconfig(v.2.0.3)}, \emph{systemfonts(v.1.0.4)}, \emph{evaluate(v.0.20)}, \emph{lattice(v.0.20-45)}, \emph{patchwork(v.1.1.2)}, \emph{htmlwidgets(v.1.6.2)}, \emph{labeling(v.0.4.2)}, \emph{cowplot(v.1.1.1)}, \emph{tidyselect(v.1.2.0)}, \emph{magrittr(v.2.0.3)}, \emph{bookdown(v.0.33)}, \emph{R6(v.2.5.1)}, \emph{generics(v.0.1.3)}, \emph{multcomp(v.1.4-23)}, \emph{mgcv(v.1.8-42)}, \emph{foreign(v.0.8-84)}, \emph{pillar(v.1.9.0)}, \emph{withr(v.2.5.0)}, \emph{jtools(v.2.2.1)}, \emph{nnet(v.7.3-18)}, \emph{datawizard(v.0.7.0)}, \emph{survival(v.3.5-3)}, \emph{abind(v.1.4-5)}, \emph{crayon(v.1.5.2)}, \emph{Quandl(v.2.11.0)}, \emph{utf8(v.1.2.3)}, \emph{tzdb(v.0.3.0)}, \emph{rmarkdown(v.2.21)}, \emph{grid(v.4.2.3)}, \emph{data.table(v.1.14.8)}, \emph{digest(v.0.6.31)}, \emph{webshot(v.0.5.4)}, \emph{xtable(v.1.8-4)}, \emph{numDeriv(v.2016.8-1.1)}, \emph{munsell(v.0.5.0)}, \emph{viridisLite(v.0.4.1)} and \emph{quadprog(v.1.5-8)}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{refs}{%
 \section*{Supplementary references}\label{refs}}

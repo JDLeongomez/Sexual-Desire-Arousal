@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.16)  28 MAR 2023 18:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.16)  29 MAR 2023 19:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -737,9 +737,6 @@ File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 
 LaTeX Warning: Label `tab:desciptive-tab' multiply defined.
 
-
-LaTeX Warning: Label `tab:desciptive-tab' multiply defined.
-
 )
 \openout1 = `Deseo_excitacion_sexual.aux'.
 
@@ -853,265 +850,253 @@ File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 \tf@toc=\write5
 \openout5 = `Deseo_excitacion_sexual.toc'.
 
-[2] [3]
+[2]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 366.
-[4]
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 471.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 269.
+[3] [4]
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 374.
 (c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [5]
-Underfull \vbox (badness 10000) detected at line 591
+Underfull \vbox (badness 10000) detected at line 494
  []
 
 
-Underfull \vbox (badness 10000) detected at line 591
+Underfull \vbox (badness 10000) detected at line 494
  []
 
-[6]
-Underfull \vbox (badness 10000) detected at line 591
- []
-
-
-Underfull \vbox (badness 10000) detected at line 591
- []
-
-[7] [8]
-Underfull \vbox (badness 10000) detected at line 730
+[6] [7]
+Underfull \vbox (badness 10000) detected at line 633
  []
 
 
-Underfull \vbox (badness 10000) detected at line 730
+Underfull \vbox (badness 10000) detected at line 633
  []
 
-[9] [10] [11]
-Underfull \vbox (badness 10000) detected at line 894
+[8]
+Overfull \vbox (1.54782pt too high) detected at line 660
  []
 
-
-Underfull \vbox (badness 10000) detected at line 894
+[9] [10]
+Underfull \vbox (badness 10000) detected at line 797
  []
 
-[12] [13]
-Overfull \vbox (1.41463pt too high) detected at line 970
- []
-
-[14]
-<Deseo_excitacion_sexual_files/figure-latex/donut-plot-1.pdf, id=272, 860.21375pt x 492.84125pt>
-File: Deseo_excitacion_sexual_files/figure-latex/donut-plot-1.pdf Graphic file (type pdf)
-<use Deseo_excitacion_sexual_files/figure-latex/donut-plot-1.pdf>
-Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/donut-plot-1.pdf  used on input line 974.
+[11] [12]
+<Deseo_excitacion_sexual_files/figure-latex/sample-plot-1.pdf, id=267, 860.21375pt x 492.84125pt>
+File: Deseo_excitacion_sexual_files/figure-latex/sample-plot-1.pdf Graphic file (type pdf)
+<use Deseo_excitacion_sexual_files/figure-latex/sample-plot-1.pdf>
+Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/sample-plot-1.pdf  used on input line 877.
 (pdftex.def)             Requested size: 500.48628pt x 286.74301pt.
-[15 <./Deseo_excitacion_sexual_files/figure-latex/donut-plot-1.pdf>]
-LaTeX Font Info:    Calculating math sizes for size <8.2> on input line 1063.
+[13] [14 <./Deseo_excitacion_sexual_files/figure-latex/sample-plot-1.pdf>]
+LaTeX Font Info:    Calculating math sizes for size <8.2> on input line 966.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8.2> on input line 1063.
+(Font)              <8.2> on input line 966.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5.73996> on input line 1063.
+(Font)              <5.73996> on input line 966.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <4.09999> on input line 1063.
-[16] [17]
-Underfull \vbox (badness 10000) detected at line 1260
+(Font)              <4.09999> on input line 966.
+[15] [16]
+Underfull \vbox (badness 10000) detected at line 1163
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1260
+Underfull \vbox (badness 10000) detected at line 1163
  []
 
-[18]
+[17]
 <Deseo_excitacion_sexual_files/figure-latex/density-plot-1.pdf, id=304, 857.2025pt x 640.3925pt>
 File: Deseo_excitacion_sexual_files/figure-latex/density-plot-1.pdf Graphic file (type pdf)
 <use Deseo_excitacion_sexual_files/figure-latex/density-plot-1.pdf>
-Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/density-plot-1.pdf  used on input line 1264.
+Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/density-plot-1.pdf  used on input line 1167.
 (pdftex.def)             Requested size: 500.487pt x 373.90012pt.
-[19] [20 <./Deseo_excitacion_sexual_files/figure-latex/density-plot-1.pdf>] [21] [22
+[18] [19 <./Deseo_excitacion_sexual_files/figure-latex/density-plot-1.pdf>] [20] [21
 
 ]
-Overfull \vbox (0.67871pt too high) detected at line 1463
+Overfull \vbox (0.67871pt too high) detected at line 1366
  []
 
-[23
+[22
 
-] [24] [25]
-<Deseo_excitacion_sexual_files/figure-latex/assu-m1-1.pdf, id=370, 850.17625pt x 559.08875pt>
+] [23] [24]
+<Deseo_excitacion_sexual_files/figure-latex/assu-m1-1.pdf, id=369, 850.17625pt x 559.08875pt>
 File: Deseo_excitacion_sexual_files/figure-latex/assu-m1-1.pdf Graphic file (type pdf)
 <use Deseo_excitacion_sexual_files/figure-latex/assu-m1-1.pdf>
-Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/assu-m1-1.pdf  used on input line 1646.
+Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/assu-m1-1.pdf  used on input line 1551.
 (pdftex.def)             Requested size: 500.484pt x 329.12582pt.
-[26]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1686.
+[25]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1591.
 (c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [27 <./Deseo_excitacion_sexual_files/figure-latex/assu-m1-1.pdf>] [28]
-Underfull \vbox (badness 10000) detected at line 1841
+) [26 <./Deseo_excitacion_sexual_files/figure-latex/assu-m1-1.pdf>] [27] [28]
+Underfull \vbox (badness 10000) detected at line 1821
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1841
+Underfull \vbox (badness 10000) detected at line 1821
  []
 
-[29] [30]
-Overfull \vbox (1.12735pt too high) detected at line 2032
+[29]
+Overfull \vbox (1.66295pt too high) detected at line 1918
+ []
+
+[30]
+Overfull \vbox (1.00557pt too high) detected at line 2036
  []
 
 [31]
-<Deseo_excitacion_sexual_files/figure-latex/fig-h1-1.pdf, id=434, 860.21375pt x 562.1pt>
+<Deseo_excitacion_sexual_files/figure-latex/fig-h1-1.pdf, id=443, 860.21375pt x 569.12625pt>
 File: Deseo_excitacion_sexual_files/figure-latex/fig-h1-1.pdf Graphic file (type pdf)
 <use Deseo_excitacion_sexual_files/figure-latex/fig-h1-1.pdf>
-Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/fig-h1-1.pdf  used on input line 2036.
-(pdftex.def)             Requested size: 500.48628pt x 327.03888pt.
-[32]
-Overfull \vbox (1.0016pt too high) detected at line 2082
- []
-
-[33 <./Deseo_excitacion_sexual_files/figure-latex/fig-h1-1.pdf>]
-<Deseo_excitacion_sexual_files/figure-latex/assu-m2a-1.pdf, id=466, 850.17625pt x 559.08875pt>
+Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/fig-h1-1.pdf  used on input line 2040.
+(pdftex.def)             Requested size: 500.48628pt x 331.12688pt.
+[32] [33 <./Deseo_excitacion_sexual_files/figure-latex/fig-h1-1.pdf>]
+<Deseo_excitacion_sexual_files/figure-latex/assu-m2a-1.pdf, id=476, 850.17625pt x 559.08875pt>
 File: Deseo_excitacion_sexual_files/figure-latex/assu-m2a-1.pdf Graphic file (type pdf)
 <use Deseo_excitacion_sexual_files/figure-latex/assu-m2a-1.pdf>
-Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/assu-m2a-1.pdf  used on input line 2122.
+Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/assu-m2a-1.pdf  used on input line 2126.
 (pdftex.def)             Requested size: 500.484pt x 329.12582pt.
-[34] [35 <./Deseo_excitacion_sexual_files/figure-latex/assu-m2a-1.pdf>] [36] [37] [38] [39]
-Overfull \vbox (1.52246pt too high) detected at line 2588
- []
-
-[40]
-Overfull \vbox (1.52246pt too high) detected at line 2663
- []
-
-[41] [42]
-Underfull \vbox (badness 10000) detected at line 2942
+[34] [35 <./Deseo_excitacion_sexual_files/figure-latex/assu-m2a-1.pdf>] [36] [37] [38] [39] [40] [41] [42] [43]
+Underfull \vbox (badness 10000) detected at line 2992
  []
 
 
-Underfull \vbox (badness 10000) detected at line 2942
- []
-
-[43]
-Underfull \vbox (badness 10000) detected at line 2942
- []
-
-
-Underfull \vbox (badness 10000) detected at line 2942
+Underfull \vbox (badness 10000) detected at line 2992
  []
 
 [44]
-Underfull \vbox (badness 10000) detected at line 2942
+Underfull \vbox (badness 10000) detected at line 2992
  []
 
 
-Underfull \vbox (badness 10000) detected at line 2942
+Underfull \vbox (badness 10000) detected at line 2992
  []
 
 [45]
-Underfull \vbox (badness 10000) detected at line 2942
+Underfull \vbox (badness 10000) detected at line 2992
  []
 
 
-Underfull \vbox (badness 10000) detected at line 2942
+Underfull \vbox (badness 10000) detected at line 2992
  []
 
 [46]
-<Deseo_excitacion_sexual_files/figure-latex/fig-h2a-1.pdf, id=567, 860.21375pt x 858.20625pt>
+Underfull \vbox (badness 10000) detected at line 2992
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 2992
+ []
+
+[47]
+<Deseo_excitacion_sexual_files/figure-latex/fig-h2a-1.pdf, id=581, 860.21375pt x 639.38875pt>
 File: Deseo_excitacion_sexual_files/figure-latex/fig-h2a-1.pdf Graphic file (type pdf)
 <use Deseo_excitacion_sexual_files/figure-latex/fig-h2a-1.pdf>
-Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/fig-h2a-1.pdf  used on input line 2946.
-(pdftex.def)             Requested size: 500.48628pt x 499.3183pt.
-[47] [48 <./Deseo_excitacion_sexual_files/figure-latex/fig-h2a-1.pdf>]
-<Deseo_excitacion_sexual_files/figure-latex/assu-m2b-1.pdf, id=603, 850.17625pt x 559.08875pt>
+Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/fig-h2a-1.pdf  used on input line 2996.
+(pdftex.def)             Requested size: 500.48628pt x 372.00673pt.
+[48 <./Deseo_excitacion_sexual_files/figure-latex/fig-h2a-1.pdf>]
+<Deseo_excitacion_sexual_files/figure-latex/assu-m2b-1.pdf, id=614, 850.17625pt x 559.08875pt>
 File: Deseo_excitacion_sexual_files/figure-latex/assu-m2b-1.pdf Graphic file (type pdf)
 <use Deseo_excitacion_sexual_files/figure-latex/assu-m2b-1.pdf>
-Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/assu-m2b-1.pdf  used on input line 3003.
+Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/assu-m2b-1.pdf  used on input line 3053.
 (pdftex.def)             Requested size: 500.484pt x 329.12582pt.
-[49] [50 <./Deseo_excitacion_sexual_files/figure-latex/assu-m2b-1.pdf>] [51] [52] [53] [54] [55] [56]
-Underfull \vbox (badness 10000) detected at line 3674
+[49] [50 <./Deseo_excitacion_sexual_files/figure-latex/assu-m2b-1.pdf>] [51] [52] [53] [54] [55] [56] [57]
+Underfull \vbox (badness 10000) detected at line 3785
  []
 
 
-Underfull \vbox (badness 10000) detected at line 3674
- []
-
-[57]
-Underfull \vbox (badness 10000) detected at line 3674
- []
-
-
-Underfull \vbox (badness 10000) detected at line 3674
+Underfull \vbox (badness 10000) detected at line 3785
  []
 
 [58]
-<Deseo_excitacion_sexual_files/figure-latex/fig-h2b-1.pdf, id=689, 860.21375pt x 636.3775pt>
+Underfull \vbox (badness 10000) detected at line 3785
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 3785
+ []
+
+[59]
+Underfull \vbox (badness 10000) detected at line 3785
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 3785
+ []
+
+[60]
+<Deseo_excitacion_sexual_files/figure-latex/fig-h2b-1.pdf, id=707, 860.21375pt x 634.37pt>
 File: Deseo_excitacion_sexual_files/figure-latex/fig-h2b-1.pdf Graphic file (type pdf)
 <use Deseo_excitacion_sexual_files/figure-latex/fig-h2b-1.pdf>
-Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/fig-h2b-1.pdf  used on input line 3678.
-(pdftex.def)             Requested size: 500.48628pt x 370.25473pt.
-[59]
-Underfull \hbox (badness 2970) in paragraph at lines 3699--3701
+Package pdftex.def Info: Deseo_excitacion_sexual_files/figure-latex/fig-h2b-1.pdf  used on input line 3789.
+(pdftex.def)             Requested size: 500.48628pt x 369.08673pt.
+[61 <./Deseo_excitacion_sexual_files/figure-latex/fig-h2b-1.pdf>]
+Underfull \hbox (badness 2970) in paragraph at lines 3812--3814
 []\T1/lmr/bx/n/10 other at-tached pack-ages: \T1/lmr/m/it/10 pan-der(v.0.6.5)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 Hmisc(v.5.0-1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 berry-Func-tions(v.1.21.14)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 rstatix(v.0.7.2)\T1/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 6641) in paragraph at lines 3699--3701
+Underfull \hbox (badness 6641) in paragraph at lines 3812--3814
 \T1/lmr/m/it/10 Ex-tra(v.1.3.4)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 per-for-mance(v.0.10.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 em-means(v.1.8.5)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 in-ter-ac-tions(v.1.1.5)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 tidyquant(v.1.0.6)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 quant-
  []
 
 
-Underfull \hbox (badness 3098) in paragraph at lines 3699--3701
+Underfull \hbox (badness 3098) in paragraph at lines 3812--3814
 \T1/lmr/m/it/10 mod(v.0.4.20)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 TTR(v.0.24.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 Per-for-mance-An-a-lyt-ics(v.2.0.4)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 xts(v.0.13.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 zoo(v.1.8-11)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 gg-pubr(v.0.6.0)\T1/lmr/m/n/10 ,
  []
 
-[60 <./Deseo_excitacion_sexual_files/figure-latex/fig-h2b-1.pdf>]
-Underfull \hbox (badness 2393) in paragraph at lines 3702--3704
-\T1/lmr/m/it/10 gtable(v.0.3.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 web-shot(v.0.5.4)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 MatrixModels(v.0.5-1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 Quandl(v.2.11.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 abind(v.1.4-5)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 SparseM(v.1.81)\T1/lmr/m/n/10 ,
+
+Underfull \hbox (badness 3128) in paragraph at lines 3815--3817
+\T1/lmr/m/it/10 farver(v.2.1.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 MatrixModels(v.0.5-1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 fansi(v.1.0.4)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 mvtnorm(v.1.1-3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 xml2(v.1.3.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 codetools(v.0.2-19)\T1/lmr/m/n/10 ,
  []
 
 
-Overfull \hbox (5.13521pt too wide) in paragraph at lines 3702--3704
-\T1/lmr/m/it/10 mvtnorm(v.1.1-3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 DBI(v.1.1.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 Rcpp(v.1.0.9)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 viridis-Lite(v.0.4.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 xtable(v.1.8-4)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 htmlTable(v.2.4.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 foreign(v.0.8-
+Underfull \hbox (badness 2310) in paragraph at lines 3815--3817
+\T1/lmr/m/it/10 splines(v.4.2.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 mnormt(v.2.1.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 Formula(v.1.2-5)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 json-lite(v.1.8.4)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 nloptr(v.2.0.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 broom(v.1.0.4)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 clus-
  []
 
 
-Underfull \hbox (badness 7397) in paragraph at lines 3702--3704
-\T1/lmr/m/it/10 nnet(v.7.3-18)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 utf8(v.1.2.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 tidys-e-lect(v.1.2.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 la-bel-ing(v.0.4.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 rlang(v.1.1.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 mun-sell(v.0.5.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 cell-
+Underfull \hbox (badness 4872) in paragraph at lines 3815--3817
+\T1/lmr/m/it/10 timechange(v.0.2.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 life-cy-cle(v.1.0.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 hms(v.1.1.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 par-al-lel(v.4.2.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 sandwich(v.3.0-2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 SparseM(v.1.81)\T1/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 6063) in paragraph at lines 3702--3704
-\T1/lmr/m/it/10 yaml(v.2.3.6)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 ad-misc(v.0.31)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 nlme(v.3.1-160)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 quantreg(v.5.94)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 xml2(v.1.3.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 com-piler(v.4.2.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 rstu-
+Underfull \hbox (badness 1728) in paragraph at lines 3815--3817
+\T1/lmr/m/it/10 fonts(v.1.0.4)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 eval-u-ate(v.0.20)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 lattice(v.0.20-45)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 patch-work(v.1.1.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 html-wid-gets(v.1.6.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 la-bel-ing(v.0.4.2)\T1/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 4001) in paragraph at lines 3702--3704
-\T1/lmr/m/it/10 18)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 boot(v.1.3-28)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 as-sert-that(v.0.2.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 withr(v.2.5.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 mnormt(v.2.1.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 multcomp(v.1.4-23)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 mgcv(v.1.8-
+Underfull \hbox (badness 10000) in paragraph at lines 3815--3817
+\T1/lmr/m/it/10 cow-plot(v.1.1.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 tidys-e-lect(v.1.2.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 magrittr(v.2.0.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 book-down(v.0.33)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 R6(v.2.5.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 gener-ics(v.0.1.3)\T1/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 2096) in paragraph at lines 3702--3704
-\T1/lmr/m/it/10 41)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 bayestestR(v.0.13.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 expm(v.0.999-7)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 par-al-lel(v.4.2.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 hms(v.1.1.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 quadprog(v.1.5-8)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 grid(v.4.2.2)\T1/lmr/m/n/10 ,
+Underfull \hbox (badness 2269) in paragraph at lines 3815--3817
+\T1/lmr/m/it/10 18)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 datawiz-ard(v.0.7.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 survival(v.3.5-3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 abind(v.1.4-5)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 crayon(v.1.5.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 Quandl(v.2.11.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 utf8(v.1.2.3)\T1/lmr/m/n/10 ,
  []
 
-[61
+[62
 pdfTeX warning (ext4): destination with the same identifier (name{refs}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.3752 
-       ] [62] (./Deseo_excitacion_sexual.aux)
+l.3852 
+       ] [63] (./Deseo_excitacion_sexual.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 26612 strings out of 477966
- 505228 string characters out of 5836806
+ 26620 strings out of 477966
+ 505469 string characters out of 5836806
  1918382 words of memory out of 5000000
- 46054 multiletter control sequences out of 15000+600000
+ 46057 multiletter control sequences out of 15000+600000
  595764 words of font info for 97 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 99i,16n,94p,2526b,848s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,16n,94p,2480b,848s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}<c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb><c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri8.pfb><c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb><c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/juanl/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on Deseo_excitacion_sexual.pdf (62 pages, 22745441 bytes).
+Output written on Deseo_excitacion_sexual.pdf (63 pages, 21282322 bytes).
 PDF statistics:
- 1044 PDF objects out of 1200 (max. 8388607)
- 910 compressed objects within 10 object streams
- 228 named destinations out of 1000 (max. 500000)
- 469 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1062 PDF objects out of 1200 (max. 8388607)
+ 927 compressed objects within 10 object streams
+ 233 named destinations out of 1000 (max. 500000)
+ 477 words of extra memory for PDF output out of 10000 (max. 10000000)
 
