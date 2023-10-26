@@ -110,8 +110,7 @@ local function create_correspondence_blocks(authors, mark)
     if is_corresponding_author(author) then
       local mailto = 'mailto:' .. pandoc.utils.stringify(author.email)
       local author_with_mail = List:new(
-        author.name .. List:new{pandoc.Space(),  pandoc.Str '<'} ..
-        author.email .. List:new{pandoc.Str '>'}
+        author.email
       )
       local link = pandoc.Link(author_with_mail, mailto)
       table.insert(corresponding_authors, {link})
@@ -123,7 +122,7 @@ local function create_correspondence_blocks(authors, mark)
   local correspondence = List:new{
     pandoc.Superscript(mark'corresponding_author'),
     pandoc.Space(),
-    pandoc.Str'Correspondencia:',
+    pandoc.Str'Correspondence:',
     pandoc.Space()
   }
   local sep = List:new{pandoc.Str',',  pandoc.Space()}

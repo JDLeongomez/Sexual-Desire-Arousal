@@ -1,0 +1,2812 @@
+---
+title: 'Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic and Non-Erotic Stimuli: Gender, Relationship Status, and Gender-Specificity'
+subtitle: Code and analyses
+author:
+  - name: Milena Vásquez-Amézquita \orcidlink{0000-0001-7317-8430}
+    correspondence: true
+    institute: [costa, ueb, gcul, codec]
+    email: mvasquezam@unbosque.edu.co
+  - name: Juan David Leongómez \orcidlink{0000-0002-0092-6298}
+    correspondence: false
+    institute: [ueb, codec]
+  - name: Marina Begoña Martínez-González \orcidlink{0000-0002-5840-6383}
+    correspondence: false
+    institute: costa
+  - name: Meredith L. Chivers \orcidlink{0000-0002-5495-9263}
+    correspondence: false
+    institute: queen
+institute:
+  - costa: 'Departamento de Ciencias Sociales, Universidad de la Costa, Barranquilla, 080002, Colombia.'
+  - ueb: 'Facultad de Psicología, Universidad El Bosque, Bogotá, 110121, Colombia.'
+  - gcul: 'Grupo de Investigación en Cultura, Educación y Sociedad, Universidad de la Costa, Barranquilla, 080002, Colombia.'
+  - codec: 'CODEC: Ciencias Cognitivas y del Comportamiento, Universidad El Bosque, Bogotá, 110121, Colombia.'
+  - queen: 'Department of Psychology, Queen’s University, Kingston ON K7L 3N6, Canada.'
+date: "`r Sys.setlocale('LC_TIME','English');format(Sys.Date(),'%d %B, %Y')`"
+output:
+  bookdown::pdf_document2:
+    citation_package: biblatex
+    highlight: zenburn
+    number_sections: yes
+    keep_tex:  true
+    toc: no
+    pandoc_args:
+      - '--lua-filter=lua/scholarly-metadata.lua'
+      - '--lua-filter=lua/author-info-blocks.lua'
+classoption: 
+      - bookmarksnumbered
+editor_options:
+  chunk_output_type: console
+geometry: margin=2cm
+header-includes: 
+  \usepackage{caption} 
+  \usepackage{float} 
+  \floatplacement{figure}{H} 
+  \usepackage[utf8]{inputenc} 
+  \usepackage{fancyhdr}
+  \pagestyle{fancy} 
+  \usepackage{hanging}
+  \lhead{Vásquez-Amézquita et al.} 
+  \rhead{\textit{Desire and sexual arousal}} 
+  \renewcommand{\abstractname}{Description} 
+  \usepackage[british]{babel}
+  \usepackage{csquotes}
+  \usepackage[style=apa,backend=biber]{biblatex}
+  \DeclareLanguageMapping{british}{british-apa}
+  \usepackage{hanging}
+  \usepackage{amsthm,amssymb,amsfonts}
+  \usepackage{tikz,lipsum,lmodern}
+  \usepackage{multicol}
+  \usepackage{orcidlink}
+  \newcommand{\opensupplement}{\setcounter{table}{0}
+    \renewcommand{\thetable}{S\arabic{table}} \setcounter{figure}{0}
+    \renewcommand{\thefigure}{S\arabic{figure}}}
+  \newcommand{\closesupplement}{\setcounter{table}{0}
+    \renewcommand{\thetable}{\arabic{table}} \setcounter{figure}{0}
+    \renewcommand{\thefigure}{\arabic{figure}}}
+  \usepackage{multirow,booktabs,setspace}
+  \DeclareCaptionLabelSeparator{point}{. }
+  \DeclareCaptionLabelSeparator{point}{. }
+  \captionsetup[table]{labelfont=bf,
+    textfont=it,
+    format=plain,
+    labelsep=point,
+    skip=5pt}
+  \captionsetup[figure]{labelfont=bf,
+    format=plain,
+    justification=justified,
+    singlelinecheck=false,
+    labelsep=point,
+    skip=5pt}
+always_allow_html: yes
+bibliography: Bib/Bibliography.bib
+urlcolor: blue
+linkcolor: gray
+citecolor: gray
+link-citations: true
+---
+
+```{=tex}
+\begin{center}
+Faculty of Psychology, Universidad El Bosque, Bogota, Colombia. \linebreak
+MV-A: \href{mailto:mvasquezam@unbosque.edu.co}{mvasquezam@unbosque.edu.co}. 
+JDL: \href{mailto:jleongomez@unbosque.edu.co}{jleongomez@unbosque.edu.co}.
+```
+
+------------------------------------------------------------------------
+
+```{=tex}
+\textbf{Description}
+\end{center}
+
+\par
+\begingroup
+\leftskip3em
+\rightskip\leftskip
+```
+
+This document contains all code, and step by step explanations for all analyses, figures and tables (including supplementary figures and tables) for:
+
+```{=latex}
+\begin{hangparas}{.25in}{1}
+Vásquez-Amézquita, M., Leongómez, J. D., Martínez-González, M. B., \& Chivers, M. L. (in prep). \textit{Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic and Non-Erotic Stimuli: Gender, Relationship Status, and Gender-Specificity}
+\end{hangparas}
+```
+
+Data available from the Open Science Framework (OSF): <https://doi.org/10.17605/OSF.IO/3V2E7>. All analyses were planned by Milena Vásquez-Amézquita and Juan David Leongómez. This document and its underlying code were created in `R Markdown` by Juan David Leongómez using \LaTeX.
+
+------------------------------------------------------------------------
+
+```{=latex}
+\par
+\endgroup
+
+{\hypersetup{hidelinks}
+\setcounter{tocdepth}{6}
+\tableofcontents
+}
+\opensupplement
+```
+
+```{r results = "hold", setup, include = FALSE}
+library(knitr)
+opts_chunk$set(fig.width = 12, fig.height = 8, fig.pos = "H")
+options(knitr.kable.NA = " ")
+opts_knit$set(eval.after = "fig.cap")
+```
+
+------------------------------------------------------------------------
+ 
+
+# Preliminaries
+
+## Load packages
+
+This file was created using `knitr` [@knitrcit], mostly using `tidyverse` [@tidyversecit] syntax. As such, data wrangling was mainly done using packages such as `dplyr` [@dplyrcit], and most figures were created or modified using `ggplot2` [@ggplotcit]. Tables were created using `knitr::kable` and `kableExtra` [@kableExtracit].
+
+Linear mixed models were fitted using `lmerTest` [@lmertestcit], assumptions were performed using `performance` [@ludecke2021], contrasts and interactions were explored using `emmeans` [@emmeanscit], and interactions were plotted using the package `interactions` [@interactionscit].
+
+Used packages also include `osfr` [@osfrcit] to download and open data files directly from the Open Science Framework ([OSF](https://osf.io/)), using the `osf_retrieve_file` and `osf_download` functions.
+
+All packages used in this file can be directly installed from the Comprehensive R Archive Network ([CRAN](https://cran.r-project.org/)). For a complete list of packages used to create this file, and their versions, see section \@ref(session), at the end of the document.
+
+```{r message = FALSE}
+library(readxl)
+library(ltm)
+library(car)
+library(lmerTest)
+library(tidyverse)
+library(ggpubr)
+library(tidyquant)
+library(dplyr)
+library(interactions)
+library(emmeans)
+library(performance)
+library(kableExtra)
+library(psych)
+library(MetBrewer)
+library(ggpmisc)
+library(scales)
+library(effectsize)
+library(rstatix)
+library(berryFunctions)
+```
+
+## Define color palettes
+
+Individual color palettes for figures by gender, stimuli sex, or relationship type.
+
+```{r}
+# Palette to color figures by gender
+color.Gender <- c("#bd3106","#5b7314")
+# Palette to color figures by stimuli sex
+color.StimuliSex <- c("#454b87","#d9700e")
+# Palette to color figures by relationship type
+color.Relationship <- c("#b39e05","#a513d6")
+# Palette to color figures by dimension type
+color.Dimension <- c("#582310","#318f49","#0cb4bb")
+```
+
+## Custom functions
+
+### `pval.lev`
+
+This function takes p-values and formats them in \LaTeX, highlighting significant results in bold.
+
+```{r}
+# Version 1 for LaTeX format
+pval.lev <- function(pvals) {
+  ifelse(pvals < 0.0001,
+         "\\textbf{< 0.0001}",
+         ifelse(pvals < 0.001,
+                "\\textbf{< 0.001}",
+                ifelse(pvals < 0.05,
+                       paste0("\\textbf{", round(pvals, 4), "}"),
+                       round(pvals, 2))))
+}
+
+
+# Version 2 without LaTeX format
+pval.lev2 <- function(pvals) {
+  ifelse(pvals < 0.0001,
+         "< 0.0001",
+         ifelse(pvals < 0.001,
+                "< 0.001",
+                ifelse(pvals < 0.05,
+                       paste0("= ", round(pvals, 4)),
+                       paste0("= ", round(pvals, 2)))))
+}
+```
+
+### `pval.stars`
+
+This function takes p-values and adds starts to represent significance levels.
+
+```{r}
+pval.stars <- function(pvals) {
+  ifelse(pvals < 0.0001,
+         "****",
+         ifelse(pvals < 0.001,
+                "***",
+                ifelse(pvals < 0.01,
+                "**",
+                       ifelse(pvals < 0.05,
+                       "*", NA))))
+}
+```
+
+### `corr.stars`
+
+This function creates a correlation matrix, and displays significance (function `corr.stars` modified from <http://myowelt.blogspot.com/2008/04/beautiful-correlation-tables-in-r.html>).
+
+```{r}
+corr.stars <- function(x) {
+  require(Hmisc)
+  x <- as.matrix(x)
+  R <- rcorr(x)$r
+  p <- rcorr(x)$P
+  # define notions for significance levels; spacing is important.
+  mystars <- ifelse(p < .001, 
+                    paste0("\\textbf{", round(R, 2), "***}"), 
+                    ifelse(p < .01, 
+                           paste0("\\textbf{", round(R, 2), "**}"), 
+                           ifelse(p < .05, 
+                                  paste0("\\textbf{", round(R, 2), "*}"),
+                                  ifelse(p < .10,
+                                         paste0(round(R, 2), "$^{\\dagger}$"),
+                                         format(round(R, 2), nsmall = 2)))))
+  # build a new matrix that includes the correlations with their appropriate stars
+  Rnew <- matrix(mystars, 
+                 ncol = ncol(x))
+  diag(Rnew) <- paste(diag(R), " ", 
+                      sep = "")
+  rownames(Rnew) <- colnames(x)
+  colnames(Rnew) <- paste(colnames(x), "", 
+                          sep = "")
+  # remove upper triangle
+  Rnew <- as.matrix(Rnew)
+  Rnew[upper.tri(Rnew, diag = TRUE)] <- ""
+  Rnew <- as.data.frame(Rnew)
+  # remove last column and return the matrix (which is now a data frame)
+  Rnew <- cbind(Rnew[1:length(Rnew) - 1])
+  return(Rnew)
+}
+```
+
+### `summary.sig` and `summary.sig.boot`
+
+Functions to bold significant *p* values from summary model tables. It highlights significant $p$ values, and formats the output in \LaTeX, ready to be used with `kable`.
+
+We used `summary` (regression-type tables of estimates) instead on ANOVA-type tables to display model results. This was because we needed to bootstrap estimates for the two models oh Hypothesis 2 (see section \@ref(hypothesis2)). However, to obtain *p*-values that represent main effects and interactions, we used *sum-to-zero* contrasts [see e.g., @kaufmanContrastCodingLeast1974; @keppelDataAnalysisResearch1989].
+
+```{r results = "hold"}
+# Version 1 for models with no CIs
+summary.sig <- function(mod, custom_caption) {
+  modTab <- data.frame(summary(mod)$coefficients) |> 
+                      rownames_to_column() |>
+    mutate_at("rowname", str_replace_all, ":", " × ") |>
+    mutate_at("rowname", str_replace_all, "`", "") |> 
+    mutate("rowname" = str_replace_all(rowname,
+                                       c("Gender1" = "Gender [Women]",
+                                         "Relationship1" = "Relationship [Stable]",
+                                         Dimension1 = "Dimension [Attractive person DSD]",
+                                         Dimension2 = "Dimension [Partner DSD]"))) |> 
+    select(rowname, Estimate, Std..Error, df, t.value, Pr...t..) |> 
+    mutate(Pr...t.. = pval.lev(Pr...t..)) |> 
+    kable(digits = 2,
+          booktabs = TRUE,
+          align = c("l", rep("c", 5)),
+          linesep = "",
+          caption = custom_caption,
+          col.names = c("Effect",
+                        "Estimate", 
+                        "Std. Error", 
+                        "$df$", "
+                        $t$", 
+                        "$p$"),
+          escape = FALSE) |>
+    kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+    footnote(general = paste0("Sexual desire was measured as the proportion of 
+                              each score divided by the maximum possible score 
+                              for each dimension.
+                              $R^2_{conditional}$ = ",
+                              round(r2_nakagawa(mod)$R2_conditional, 3),
+                              ", $R^2_{marginal}$ = ",
+                              round(r2_nakagawa(mod)$R2_marginal, 3),
+                              ". Results are from linear mixed models for main 
+                              effects and interactions between sexual desire (SD) dimensions,
+                              sex, and Stimuli sex.
+                              Gender = participants gender (women, men); 
+                              Stimuli sex = sex of stimuli (female, male);
+                              Attractive person DSD = Dyadic sexual desire toward an 
+                              attractive person;
+                              Partner DSD = Dyadic sexual desire toward a partner.
+                              \\\\textit{Sum-to-zero} contrasts were used to display
+                              \\\\textit{p}-values that represent main effects and interactions 
+                              in an ANOVA-type manner (i.e. the intercept is the grand mean of 
+                              all cells, and estimates are differences between each category
+                              mean and the mean of all categories).
+                              \\\\textit{Single} was used as reference category
+                              for relationship status, \\\\textit{Men} for gender, 
+                              and \\\\textit{Solitary} for  sexual desire dimension.
+                              Contrasted levels are in square brackets.
+                              Significant effects are in bold."),
+             escape = FALSE,
+             threeparttable = TRUE,
+             footnote_as_chunk = TRUE)
+    return(modTab)
+}
+
+# Version 2 for models with bootstrap CIs
+summary.sig.boot <- function(mod, modCI, custom_caption) {
+  modTab <- left_join(data.frame(summary(mod)$coefficients) |> 
+                        rownames_to_column(),
+                      data.frame(modCI) |> 
+                        rownames_to_column(),
+                      by = "rowname") |>
+    mutate_at("rowname", str_replace_all, ":", " × ") |>
+    mutate_at("rowname", str_replace_all, "`", "") |> 
+    mutate("rowname" = str_replace_all(rowname,
+                                       c("`Solitary sexual desire (C)`" =
+                                           "Solitary SD (C)",
+                                         "`Dyadic sexual desire (Attractive person) (C)`" =
+                                           "Attractive person DSD (C)",
+                                         "`Dyadic sexual desire (Partner) (C)`" =
+                                           "Partner DSD (C)",
+                                         "Relationship1" = "Relationship [Stable]", 
+                                         "Stimuli sex1" = "Stimuli sex [Female]", 
+                                         "Gender1" = "Gender [Women]"))) |> 
+    select(rowname, Estimate, X2.5.., X97.5.., Std..Error, df, t.value, Pr...t..) |> 
+    mutate(Pr...t.. = pval.lev(Pr...t..)) |> 
+    kable(digits = 2,
+          booktabs = TRUE,
+          align = c("l", rep("c", 7)),
+          linesep = "",
+          caption = custom_caption,
+          col.names = c("Effect",
+                        "Estimate", 
+                        "Lower 95\\% CI", 
+                        "Upper 95\\% CI", 
+                        "Std. Error", 
+                        "$df$", "
+                        $t$", 
+                        "$p$"),
+          escape = FALSE) |>
+    kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+    footnote(general = paste0("$R^2_{conditional}$ = ",
+                              round(r2_nakagawa(mod)$R2_conditional, 3),
+                              ", $R^2_{marginal}$ = ",
+                              round(r2_nakagawa(mod)$R2_marginal, 3),
+                              ". Results are from linear mixed models for main 
+                              effects and interactions between sexual desire (SD) dimensions,
+                              sex, and Stimuli sex.
+                              Confidence intervales were calculated as the 2.5 and 97.5 
+                              percentiles from bootstrap (1000 simulations).
+                              Continuous variables were centered and scaled
+                              (represented as \\\\textbf{(C)} in variable names).
+                              Gender = participants gender (women, men); 
+                              Stimuli sex = sex of stimuli (female, male); 
+                              Solitary SD = Solitary Sexual Desire;
+                              Attractive person DSD = Dyadic Sexual Desire toward an 
+                              Attractive person;
+                              Partner DSD = Dyadic Sexual Desire toward partner.
+                              \\\\textit{Sum-to-zero} contrasts were used to display
+                              \\\\textit{p}-values that represent main effects and interactions 
+                              in an ANOVA-type manner (i.e. the intercept is the grand mean of 
+                              all cells, and estimates are differences between each category
+                              mean and the mean of all categories).
+                              As reference categories 
+                              \\\\textit{Single} was used for relationship status,
+                              \\\\textit{Men} for gender,
+                              and \\\\textit{Male} for stimuli sex. 
+                              Contrasted levels are in square brackets. 
+                              Significant effects are in bold."),
+             escape = FALSE,
+             threeparttable = TRUE,
+             footnote_as_chunk = TRUE)
+    return(modTab)
+}
+```
+
+### `emms.sig`
+
+Function to create a table of estimated marginal means and contrasts at three levels of a covariate, representing significance levels from `emmeans::emmeans` outputs. The function highlights significant $p$ values, and formats the output in \LaTeX, ready to be used with `kable`.
+
+```{r}
+# Version 1, for interactions
+emms.sig <- function(low.i, mid.i, hi.i) {
+  emm.low <- data.frame(low.i[[1]])
+  emm.mid <- data.frame(mid.i[[1]])
+  emm.hi <- data.frame(hi.i[[1]])
+  con.low <- data.frame(low.i[[2]])
+  con.mid <- data.frame(mid.i[[2]])
+  con.hi <- data.frame(hi.i[[2]]) 
+  
+  low.tab <- merge(emm.low, con.low, by = 0, all = TRUE)
+  mid.tab <- merge(emm.mid, con.mid, by = 0, all = TRUE)
+  hi.tab <- merge(emm.hi, con.hi, by = 0, all = TRUE)
+  
+  tab <- bind_rows(low.tab, mid.tab, hi.tab) |> 
+    select(-c(1,3,6,10:13)) |>
+    mutate(p.value = pval.lev(p.value)) |>
+    kable(digits = 2,
+          booktabs = TRUE,
+          align = c("l", rep("c", 4), "l", rep("c", 2)),
+          linesep = "",
+          caption = paste0("Estimated marginal means and contrasts for ",
+                           low.i[[1]]@misc$pri.vars[1],
+                           " at different levels of ",
+                           low.i[[1]]@misc$by.vars),
+          col.names = c(low.i[[1]]@misc$pri.vars[1],
+                        "EMM",
+                        "$SE$",
+                        "$2.5\\% CI$",
+                        "$97.5\\% CI$",
+                        "Contrast",
+                        "$z$",
+                        "$p$"),
+          escape = FALSE) |>
+  pack_rows(group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean - SD"),
+            start_row = 1,
+            end_row = 2,
+            bold = TRUE) |>
+  pack_rows(group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean"),
+            start_row = 3,
+            end_row = 4,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  pack_rows(group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean + SD"),
+            start_row = 5,
+            end_row = 6,
+            hline_before = TRUE,
+            bold = TRUE) |> 
+  add_header_above(c(" " = 5, "Contrasts" = 3)) |> 
+  kable_styling(latex_options = "HOLD_position") |>
+  footnote(general = paste0("EMM = estimated marginal mean.
+           Significant effects are in bold.
+           Continuous variables were centered and scaled (in this case, ",
+           low.i[[1]]@misc$by.vars, ").
+           An asymptotic method was used to avoid extreme computation
+           times (hence, no degrees of freedom are included, and 
+           $z$ rather than $t$ statistics are reported).
+           For contrasts, Tukey adjustment was used."),
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+  
+  return(tab)
+}
+
+# Version 2, for triple interactions
+emms.sig2 <- function(low.i, mid.i, hi.i) {
+  emm.low <- data.frame(low.i[[1]])
+  emm.mid <- data.frame(mid.i[[1]])
+  emm.hi <- data.frame(hi.i[[1]])
+  con.low <- data.frame(low.i[[2]])
+  con.mid <- data.frame(mid.i[[2]])
+  con.hi <- data.frame(hi.i[[2]]) 
+  
+  low.tab <- merge(emm.low, con.low, by = 0, all = TRUE)
+  mid.tab <- merge(emm.mid, con.mid, by = 0, all = TRUE)
+  hi.tab <- merge(emm.hi, con.hi, by = 0, all = TRUE)
+  
+  tab <- bind_rows(low.tab, mid.tab, hi.tab) |> 
+    select(-c(1,4,7,11:14)) |>
+    mutate(p.value = pval.lev(p.value)) |>
+    kable(digits = 2,
+          booktabs = TRUE,
+          align = c("l", "l", rep("c", 4), "l", rep("c", 2)),
+          linesep = "",
+          caption = paste0("Estimated marginal means and contrasts for ",
+                           low.i[[1]]@misc$pri.vars[1], " and ",
+                           low.i[[1]]@misc$pri.vars[2],
+                           " at different levels of ",
+                           low.i[[1]]@misc$by.vars),
+          col.names = c(low.i[[1]]@misc$pri.vars[1],
+                        low.i[[1]]@misc$pri.vars[2],
+                        "EMM",
+                        "$SE$",
+                        "$2.5\\% CI$",
+                        "$97.5\\% CI$",
+                        "Contrast",
+                        "$z$",
+                        "$p$"),
+          escape = FALSE) |>
+  pack_rows(group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean - SD"),
+            start_row = 1,
+            end_row = 6,
+            bold = TRUE) |>
+  pack_rows(group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean"),
+            start_row = 7,
+            end_row = 12,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  pack_rows(group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean + SD"),
+            start_row = 13,
+            end_row = 18,
+            hline_before = TRUE,
+            bold = TRUE) |> 
+  add_header_above(c(" " = 6, "Contrasts" = 3)) |> 
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(general = paste0("EMM = estimated marginal mean.
+           Significant effects are in bold.
+           Continuous variables were centered and scaled (in this case, ",
+           low.i[[1]]@misc$by.vars, ")
+           An asymptotic method was used to avoid extreme computation
+           times (hence, no degrees of freedom are included, and 
+           $z$ rather than $t$ statistics are reported).
+           For contrasts, Tukey adjustment was used."),
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+  
+  return(tab)
+}
+```
+
+### `contr.stars`
+
+Function to create a data frame of model contrasts, representing significance levels from an `emmeans::emmeans` output. These data frames are formatted to be called by the `ggpubr::stat_pvalue_manual` function used in model figures.
+
+```{r results = "hold"}
+contr.stars <- function(emms){
+  require(emmeans)
+  x <- as.data.frame(contrast(emms, interaction = "pairwise"))
+  x <- separate(x,
+                col = 1, 
+                into = c("group1", "group2"), 
+                sep = " - ", 
+                remove = TRUE)
+  x$p.signif <- ifelse(x$p.value < 0.0001, "****",
+                            ifelse(x$p.value < 0.001, "***",
+                                   ifelse(x$p.value < 0.01, "**",
+                                          ifelse(x$p.value < 0.05, "*", NA))))
+  x <- x |>
+    mutate_at("group1", str_replace_all, "[()]", "") |> 
+    mutate_at("group2", str_replace_all, "[()]", "")
+  return(x)
+}
+```
+
+### `prob.dist.tab`
+
+Function to create a table of the probability of a model for each distribution family, using the `check_distribution` function, from the `performance` package [@ludecke2021]. Values are sorted descending, first for probabilities according to the residual distribution, and then for probabilities according to the response variable. While 18 distribution families are tested, only families with at least one probability (either residual or response variable) higher than 10% are shown in the table.
+
+```{r}
+prob.dist.tab <- function(mod){
+  # Calculate probabilities for each distribution family
+  tibble(check_distribution(mod)) |>
+    arrange(desc(p_Response)) |> 
+    arrange(desc(p_Residuals)) |> 
+  # Select only distribution families with at leat a 10% probability
+  filter(p_Residuals > 0.1 | p_Response > 0.1) |> 
+  # Transform probabilities to percentages
+  mutate(p_Residuals = paste0(round(p_Residuals*100, 2), "\\%")) |> 
+  mutate(p_Response = paste0(round(p_Response*100, 2), "\\%")) |> 
+  # Capitalise first letter of each family distribution
+  mutate(Distribution = sub("(.)", "\\U\\1", Distribution, perl = TRUE)) |> 
+  # Create table
+  kable(booktabs = TRUE, 
+        align = c("l", "c", "c"),
+        row.names = FALSE,
+        caption = "Distributional family for the model",
+        col.names = c("Family",
+                      "Residuals", 
+                      "Response"),
+        escape = FALSE) |> 
+  kable_styling(latex_options = "HOLD_position") |>
+  # Bold highest probability
+  row_spec(1, background = "#c4c4c4") |>
+  footnote(general = "Only families with at least one probability higher than 
+  10\\\\% are shown, but a total of 18 distribution families were tested.
+  The most likely distribution is highlighted.", 
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+}
+```
+
+## Load and wrangle data
+
+Change necessary variables to factor, sort levels, and rename variables
+
+```{r message = FALSE}
+# Load data
+dat <- read.csv("Data/BD_Heterosexuales_Vertical_BIG.csv") |>
+  # Remove rows with missing values for Solitary sexual desire (SD_solitario)
+  drop_na(SD_solitario) |> 
+  # Change variables to factor and sort their levels
+  mutate(Contenido_Estimulo = factor(Contenido_Estimulo)) |> 
+  mutate(Sexo = factor(Sexo)) |>
+  mutate(Sexo_Estimulo = factor(Sexo_Estimulo)) |>
+  mutate(PrefSex = factor(PrefSex)) |>
+  mutate(EstRel = factor(EstRel)) |>
+  mutate(Escolaridad = factor(Escolaridad)) |>
+  mutate(Religion = factor(Religion)) |>
+  # Rename variables to English
+  rename(Participant = Participante,
+         Age = EdadParticipante,
+         `Preferred sex`  = PrefSex,
+         Gender = Sexo,
+         `Contraceptive uso` = Anticoncep,
+         `Last period` = UltimoPer,
+         `Period day` = Dia_ciclo,
+         Education = Escolaridad,
+         Location = Residencia,
+         `Location (other)` = Residencia_3_TEXT,
+         `Medical history` = AntMed,
+         `Sexual orientation` = OS,
+         `Relationship status` = EstRel,
+         `Relationship duration` = TiempoRP,
+         `Partner gender` = SexPareja,
+         `Relationship type` = TipoRel,
+         `Age at first intercourse` = Primera.ExpSex,
+         `Consented to first intercourse` = ConExpSex,
+         `Number of sexual partners` = Numero.Parejas,
+         `Pornography consumed last month` = Pornografia_ultimo_mes,
+         Relationship = TieneRelacion,
+         `MGH-SFQ (total)` = MGH.SFQ_Total,
+         `Dyadic sexual desire (Partner)` = SD_Diadico_pareja,
+         `Solitary sexual desire` = SD_solitario,
+         `Dyadic sexual desire (Attractive person)` = SD_Diadico_p_atractiva,
+         `MGSS sexual satisfaction (General)` = Satisfaccion.Sexual..MGSS_general.,
+         `MGSS sexual satisfaction (Partner)` = Satisfaccion.Sexual..MGSS_Pareja.,
+         `Stimuli code` = Codigo_Estimulo,
+         `Stimuli sex` = Sexo_Estimulo,
+         `Stimuli content` = Contenido_Estimulo,
+         `Subjective sexual attractiveness` = Atractivo,
+         `Subjective sexual arousal` = Excitacion) |>
+  # Recode factor levels
+  mutate(`Stimuli content` = recode_factor(`Stimuli content`, 
+                                            Erotico = "Erotic", 
+                                            No_erotico = "Non-erotic")) |> 
+  mutate(Gender = recode_factor(Gender, 
+                                Femenino = "Women", 
+                                Masculino = "Men")) |>
+  mutate(`Stimuli sex` = recode_factor(`Stimuli sex`,
+                                       Femenino = "Female", 
+                                       Masculino = "Male")) |>
+  mutate(`Preferred sex` = recode_factor(`Preferred sex`,
+                                         Hombre = "Male", 
+                                         Mujer = "Female")) |>
+  mutate(Education = recode(Education,
+                            "Bachillerato" = "High school",
+                            "Universitario" = "University",
+                            "Postgrado" = "Postgraduate")) |>
+  mutate(Religion = recode(Religion,
+                           "1" = "Religious",
+                           "0" = "Non-religious")) |>
+  mutate(`Pornography consumed last month` = recode(`Pornography consumed last month`,
+                                                    "Nunca" = "None",
+                                                    "Una o dos veces" = "1-2 times",
+                                                    "Tres a cinco veces" = "3-5 times",
+                                                    "Mas de 5 veces" = "5 times or more")) |> 
+  # Recode relationship type
+  mutate(Relationship = recode(`Relationship status`,
+                               "Exclusiva/No viven juntos" = "Stable",
+                               "Exclusiva/Matrimonio" = "Stable",
+                               "No exclusiva" = "Non-stable",
+                               "Soltero/sin contactos sexuales en un ano" = "Single",
+                               "Soltero/contactos sexuales en un ano" = "Single")) |>
+  # Relevel factors
+  mutate(Education = fct_relevel(Education, 
+                                 c("High school", "University", "Postgraduate"))) |> 
+  mutate(`Pornography consumed last month` = fct_relevel(`Pornography consumed last month`,
+                                 c("None", "1-2 times", 
+                                   "3-5 times", "5 times or more"))) |> 
+  # Filter participants in non-stable relationships
+  filter(Relationship != "Non-stable") |>
+  droplevels()
+```
+
+------------------------------------------------------------------------
+
+# Descriptives
+
+### Figure \@ref(fig:sample-plot). Demographic chacarteristics of the sample
+
+Number of participants by demographic category.
+
+```{r sample-plot, results = "hold", fig.height = 7, fig.cap = "Number of participants by gender (left = women, rigth = men), Relationship (stable = top panels, single = bottom panels), Religion (non-religious = left panels by gender, religious = right panels by gender), Education (*X* axis), and pornography consumed during the last month (*Y* axis). The number of participants for each combination of these five variables is displayed as numbers (percentage in brackets), as well as by the color and size of the bubbles .", warning = FALSE, message = FALSE}
+# Get number of participant for each combination of demographic chacarteristic
+dat.demog <- dat |>
+  select(Participant, Gender, Relationship, Education, Religion, 
+         `Pornography consumed last month`) |>
+  group_by(Participant) |> 
+  filter(row_number() == 1) |> 
+  ungroup() |>
+  group_by(Gender, Relationship, Education, Religion, 
+         `Pornography consumed last month`) |>
+  rename(Porn = `Pornography consumed last month`) |> 
+  tally() |> 
+  drop_na(Religion) |> 
+  ungroup()
+
+# Create separate tables by gender
+dat.demog.W <- filter(dat.demog, Gender == "Women")
+dat.demog.M <- filter(dat.demog, Gender == "Men")
+
+# Women
+samp.w <- ggballoonplot(dat.demog.W, x = "Education", y = "Porn", size = "n",
+              fill = "n",
+              facet.by = c("Relationship", "Religion")) +
+  scale_fill_viridis_c(option = "C", limits = c(1, max(dat.demog$n))) +
+  scale_size_continuous(range = c(1, 7), limits = c(1, max(dat.demog$n))) +
+  guides(fill = guide_legend(face = "italic"), 
+         size = guide_legend(face = "italic")) +
+  labs(title = "Women", y = "Pornography consumed last month") +
+  geom_text(aes(label = n), 
+            size = 3, nudge_x = 0.3, nudge_y = 0.1) +
+  geom_text(aes(label = paste0("\n(", 
+                               percent(n/sum(dat.demog$n), accuracy = 0.1), 
+                               ")")), 
+            size = 2.5, nudge_x = 0.3, nudge_y = -0.05) +
+  theme_tq() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.text.y = element_text(angle = 45, vjust = 0.5))
+
+# Men
+samp.m <- ggballoonplot(dat.demog.M, x = "Education", y = "Porn", size = "n",
+              fill = "n",
+              facet.by = c("Relationship", "Religion")) +
+  scale_fill_viridis_c(option = "C", limits = c(1, max(dat.demog$n))) +
+  scale_size_continuous(range = c(1, 7), limits = c(1, max(dat.demog$n))) +
+  guides(fill = guide_legend(face = "italic"), 
+         size = guide_legend(face = "italic")) +
+  labs(title = "Men", y = NULL) +
+  geom_text(aes(label = n), 
+            size = 3, nudge_x = 0.3, nudge_y = 0.1) +
+  geom_text(aes(label = paste0("\n(", 
+                               percent(n/sum(dat.demog$n), accuracy = 0.1), 
+                               ")")), 
+            size = 2.5, nudge_x = 0.3, nudge_y = -0.05) +
+  theme_tq() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.text.y = element_text(angle = 45, vjust = 0.5))
+
+# Full plot
+ggarrange(samp.w, samp.m,
+          widths = c(1.1, 1), 
+          common.legend = TRUE,
+          legend = "bottom")
+```
+
+
+## Descriptive statistics of the participants by gender
+
+Calculate mean values per participant for relevant, numeric variables.
+
+```{r}
+# Summarize relevant variables by participant
+dat.desc <- dat |>
+  select(Participant, Gender, Age, Relationship,
+         `Number of sexual partners`, `MGH-SFQ (total)`, 
+         `MGSS sexual satisfaction (General)`, `MGSS sexual satisfaction (Partner)`, 
+         `Subjective sexual attractiveness`, `Subjective sexual arousal`,
+         `Solitary sexual desire`, `Dyadic sexual desire (Attractive person)`, 
+         `Dyadic sexual desire (Partner)`) |>
+  group_by(Participant, Gender, Relationship) |>
+  summarize_if(is.numeric, mean, na.rm = TRUE)
+```
+
+### Table \@ref(tab:desciptive-tab). Descriptive statistics of the participants by gender
+
+Table of descriptives by gender.
+
+```{r desciptive-tab}
+# Table of descriptives by gender and relationship status
+describeBy(dat.desc ~ Relationship + Gender,
+           mat=TRUE,
+           digits=2)  |> 
+  rownames_to_column("Measured characteristic") |>
+  select(1,3:4,6:9,12:13) |> 
+  slice(-(1:12)) |> 
+  select(1,3,2,4:9) |> 
+  # Remove numbers included to differentiate repeated row names (now on column 1)
+  mutate("Measured characteristic" = str_replace_all(`Measured characteristic`,
+                                                     c("1" = "", 
+                                                       "2" = "", 
+                                                       "3" = "", 
+                                                       "4" = ""))) |> 
+  # Create table
+  kable(digits = 2,
+        booktabs = TRUE,
+        align = c("l", "l", "l", rep("c", 6)),
+        linesep = "",
+        caption = "Descriptive statistics the participants by gender
+        and relationship status",
+        col.names = c("Measured characteristic",
+                      "Gender",
+                      "Relationship status",
+                      "$n$",
+                      "Mean",
+                      "$SD$",
+                      "Median",
+                      "Min",
+                      "Max"),
+        longtable = TRUE,
+        escape = FALSE) |>
+  kable_styling(latex_options = c("HOLD_position", "repeat_header"),
+                repeat_header_continued = "\\textit{(Continued on Next Page...)}",
+                font_size = 8.2) |>
+  collapse_rows(columns = 1:3, valign = "middle") |> 
+  footnote(general = "Because for \\\\textit{Subjective sexual attractiveness} and 
+           \\\\textit{Subjective sexual arousal} there are are multiple within-subject 
+           observations, descriptives are calculated from mean values per participant.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+### Figure \@ref(fig:density-plot). Distribution of participants' measured variables by gender
+
+Kernel density distributions by gender.
+
+```{r density-plot, results = "hold", fig.height = 9, fig.cap = "Distribution of measured variables by gender. Coloured vertical lines represent mean values by gender. Detailed descriptives are found in Table S1. Because for *Subjective sexual attractiveness* and *Subjective sexual arousal* there are are multiple within-subject observations, densities calculated from mean values per participant.", warning = FALSE, message = FALSE}
+# Convert dat.desc to long format
+datp <- dat.desc |> 
+  pivot_longer(cols = Age:`Dyadic sexual desire (Partner)`,
+               names_to = "Variable", 
+               values_to = "Value") |>
+  mutate(Variable = str_wrap(Variable, width = 30))
+
+# Figure created as 3 separate panels (to use a different number of panels per row)
+fs2a <- ggplot(datp |>
+                 filter(Variable %in% c("Age",
+                                      "Number of sexual partners",
+                                      "Subjective sexual\nattractiveness",
+                                      "Subjective sexual arousal")),
+             aes(Value,
+                 fill = Gender,
+                 colour = Gender)) +
+        geom_density(alpha = 0.3) +
+        geom_vline(data = datp |>
+                     filter(Variable %in% c("Age",
+                                            "Number of sexual partners",
+                                            "Subjective sexual\nattractiveness",
+                                            "Subjective sexual arousal")) |> 
+                     group_by(Variable, Gender) |>
+                     summarise(mean = mean(Value, na.rm =TRUE)),
+                   size = 1,
+                   aes(xintercept = mean, color = Gender, linetype = Gender)) +
+        scale_color_manual(values = color.Gender) +
+        scale_fill_manual(values = color.Gender) +
+        facet_wrap(~ Variable,
+                   scales = "free",
+                   ncol = 4) +
+        labs(y = "Density",
+             x = NULL) +
+        theme_tq()
+
+fs2b <- ggplot(datp |>
+                 filter(Variable %in% c("MGH-SFQ (total)",
+                                        "MGSS sexual satisfaction\n(General)",
+                                        "MGSS sexual satisfaction\n(Partner)")),
+             aes(Value,
+                 fill = Gender,
+                 colour = Gender)) +
+        geom_density(alpha = 0.3) +
+        geom_vline(data = datp |>
+                     filter(Variable %in% c("MGH-SFQ (total)",
+                                            "MGSS sexual satisfaction\n(General)",
+                                            "MGSS sexual satisfaction\n(Partner)")) |> 
+                     group_by(Variable, Gender) |>
+                     summarise(mean = mean(Value, na.rm =TRUE)),
+                   size = 1,
+                   aes(xintercept = mean, color = Gender, linetype = Gender)) +
+        scale_color_manual(values = color.Gender) +
+        scale_fill_manual(values = color.Gender) +
+        facet_wrap(~ Variable,
+                   scales = "free",
+                   ncol = 3) +
+        labs(y = "Density",
+             x = NULL) +
+        theme_tq()
+
+fs2c <- ggplot(datp |>
+                 filter(Variable %in% c("Solitary sexual desire",
+                                        "Dyadic sexual desire\n(Attractive person)",
+                                        "Dyadic sexual desire (Partner)")),
+             aes(Value,
+                 fill = Gender,
+                 colour = Gender)) +
+        geom_density(alpha = 0.3) +
+        geom_vline(data = datp |>
+                     filter(Variable %in% c("Solitary sexual desire",
+                                            "Dyadic sexual desire\n(Attractive person)",
+                                            "Dyadic sexual desire (Partner)")) |> 
+                     group_by(Variable, Gender) |>
+                     summarise(mean = mean(Value, na.rm =TRUE)),
+                   size = 1,
+                   aes(xintercept = mean, color = Gender, linetype = Gender)) +
+        scale_color_manual(values = color.Gender) +
+        scale_fill_manual(values = color.Gender) +
+        facet_wrap(~ Variable,
+                   scales = "free",
+                   ncol = 3) +
+        labs(y = "Density",
+             x = NULL) +
+        theme_tq()
+
+# Full plot
+ggarrange(fs2a, fs2b, fs2c,
+          common.legend = TRUE,
+          legend = "bottom",
+          nrow = 3)
+```
+
+## Correlations between measured variables
+
+Correlation between numeric variables for women, men, and all participants combined, are reported in Table \@ref(tab:corr-tab).
+
+### Table \@ref(tab:corr-tab). Correlations between measured variables
+
+Correlation matrix table.
+
+```{r corr-tab, message = FALSE, warning = FALSE}
+# Correlations for women
+dat.corr.W <- dat.desc |>
+  ungroup() |>
+  filter(Gender == "Women") |>
+  select(Age:`Dyadic sexual desire (Partner)`) |>
+  corr.stars() |>
+  rownames_to_column(var = " ")
+
+# Correlations for men
+dat.corr.M <- dat.desc |>
+  ungroup() |>
+  filter(Gender == "Men") |>
+  select(Age:`Dyadic sexual desire (Partner)`) |>
+  corr.stars() |>
+  rownames_to_column(var = " ")
+
+# Correlations for all participants combined
+dat.corr.All <- dat.desc |>
+  ungroup() |>
+  select(Age:`Dyadic sexual desire (Partner)`) |>
+  corr.stars() |>
+  rownames_to_column(var = " ")
+
+# Full formated table
+bind_rows(dat.corr.W, dat.corr.M, dat.corr.All) |>
+  kable(digits = 2,
+        booktabs = TRUE,
+        align = c("l", rep("c", 9)),
+        linesep = "",
+        caption = "Correlations between measured variables",
+        escape = FALSE) |>
+  pack_rows(group_label = "Women",
+            start_row = 1, end_row = 10,
+            bold = TRUE) |>
+  pack_rows(group_label = "Men",
+            start_row = 11, end_row = 20,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  pack_rows(group_label = "All participants",
+            start_row = 21, end_row = 30,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  column_spec(2:10, width = "2.2cm") |>
+  footnote(general = paste0("Values represent Pearson correlation coefficients ($r$). ",
+                            "For significance, $^{\\\\dagger}p$ < 0.1, *$p$ < 0.05, ",
+                            "**$p$ < 0.01, ***$p$ < 0.001. ",
+                            "Significant correlations are in bold."),
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE) |>
+  landscape()
+```
+
+## Internal consistency
+
+Six variables were calculated from multiple items (1. MGH-SFQ, 2. Dyadic sexual desire (Partner), 3. Solitary sexual desire, 4. Dyadic sexual desire (Attractive person), 5. MGSS sexual satisfaction (General) and 6. MGSS sexual satisfaction (Partner)). 
+
+Data by item, for each participant, is included in the following data base, loaded as `dat.reli`:
+
+```{r}
+dat.reli <- read_excel("Data/BD_ConsistenciaInterna.xlsx")  |>  
+  mutate(Sex = recode_factor(Sex,
+                             "2" = "Women",
+                             "1" = "Men")) |> 
+  rename(Gender = Sex) |> 
+  filter(Participante != 122)
+```
+
+Participant 122 was excluded because they did not respond the psychological scales.
+
+To measure the internal consistency of these tests, we used standardized Cronbach's alpha ($\alpha$ or Tau-equivalent reliability: $\rho_{T}$) coefficients, using the function `cronbach.alpha` from the package `ltm` [@LtmPackageLatent2006].
+
+Importantly, given that for MGH-SFQ one item was answered only by men, the internal consistency of this variable was measured independently for each gender.
+
+```{r cahe = TRUE}
+# MGH-SFQ for men
+MGH.m <- dat.reli |>
+  filter(Gender == "Men" ) |> 
+  select(3:7) |> 
+  drop_na() |>  
+  cronbach.alpha(CI = TRUE, standardized = TRUE)
+
+# MGH-SFQ for women
+MGH.w <- dat.reli |>
+  filter(Gender == "Women" ) |> 
+  select(3:5,7) |> 
+  drop_na() |> 
+  cronbach.alpha(CI = TRUE, standardized = TRUE)
+
+# Dyadic sexual desire (Partner)
+DSD.p <- dat.reli |>
+  select(9:13) |> 
+  drop_na() |> 
+  cronbach.alpha(CI = TRUE, standardized = TRUE)
+
+# Solitary sexual desire
+SSD.p <- dat.reli |>
+  select(15:18) |> 
+  drop_na() |> 
+  cronbach.alpha(CI = TRUE, standardized = TRUE)
+
+# Dyadic sexual desire (Attractive person)
+DSD.a <- dat.reli |>
+  select(20:23) |> 
+  drop_na()|> 
+  cronbach.alpha(CI = TRUE, standardized = TRUE)
+
+# MGSS sexual satisfaction (General)
+MGSS.g <- dat.reli |>
+  select(26:30) |> 
+  drop_na()|> 
+  cronbach.alpha(CI = TRUE, standardized = TRUE)
+
+# MGSS sexual satisfaction (Partner)
+MGSS.p <- dat.reli |>
+  select(32:36) |> 
+  drop_na()|> 
+  cronbach.alpha(CI = TRUE, standardized = TRUE)
+```
+
+### Table \@ref(tab:Cronbach-tab). Internal consistency of construct variables
+
+Table of Cronbach's $\alpha$ for construct variables.
+
+```{r Cronbach-tab,  cahe = TRUE}
+# Create table
+tibble(Variable = c("MGH-SFQ", "MGH-SFQ",
+                    "MGSS sexual satisfaction (General)",
+                    "MGSS sexual satisfaction (Partner)",
+                    "Dyadic sexual desire (Partner)", 
+                    "Solitary sexual desire", 
+                    "Dyadic sexual desire (Attractive person)"),
+       Gender = c("Men", "Women", rep(" ", 5)),
+       p = c(MGH.m$p,
+             MGH.w$p,
+             MGSS.g$p,
+             MGSS.p$p,
+             DSD.p$p,
+             SSD.p$p,
+             DSD.a$p),
+       n = c(MGH.m$n, 
+             MGH.w$n,
+             MGSS.g$n,
+             MGSS.p$n,
+             DSD.p$n,
+             SSD.p$n,
+             DSD.a$n),
+       alpha = c(MGH.m$alpha,
+                 MGH.w$alpha,
+                 MGSS.g$alpha,
+                 MGSS.p$alpha,
+                 DSD.p$alpha,
+                 SSD.p$alpha,
+                 DSD.a$alpha), 
+       ci2.5 = c(MGH.m$ci[1], 
+                 MGH.w$ci[1],
+                 MGSS.g$ci[1],
+                 MGSS.p$ci[1],
+                 DSD.p$ci[1],
+                 SSD.p$ci[1],
+                 DSD.a$ci[1]),
+       ci97.5 = c(MGH.m$ci[2], 
+                  MGH.w$ci[2],
+                  MGSS.g$ci[2],
+                  MGSS.p$ci[2],
+                  DSD.p$ci[2],
+                  SSD.p$ci[2],
+                  DSD.a$ci[2])) |> 
+  kable(digits = 2,
+        booktabs = TRUE,
+        align = c("l", "l", rep("c", 5)),
+        linesep = "",
+        caption = "Internal consistency of measured variables",
+        escape = FALSE,
+        col.names = c("Variable", "Gender",
+                      "Items",
+                      "$n$",
+                      "$\\alpha$",
+                      "$2.5\\% CI$",
+                      "$97.5\\% CI$")) |>
+  collapse_rows(columns = 1, valign = "middle") |>
+  kable_styling(latex_options = "HOLD_position") |>
+  footnote(general = "95\\\\% confidence intervals were calculated with 1,000 bootstrap samples.
+           Standardized Cronbach's alpha ($\\\\alpha$) coefficients were computed. 
+           MGH-SFQ is reported by gender, because one item was answered only by men.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+------------------------------------------------------------------------
+
+# Hypothesis tests
+
+## Hypothesis1: Sexual desire by gender, relationship type and sexual desire dimension {#hyp1}
+
+Interaction between relationship type, sexual desire dimension, and gender as predictors of sexual desire. To test this hypothesis, we modeled the effects of Relationship type, Sexual desire dimension, and Gender on the scores of sexual desire.
+
+### Filter data
+
+Create data frame selecting only relevant variables, and summarizing per sexual desire dimension for each participant (three rows per participant).
+
+```{r message = FALSE}
+dat.comp <- dat |>
+  #mutate(`Relationship status` = factor(`Relationship status`)) |> 
+  select(Participant, Gender, 
+         #`Stimuli code`,
+         `Solitary sexual desire`, 
+         `Dyadic sexual desire (Attractive person)`, 
+         `Dyadic sexual desire (Partner)`, 
+         Relationship,) |>
+  group_by(Participant, Gender, Relationship) |> 
+  summarise(`Solitary sexual desire` = 
+              mean(`Solitary sexual desire`),
+            `Dyadic sexual desire (Attractive person)` = 
+              mean(`Dyadic sexual desire (Attractive person)`),
+            `Dyadic sexual desire (Partner)` = 
+              mean(`Dyadic sexual desire (Partner)`)) |> 
+  pivot_longer(cols = `Solitary sexual desire`:`Dyadic sexual desire (Partner)`,
+               names_to = "Dimension", 
+               values_to = "Sexual desire") |> 
+  mutate(Participant = factor(Participant)) |>
+  #mutate("Stimuli code" = factor(`Stimuli code`)) |>
+  mutate(Dimension = factor(Dimension)) |> 
+  rowwise() |> 
+  mutate("Sexual desire proportion" = 
+           ifelse(Dimension == "Solitary sexual desire", 
+                  `Sexual desire`/31,
+                  ifelse(Dimension == "Dyadic sexual desire (Attractive person)", 
+                         `Sexual desire`/32, 
+                         `Sexual desire`/38)))
+```
+
+### Fit model
+
+We modelled the effects of relationship type, sexual desire dimension, and Gender on the scores of sexual desire as a linear mixed effect model, with random intercepts per participant.
+
+```{r}
+options(contrasts = c("contr.sum","contr.poly"))
+
+m1 <- lmer(`Sexual desire proportion` ~ Gender * Relationship * Dimension + 
+            (1 | Participant), 
+            data = dat.comp)
+```
+
+Although it would be ideal to also include random slopes between sexual desire dimensions for each participant, and random intercepts per stimuli [@barr2013; see also @debruine2021], this would require to use raw values, instead of averages per participant (i.e. including the sexual desire rating given to each stimuli). Although this was attempted, such model does not converge.
+
+#### Model assumptions
+
+Most model assumptions were checked using the `check_model` function from the `performance` package [@ludecke2021], and reported in Fig. \@ref(fig:assu-m1). These assumptions do not include collinearity, as the function plots $VIF$ instead of the recommended Generalized Variance Inflation Factors ($GVIF$) and the most comparable $GVIF^{{1}/{(2 \times df)}}$ [@fox1992]. Instead, $GVIF$ and $GVIF^{{1}/{(2 \times df)}}$ values are reported in Table \@ref(tab:coli-m1).
+
+##### Figure \@ref(fig:assu-m1). Model assumptions
+
+This figure includes most assumptions: linearity, homogeneity of variance, and normality of both residuals and random effects.
+
+```{r assu-m1, message = FALSE, fig.height = 8, fig.cap = "Model assumptions. Plots represent linearity, homogeneity of variance, and normality of both residuals and random effects (as QQ plots), respectively."}
+check_model(m1,
+            check = c("pp_check","linearity", "homogeneity", "qq", "reqq"))
+```
+
+##### Table \@ref(tab:coli-m1). Collinearity
+
+Given the presence of interactions, that all predictors are categorical, and the absence of random slopes, $VIF$ and $GVIF$ values would be expected to be high.
+
+```{r coli-m1}
+data.frame(vif(m1)) |> 
+  rownames_to_column() |> 
+  mutate_at("rowname", str_replace_all, ":", " × ") |>
+  mutate_at("rowname", str_replace_all, "`", "") |> 
+  kable(digits = 2,
+        booktabs = TRUE,
+        align = c("l", rep("c", 3)),
+        linesep = "",
+        caption = "Variance inflation factors for the model of hypothesis 1b",
+        col.names = c(" ",
+                      "$GVIF$",
+                      "$df$",
+                      "$GVIF^{{1}/{(2 \\times df)}}$"),
+        escape = FALSE) |>
+  kable_styling(latex_options = "HOLD_position")
+```
+
+#### Table \@ref(tab:tab-m1). Regression-type table for the interaction between `Relationship type`, `Sexual desire dimension`, and `Gender`
+
+This tables summarizes the results of the model.
+
+```{r tab-m1}
+summary.sig(m1, "Sexual desire by relationship type, sexual desire dimension and gender")
+```
+
+#### *Post-hoc* comparisons
+
+Because only the main effect of (sexual desire) dimension, and the interaction between relationship (type) and dimension are significant, we explored the interaction using estimated marginal means, as well as comparing the relationship types for each of the three sexual desire dimensions.
+
+##### Table \@ref(tab:tab-m1a-emms). Estimated marginal means and contrasts between participants' genders.
+
+Table of estimated marginal means and contrasts between genders. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+```{r tab-m1a-emms, message = FALSE}
+emms.m1a <- emmeans(m1, ~ Gender,
+                    adjust = "bonferroni",
+                    lmer.df = "satterthwaite")
+
+emms.m1a.tab <- tibble(data.frame(emms.m1a)) |>
+  mutate("Sexual desire proportion" = emmean)
+
+t.m1a <- contr.stars(emms.m1a) |> 
+  mutate(p.value = pval.lev(p.value))
+
+merge(emms.m1a.tab, t.m1a, by = 0, all = TRUE) |>
+  select(-c(1,8,16)) |> 
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", " ") |> 
+  kable(digits = 2,
+          booktabs = TRUE,
+          align = c("l", rep("c", 5), "l", rep("c", 5)),
+          linesep = "",
+          caption = "Estimated marginal means each gender",
+          col.names = c("Gender",
+                        "EMM",
+                        "$SE$",
+                        "$df$",
+                        "$2.5\\% CI$",
+                        "$97.5\\% CI$",
+                        "Contrast",
+                        "Difference",
+                        "$SE$",
+                        "$df$",
+                        "$t$",
+                        "$p$"),
+          escape = FALSE) |>
+  add_header_above(c(" " = 6, "Contrasts" = 6)) |> 
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(general = "EMM = estimated marginal mean.
+           Degrees of freedom ($df$) were calculated 
+           using the Satterthwaite approximation.
+           Bonferroni adjustment was used.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+##### Table \@ref(tab:tab-m1b-emms). Estimated marginal means and contrasts between the three dimensions of sexual desire.
+
+Table of estimated marginal means and contrasts between the three types of sexual desire dimension. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+```{r tab-m1b-emms, message = FALSE}
+emms.m1b <- emmeans(m1, ~ Dimension,
+                    adjust = "bonferroni",
+                    lmer.df = "satterthwaite")
+
+emms.m1b.tab <- tibble(data.frame(emms.m1b)) |>
+  mutate("Sexual desire proportion" = emmean)
+
+t.m1b <- contr.stars(emms.m1b) |> 
+  mutate(p.value = pval.lev(p.value)) |>
+  mutate(group1 = recode_factor(group1,
+                                "Dyadic sexual desire Attractive person" = 
+                                  "Dyadic sexual desire (Attractive person)",
+                                "Dyadic sexual desire Partner" = 
+                                  "Dyadic sexual desire (Partner)")) |>
+  mutate(group2 = recode_factor(group2,
+                                "Dyadic sexual desire Attractive person" = 
+                                  "Dyadic sexual desire (Attractive person)",
+                                "Dyadic sexual desire Partner" = 
+                                  "Dyadic sexual desire (Partner)"))
+
+merge(emms.m1b.tab, t.m1b, by = 0, all = TRUE) |>
+  select(-c(1,8,16)) |> 
+  mutate(Dimension = recode_factor(Dimension   ,
+                                "Dyadic sexual desire (Attractive person)" = 
+                                  "Dyadic (Attractive person)",
+                                "Dyadic sexual desire (Partner)" = 
+                                  "Dyadic (Partner)",
+                                "Solitary sexual desire" = 
+                                  "Solitary")) |>
+  mutate(group1 = recode_factor(group1,
+                                "Dyadic sexual desire (Attractive person)" = 
+                                  "Dyadic (Attractive person)",
+                                "Dyadic sexual desire (Partner)" = 
+                                  "Dyadic (Partner)",
+                                "Solitary sexual desire" = 
+                                  "Solitary")) |>
+  mutate(group2 = recode_factor(group2,
+                                "Dyadic sexual desire (Attractive person)" = 
+                                  "Dyadic (Attractive person)",
+                                "Dyadic sexual desire (Partner)" = 
+                                  "Dyadic (Partner)",
+                                "Solitary sexual desire" = 
+                                  "Solitary")) |> 
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", " ") |> 
+  kable(digits = 2,
+          booktabs = TRUE,
+          align = c("l", rep("c", 5), "l", rep("c", 5)),
+          linesep = "",
+          caption = "Estimated marginal means for the three dimensions of sexual desire",
+          col.names = c("Dimension",
+                        "EMM",
+                        "$SE$",
+                        "$df$",
+                        "$2.5\\% CI$",
+                        "$97.5\\% CI$",
+                        "Contrast",
+                        "Difference",
+                        "$SE$",
+                        "$df$",
+                        "$t$",
+                        "$p$"),
+          escape = FALSE) |>
+  add_header_above(c(" " = 6, "Contrasts" = 6)) |> 
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(general = "EMM = estimated marginal mean.
+           Degrees of freedom ($df$) were calculated 
+           using the Satterthwaite approximation.
+           Bonferroni adjustment was used.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+##### Table \@ref(tab:tab-m1c-emms). Estimated marginal means and contrasts between relationship status types for the three dimensions of sexual desire
+
+Table of estimated marginal means and contrasts between relationship status for each sexual desire dimension. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+```{r tab-m1c-emms, message = FALSE}
+emms.m1c <- emmeans(m1, ~ Relationship | Dimension,
+                    adjust = "bonferroni",
+                    lmer.df = "satterthwaite")
+
+emms.m1c.tab <- tibble(data.frame(emms.m1c)) |>
+  mutate("Sexual desire proportion" = emmean)
+
+t.m1c <- contr.stars(emms.m1c) |> 
+  mutate(p.value = pval.lev(p.value))
+
+t.m1c.f <- t.m1c |> 
+  insertRows(2, new = NA) |>
+  insertRows(4, new = NA)
+
+merge(emms.m1c.tab, t.m1c.f, by = 0, all = TRUE) |>
+  select(-c(1,3,9,12,18)) |> 
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", " ") |> 
+  kable(digits = 2,
+          booktabs = TRUE,
+          align = c("l", rep("c", 5), "l", rep("c", 5)),
+          linesep = "",
+          caption = "Estimated marginal means for the three dimensions of sexual desire by
+        relationship status",
+          col.names = c("Relationship",
+                        "EMM",
+                        "$SE$",
+                        "$df$",
+                        "$2.5\\% CI$",
+                        "$97.5\\% CI$",
+                        "Contrast",
+                        "Difference",
+                        "$SE$",
+                        "$df$",
+                        "$t$",
+                        "$p$"),
+          escape = FALSE) |>
+  pack_rows(group_label = "Dyadic sexual desire (Attractive person)",
+            start_row = 1,
+            end_row = 2,
+            bold = TRUE) |>
+  pack_rows(group_label = "Dyadic sexual desire (Partner)",
+            start_row = 3,
+            end_row = 4,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  pack_rows(group_label = "Solitary sexual desire",
+            start_row = 5,
+            end_row = 6,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  add_header_above(c(" " = 6, "Contrasts" = 6)) |> 
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(general = "EMM = estimated marginal mean.
+           Degrees of freedom ($df$) were calculated 
+           using the Satterthwaite approximation.
+           Bonferroni adjustment was used.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+##### Table \@ref(tab:tab-m1d-emms). Estimated marginal means and contrasts between relationship status types for the three dimensions of sexual desire, by gender
+
+```{r tab-m1d-emms, message = FALSE}
+emms.m1d <- emmeans(m1, ~ Gender | Dimension + Relationship,
+                    adjust = "bonferroni",
+                    lmer.df = "satterthwaite")
+
+emms.m1d.tab <- tibble(data.frame(emms.m1d)) |>
+  mutate("Sexual desire proportion" = emmean) |> 
+  mutate(ord = 1:12)
+
+t.m1d <- contr.stars(emms.m1d) |> 
+  mutate(p.value = pval.lev(p.value))
+
+t.m1d.f <- t.m1d |> 
+  insertRows(2, new = NA) |>
+  insertRows(4, new = NA) |> 
+  insertRows(6, new = NA) |> 
+  insertRows(8, new = NA) |> 
+  insertRows(10, new = NA) |> 
+  mutate(ord = 1:11)
+
+merge(emms.m1d.tab, t.m1d.f, by = "ord", all = TRUE) |>
+  select(-c(1,3,4,10,13,14,20)) |> 
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", " ") |> 
+  kable(digits = 2,
+          booktabs = TRUE,
+          align = c("l", "l", rep("c", 5), "l", rep("c", 5)),
+          linesep = "",
+          caption = "Estimated marginal means for the three dimensions of sexual desire by
+        relationship status",
+          col.names = c("Gender",
+                        #"Relationship",
+                        "EMM",
+                        "$SE$",
+                        "$df$",
+                        "$2.5\\% CI$",
+                        "$97.5\\% CI$",
+                        "Contrast",
+                        "Difference",
+                        "$SE$",
+                        "$df$",
+                        "$t$",
+                        "$p$"),
+          escape = FALSE) |>
+  pack_rows(group_label = "Dyadic sexual desire (Attractive person) - Stable relationship",
+            start_row = 1,
+            end_row = 2,
+            bold = TRUE) |>
+  pack_rows(group_label = "Dyadic sexual desire (Partner) - Stable relationship",
+            start_row = 3,
+            end_row = 4,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  pack_rows(group_label = "Solitary sexual desire - Stable relationship",
+            start_row = 5,
+            end_row = 6,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  pack_rows(group_label = "Dyadic sexual desire (Attractive person) - Single",
+            start_row = 7,
+            end_row = 8,
+            bold = TRUE) |>
+  pack_rows(group_label = "Dyadic sexual desire (Partner) - Single",
+            start_row = 9,
+            end_row = 10,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  pack_rows(group_label = "Solitary sexual desire - Single",
+            start_row = 11,
+            end_row = 12,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  add_header_above(c(" " = 6, "Contrasts" = 6)) |> 
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(general = "EMM = estimated marginal mean.
+           Degrees of freedom ($df$) were calculated 
+           using the Satterthwaite approximation.
+           Bonferroni adjustment was used.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+### Figure \@ref(fig:fig-h1). Differences among the three dimensions of sexual desire
+
+This figure summarizes the results of hypothesis 1.
+
+```{r fig-h1, results = "hold", fig.height = 10, fig.cap = "Differences among the three dimensions of sexual desire (Solitary sexual desire, Dyadic sexual desire (Partner), dyadic sexual desire (Attractive person)). Sexual desire was measured as the proportion of each score divided by the maximum possible score for each dimension. **(a)** Simple comparison between sexual desire by gender (for detailed results, see Table \\@ref(tab:tab-m1a-emms)); **(b)** Simple comparison between dimensions of sexual desire (for detailed results, see Table \\@ref(tab:tab-m1b-emms)); **(c)** Interaction between relationship type and sexual desire dimension (see Table \\@ref(tab:tab-m1); for detailed results, see Table \\@ref(tab:tab-m1c-emms)); **(d)** Interaction between gender, relationship type and sexual desire dimension (see Table \\@ref(tab:tab-m1); for detailed results, see Table \\@ref(tab:tab-m1d-emms)). White dots and black bars represent estimated marginal means and 95% CI. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
+# Gender main effect
+h1a <- ggplot(dat.comp, aes(x = Gender, y = `Sexual desire proportion`, color = Gender)) +
+  geom_violin() +
+  geom_jitter(alpha = 0.3, width = 0.1) +
+  scale_color_manual(values = color.Gender) +
+  scale_fill_manual(values = color.Gender) +
+  geom_errorbar(data = emms.m1a.tab, 
+                mapping = aes(ymin = lower.CL, ymax = upper.CL), 
+                colour = "black", width = 0.1) +
+  geom_point(data = emms.m1a.tab, 
+             position = position_dodge(0.1), 
+             shape = 21, size = 3,
+             color = "black", fill = "white") +
+  stat_pvalue_manual(t.m1a, 
+                     label = "p.signif", 
+                     y.position = 1.2, 
+                     tip.length = 0) +
+  guides(color = "none") +
+  labs(y = "Sexuial desire") +
+  ylim(c(0,1.3)) +
+  theme_tq()
+
+# Dimension main effect
+h1b <- ggplot(dat.comp, aes(x = Dimension, y = `Sexual desire proportion`, color = Dimension)) +
+  geom_violin() +
+  geom_jitter(alpha = 0.3, width = 0.1) +
+  scale_color_manual(values = color.Dimension) +
+  scale_fill_manual(values = color.Dimension) +
+  geom_errorbar(data = emms.m1b.tab, 
+                mapping = aes(ymin = lower.CL, ymax = upper.CL), 
+                colour = "black", width = 0.1) +
+  geom_point(data = emms.m1b.tab, 
+             position = position_dodge(0.1), 
+             shape = 21, size = 3,
+             color = "black", fill = "white") +
+  stat_pvalue_manual(t.m1b, 
+                     label = "p.signif", 
+                     y.position = c(1.2, 1.3, 1.1), 
+                     tip.length = 0) +
+  scale_x_discrete(labels = label_wrap(25)) +
+  labs(y = "Sexuial desire") +
+  guides(color = "none") +
+  ylim(c(0,1.4)) +
+  theme_tq()
+
+# Relationship × Dimension interaction
+h1c <- ggplot(dat.comp, aes(x = Relationship, y = `Sexual desire proportion`, color = Relationship)) +
+  geom_violin() +
+  geom_jitter(alpha = 0.3, width = 0.1) +
+  scale_color_manual(values = color.Relationship) +
+  scale_fill_manual(values = color.Relationship) +
+  facet_wrap(~Dimension) +
+  geom_errorbar(data = emms.m1c.tab, 
+                mapping = aes(ymin = lower.CL, ymax = upper.CL), 
+                colour = "black", width = 0.1) +
+  geom_point(data = emms.m1c.tab, 
+             position = position_dodge(0.1), 
+             shape = 21, size = 3,
+             color = "black", fill = "white") +
+  stat_pvalue_manual(t.m1c, 
+                     label = "p.signif", 
+                     y.position = 1.1, 
+                     tip.length = 0) +
+  labs(y = "Sexuial desire") +
+  guides(color = "none") +
+  ylim(c(0,1.2)) +
+  theme_tq()
+
+# Relationship × Dimension interaction  × gender
+h1d <- ggplot(dat.comp, aes(x = Gender, y = `Sexual desire proportion`, color = Gender)) +
+  geom_violin() +
+  geom_jitter(alpha = 0.3, width = 0.1) +
+  scale_color_manual(values = color.Gender) +
+  scale_fill_manual(values = color.Gender) +
+  facet_grid(Relationship ~ Dimension) +
+  geom_errorbar(data = emms.m1d.tab, 
+                mapping = aes(ymin = lower.CL, ymax = upper.CL), 
+                colour = "black", width = 0.1) +
+  geom_point(data = emms.m1d.tab, 
+             position = position_dodge(0.1), 
+             shape = 21, size = 3,
+             color = "black", fill = "white") +
+  stat_pvalue_manual(t.m1d, 
+                     label = "p.signif", 
+                     y.position = 1.1, 
+                     tip.length = 0) +
+  labs(y = "Sexuial desire") +
+  guides(color = "none") +
+  ylim(c(0,1.2)) +
+  theme_tq()
+
+
+# Full figure for hypothesis 1 (a, b and c)
+p1f <- ggarrange(ggarrange(h1a, h1b, labels = "auto"),
+                 h1c,
+                 h1d,
+                 labels = c("", "c", "d"),
+                 heights = c(1,1,1.6),
+                 legend = "bottom",
+                 nrow = 3)
+p1f
+```
+
+## Hypothesis 2  {#hypothesis2}
+
+Data
+
+```{r}
+dat.fin <- dat |>
+  mutate(`Solitary sexual desire (C)` = 
+           scale(`Solitary sexual desire`,
+                 center = TRUE, scale = FALSE)) |>
+  mutate(`Dyadic sexual desire (Attractive person) (C)` = 
+           scale(`Dyadic sexual desire (Attractive person)`, 
+                 center = TRUE, scale = FALSE)) |>
+  mutate(`Dyadic sexual desire (Partner) (C)` = 
+           scale(`Dyadic sexual desire (Partner)`,
+                 center = TRUE, scale = FALSE))
+```
+
+### Hypothesis 2a: Erotic {#hypothesis2a}
+
+#### Filter data
+
+Create data frame selecting only relevant variables, and summarizing per sexual desire dimension for each participant (three rows per participant).
+
+```{r}
+dat.ero <- dat.fin |>
+  filter(`Stimuli content` == "Erotic")  |> 
+  select(Participant, `Stimuli code`, 
+         `Subjective sexual arousal`, 
+         Relationship, 
+         Gender, 
+         `Stimuli sex`, 
+         `Solitary sexual desire (C)`,
+         `Dyadic sexual desire (Attractive person) (C)`, 
+         `Dyadic sexual desire (Partner) (C)`, ) |> 
+  mutate_if(is.character, factor)
+```
+
+#### Fit model
+
+We modelled the effects of XXXXX.
+
+```{r}
+options(contrasts = c("contr.sum","contr.poly"))
+
+m2a <- lmer(`Subjective sexual arousal` ~
+            Relationship * Gender * `Stimuli sex` * `Solitary sexual desire (C)` +
+            Relationship * Gender * `Stimuli sex` * `Dyadic sexual desire (Attractive person) (C)` +
+            Relationship * Gender * `Stimuli sex` * `Dyadic sexual desire (Partner) (C)` +
+            (1 | `Stimuli code`) +
+            (1 + `Stimuli sex` | Participant),
+           data = dat.ero,
+           control = lmerControl(optimizer = "bobyqa"))
+```
+
+##### Model assumptions
+
+Most model assumptions were checked using the `check_model` function from the `performance` package [@ludecke2021], and reported in Fig. \@ref(fig:assu-m2a). These assumptions do not include collinearity, as the function plots $VIF$ instead of the recommended Generalized Variance Inflation Factors ($GVIF$) and the most comparable $GVIF^{{1}/{(2 \times df)}}$ [@fox1992]. Instead, $GVIF$ and $GVIF^{{1}/{(2 \times df)}}$ values are reported in Table \@ref(tab:coli-m2a).
+
+###### Figure \@ref(fig:assu-m2a). Model assumptions
+
+This figure includes most assumptions: linearity, homogeneity of variance, and normality of both residuals and random effects.
+
+```{r assu-m2a, cache = TRUE, message = FALSE, fig.height = 8, fig.cap = "Model assumptions. Plots represent linearity, homogeneity of variance, and normality of both residuals and random effects (as QQ plots), respectively."}
+check_model(m2a,
+            check = c("linearity", "homogeneity", "qq", "reqq"))
+```
+
+###### Table \@ref(tab:coli-m2a). Collinearity
+
+Given the presence of interactions, that all predictors are categorical, and the absence of random slopes, $VIF$ and $GVIF$ values would be expected to be high.
+
+```{r coli-m2a}
+data.frame(vif(m2a)) |> 
+  rownames_to_column() |> 
+  mutate_at("rowname", str_replace_all, ":", " × ") |>
+  mutate_at("rowname", str_replace_all, "`", "") |> 
+  kable(digits = 2,
+        booktabs = TRUE,
+        align = c("l", "c"),
+        linesep = "",
+        caption = "Variance inflation factors for the model of hypothesis 2a",
+        col.names = c(" ",
+                      "$VIF$"),
+        escape = FALSE) |>
+  kable_styling(latex_options = "HOLD_position")
+```
+
+##### Bootstrap confidence intervals
+
+```{r CI-m2a, cache = TRUE, warning = FALSE, message = FALSE}
+m2aCI <- confint(m2a, 
+                 method = "boot", #define bootstrap as the method for computing CIs
+                 nsim = 4, #number of simulations
+                 FUN = fixef, #to obtain only estimates for fixed effects
+                 parallel = "multicore", #parallel computation
+                 ncpus = detectCores()-1, #number of computational cores to run in parallel
+                 .progress = "txt", #show progress bar
+                 seed = 2023) #to ensure reproducibility and allow cache to work
+```
+
+##### Table \@ref(tab:tab-m2a). Regression-type table for the interaction between `Relationship type`, `Sexual desire dimension`, and `Gender`
+
+This tables summarizes the results of the model.
+
+```{r tab-m2a}
+tab.m2a <- summary.sig.boot(mod = m2a,
+                            modCI = m2aCI,
+                            custom_caption = "Subjective sexual arousal in response to erotic 
+                            stimuli, by relationship type, gender, stimuli sex, and the three 
+                            dimensions of sexual desire dimension")
+tab.m2a
+```
+
+##### Simple slope analysis and *post-hoc* comparisons 
+
+We further explored significant interactions between gender and stimuli sex using estimated marginal means, as well as comparing subjective sexual arousal between stimuli sex for each participant gender.
+
+###### Table \@ref(tab:tab-m2a-emms-a). Estimated marginal means and contrasts of subjective arousal between stimuli sex by participant gender
+
+Table of estimated marginal means and contrasts between stimuli sex for each participant gender. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+```{r tab-m2a-emms-a, message = FALSE, warning = FALSE}
+emms.m2a_a <- emmeans(m2a, ~ factor(`Stimuli sex`) | Gender,
+                    adjust = "bonferroni") #asymptotic degrees of freedom
+
+emms.m2a_a.tab <- tibble(data.frame(emms.m2a_a)) |>
+  rename("Stimuli sex" = Stimuli.sex) |> 
+  mutate("Subjective sexual arousal (p)" = emmean)
+
+t.m2a_a <- contr.stars(emms.m2a_a) |> 
+  mutate(p.value = pval.lev(p.value))
+
+t.m2a_a.f <- t.m2a_a |> 
+  insertRows(2, new = NA)
+
+merge(emms.m2a_a.tab, t.m2a_a.f, by = 0, all = TRUE) |>
+  select(-c(1,3,6,9,12,15,18)) |> 
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", " ") |> 
+  kable(digits = 2,
+          booktabs = TRUE,
+          align = c("l", rep("c", 5), "l", rep("c", 5)),
+          linesep = "",
+          caption = "Estimated marginal means of subjective sexual arousal for gender by
+        stimuli sex, in response to erotic stimuli",
+          col.names = c("Stimuli sex",
+                        "EMM",
+                        "$SE$",
+                        "$2.5\\% CI$",
+                        "$97.5\\% CI$",
+                        "Contrast",
+                        "Difference",
+                        "$SE$",
+                        "$z$",
+                        "$p$"),
+          escape = FALSE) |>
+  pack_rows(group_label = "Women",
+            start_row = 1,
+            end_row = 2,
+            bold = TRUE) |>
+  pack_rows(group_label = "Men",
+            start_row = 3,
+            end_row = 4,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  add_header_above(c(" " = 5, "Contrasts" = 5)) |> 
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(general = "EMM = estimated marginal mean.
+           No degrees of freedom are reported, as an asymptotic method was used. 
+           Because of this, \\\\textit{z} rather that \\\\textit{t} scores are reported.
+           Bonferroni adjustment was used.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+###### Table \@ref(tab:tab-m2a-slo-del). Slope for Dyadic sexual desire (Attractive person) on Subjective sexual arousal by stimuli sex
+
+Table of estimated slopes for Dyadic sexual desire (Attractive person) on Subjective sexual arousal for each stimuli sex from model 2a. Dyadic sexual desire (Attractive person) values were centered. Slopes were calculated using the `sim_slopes` function from the `interactions` package [@interactionscit].
+
+```{r tab-m2a-slo-del, message = FALSE, warning = FALSE, cache = TRUE}
+slop.m2a_del <- sim_slopes(m2a,
+                         pred = "Dyadic sexual desire (Attractive person) (C)", 
+                         modx = "Stimuli sex")
+
+slop.m2a_del.tab <- data.frame(slop.m2a_del$slopes) |>
+  select(1,2,4,5:7) |>
+  mutate(across(2:6, as.numeric)) |>
+  mutate(across(2:5, round, 3)) |>
+  mutate(sig = pval.stars(p)) |>
+  rename("Stimuli sex" = "Value.of.Stimuli.sex") |>
+  rename(Coefficient = Est.)
+
+slop.m2a_del.tab[,-c(7)] |> 
+  mutate(p = pval.lev(p)) |> 
+  kable(booktabs = TRUE,
+        align = c("l", rep("c", 5)),
+        caption = "Slope for Dyadic sexual desire (Attractive person) on 
+        Subjective sexual arousal by stimuli sex",
+        col.names = c("Stimuli sex",
+                      "$B$",
+                      "$2.5\\% CI$",
+                      "$97.5\\% CI$",
+                      "$t$",
+                      "$p$"),
+        escape = FALSE) |> 
+  kable_styling(latex_options = c("HOLD_position")) |>
+  footnote(general = "$B$ and $CIs$ are for unstandardized coefficient.
+           No intercept is reported as continuous predictors were centered
+           and are dependent on this specific sample.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+###### Table \@ref(tab:tab-m2a-slo-d). Slope for Dyadic sexual desire (Attractive person) on Subjective sexual arousal by stimuli sex and gender
+
+Table of estimated slopes for Dyadic sexual desire (Attractive person) on Subjective sexual arousal for each stimuli sex and gender from model 2a. Dyadic sexual desire (Attractive person) values were centered. Slopes were calculated using the `sim_slopes` function from the `interactions` package [@interactionscit].
+
+```{r tab-m2a-slo-d, message = FALSE, warning = FALSE, cache = TRUE}
+slop.m2a_d <- sim_slopes(m2a, 
+                         pred = "Dyadic sexual desire (Attractive person) (C)", 
+                         mod2 = "Gender",
+                         modx = "Stimuli sex")
+
+slop.m2a_d.tab <- rbind(data.frame(slop.m2a_d$slopes[1]),
+                        data.frame(slop.m2a_d$slopes[2])) |>
+  select(1,2,4,5:7) |>
+  mutate(across(2:6, as.numeric)) |>
+  mutate(across(2:5, round, 3)) |>
+  mutate(sig = pval.stars(p)) |> 
+  rename("Stimuli sex" = "Value.of.Stimuli.sex") |>
+  rename(Coefficient = Est.) |> 
+  mutate(Gender = rep(c("Women", "Men"), each = 2)) |>
+  select(8,1:7)
+
+slop.m2a_d.int <- rbind(data.frame(slop.m2a_d$ints[1]),
+                        data.frame(slop.m2a_d$ints[2])) |>
+  select(1,2,4,5:7) |>
+  mutate(across(2:6, as.numeric)) |>
+  mutate(across(2:5, round, 3)) |>
+  mutate(sig = pval.stars(p)) |> 
+  rename("Stimuli sex" = "Value.of.Stimuli.sex") |>
+  rename(Coefficient = Est.) |> 
+  mutate(Gender = rep(c("Women", "Men"), each = 2)) |>
+  select(8,1:7)
+
+slop.m2a_d.tab[,-c(8)] |> 
+  mutate(p = pval.lev(p)) |> 
+  kable(booktabs = TRUE,
+        align = c("l", "l", rep("c", 4)),
+        caption = "Slope for Dyadic sexual desire (Attractive person) on 
+        Subjective sexual arousal by stimuli sex and gender",
+        col.names = c("Gender",
+                      "Stimuli sex",
+                      "$B$",
+                      "$2.5\\% CI$",
+                      "$97.5\\% CI$",
+                      "$t$",
+                      "$p$"),
+        escape = FALSE) |> 
+  collapse_rows(columns = 1, valign = "middle") |> 
+  kable_styling(latex_options = c("HOLD_position")) |>
+  footnote(general = "$B$ and $CIs$ are for unstandardized coefficient.
+           No intercept is reported as continuous predictors were centered
+           and are dependent on this specific sample.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+###### Table \@ref(tab:tab-m2a-slo-e). Slope for Dyadic sexual desire (Partner) on Subjective sexual arousal by relationship type and gender
+
+Table of estimated slopes for Dyadic sexual desire (Partner) on Subjective sexual arousal for each relationship type and gender from model 2a. Dyadic sexual desire (Partner) were centered Slopes were calculated using the `sim_slopes` function from the `interactions` package [@interactionscit].
+
+```{r tab-m2a-slo-e, message = FALSE, warning = FALSE, cache = TRUE}
+slop.m2a_e <- sim_slopes(m2a, 
+                         pred = "Dyadic sexual desire (Partner) (C)", 
+                         mod2 = "Gender",
+                         modx = "Relationship")
+
+slop.m2a_e.tab <- rbind(data.frame(slop.m2a_e$slopes[1]),
+                        data.frame(slop.m2a_e$slopes[2])) |>
+  select(1,2,4,5:7) |>
+  mutate(across(2:6, as.numeric)) |>
+  mutate(across(2:5, round, 3)) |>
+  mutate(sig = pval.stars(p)) |> 
+  rename("Relationship" = "Value.of.Relationship") |>
+  rename(Coefficient = Est.) |> 
+  mutate(Gender = rep(c("Women", "Men"), each = 2)) |>
+  select(8,1:7)
+
+slop.m2a_e.int <- rbind(data.frame(slop.m2a_e$ints[1]),
+                        data.frame(slop.m2a_e$ints[2])) |>
+  select(1,2,4,5:7) |>
+  mutate(across(2:6, as.numeric)) |>
+  mutate(across(2:5, round, 3)) |>
+  mutate(sig = pval.stars(p)) |> 
+  rename("Relationship" = "Value.of.Relationship") |>
+  rename(Coefficient = Est.) |> 
+  mutate(Gender = rep(c("Women", "Men"), each = 2)) |>
+  select(8,1:7)
+
+slop.m2a_e.tab[,-c(8)] |> 
+  mutate(p = pval.lev(p)) |> 
+  kable(booktabs = TRUE,
+        align = c("l", "l", rep("c", 5)),
+        caption = "Slope for Dyadic sexual desire (Partner) on 
+        Subjective sexual arousal by relationship type and gender",
+        col.names = c("Gender",
+                      "Relationship",
+                      "$B$",
+                      "$2.5\\% CI$",
+                      "$97.5\\% CI$",
+                      "$t$",
+                      "$p$"),
+        escape = FALSE) |> 
+  collapse_rows(columns = 1, valign = "middle") |> 
+  kable_styling(latex_options = c("HOLD_position")) |>
+  footnote(general = "$B$ and $CIs$ are for unstandardized coefficient.
+           No intercept is reported as continuous predictors were centered
+           and are dependent on this specific sample.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+###### Table \@ref(tab:tab-m2a-slo-f). Slope for Dyadic sexual desire (Partner) on Subjective sexual arousal by relationship type and stimuli sex
+
+Table of estimated slopes for Dyadic sexual desire (Partner) on Subjective sexual arousal for each relationship type and stimuli sex from model 2a. Dyadic sexual desire (Partner) were centered Slopes were calculated using the `sim_slopes` function from the `interactions` package [@interactionscit].
+
+```{r tab-m2a-slo-f, message = FALSE, warning = FALSE, cache = TRUE}
+slop.m2a_f <- sim_slopes(m2a, 
+                         pred = "Dyadic sexual desire (Partner) (C)", 
+                         mod2 = "Stimuli sex",
+                         modx = "Relationship")
+
+slop.m2a_f.tab <- rbind(data.frame(slop.m2a_f$slopes[1]),
+                        data.frame(slop.m2a_f$slopes[2])) |>
+  select(1,2,4,5:7) |>
+  mutate(across(2:6, as.numeric)) |>
+  mutate(across(2:5, round, 3)) |>
+  mutate(sig = pval.stars(p)) |> 
+  rename("Relationship" = "Value.of.Relationship") |>
+  rename(Coefficient = Est.) |> 
+  mutate("Stimuli sex" = rep(c("Female", "Male"), each = 2)) |>
+  select(8,1:7)
+
+slop.m2a_f.int <- rbind(data.frame(slop.m2a_f$ints[1]),
+                        data.frame(slop.m2a_f$ints[2])) |>
+  select(1,2,4,5:7) |>
+  mutate(across(2:6, as.numeric)) |>
+  mutate(across(2:5, round, 3)) |>
+  mutate(sig = pval.stars(p)) |> 
+  rename("Relationship" = "Value.of.Relationship") |>
+  rename(Coefficient = Est.) |> 
+  mutate("Stimuli sex" = rep(c("Female", "Male"), each = 2)) |>
+  select(8,1:7)
+
+slop.m2a_f.tab[,-c(8)] |> 
+  mutate(p = pval.lev(p)) |> 
+  kable(booktabs = TRUE,
+        align = c("l", "l", rep("c", 4)),
+        caption = "Slope for Dyadic sexual desire (Partner) on 
+        Subjective sexual arousal by relationship type and stimuli sex",
+        col.names = c("Stimuli sex",
+                      "Relationship",
+                      "$B$",
+                      "$2.5\\% CI$",
+                      "$97.5\\% CI$",
+                      "$t$",
+                      "$p$"),
+        escape = FALSE) |> 
+  collapse_rows(columns = 1, valign = "middle") |> 
+  kable_styling(latex_options = c("HOLD_position")) |>
+  footnote(general = "$B$ and $CIs$ are for unstandardized coefficient.
+           No intercept is reported as continuous predictors were centered
+           and are dependent on this specific sample.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+#### Figure \@ref(fig:fig-h2a). Subjective sexual arousal to erotic stimuli: Main effects and interactions
+
+This figure summarizes the results of hypothesis 2a. 
+
+```{r fig-h2a, results = "hold", fig.height = 9, fig.cap = "Subjective sexual arousal to erotic stimuli: Significant main effects and interactions of model 2A. For detailed results of the model, see Table \\@ref(tab:tab-m2a). **(a)** Interaction between Stimuli sex and gender (significant effects of stimuli sex by participant gender are represented with lines and stars. White dots and black bars represent estimated marginal means and 95% CI, calculated from 1000 bootstraped simulations; for detailed results, see Table \\@ref(tab:tab-m2a-emms-a)); **(b)** main effect of Solitary sexual desire on Subjective sexual arousal (for detailed results, see Table \\@ref(tab:tab-m2a)); **(c)** main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal  (for detailed results, see Table \\@ref(tab:tab-m2a)); **(d)** interaction between Stimuli sex, gender and Dyadic sexual desire (Attractive person) (for detailed results, see Table \\@ref(tab:tab-m2a-slo-d); slopes for the two-way interaction between Stimuli sex and gender —not plotted— are detailed in Table \\@ref(tab:tab-m2a-slo-del)); **(e)** interaction between Relationship, gender and Dyadic sexual desire (Partner) (for detailed results, see Table \\@ref(tab:tab-m2a-slo-e)); **(f)** interaction between Relationship, Stimuli sex and Dyadic sexual desire (Partner) (for detailed results, see Table \\@ref(tab:tab-m2a-slo-f)). *Women* and *Men* refer to the gender of the participants and *Female* and *Male* to the sex of the stimuli. To better represent the associations between predictor variables and subjective sexual arousal within the model (i.e. when including all other effects), in all cases the *Y* axis represents values predicted by the model instead of raw values. For statistical significance, \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
+## Create data frame and add predicted values for plots
+m2a.dat <- m2a@frame |> 
+  mutate(`Subjective sexual arousal (p)` = predict(m2a))
+
+# Figure interaction between Stimuli sex and gender
+p2a.a <- ggplot(m2a.dat, aes(x = `Stimuli sex`, 
+                             y = `Subjective sexual arousal (p)`, 
+                             color = `Stimuli sex`)) +
+  geom_violin() +
+  geom_jitter(alpha = 0.01, width = 0.1) +
+  scale_color_manual(values = color.StimuliSex) +
+  scale_fill_manual(values = color.StimuliSex) +
+  facet_wrap(~Gender) +
+  geom_errorbar(data = emms.m2a_a.tab, 
+                mapping = aes(ymin = asymp.LCL, ymax = asymp.UCL), 
+                colour = "black", width = 0.1) +
+  geom_point(data = emms.m2a_a.tab, 
+             shape = 21, size = 3,
+             color = "black", fill = "white") +
+  stat_pvalue_manual(t.m2a_a, 
+                     label = "p.signif", 
+                     y.position = c(7.4,7.8), 
+                     tip.length = 0) +
+  labs(y = "Subjective sexual\narousal (predicted)") +
+  ylim(c(0, 8.5)) +
+  theme_tq() +
+  theme(legend.position = "none")
+
+## Extract slope data from model summary for main effects of continuous predictors
+slop.m2a_bc.tab <- left_join(data.frame(summary(m2a)$coefficients) |>
+                               rownames_to_column(),
+                             data.frame(m2aCI) |>
+                               rownames_to_column(),
+                             by = "rowname")[5:6,] |>
+  select(1:2,7:8,5:6) |>
+  mutate(across(2:5, round, 3)) |>
+  mutate(Pr...t.. = pval.lev2(Pr...t..))
+
+# Figure main effect of Solitary sexual desire on Subjective sexual arousal
+p2a.b <- ggplot(m2a.dat, aes(x = `Solitary sexual desire (C)`, 
+                             y = `Subjective sexual arousal (p)`)) +
+  geom_jitter(alpha =  0.01) +
+  geom_smooth(method = "lm") +
+  labs(y = "")  +
+  geom_text(data = slop.m2a_bc.tab[1,],
+            mapping = aes(x = -Inf, y =Inf,
+                          vjust = 2, hjust = -0.03),
+            label = paste("B = ", slop.m2a_bc.tab[1,]$Estimate,
+                          ", IC 95%[",
+                          paste(slop.m2a_bc.tab[1,]$X2.5..,
+                                slop.m2a_bc.tab[1,]$X97.5..,
+                                sep = ", "),
+                          "], p", slop.m2a_bc.tab[1,]$Pr...t.., "*"),
+            size = 3) +
+  theme_tq()
+
+# Figure main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal
+p2a.c <- ggplot(m2a.dat, aes(x = `Dyadic sexual desire (Attractive person) (C)`, 
+                             y = `Subjective sexual arousal (p)`)) +
+  geom_jitter(alpha =  0.01) +
+  geom_smooth(method = "lm") +
+  labs(y = "")  +
+  geom_text(data = slop.m2a_bc.tab[2,],
+            mapping = aes(x = -Inf, y = Inf,
+            vjust = 2, hjust = -0.03),
+            label = paste("B = ", slop.m2a_bc.tab[2,]$Estimate, 
+                          ", IC 95%[", paste(slop.m2a_bc.tab[2,]$X2.5..,
+                                             slop.m2a_bc.tab[2,]$X97.5.., 
+                                             sep = ", "), 
+                          "], p", slop.m2a_bc.tab[2,]$Pr...t.., "****"),
+            size = 3) +
+  theme_tq()
+
+# Figure interaction between Stimuli sex, gender and Dyadic sexual desire (Attractive person)
+## Extract data for by stimuli sex
+slop.m2a_d.tab.plot_f <- filter(slop.m2a_d.tab, `Stimuli sex` == "Female") |>
+  mutate(p = pval.lev2(p))
+slop.m2a_d.tab.plot_m <- filter(slop.m2a_d.tab, `Stimuli sex` == "Male") |>
+  mutate(p = pval.lev2(p))
+
+slop.m2a_d.tab.plot <- slop.m2a_d.tab |> 
+  mutate(Int = slop.m2a_d.int$Coefficient) |> 
+  arrange(desc(Gender)) |>
+  mutate(p = pval.lev2(p))
+slop.m2a_d.tab.plot_f <- filter(slop.m2a_d.tab.plot, `Stimuli sex` == "Female")
+slop.m2a_d.tab.plot_m <- filter(slop.m2a_d.tab.plot, `Stimuli sex` == "Male")
+## Plot
+p2a.d <- ggplot(m2a.dat, aes(x = `Dyadic sexual desire (Attractive person) (C)`,
+                             y = `Subjective sexual arousal (p)`,
+                             color = `Stimuli sex`, fill = `Stimuli sex`)) +
+  geom_jitter(alpha = 0.01, size = 1, width = 0.4) +
+  geom_abline(data = slop.m2a_d.tab.plot_f,
+              aes(slope = Coefficient, 
+                  intercept = Int,
+                  color = `Stimuli sex`),
+              show.legend = NA,
+              color = color.StimuliSex[1],
+              size = 1) +
+  geom_abline(data = slop.m2a_d.tab.plot_m,
+              aes(slope = Coefficient, 
+                  intercept = Int,
+                  color = `Stimuli sex`),
+              show.legend = NA,
+              color = color.StimuliSex[2],
+              size = 1) +
+  guides(colour = guide_legend(override.aes = list(alpha = 1, size = 3))) +
+  scale_color_manual(values = color.StimuliSex) +
+  facet_wrap(~fct_relevel(Gender, "Women", "Men")) +
+  geom_text(data = slop.m2a_d.tab.plot_f,
+            mapping = aes(x = -Inf, y = Inf,
+            vjust = 2, hjust = -0.03),
+            inherit.aes = FALSE,
+            label = paste("B = ", slop.m2a_d.tab.plot_f$Coefficient, 
+                          ", IC 95%[", paste(slop.m2a_d.tab.plot_f$X2.5., 
+                                             slop.m2a_d.tab.plot_f$X97.5., sep = ", "), 
+                          "], p", slop.m2a_d.tab.plot_f$p, 
+                          ifelse(is.na(slop.m2a_d.tab.plot_f$sig), "", slop.m2a_d.tab.plot_f$sig)),
+            color = color.StimuliSex[1], size = 2.5) +
+  geom_text(data = slop.m2a_d.tab.plot_m,
+            mapping = aes(x = -Inf, y = Inf,
+            vjust = 4, hjust = -0.03),
+            inherit.aes = FALSE,
+            label = paste("B = ", slop.m2a_d.tab.plot_m$Coefficient, 
+                          ", IC 95%[", paste(slop.m2a_d.tab.plot_m$X2.5., 
+                                             slop.m2a_d.tab.plot_m$X97.5., sep = ", "), 
+                          "], p", slop.m2a_d.tab.plot_m$p, 
+                          ifelse(is.na(slop.m2a_d.tab.plot_m$sig), "", slop.m2a_d.tab.plot_m$sig)),
+            color = color.StimuliSex[2], size = 2.5) +
+  labs(y = "Subjective sexual\narousal (predicted)") + 
+  theme_tq()
+
+# Figure interaction between Relationship, gender and Dyadic sexual desire (Partner)
+## Extract data by relationship type
+slop.m2a_e.tab.plot <- slop.m2a_e.tab |> 
+  mutate(Int = slop.m2a_e.int$Coefficient) |> 
+  arrange(desc(Gender)) |>
+  mutate(p = pval.lev2(p))
+slop.m2a_e.tab.plot_sta <- filter(slop.m2a_e.tab.plot, Relationship == "Stable")
+slop.m2a_e.tab.plot_sin <- filter(slop.m2a_e.tab.plot, Relationship == "Single")
+## Plot
+p2a.e <- ggplot(m2a.dat, aes(x = `Dyadic sexual desire (Partner) (C)`,
+                             y = `Subjective sexual arousal (p)`,
+                             color = Relationship, fill = Relationship)) +
+  geom_jitter(alpha = 0.01, size = 1, width = 0.4) +
+  geom_abline(data = slop.m2a_e.tab.plot_sta,
+              aes(slope = Coefficient, 
+                  intercept = Int,
+                  color = `Stimuli sex`),
+              show.legend = NA,
+              color = color.Relationship[1],
+              size = 1) +
+  geom_abline(data = slop.m2a_e.tab.plot_sin,
+              aes(slope = Coefficient, 
+                  intercept = Int,
+                  color = `Stimuli sex`),
+              show.legend = NA,
+              color = color.Relationship[2],
+              size = 1) +
+  guides(colour = guide_legend(override.aes = list(alpha = 1, size = 3))) +
+  scale_color_manual(values = color.Relationship) +
+  scale_fill_manual(values = color.Relationship) +
+  facet_wrap(~fct_relevel(Gender, "Women", "Men")) +
+  geom_text(data = slop.m2a_e.tab.plot_sta,
+            mapping = aes(x = -Inf, y = Inf,
+            vjust = 2, hjust = -0.03),
+            label = paste("B = ", slop.m2a_e.tab.plot_sta$Coefficient, 
+                          ", IC 95%[", paste(slop.m2a_e.tab.plot_sta$X2.5., 
+                                             slop.m2a_e.tab.plot_sta$X97.5., sep = ", "), 
+                          "], p", slop.m2a_e.tab.plot_sta$p, 
+                          ifelse(is.na(slop.m2a_e.tab.plot_sta$sig), "", 
+                                 slop.m2a_e.tab.plot_sta$sig)),
+            color = color.Relationship[1], size = 2.5) +
+  geom_text(data = slop.m2a_e.tab.plot_sin,
+            mapping = aes(x = -Inf, y = Inf,
+            vjust = 4, hjust = -0.03),
+            label = paste("B = ", slop.m2a_e.tab.plot_sin$Coefficient, 
+                          ", IC 95%[", paste(slop.m2a_e.tab.plot_sin$X2.5., 
+                                             slop.m2a_e.tab.plot_sin$X97.5., sep = ", "), 
+                          "], p", slop.m2a_e.tab.plot_sin$p, 
+                          ifelse(is.na(slop.m2a_e.tab.plot_sin$sig), "", slop.m2a_e.tab.plot_sin$sig)),
+            color = color.Relationship[2], size = 2.5) +
+  labs(y = "Subjective sexual\narousal (predicted)") +
+  theme_tq()
+
+# Figure interaction between Relationship, Stimuli sex and Dyadic sexual desire (Partner)
+## Extract data by relationship type
+slop.m2a_f.tab.plot <- slop.m2a_f.tab |> 
+  mutate(Int = slop.m2a_f.int$Coefficient) |> 
+  arrange(`Stimuli sex`) |>
+  mutate(p = pval.lev2(p))
+slop.m2a_f.tab.plot_sta <- filter(slop.m2a_f.tab.plot, Relationship == "Stable")
+slop.m2a_f.tab.plot_sin <- filter(slop.m2a_f.tab.plot, Relationship == "Single")
+## Plot
+p2a.f <- ggplot(m2a.dat, aes(x = `Dyadic sexual desire (Partner) (C)`,
+                             y = `Subjective sexual arousal (p)`,
+                             color = Relationship, fill = Relationship)) +
+  geom_jitter(alpha = 0.01, size = 1, width = 0.4) +
+  geom_abline(data = slop.m2a_f.tab.plot_sta,
+              aes(slope = Coefficient, 
+                  intercept = Int,
+                  color = Relationship),
+              show.legend = NA,
+              color = color.Relationship[1],
+              size = 1) +
+  geom_abline(data = slop.m2a_f.tab.plot_sin,
+              aes(slope = Coefficient, 
+                  intercept = Int,
+                  color = Relationship),
+              show.legend = NA,
+              color = color.Relationship[2],
+              size = 1) +
+  guides(colour = guide_legend(override.aes = list(alpha = 1, size = 3))) +
+  scale_color_manual(values = color.Relationship) +
+  scale_fill_manual(values = color.Relationship) +
+  facet_wrap(~~fct_relevel(`Stimuli sex`, "Female", "Male")) +
+  geom_text(data = slop.m2a_f.tab.plot_sta,
+            mapping = aes(x = -Inf, y = Inf,
+            vjust = 2, hjust = -0.03),
+            label = paste("B = ", slop.m2a_f.tab.plot_sta$Coefficient, 
+                          ", IC 95%[", paste(slop.m2a_f.tab.plot_sta$X2.5., 
+                                             slop.m2a_f.tab.plot_sta$X97.5., sep = ", "), 
+                          "], p", slop.m2a_f.tab.plot_sta$p, 
+                          ifelse(is.na(slop.m2a_f.tab.plot_sta$sig), "", 
+                                 slop.m2a_f.tab.plot_sta$sig)),
+            color = color.Relationship[1], size = 2.5) +
+  geom_text(data = slop.m2a_f.tab.plot_sin,
+            mapping = aes(x = -Inf, y = Inf,
+            vjust = 4, hjust = -0.03),
+            label = paste("B = ", slop.m2a_f.tab.plot_sin$Coefficient, 
+                          ", IC 95%[", paste(slop.m2a_f.tab.plot_sin$X2.5., 
+                                             slop.m2a_f.tab.plot_sin$X97.5., sep = ", "), 
+                          "], p", slop.m2a_f.tab.plot_sin$p, 
+                          ifelse(is.na(slop.m2a_f.tab.plot_sin$sig), "", 
+                                 slop.m2a_f.tab.plot_sin$sig)),
+            color = color.Relationship[2], size = 2.5) +
+  labs(y = " \n ")  +
+  theme_tq()
+
+# Full figure for hypothesis 2a
+p2af <- ggarrange(ggarrange(p2a.a, p2a.b, p2a.c, 
+                            labels = "auto",
+                            nrow = 1), 
+                  ggarrange(p2a.d,
+                            nrow = 1,
+                            labels = "d",
+                            common.legend = TRUE,
+                            legend = "bottom"),
+                  ggarrange(p2a.e, p2a.f,
+                            nrow = 1,
+                            labels = c("e", "f"),
+                            common.legend = TRUE,
+                            legend = "bottom"),
+                            ncol = 1)
+p2af
+```
+
+### Hypothesis 2b: Non-erotic {#hypothesis2b}
+
+#### Filter data
+
+Create data frame selecting only relevant variables, and summarizing per sexual desire dimension for each participant (three rows per participant).
+
+```{r}
+dat.nero <- dat.fin |>
+  filter(`Stimuli content` == "Non-erotic")
+```
+
+#### Fit model
+
+We modelled the effects of XXXXX.
+
+```{r}
+options(contrasts = c("contr.sum","contr.poly"))
+
+m2b <- lmer(`Subjective sexual arousal` ~
+            Relationship * Gender * `Stimuli sex` * `Solitary sexual desire (C)` +
+            Relationship * Gender * `Stimuli sex` * `Dyadic sexual desire (Attractive person) (C)` +
+            Relationship * Gender * `Stimuli sex` * `Dyadic sexual desire (Partner) (C)` +
+            (1 | `Stimuli code`) +
+            (1 + `Stimuli sex` | Participant),
+           data = dat.nero,
+           control = lmerControl(optimizer = "bobyqa"))
+```
+
+##### Model assumptions
+
+Most model assumptions were checked using the `check_model` function from the `performance` package [@ludecke2021], and reported in Fig. \@ref(fig:assu-m2b). These assumptions do not include collinearity, as the function plots $VIF$ instead of the recommended Generalized Variance Inflation Factors ($GVIF$) and the most comparable $GVIF^{{1}/{(2 \times df)}}$ [@fox1992]. Instead, $GVIF$ and $GVIF^{{1}/{(2 \times df)}}$ values are reported in Table \@ref(tab:coli-m2b).
+
+###### Figure \@ref(fig:assu-m2b). Model assumptions
+
+This figure includes most assumptions: linearity, homogeneity of variance, and normality of both residuals and random effects.
+
+```{r assu-m2b, cache = TRUE, message = FALSE, fig.height = 8, fig.cap = "Model assumptions. Plots represent linearity, homogeneity of variance, and normality of both residuals and random effects (as QQ plots), respectively."}
+check_model(m2b,
+            check = c("linearity", "homogeneity", "qq", "reqq"))
+```
+
+###### Table \@ref(tab:coli-m2b). Collinearity
+
+Given the presence of interactions, that all predictors are categorical, and the absence of random slopes, $VIF$ and $GVIF$ values would be expected to be high.
+
+```{r coli-m2b}
+data.frame(vif(m2b)) |> 
+  rownames_to_column() |> 
+  mutate_at("rowname", str_replace_all, ":", " × ") |>
+  mutate_at("rowname", str_replace_all, "`", "") |> 
+  kable(digits = 2,
+        booktabs = TRUE,
+        align = c("l", "c"),
+        linesep = "",
+        caption = "Variance inflation factors for the model of hypothesis 2a",
+        col.names = c(" ",
+                      "$VIF$"),
+        escape = FALSE) |>
+  kable_styling(latex_options = "HOLD_position")
+```
+
+##### Bootstrap confidence intervals
+
+```{r CI-m2b, cache = TRUE, warning = FALSE, message = FALSE}
+m2bCI <- confint(m2b, 
+                 method = "boot", #define bootstrap as method for confidence intervals
+                 nsim = 4, #number of simulations
+                 FUN = fixef, #to obtain only estimates for fixed effects
+                 parallel = "multicore", #parallel computation
+                 ncpus = detectCores()-1, #number of computational cores to run in parallel
+                 .progress = "txt", #show progress bar
+                 seed = 2023) #to ensure reproducibility and allow cache to work
+```
+
+##### Table \@ref(tab:tab-m2b). Regression-type table for the interaction between `Relationship type`, `Sexual desire dimension`, and `Gender`
+
+This tables summarizes the results of the model.
+
+```{r tab-m2b}
+tab.m2b <- summary.sig.boot(mod = m2b,
+                            modCI = m2aCI, 
+                            custom_caption = "Subjective sexual arousal in response to 
+                            non-erotic stimuli, by relationship type, gender, stimuli sex, 
+                            and the three dimensions of sexual desire dimension")
+tab.m2b
+```
+
+##### Simple slope analysis and *post-hoc* comparisons 
+
+We further explored the interaction between gender and stimuli sex using estimated marginal means, as well as comparing subjective sexual arousal between stimuli sex for each participant gender.
+
+###### Table \@ref(tab:tab-m2b-emms-a). Estimated marginal means and contrasts of subjective arousal between stimuli sex by participant gender
+
+Table of estimated marginal means and contrasts between stimuli sex for each participant gender. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+```{r tab-m2b-emms-a, message = FALSE, warning = FALSE}
+emms.m2b_a <- emmeans(m2b, ~ factor(`Stimuli sex`) | Gender,
+                    adjust = "bonferroni") #asymptotic degrees of freedom
+
+emms.m2b_a.tab <- tibble(data.frame(emms.m2b_a)) |>
+  rename("Stimuli sex" = Stimuli.sex) |> 
+  mutate("Subjective sexual arousal (p)" = emmean)
+
+t.m2b_a <- contr.stars(emms.m2b_a) |> 
+  mutate(p.value = pval.lev(p.value))
+
+t.m2b_a.f <- t.m2b_a |> 
+  insertRows(2, new = NA)
+
+merge(emms.m2b_a.tab, t.m2b_a.f, by = 0, all = TRUE) |>
+  select(-c(1,3,6,9,12,15,18)) |> 
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", " ") |> 
+  kable(digits = 2,
+          booktabs = TRUE,
+          align = c("l", rep("c", 5), "l", rep("c", 5)),
+          linesep = "",
+          caption = "Estimated marginal means of subjective sexual arousal for gender by
+        stimuli sex, in response to non-erotic stimuli",
+          col.names = c("Stimuli sex",
+                        "EMM",
+                        "$SE$",
+                        "$2.5\\% CI$",
+                        "$97.5\\% CI$",
+                        "Contrast",
+                        "Difference",
+                        "$SE$",
+                        "$z$",
+                        "$p$"),
+          escape = FALSE) |>
+  pack_rows(group_label = "Women",
+            start_row = 1,
+            end_row = 2,
+            bold = TRUE) |>
+  pack_rows(group_label = "Men",
+            start_row = 3,
+            end_row = 4,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  add_header_above(c(" " = 5, "Contrasts" = 5)) |> 
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(general = "EMM = estimated marginal mean.
+           No degrees of freedom are reported, as an asymptotic method was used. 
+           Because of this, \\\\textit{z} rather that \\\\textit{t} scores are reported.
+           Bonferroni adjustment was used.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+###### Table \@ref(tab:tab-m2b-slo-c). Slope for Solitary sexual desire on Subjective sexual arousal by gender
+
+Table of estimated slopes for Solitary sexual desire on Subjective sexual arousal for each gender from model 2b. Solitary sexual desire values were centered. Slopes were calculated using the `sim_slopes` function from the `interactions` package [@interactionscit].
+
+```{r tab-m2b-slo-c, message = FALSE, warning = FALSE, cache = TRUE}
+slop.m2b_c <- sim_slopes(m2b,
+                         pred = "Solitary sexual desire (C)", 
+                         modx = "Gender")
+
+slop.m2b_c.tab <- data.frame(slop.m2b_c$slopes) |>
+  select(1,2,4,5:7) |>
+  mutate(across(2:6, as.numeric)) |>
+  mutate(across(2:5, round, 3)) |>
+  mutate(sig = pval.stars(p)) |>
+  rename("Gender" = "Value.of.Gender") |>
+  rename(Coefficient = Est.)
+
+slop.m2b_c.int <- data.frame(slop.m2b_c$ints) |>
+  select(1,2,4,5:7) |>
+  mutate(across(2:6, as.numeric)) |>
+  mutate(across(2:5, round, 3)) |>
+  mutate(sig = pval.stars(p)) |>
+  rename("Gender" = "Value.of.Gender") |>
+  rename(Coefficient = Est.)
+
+slop.m2b_c.tab[,-c(7)] |> 
+  mutate(p = pval.lev(p)) |> 
+  kable(booktabs = TRUE,
+        align = c("l", rep("c", 5)),
+        caption = "Slope for Solitary sexual desire on Subjective sexual arousal by gender",
+        col.names = c("Gender",
+                      "$B$",
+                      "$2.5\\% CI$",
+                      "$97.5\\% CI$",
+                      "$t$",
+                      "$p$"),
+        escape = FALSE) |> 
+  kable_styling(latex_options = c("HOLD_position")) |>
+  footnote(general = "$B$ and $CIs$ are for unstandardized coefficient.
+           No intercept is reported as continuous predictors were centered
+           and are dependent on this specific sample.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+###### Table \@ref(tab:tab-m2b-slo-d). Slope for Solitary sexual desire on Subjective sexual arousal by stimuli sex
+
+Table of estimated slopes for Solitary sexual desire on Subjective sexual arousal for each stimuli sex from model 2b. Solitary sexual desire values were centered. Slopes were calculated using the `sim_slopes` function from the `interactions` package [@interactionscit].
+
+```{r tab-m2b-slo-d, message = FALSE, warning = FALSE, cache = TRUE}
+slop.m2b_d <- sim_slopes(m2b,
+                         pred = "Solitary sexual desire (C)", 
+                         modx = "Stimuli sex")
+
+slop.m2b_d.tab <- data.frame(slop.m2b_d$slopes) |>
+  select(1,2,4,5:7) |>
+  mutate(across(2:6, as.numeric)) |>
+  mutate(across(2:5, round, 3)) |>
+  mutate(sig = pval.stars(p)) |>
+  rename("Stimuli sex" = "Value.of.Stimuli.sex") |>
+  rename(Coefficient = Est.)
+
+slop.m2b_d.int <- data.frame(slop.m2b_d$ints) |>
+  select(1,2,4,5:7) |>
+  mutate(across(2:6, as.numeric)) |>
+  mutate(across(2:5, round, 3)) |>
+  mutate(sig = pval.stars(p)) |>
+  rename("Stimuli sex" = "Value.of.Stimuli.sex") |>
+  rename(Coefficient = Est.)
+
+slop.m2b_d.tab[,-c(7)] |> 
+  mutate(p = pval.lev(p)) |> 
+  kable(booktabs = TRUE,
+        align = c("l", rep("c", 5)),
+        caption = "Slope for Solitary sexual desire on Subjective sexual arousal by gender",
+        col.names = c("Stimuli sex",
+                      "$B$",
+                      "$2.5\\% CI$",
+                      "$97.5\\% CI$",
+                      "$t$",
+                      "$p$"),
+        escape = FALSE) |> 
+  kable_styling(latex_options = c("HOLD_position")) |>
+  footnote(general = "$B$ and $CIs$ are for unstandardized coefficient.
+           No intercept is reported as continuous predictors were centered
+           and are dependent on this specific sample.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+###### Table \@ref(tab:tab-m2b-slo-e). Slope for Dyadic sexual desire (Attractive person) on Subjective sexual arousal by stimuli sex and gender
+
+Table of estimated slopes for Dyadic sexual desire (Attractive person) on Subjective sexual arousal for each stimuli sex and gender from model 2b. Dyadic sexual desire (Attractive person) values were centered. Slopes were calculated using the `sim_slopes` function from the `interactions` package [@interactionscit].
+
+```{r tab-m2b-slo-e, message = FALSE, warning = FALSE, cache = TRUE}
+slop.m2b_e <- sim_slopes(m2b, 
+                         pred = "Dyadic sexual desire (Attractive person) (C)", 
+                         mod2 = "Gender",
+                         modx = "Stimuli sex")
+
+slop.m2b_e.tab <- rbind(data.frame(slop.m2b_e$slopes[1]),
+                        data.frame(slop.m2b_e$slopes[2])) |>
+  select(1,2,4,5:7) |>
+  mutate(across(2:6, as.numeric)) |>
+  mutate(across(2:5, round, 3)) |>
+  mutate(sig = pval.stars(p)) |> 
+  rename("Stimuli sex" = "Value.of.Stimuli.sex") |>
+  rename(Coefficient = Est.) |> 
+  mutate(Gender = rep(c("Women", "Men"), each = 2)) |>
+  select(8,1:7)
+
+slop.m2b_e.int <- rbind(data.frame(slop.m2b_e$ints[1]),
+                        data.frame(slop.m2b_e$ints[2])) |>
+  select(1,2,4,5:7) |>
+  mutate(across(2:6, as.numeric)) |>
+  mutate(across(2:5, round, 3)) |>
+  mutate(sig = pval.stars(p)) |> 
+  rename("Stimuli sex" = "Value.of.Stimuli.sex") |>
+  rename(Coefficient = Est.) |> 
+  mutate(Gender = rep(c("Women", "Men"), each = 2)) |>
+  select(8,1:7)
+
+slop.m2b_e.tab[,-c(8)] |> 
+  mutate(p = pval.lev(p)) |> 
+  kable(booktabs = TRUE,
+        align = c("l", "l", rep("c", 5)),
+        caption = "Slope for Dyadic sexual desire (Attractive person) on 
+        Subjective sexual arousal by stimuli sex and gender",
+        col.names = c("Gender",
+                      "Stimuli sex",
+                      "$B$",
+                      "$2.5\\% CI$",
+                      "$97.5\\% CI$",
+                      "$t$",
+                      "$p$"),
+        escape = FALSE) |> 
+  collapse_rows(columns = 1, valign = "middle") |> 
+  kable_styling(latex_options = c("HOLD_position")) |>
+  footnote(general = "$B$ and $CIs$ are for unstandardized coefficient.
+           No intercept is reported as continuous predictors were centered
+           and are dependent on this specific sample.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+#### Figure \@ref(fig:fig-h2b). Subjective sexual arousal to non-erotic stimuli: Main effects and interactions
+
+This figure summarizes the results of hypothesis 2b.
+
+```{r fig-h2b, results = "hold", fig.height = 9, fig.cap = "Subjective sexual arousal to non-erotic stimuli: Significant main effects and interactions of model 2B. For detailed results of the model, see Table \\@ref(tab:tab-m2b). **(b)** Interaction between Stimuli sex and gender (significant effects of stimuli sex by participant gender are represented with lines and stars. White dots and black bars represent estimated marginal means and 95% CI, calculated from 1000 bootstraped simulations; for detailed results, see Table \\@ref(tab:tab-m2b-emms-a)); **(a)** main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal (for detailed results, see Table \\@ref(tab:tab-m2b)); **(c)** interaction between Gender and Solitary sexual desire (for detailed results, see Table \\@ref(tab:tab-m2b-slo-c)); **(d)** interaction between Stimuli sex and Solitary sexual desire (for detailed results, see Table \\@ref(tab:tab-m2b-slo-d)); **(e)** interaction between Stimuli sex, gender and Dyadic sexual desire (Attractive person) (for detailed results, see Table \\@ref(tab:tab-m2b-slo-e)). *Women* and *Men* refer to the gender of the participants and *Female* and *Male* to the sex of the stimuli. To better represent the associations between predictor variables and subjective sexual arousal within the model (i.e. when including all other effects), in all cases the *Y* axis represents values predicted by the model instead of raw values. For statistical significance, \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
+## Create data frame and add predicted values for plots
+m2b.dat <- m2b@frame |> 
+  mutate(`Subjective sexual arousal (p)` = predict(m2b))
+
+# Figure interaction between Stimuli sex and gender
+p2b.a <- ggplot(m2b.dat, aes(x = `Stimuli sex`, 
+                             y = `Subjective sexual arousal (p)`, 
+                             color = `Stimuli sex`)) +
+  geom_violin() +
+  geom_jitter(alpha = 0.01, width = 0.1) +
+  scale_color_manual(values = color.StimuliSex) +
+  facet_wrap(~Gender) +
+  geom_errorbar(data = emms.m2b_a.tab, 
+                mapping = aes(ymin = asymp.LCL, ymax = asymp.UCL), 
+                colour = "black", width = 0.1) +
+  geom_point(data = emms.m2b_a.tab, 
+             shape = 21, size = 3,
+             color = "black", fill = "white") +
+  stat_pvalue_manual(t.m2b_a, 
+                     label = "p.signif", 
+                     y.position = c(7.4,7.8), 
+                     tip.length = 0) +
+  labs(y = " \n ")  +
+  ylim(c(0, 8.5)) +
+  theme_tq() +
+  theme(legend.position = "none")
+
+## Extract slope data from model summary for main effects of continuous predictors
+slop.m2b_b.tab <- left_join(data.frame(summary(m2b)$coefficients) |>
+                               rownames_to_column(),
+                             data.frame(m2bCI) |>
+                               rownames_to_column(),
+                             by = "rowname") |>
+  select(1:2,7:8,5:6) |>
+  mutate(across(2:5, round, 3)) |>
+  mutate(Pr...t.. = pval.lev2(Pr...t..))
+
+# # Figure main effect of Dyadic sexual desire (Attractive person) on Subjective sexual arousal
+p2b.b <- ggplot(m2b.dat, aes(x = `Dyadic sexual desire (Attractive person) (C)`, 
+                             y = `Subjective sexual arousal (p)`)) +
+  geom_jitter(alpha =  0.01) +
+  geom_smooth(method = "lm") +
+  labs(y = "Subjective sexual\narousal (predicted)") +
+  geom_text(data = slop.m2b_b.tab[6,],
+            mapping = aes(x = -Inf, y =Inf,
+                          vjust = 2, hjust = -0.03),
+            label = paste("B = ", slop.m2b_b.tab[6,]$Estimate,
+                          ", IC 95%[",
+                          paste(slop.m2b_b.tab[6,]$X2.5..,
+                                slop.m2b_b.tab[6,]$X97.5..,
+                                sep = ", "),
+                          "], p", slop.m2b_b.tab[6,]$Pr...t.., "****"),
+            size = 3) +
+  theme_tq()
+
+# Figure interaction between gender and Solitary sexual desire
+## Extract data for by stimuli sex
+slop.m2b_c.tab.plot <- slop.m2b_c.tab |> 
+  mutate(Int = slop.m2b_c.int$Coefficient) |> 
+  arrange(desc(Gender)) |>
+  mutate(p = pval.lev2(p))
+slop.m2b_c.tab.plot_wom <- filter(slop.m2b_c.tab.plot, Gender == "Women")
+slop.m2b_c.tab.plot_men <- filter(slop.m2b_c.tab.plot, Gender == "Men")
+## Plot
+p2b.c <- ggplot(m2b.dat, aes(x = `Solitary sexual desire (C)`,
+                             y = `Subjective sexual arousal (p)`,
+                             color = Gender, fill = Gender)) +
+  geom_jitter(alpha = 0.01, size = 1, width = 0.4) +
+  geom_abline(data = slop.m2b_c.tab.plot,
+              aes(slope = Coefficient, 
+                  intercept = Int,
+                  color = Gender),
+              show.legend = NA,
+              color = color.Gender,
+              size = 1) +
+  guides(colour = guide_legend(override.aes = list(alpha = 1, size = 3))) +
+  scale_color_manual(values = color.Gender) +
+  geom_text(data = slop.m2b_c.tab.plot_wom,
+            mapping = aes(x = -Inf, y = Inf,
+            vjust = 2, hjust = -0.03),
+            inherit.aes = FALSE,
+            label = paste("B = ", slop.m2b_c.tab.plot_wom$Coefficient, 
+                          ", IC 95%[", paste(slop.m2b_c.tab.plot_wom$X2.5., 
+                                             slop.m2b_c.tab.plot_wom$X97.5., sep = ", "), 
+                          "], p", slop.m2b_c.tab.plot_wom$p, 
+                          ifelse(is.na(slop.m2b_c.tab.plot_wom$sig), "", 
+                                 slop.m2b_c.tab.plot_wom$sig)),
+            color = color.Gender[1], size = 3) +
+  geom_text(data = slop.m2b_c.tab.plot_men,
+            mapping = aes(x = -Inf, y = Inf,
+            vjust = 4, hjust = -0.03),
+            inherit.aes = FALSE,
+            label = paste("B = ", slop.m2b_c.tab.plot_men$Coefficient, 
+                          ", IC 95%[", paste(slop.m2b_c.tab.plot_men$X2.5., 
+                                             slop.m2b_c.tab.plot_men$X97.5., sep = ", "), 
+                          "], p", slop.m2b_c.tab.plot_men$p, 
+                          ifelse(is.na(slop.m2b_c.tab.plot_men$sig), "", 
+                                 slop.m2b_c.tab.plot_men$sig)),
+            color = color.Gender[2], size = 3) +
+  labs(y = "Subjective sexual\narousal (predicted)") +
+  theme_tq()
+
+# Figure interaction between Stimuli sex and Solitary sexual desire
+## Extract data for by stimuli sex
+slop.m2b_d.tab.plot <- slop.m2b_d.tab |> 
+  mutate(Int = slop.m2b_d.int$Coefficient) |> 
+  arrange(`Stimuli sex`) |>
+  mutate(p = pval.lev2(p))
+slop.m2b_d.tab.plot_f <- filter(slop.m2b_d.tab.plot, `Stimuli sex` == "Female")
+slop.m2b_d.tab.plot_m <- filter(slop.m2b_d.tab.plot, `Stimuli sex` == "Male")
+## Plot
+p2b.d <- ggplot(m2b.dat, aes(x = `Solitary sexual desire (C)`,
+                             y = `Subjective sexual arousal (p)`,
+                             color = `Stimuli sex`, fill = `Stimuli sex`)) +
+  geom_jitter(alpha = 0.01, size = 1, width = 0.4) +
+  geom_abline(data = slop.m2b_d.tab.plot,
+              aes(slope = Coefficient, 
+                  intercept = Int,
+                  color = `Stimuli sex`),
+              show.legend = NA,
+              color = color.StimuliSex,
+              size = 1) +
+  guides(colour = guide_legend(override.aes = list(alpha = 1, size = 3))) +
+  scale_color_manual(values = color.StimuliSex) +
+  geom_text(data = slop.m2b_d.tab.plot_f,
+            mapping = aes(x = -Inf, y = Inf,
+            vjust = 2, hjust = -0.03),
+            inherit.aes = FALSE,
+            label = paste("B = ", slop.m2b_d.tab.plot_f$Coefficient, 
+                          ", IC 95%[", paste(slop.m2b_d.tab.plot_f$X2.5., 
+                                             slop.m2b_d.tab.plot_f$X97.5., sep = ", "), 
+                          "], p", slop.m2b_d.tab.plot_f$p, 
+                          ifelse(is.na(slop.m2b_d.tab.plot_f$sig), "", 
+                                 slop.m2b_d.tab.plot_f$sig)),
+            color = color.StimuliSex[1], size = 3) +
+  geom_text(data = slop.m2b_d.tab.plot_m,
+            mapping = aes(x = -Inf, y = Inf,
+            vjust = 4, hjust = -0.03),
+            inherit.aes = FALSE,
+            label = paste("B = ", slop.m2b_d.tab.plot_m$Coefficient, 
+                          ", IC 95%[", paste(slop.m2b_d.tab.plot_m$X2.5., 
+                                             slop.m2b_d.tab.plot_m$X97.5., sep = ", "), 
+                          "], p", slop.m2b_d.tab.plot_m$p, 
+                          ifelse(is.na(slop.m2b_d.tab.plot_m$sig), "", 
+                                 slop.m2b_d.tab.plot_m$sig)),
+            color = color.StimuliSex[2], size = 3) +
+  labs(y = " \n ") +
+  theme_tq()
+
+# Figure interaction between Stimuli sex, gender and Dyadic sexual desire (Attractive person)
+## Extract data for by stimuli sex
+slop.m2b_e.tab.plot <- slop.m2b_e.tab |> 
+  mutate(Int = slop.m2b_e.int$Coefficient) |> 
+  arrange(`Stimuli sex`) |>
+  mutate(p = pval.lev2(p))
+slop.m2b_e.tab.plot_f <- filter(slop.m2b_e.tab.plot, `Stimuli sex` == "Female")
+slop.m2b_e.tab.plot_m <- filter(slop.m2b_e.tab.plot, `Stimuli sex` == "Male")
+## Plot
+p2b.e <- ggplot(m2b.dat, aes(x = `Dyadic sexual desire (Attractive person) (C)`,
+                             y = `Subjective sexual arousal (p)`,
+                             color = `Stimuli sex`, fill = `Stimuli sex`)) +
+  geom_jitter(alpha = 0.01, size = 1, width = 0.4) +
+  geom_abline(data = slop.m2b_e.tab.plot_f,
+              aes(slope = Coefficient, 
+                  intercept = Int,
+                  color = `Stimuli sex`),
+              show.legend = NA,
+              color = color.StimuliSex[1],
+              size = 1) +
+  geom_abline(data = slop.m2b_e.tab.plot_m,
+              aes(slope = Coefficient, 
+                  intercept = Int,
+                  color = `Stimuli sex`),
+              show.legend = NA,
+              color = color.StimuliSex[2],
+              size = 1) +
+  guides(colour = guide_legend(override.aes = list(alpha = 1, size = 3))) +
+  scale_color_manual(values = color.StimuliSex) +
+  facet_wrap(~fct_relevel(Gender, "Women", "Men")) +
+  geom_text(data = slop.m2b_e.tab.plot_f,
+            mapping = aes(x = -Inf, y = Inf,
+            vjust = 2, hjust = -0.03),
+            inherit.aes = FALSE,
+            label = paste("B = ", slop.m2b_e.tab.plot_f$Coefficient, 
+                          ", IC 95%[", paste(slop.m2b_e.tab.plot_f$X2.5., 
+                                             slop.m2b_e.tab.plot_f$X97.5., sep = ", "), 
+                          "], p", slop.m2b_e.tab.plot_f$p, 
+                          ifelse(is.na(slop.m2b_e.tab.plot_f$sig), "", slop.m2b_e.tab.plot_f$sig)),
+            color = color.StimuliSex[1], size = 2.5) +
+  geom_text(data = slop.m2b_e.tab.plot_m,
+            mapping = aes(x = -Inf, y = Inf,
+            vjust = 4, hjust = -0.03),
+            inherit.aes = FALSE,
+            label = paste("B = ", slop.m2b_e.tab.plot_m$Coefficient, 
+                          ", IC 95%[", paste(slop.m2b_e.tab.plot_m$X2.5., 
+                                             slop.m2b_e.tab.plot_m$X97.5., sep = ", "), 
+                          "], p", slop.m2b_e.tab.plot_m$p, 
+                          ifelse(is.na(slop.m2b_e.tab.plot_m$sig), "", slop.m2b_e.tab.plot_m$sig)),
+            color = color.StimuliSex[2], size = 2.5) +
+  labs(y = "Subjective sexual\narousal (predicted)") +
+  theme_tq()
+
+# Full figure for hypothesis 2b
+p2bf <- ggarrange(ggarrange(ggarrange(p2b.a, p2b.b,
+                                      nrow = 1,
+                                      labels = "auto")), 
+                  ggarrange(p2b.c, p2b.d,
+                            nrow = 1,
+                            labels = c("c", "d"),
+                            ncol = 2),
+                  ggarrange(p2b.e,
+                            labels = "e",
+                            legend = "bottom"),
+                  nrow = 3,
+                  ncol = 1)
+p2bf
+```
+
+------------------------------------------------------------------------
+
+# Session info (for reproducibility) {#session}
+
+```{r results = "hold"}
+library(pander)
+pander(sessionInfo(), locale = FALSE)
+```
+
+------------------------------------------------------------------------
+
+# Supplementary references {#refs}
+
+\begin{multicols}{2}
+\AtNextBibliography{\footnotesize}
+\printbibliography[heading=none]
+\normalsize
+\end{multicols}
+
+\def\printbibliography{}
