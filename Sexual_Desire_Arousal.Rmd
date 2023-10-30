@@ -85,16 +85,10 @@ citecolor: gray
 link-citations: true
 ---
 
-```{=tex}
-\begin{center}
-Faculty of Psychology, Universidad El Bosque, Bogota, Colombia. \linebreak
-MV-A: \href{mailto:mvasquezam@unbosque.edu.co}{mvasquezam@unbosque.edu.co}. 
-JDL: \href{mailto:jleongomez@unbosque.edu.co}{jleongomez@unbosque.edu.co}.
-```
-
 ------------------------------------------------------------------------
 
 ```{=tex}
+\begin{center}
 \textbf{Description}
 \end{center}
 
