@@ -1138,7 +1138,7 @@ tibble(Variable = c("MGH-SFQ", "MGH-SFQ",
 
 # Hypothesis tests
 
-## Hypothesis1: Sexual desire by gender, relationship type and sexual desire dimension {#hyp1}
+## Hypothesis 1: Sexual desire by gender, relationship type and sexual desire dimension {#hyp1}
 
 Interaction between relationship type, sexual desire dimension, and gender as predictors of sexual desire. To test this hypothesis, we modeled the effects of Relationship type, Sexual desire dimension, and Gender on the scores of sexual desire.
 
@@ -1625,7 +1625,7 @@ p1f <- ggarrange(ggarrange(h1a, h1b, labels = "auto"),
 p1f
 ```
 
-## Hypothesis 2  {#hypothesis2}
+## Hypothesis 2: Sexual arousal by gender, relationship type and sexual desire {#hypothesis2}
 
 Data
 
