@@ -1654,7 +1654,7 @@ data.frame(vif(m2a)) |>
 ```{r CI-m2a, cache = TRUE, warning = FALSE, message = FALSE}
 m2aCI <- confint(m2a, 
                  method = "boot", #define bootstrap as method for confidence intervals
-                 nsim = 10, #number of simulations
+                 nsim = 1000, #number of simulations
                  FUN = fixef, #to obtain only estimates for fixed effects
                  parallel = "multicore", #parallel computation
                  ncpus = detectCores()-1, #number of computational cores to run in parallel
@@ -2272,7 +2272,7 @@ data.frame(vif(m2b)) |>
 ```{r CI-m2b, cache = TRUE, warning = FALSE, message = FALSE}
 m2bCI <- confint(m2b, 
                  method = "boot", #define bootstrap as method for confidence intervals
-                 nsim = 10, #number of simulations
+                 nsim = 1000, #number of simulations
                  FUN = fixef, #to obtain only estimates for fixed effects
                  parallel = "multicore", #parallel computation
                  ncpus = detectCores()-1, #number of computational cores to run in parallel

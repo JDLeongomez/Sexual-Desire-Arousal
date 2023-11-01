@@ -1366,19 +1366,19 @@ Table of Cronbach's \(\alpha\) for construct variables.
 \toprule
 Variable & Gender & Items & $n$ & $\alpha$ & $2.5\% CI$ & $97.5\% CI$\\
 \midrule
- & Men & 5 & 139 & 0.82 & 0.72 & 0.88\\
+ & Men & 5 & 139 & 0.82 & 0.72 & 0.89\\
 \cmidrule{2-7}
 \multirow{-2}{*}{\raggedright\arraybackslash MGH-SFQ} & Women & 4 & 181 & 0.86 & 0.82 & 0.90\\
 \cmidrule{1-7}
-MGSS sexual satisfaction (General) &  & 5 & 188 & 0.92 & 0.88 & 0.94\\
+MGSS sexual satisfaction (General) &  & 5 & 188 & 0.92 & 0.89 & 0.94\\
 \cmidrule{1-7}
 MGSS sexual satisfaction (Partner) &  & 5 & 187 & 0.91 & 0.85 & 0.95\\
 \cmidrule{1-7}
-Dyadic sexual desire (Partner) &  & 5 & 309 & 0.90 & 0.87 & 0.92\\
+Dyadic sexual desire (Partner) &  & 5 & 309 & 0.90 & 0.88 & 0.92\\
 \cmidrule{1-7}
 Solitary sexual desire &  & 4 & 314 & 0.91 & 0.89 & 0.93\\
 \cmidrule{1-7}
-Dyadic sexual desire (Attractive person) &  & 4 & 320 & 0.89 & 0.86 & 0.91\\
+Dyadic sexual desire (Attractive person) &  & 4 & 320 & 0.89 & 0.87 & 0.91\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
@@ -2302,7 +2302,7 @@ Relationship × Gender × Stimuli sex × Dyadic sexual desire (Partner) (C) & 2.
 \begin{Highlighting}[]
 \NormalTok{m2aCI }\OtherTok{\textless{}{-}} \FunctionTok{confint}\NormalTok{(m2a, }
                  \AttributeTok{method =} \StringTok{"boot"}\NormalTok{, }\CommentTok{\#define bootstrap as method for confidence intervals}
-                 \AttributeTok{nsim =} \DecValTok{10}\NormalTok{, }\CommentTok{\#number of simulations}
+                 \AttributeTok{nsim =} \DecValTok{1000}\NormalTok{, }\CommentTok{\#number of simulations}
                  \AttributeTok{FUN =}\NormalTok{ fixef, }\CommentTok{\#to obtain only estimates for fixed effects}
                  \AttributeTok{parallel =} \StringTok{"multicore"}\NormalTok{, }\CommentTok{\#parallel computation}
                  \AttributeTok{ncpus =} \FunctionTok{detectCores}\NormalTok{()}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\CommentTok{\#number of computational cores to run in parallel}
@@ -2338,38 +2338,38 @@ This tables summarizes the results of the model.
 \toprule
 Effect & Estimate & Lower 95\% CI & Upper 95\% CI & Std. Error & $df$ & $t$ & $p$\\
 \midrule
-(Intercept) & 2.14 & 1.97 & 2.23 & 0.07 & 376.07 & 32.43 & \textbf{< 0.0001}\\
-Relationship [Stable] & 0.05 & -0.04 & 0.12 & 0.06 & 304.00 & 0.77 & 0.44\\
-Gender [Women] & -0.23 & -0.24 & -0.06 & 0.06 & 304.00 & -3.90 & \textbf{< 0.001}\\
-Stimuli sex [Female] & 0.46 & 0.35 & 0.49 & 0.05 & 360.27 & 8.50 & \textbf{< 0.0001}\\
-Solitary sexual desire (C) & 0.02 & 0.01 & 0.04 & 0.01 & 304.00 & 2.53 & \textbf{0.0119}\\
-Dyadic sexual desire (Attractive person) (C) & 0.03 & 0.02 & 0.04 & 0.01 & 304.00 & 4.74 & \textbf{< 0.0001}\\
-Dyadic sexual desire (Partner) (C) & 0.00 & -0.01 & 0.01 & 0.01 & 304.00 & 0.36 & 0.72\\
-Relationship [Stable] × Gender [Women] & 0.01 & -0.10 & 0.07 & 0.06 & 304.00 & 0.16 & 0.88\\
-Relationship [Stable] × Stimuli sex [Female] & 0.02 & -0.11 & 0.06 & 0.05 & 304.00 & 0.45 & 0.65\\
-Gender [Women] × Stimuli sex [Female] & -0.81 & -0.90 & -0.67 & 0.05 & 304.00 & -17.66 & \textbf{< 0.0001}\\
-Relationship [Stable] × Solitary sexual desire (C) & 0.00 & -0.01 & 0.01 & 0.01 & 304.00 & -0.44 & 0.66\\
+(Intercept) & 2.14 & 2.01 & 2.27 & 0.07 & 376.07 & 32.43 & \textbf{< 0.0001}\\
+Relationship [Stable] & 0.05 & -0.08 & 0.16 & 0.06 & 304.00 & 0.77 & 0.44\\
+Gender [Women] & -0.23 & -0.35 & -0.12 & 0.06 & 304.00 & -3.90 & \textbf{< 0.001}\\
+Stimuli sex [Female] & 0.46 & 0.35 & 0.56 & 0.05 & 360.27 & 8.50 & \textbf{< 0.0001}\\
+Solitary sexual desire (C) & 0.02 & 0.00 & 0.03 & 0.01 & 304.00 & 2.53 & \textbf{0.0119}\\
+Dyadic sexual desire (Attractive person) (C) & 0.03 & 0.02 & 0.05 & 0.01 & 304.00 & 4.74 & \textbf{< 0.0001}\\
+Dyadic sexual desire (Partner) (C) & 0.00 & -0.01 & 0.02 & 0.01 & 304.00 & 0.36 & 0.72\\
+Relationship [Stable] × Gender [Women] & 0.01 & -0.11 & 0.12 & 0.06 & 304.00 & 0.16 & 0.88\\
+Relationship [Stable] × Stimuli sex [Female] & 0.02 & -0.07 & 0.10 & 0.05 & 304.00 & 0.45 & 0.65\\
+Gender [Women] × Stimuli sex [Female] & -0.81 & -0.90 & -0.72 & 0.05 & 304.00 & -17.66 & \textbf{< 0.0001}\\
+Relationship [Stable] × Solitary sexual desire (C) & 0.00 & -0.02 & 0.01 & 0.01 & 304.00 & -0.44 & 0.66\\
 Gender [Women] × Solitary sexual desire (C) & 0.01 & -0.01 & 0.02 & 0.01 & 304.00 & 1.22 & 0.22\\
-Stimuli sex [Female] × Solitary sexual desire (C) & -0.01 & -0.01 & 0.00 & 0.01 & 304.00 & -1.05 & 0.3\\
-Relationship [Stable] × Dyadic sexual desire (Attractive person) (C) & 0.01 & 0.00 & 0.02 & 0.01 & 304.00 & 1.13 & 0.26\\
-Gender [Women] × Dyadic sexual desire (Attractive person) (C) & 0.00 & -0.01 & 0.01 & 0.01 & 304.00 & -0.29 & 0.77\\
-Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.02 & 0.00 & 0.02 & 0.01 & 304.00 & 2.86 & \textbf{0.0045}\\
-Relationship [Stable] × Dyadic sexual desire (Partner) (C) & 0.00 & -0.01 & 0.01 & 0.01 & 304.00 & -0.51 & 0.61\\
+Stimuli sex [Female] × Solitary sexual desire (C) & -0.01 & -0.02 & 0.01 & 0.01 & 304.00 & -1.05 & 0.3\\
+Relationship [Stable] × Dyadic sexual desire (Attractive person) (C) & 0.01 & -0.01 & 0.02 & 0.01 & 304.00 & 1.13 & 0.26\\
+Gender [Women] × Dyadic sexual desire (Attractive person) (C) & 0.00 & -0.02 & 0.01 & 0.01 & 304.00 & -0.29 & 0.77\\
+Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.02 & 0.00 & 0.03 & 0.01 & 304.00 & 2.86 & \textbf{0.0045}\\
+Relationship [Stable] × Dyadic sexual desire (Partner) (C) & 0.00 & -0.02 & 0.01 & 0.01 & 304.00 & -0.51 & 0.61\\
 Gender [Women] × Dyadic sexual desire (Partner) (C) & -0.01 & -0.02 & 0.00 & 0.01 & 304.00 & -1.60 & 0.11\\
-Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.01 & 0.01 & 0.01 & 0.01 & 304.00 & 1.75 & 0.08\\
-Relationship [Stable] × Gender [Women] × Stimuli sex [Female] & 0.00 & -0.08 & 0.08 & 0.05 & 304.00 & 0.04 & 0.97\\
-Relationship [Stable] × Gender [Women] × Solitary sexual desire (C) & 0.00 & 0.00 & 0.01 & 0.01 & 304.00 & 0.36 & 0.72\\
-Relationship [Stable] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & -0.01 & 0.00 & 0.01 & 304.00 & -0.46 & 0.65\\
+Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.01 & 0.00 & 0.02 & 0.01 & 304.00 & 1.75 & 0.08\\
+Relationship [Stable] × Gender [Women] × Stimuli sex [Female] & 0.00 & -0.09 & 0.09 & 0.05 & 304.00 & 0.04 & 0.97\\
+Relationship [Stable] × Gender [Women] × Solitary sexual desire (C) & 0.00 & -0.01 & 0.02 & 0.01 & 304.00 & 0.36 & 0.72\\
+Relationship [Stable] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & -0.01 & 0.01 & 0.01 & 304.00 & -0.46 & 0.65\\
 Gender [Women] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & -0.01 & 0.01 & 0.01 & 304.00 & -0.12 & 0.91\\
-Relationship [Stable] × Gender [Women] × Dyadic sexual desire (Attractive person) (C) & -0.01 & -0.02 & 0.00 & 0.01 & 304.00 & -1.29 & 0.2\\
+Relationship [Stable] × Gender [Women] × Dyadic sexual desire (Attractive person) (C) & -0.01 & -0.02 & 0.01 & 0.01 & 304.00 & -1.29 & 0.2\\
 Relationship [Stable] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.01 & 0.00 & 0.02 & 0.01 & 304.00 & 1.90 & 0.06\\
-Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & -0.02 & -0.03 & -0.02 & 0.01 & 304.00 & -4.33 & \textbf{< 0.0001}\\
-Relationship [Stable] × Gender [Women] × Dyadic sexual desire (Partner) (C) & 0.01 & 0.01 & 0.02 & 0.01 & 304.00 & 2.20 & \textbf{0.0285}\\
+Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & -0.02 & -0.04 & -0.01 & 0.01 & 304.00 & -4.33 & \textbf{< 0.0001}\\
+Relationship [Stable] × Gender [Women] × Dyadic sexual desire (Partner) (C) & 0.01 & 0.00 & 0.03 & 0.01 & 304.00 & 2.20 & \textbf{0.0285}\\
 Relationship [Stable] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & -0.01 & -0.02 & 0.00 & 0.01 & 304.00 & -2.11 & \textbf{0.0357}\\
 Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & -0.01 & -0.02 & 0.00 & 0.01 & 304.00 & -1.08 & 0.28\\
-Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & 0.00 & 0.01 & 0.01 & 304.00 & 0.78 & 0.44\\
+Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & -0.01 & 0.01 & 0.01 & 304.00 & 0.78 & 0.44\\
 Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.00 & -0.01 & 0.01 & 0.01 & 304.00 & -0.06 & 0.95\\
-Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.00 & -0.01 & 0.00 & 0.01 & 304.00 & -0.61 & 0.54\\
+Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.00 & -0.01 & 0.01 & 0.01 & 304.00 & -0.61 & 0.54\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
@@ -3224,7 +3224,7 @@ Relationship × Gender × Stimuli sex × Dyadic sexual desire (Partner) (C) & 2.
 \begin{Highlighting}[]
 \NormalTok{m2bCI }\OtherTok{\textless{}{-}} \FunctionTok{confint}\NormalTok{(m2b, }
                  \AttributeTok{method =} \StringTok{"boot"}\NormalTok{, }\CommentTok{\#define bootstrap as method for confidence intervals}
-                 \AttributeTok{nsim =} \DecValTok{10}\NormalTok{, }\CommentTok{\#number of simulations}
+                 \AttributeTok{nsim =} \DecValTok{1000}\NormalTok{, }\CommentTok{\#number of simulations}
                  \AttributeTok{FUN =}\NormalTok{ fixef, }\CommentTok{\#to obtain only estimates for fixed effects}
                  \AttributeTok{parallel =} \StringTok{"multicore"}\NormalTok{, }\CommentTok{\#parallel computation}
                  \AttributeTok{ncpus =} \FunctionTok{detectCores}\NormalTok{()}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\CommentTok{\#number of computational cores to run in parallel}
@@ -3260,38 +3260,38 @@ This tables summarizes the results of the model.
 \toprule
 Effect & Estimate & Lower 95\% CI & Upper 95\% CI & Std. Error & $df$ & $t$ & $p$\\
 \midrule
-(Intercept) & 1.59 & 1.97 & 2.23 & 0.05 & 330.32 & 29.98 & \textbf{< 0.0001}\\
-Relationship [Stable] & 0.02 & -0.04 & 0.12 & 0.05 & 304.00 & 0.49 & 0.63\\
-Gender [Women] & -0.13 & -0.24 & -0.06 & 0.05 & 304.00 & -2.87 & \textbf{0.0043}\\
-Stimuli sex [Female] & 0.19 & 0.35 & 0.49 & 0.05 & 302.42 & 3.89 & \textbf{< 0.001}\\
-Solitary sexual desire (C) & 0.00 & 0.01 & 0.04 & 0.01 & 304.00 & 0.05 & 0.96\\
-Dyadic sexual desire (Attractive person) (C) & 0.03 & 0.02 & 0.04 & 0.01 & 304.00 & 5.68 & \textbf{< 0.0001}\\
-Dyadic sexual desire (Partner) (C) & 0.01 & -0.01 & 0.01 & 0.01 & 304.00 & 1.03 & 0.3\\
-Relationship [Stable] × Gender [Women] & -0.01 & -0.10 & 0.07 & 0.05 & 304.00 & -0.29 & 0.77\\
-Relationship [Stable] × Stimuli sex [Female] & 0.03 & -0.11 & 0.06 & 0.04 & 304.00 & 0.85 & 0.39\\
-Gender [Women] × Stimuli sex [Female] & -0.49 & -0.90 & -0.67 & 0.04 & 304.00 & -12.14 & \textbf{< 0.0001}\\
-Relationship [Stable] × Solitary sexual desire (C) & 0.00 & -0.01 & 0.01 & 0.01 & 304.00 & -0.39 & 0.69\\
+(Intercept) & 1.59 & 2.01 & 2.27 & 0.05 & 330.32 & 29.98 & \textbf{< 0.0001}\\
+Relationship [Stable] & 0.02 & -0.08 & 0.16 & 0.05 & 304.00 & 0.49 & 0.63\\
+Gender [Women] & -0.13 & -0.35 & -0.12 & 0.05 & 304.00 & -2.87 & \textbf{0.0043}\\
+Stimuli sex [Female] & 0.19 & 0.35 & 0.56 & 0.05 & 302.42 & 3.89 & \textbf{< 0.001}\\
+Solitary sexual desire (C) & 0.00 & 0.00 & 0.03 & 0.01 & 304.00 & 0.05 & 0.96\\
+Dyadic sexual desire (Attractive person) (C) & 0.03 & 0.02 & 0.05 & 0.01 & 304.00 & 5.68 & \textbf{< 0.0001}\\
+Dyadic sexual desire (Partner) (C) & 0.01 & -0.01 & 0.02 & 0.01 & 304.00 & 1.03 & 0.3\\
+Relationship [Stable] × Gender [Women] & -0.01 & -0.11 & 0.12 & 0.05 & 304.00 & -0.29 & 0.77\\
+Relationship [Stable] × Stimuli sex [Female] & 0.03 & -0.07 & 0.10 & 0.04 & 304.00 & 0.85 & 0.39\\
+Gender [Women] × Stimuli sex [Female] & -0.49 & -0.90 & -0.72 & 0.04 & 304.00 & -12.14 & \textbf{< 0.0001}\\
+Relationship [Stable] × Solitary sexual desire (C) & 0.00 & -0.02 & 0.01 & 0.01 & 304.00 & -0.39 & 0.69\\
 Gender [Women] × Solitary sexual desire (C) & 0.01 & -0.01 & 0.02 & 0.01 & 304.00 & 2.49 & \textbf{0.0133}\\
-Stimuli sex [Female] × Solitary sexual desire (C) & -0.01 & -0.01 & 0.00 & 0.00 & 304.00 & -2.03 & \textbf{0.0435}\\
-Relationship [Stable] × Dyadic sexual desire (Attractive person) (C) & 0.00 & 0.00 & 0.02 & 0.01 & 304.00 & 0.28 & 0.78\\
-Gender [Women] × Dyadic sexual desire (Attractive person) (C) & -0.02 & -0.01 & 0.01 & 0.01 & 304.00 & -2.90 & \textbf{0.004}\\
-Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.02 & 0.00 & 0.02 & 0.00 & 304.00 & 3.86 & \textbf{< 0.001}\\
-Relationship [Stable] × Dyadic sexual desire (Partner) (C) & 0.00 & -0.01 & 0.01 & 0.01 & 304.00 & 0.07 & 0.94\\
+Stimuli sex [Female] × Solitary sexual desire (C) & -0.01 & -0.02 & 0.01 & 0.00 & 304.00 & -2.03 & \textbf{0.0435}\\
+Relationship [Stable] × Dyadic sexual desire (Attractive person) (C) & 0.00 & -0.01 & 0.02 & 0.01 & 304.00 & 0.28 & 0.78\\
+Gender [Women] × Dyadic sexual desire (Attractive person) (C) & -0.02 & -0.02 & 0.01 & 0.01 & 304.00 & -2.90 & \textbf{0.004}\\
+Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.02 & 0.00 & 0.03 & 0.00 & 304.00 & 3.86 & \textbf{< 0.001}\\
+Relationship [Stable] × Dyadic sexual desire (Partner) (C) & 0.00 & -0.02 & 0.01 & 0.01 & 304.00 & 0.07 & 0.94\\
 Gender [Women] × Dyadic sexual desire (Partner) (C) & -0.01 & -0.02 & 0.00 & 0.01 & 304.00 & -1.44 & 0.15\\
-Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.01 & 0.01 & 0.01 & 0.00 & 304.00 & 1.10 & 0.27\\
-Relationship [Stable] × Gender [Women] × Stimuli sex [Female] & 0.02 & -0.08 & 0.08 & 0.04 & 304.00 & 0.41 & 0.68\\
-Relationship [Stable] × Gender [Women] × Solitary sexual desire (C) & 0.00 & 0.00 & 0.01 & 0.01 & 304.00 & 0.64 & 0.52\\
-Relationship [Stable] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & -0.01 & 0.00 & 0.00 & 304.00 & 0.21 & 0.83\\
+Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.01 & 0.00 & 0.02 & 0.00 & 304.00 & 1.10 & 0.27\\
+Relationship [Stable] × Gender [Women] × Stimuli sex [Female] & 0.02 & -0.09 & 0.09 & 0.04 & 304.00 & 0.41 & 0.68\\
+Relationship [Stable] × Gender [Women] × Solitary sexual desire (C) & 0.00 & -0.01 & 0.02 & 0.01 & 304.00 & 0.64 & 0.52\\
+Relationship [Stable] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & -0.01 & 0.01 & 0.00 & 304.00 & 0.21 & 0.83\\
 Gender [Women] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & -0.01 & 0.01 & 0.00 & 304.00 & 0.23 & 0.82\\
-Relationship [Stable] × Gender [Women] × Dyadic sexual desire (Attractive person) (C) & 0.00 & -0.02 & 0.00 & 0.01 & 304.00 & -0.49 & 0.62\\
+Relationship [Stable] × Gender [Women] × Dyadic sexual desire (Attractive person) (C) & 0.00 & -0.02 & 0.01 & 0.01 & 304.00 & -0.49 & 0.62\\
 Relationship [Stable] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.00 & 0.00 & 0.02 & 0.00 & 304.00 & 0.58 & 0.56\\
-Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & -0.03 & -0.03 & -0.02 & 0.00 & 304.00 & -5.53 & \textbf{< 0.0001}\\
-Relationship [Stable] × Gender [Women] × Dyadic sexual desire (Partner) (C) & 0.00 & 0.01 & 0.02 & 0.01 & 304.00 & 0.06 & 0.95\\
+Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & -0.03 & -0.04 & -0.01 & 0.00 & 304.00 & -5.53 & \textbf{< 0.0001}\\
+Relationship [Stable] × Gender [Women] × Dyadic sexual desire (Partner) (C) & 0.00 & 0.00 & 0.03 & 0.01 & 304.00 & 0.06 & 0.95\\
 Relationship [Stable] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.00 & -0.02 & 0.00 & 0.00 & 304.00 & -0.57 & 0.57\\
 Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & -0.01 & -0.02 & 0.00 & 0.00 & 304.00 & -1.19 & 0.23\\
-Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & 0.00 & 0.01 & 0.00 & 304.00 & 0.11 & 0.91\\
+Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Solitary sexual desire (C) & 0.00 & -0.01 & 0.01 & 0.00 & 304.00 & 0.11 & 0.91\\
 Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Attractive person) (C) & 0.00 & -0.01 & 0.01 & 0.00 & 304.00 & 0.48 & 0.63\\
-Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.00 & -0.01 & 0.00 & 0.00 & 304.00 & -0.43 & 0.67\\
+Relationship [Stable] × Gender [Women] × Stimuli sex [Female] × Dyadic sexual desire (Partner) (C) & 0.00 & -0.01 & 0.01 & 0.00 & 304.00 & -0.43 & 0.67\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
