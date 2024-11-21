@@ -574,31 +574,38 @@ dat <- read.csv("Data/BD_Heterosexuales_Vertical_BIG.csv") |>
   # Remove rows with missing values for Solitary sexual desire (SD_solitario)
   drop_na(SD_solitario) |> 
   # Change variables to factor and sort their levels
-  mutate(Contenido_Estimulo = factor(Contenido_Estimulo)) |> 
-  mutate(Sexo = factor(Sexo)) |>
-  mutate(Sexo_Estimulo = factor(Sexo_Estimulo)) |>
-  mutate(PrefSex = factor(PrefSex)) |>
-  mutate(EstRel = factor(EstRel)) |>
-  mutate(Escolaridad = factor(Escolaridad)) |>
-  mutate(Religion = factor(Religion)) |>
+  mutate_at(c("Contenido_Estimulo", "Sexo", "Sexo_Estimulo", "PrefSex", "EstRel", "Escolaridad",
+              "Religion","TiempoRP"), as.factor) |> 
   # Rename variables to English
-  rename(Participant = Participante, Age = EdadParticipante, `Preferred sex` = PrefSex,
-         Gender = Sexo, `Contraceptive uso` = Anticoncep, `Last period` = UltimoPer,
-         `Period day` = Dia_ciclo, Education = Escolaridad, Location = Residencia,
-         `Location (other)` = Residencia_3_TEXT, `Medical history` = AntMed,
-         `Sexual orientation` = OS, `Relationship status` = EstRel,
-         `Relationship duration` = TiempoRP, `Partner gender` = SexPareja,
-         `Relationship type` = TipoRel, `Age at first intercourse` = Primera.ExpSex,
+  rename(Participant = Participante, 
+         Age = EdadParticipante, 
+         `Preferred sex` = PrefSex,
+         Gender = Sexo, 
+         `Contraceptive uso` = Anticoncep, 
+         `Last period` = UltimoPer,
+         `Period day` = Dia_ciclo, 
+         Education = Escolaridad, 
+         Location = Residencia,
+         `Location (other)` = Residencia_3_TEXT, 
+         `Medical history` = AntMed,
+         `Sexual orientation` = OS, 
+         `Relationship status` = EstRel,
+         `Relationship duration` = TiempoRP, 
+         `Partner gender` = SexPareja,
+         `Relationship type` = TipoRel, 
+         `Age at first intercourse` = Primera.ExpSex,
          `Consented to first intercourse` = ConExpSex,
          `Number of sexual partners` = Numero.Parejas,
          `Pornography consumed last month` = Pornografia_ultimo_mes,
-         Relationship = TieneRelacion, `MGH-SFQ (total)` = MGH.SFQ_Total,
+         Relationship = TieneRelacion, 
+         `MGH-SFQ (total)` = MGH.SFQ_Total,
          `Dyadic sexual desire (Partner)` = SD_Diadico_pareja,
          `Solitary sexual desire` = SD_solitario,
          `Dyadic sexual desire (Attractive person)` = SD_Diadico_p_atractiva,
          `MGSS sexual satisfaction (General)` = Satisfaccion.Sexual..MGSS_general.,
          `MGSS sexual satisfaction (Partner)` = Satisfaccion.Sexual..MGSS_Pareja.,
-         `Stimuli code` = Codigo_Estimulo, `Stimuli sex` = Sexo_Estimulo,
+         `Stimuli code` = Codigo_Estimulo, 
+         `Stimuli sex` = Sexo_Estimulo,
          `Stimuli content` = Contenido_Estimulo,
          `Subjective sexual attractiveness` = Atractivo,
          `Subjective sexual arousal` = Excitacion) |>
@@ -627,6 +634,15 @@ dat <- read.csv("Data/BD_Heterosexuales_Vertical_BIG.csv") |>
                                                     "Una o dos veces" = "1-2 times",
                                                     "Tres a cinco veces" = "3-5 times",
                                                     "Mas de 5 veces" = "5 times or more")) |> 
+  # Recode relationship duration
+  #mutate(`Relationship duration` = replace_na(`Relationship duration`, "Single"))
+  mutate(`Relationship duration` = recode(`Relationship duration`,
+                               "Sin pareja actual"  = "Single",
+                               "Menor a 6 meses" = "Less that 6 months",
+                               "Entre 6 meses y 2 anos" = "Between 6 months and 2 years",
+                               "Entre 2 y 5 anos" = "Between 2 and 5 years",
+                               "MÃ¡s de 5 anos" = "More than 5 years"),
+         `Relationship duration` = replace_na(`Relationship duration`, "Single")) |>
   # Recode relationship type
   mutate(Relationship = recode(`Relationship status`,
                                "Exclusiva/No viven juntos" = "Stable",
@@ -636,10 +652,15 @@ dat <- read.csv("Data/BD_Heterosexuales_Vertical_BIG.csv") |>
                                "Soltero/contactos sexuales en un ano" = "Single")) |>
   # Relevel factors
   mutate(Education = fct_relevel(Education, 
-                                 c("High school", "University", "Postgraduate"))) |> 
-  mutate(`Pornography consumed last month` = fct_relevel(`Pornography consumed last month`,
+                                 c("High school", "University", "Postgraduate")),
+         `Pornography consumed last month` = fct_relevel(`Pornography consumed last month`,
                                  c("None", "1-2 times", 
-                                   "3-5 times", "5 times or more"))) |> 
+                                   "3-5 times", "5 times or more")),
+         `Relationship duration` = fct_relevel(`Relationship duration`,
+                                 c("Single", "Less that 6 months",
+                                   "Between 6 months and 2 years",
+                                   "Between 2 and 5 years",
+                                   "More than 5 years"))) |> 
   # Filter participants in non-stable relationships
   filter(Relationship != "Non-stable") |>
   droplevels()
@@ -1068,6 +1089,58 @@ tibble(Variable = c("MGH-SFQ", "MGH-SFQ",
            footnote_as_chunk = TRUE,
            escape = FALSE)
 ```
+
+------------------------------------------------------------------------
+
+# Controlling the effects of Relationship Duration and MGSS sexual satisfaction (Partner) on sexual desire dimensions
+
+We standardized the scores of all three sexual desire dimensions so that they were not correlated with Relationship Duration or MGSS sexual satisfaction (Partner). To do this, we performed two steps.
+
+First, we conducted linear regression analyses to identify the relationships between Relationship Duration and MGSS sexual satisfaction (Partner) on each of the three sexual desire dimensions. Next, we made the effect zero, but kept the model residuals, to control for the effects of Relationship Duration and MGSS sexual satisfaction (Partner). By doing so, we effectively removed their influence on the resulting scores, leaving us with adjusted versions of the three desire dimensions that are not correlated with these external variables. MGSS sexual satisfaction (Partner) was mean centered.
+
+```{r}
+
+dat_ctl <- dat |> 
+  group_by(Participant) |> 
+  slice_head() |> 
+  filter(Relationship == "Stable") |> 
+  ungroup()
+
+ctl_SSD <- lm(`Solitary sexual desire` ~ 
+                `Relationship duration` + scale(`MGSS sexual satisfaction (Partner)`),
+              data = dat_ctl)
+Anova(ctl_SSD, type = 3)
+
+
+ctl_PD <- lm(`Dyadic sexual desire (Partner)` ~ 
+                `Relationship duration` + scale(`MGSS sexual satisfaction (Partner)`),
+              data = dat_ctl)
+Anova(ctl_PD, type = 3)
+
+
+ctl_APD <- lm(`Dyadic sexual desire (Attractive person)` ~ 
+                `Relationship duration` + scale(`MGSS sexual satisfaction (Partner)`),
+              data = dat_ctl)
+Anova(ctl_APD, type = 3)
+
+dat_tl_PD_fin <- dat_ctl |> 
+  select(Participant, `Dyadic sexual desire (Partner)`, `MGSS sexual satisfaction (Partner)`) |> 
+  drop_na()
+
+ctl_PD_fin <- lm(`Dyadic sexual desire (Partner)` ~ scale(`MGSS sexual satisfaction (Partner)`),
+              data = dat_tl_PD_fin)
+
+dat_ctl <- dat_tl_PD_fin |> 
+  mutate(`Dyadic sexual desire (Partner)` = mean(`Dyadic sexual desire (Partner)`) +
+           resid(ctl_PD_fin)) |> 
+  select(-`MGSS sexual satisfaction (Partner)`)
+
+dat <- dat |> 
+  mutate(`Dyadic sexual desire (Partner)` = as.numeric(`Dyadic sexual desire (Partner)`)) |> 
+  rows_update(dat_ctl, by = "Participant", unmatched = "ignore")
+```
+
+
 
 ------------------------------------------------------------------------
 
