@@ -1099,48 +1099,74 @@ We standardized the scores of all three sexual desire dimensions so that they we
 First, we conducted linear regression analyses to identify the relationships between Relationship Duration and MGSS sexual satisfaction (Partner) on each of the three sexual desire dimensions. Next, we made the effect zero, but kept the model residuals, to control for the effects of Relationship Duration and MGSS sexual satisfaction (Partner). By doing so, we effectively removed their influence on the resulting scores, leaving us with adjusted versions of the three desire dimensions that are not correlated with these external variables. MGSS sexual satisfaction (Partner) was mean centered.
 
 ```{r}
-
-dat_ctl <- dat |> 
-  group_by(Participant) |> 
-  slice_head() |> 
-  filter(Relationship == "Stable") |> 
+# Create a subset of the data that only includes stable relationships
+dat_ctl <- dat |>
+  # Group the data by participant and then select one (the top) observation for each one
+  group_by(Participant) |>
+  slice_head() |>
+  filter(Relationship == "Stable") |>
   ungroup()
 
+# Fit a linear model to predict solitary sexual desire based on relationship duration and partner satisfaction
 ctl_SSD <- lm(`Solitary sexual desire` ~ 
-                `Relationship duration` + scale(`MGSS sexual satisfaction (Partner)`),
+                `Relationship duration` + `MGSS sexual satisfaction (Partner)`,
               data = dat_ctl)
+
+# Perform an ANOVA test for the CTL SSD model
 Anova(ctl_SSD, type = 3)
 
-
+# Fit a model to predict dyadic sexual desire based on relationship duration and partner satisfaction
 ctl_PD <- lm(`Dyadic sexual desire (Partner)` ~ 
-                `Relationship duration` + scale(`MGSS sexual satisfaction (Partner)`),
+                `Relationship duration` + `MGSS sexual satisfaction (Partner)`,
               data = dat_ctl)
+
+# Perform an ANOVA test for the CTL PD model
 Anova(ctl_PD, type = 3)
 
-
+# Fit a model to predict dyadic sexual desire based on relationship duration and partner satisfaction,
+# but without accounting for participant-level variance
 ctl_APD <- lm(`Dyadic sexual desire (Attractive person)` ~ 
-                `Relationship duration` + scale(`MGSS sexual satisfaction (Partner)`),
+                `Relationship duration` + `MGSS sexual satisfaction (Partner)`,
               data = dat_ctl)
+
+# Perform an ANOVA test for the CTL APD model
 Anova(ctl_APD, type = 3)
 
-dat_tl_PD_fin <- dat_ctl |> 
-  select(Participant, `Dyadic sexual desire (Partner)`, `MGSS sexual satisfaction (Partner)`) |> 
+# Create a new dataset with only the desired variables and drop any missing values
+dat_tl_PD_fin <- dat_ctl |>
+  select(Participant, `Dyadic sexual desire (Partner)`, `MGSS sexual satisfaction (Partner)`) |>
   drop_na()
 
-ctl_PD_fin <- lm(`Dyadic sexual desire (Partner)` ~ scale(`MGSS sexual satisfaction (Partner)`),
+# Fit a model to predict dyadic sexual desire based on partner satisfaction
+ctl_PD_fin <- lm(`Dyadic sexual desire (Partner)` ~ `MGSS sexual satisfaction (Partner)`,
               data = dat_tl_PD_fin)
 
-dat_ctl <- dat_tl_PD_fin |> 
+ggplot(ctl_PD_fin$model, aes(x = `Dyadic sexual desire (Partner)`, y = predict(ctl_PD_fin))) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+summary(ctl_PD_fin)
+
+# Create a new dataset with the predicted values for dyadic sexual desire added back in
+dat_ctl <- dat_tl_PD_fin |>
   mutate(`Dyadic sexual desire (Partner)` = mean(`Dyadic sexual desire (Partner)`) +
-           resid(ctl_PD_fin)) |> 
-  select(-`MGSS sexual satisfaction (Partner)`)
+           resid(ctl_PD_fin))
 
-dat <- dat |> 
-  mutate(`Dyadic sexual desire (Partner)` = as.numeric(`Dyadic sexual desire (Partner)`)) |> 
-  rows_update(dat_ctl, by = "Participant", unmatched = "ignore")
+ggplot(dat_ctl, aes(x = `Dyadic sexual desire (Partner)`, y = `MGSS sexual satisfaction (Partner)`)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+ggplot(dat_tl_PD_fin, aes(x = `Dyadic sexual desire (Partner)`, y = `MGSS sexual satisfaction (Partner)`)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+# Convert the dyadic sexual desire variable to a numeric value
+dat <- dat |>
+  mutate(`Dyadic sexual desire (Partner)` = as.numeric(`Dyadic sexual desire (Partner)`)) |>
+  rows_update(dat_ctl |>
+                select(-`MGSS sexual satisfaction (Partner)`), 
+  by = "Participant", unmatched = "ignore")
 ```
-
-
 
 ------------------------------------------------------------------------
 
