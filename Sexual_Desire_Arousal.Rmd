@@ -661,6 +661,8 @@ dat <- read.csv("Data/BD_Heterosexuales_Vertical_BIG.csv") |>
                                    "Between 6 months and 2 years",
                                    "Between 2 and 5 years",
                                    "More than 5 years"))) |> 
+  mutate(`Stimuli content` = as.factor(`Stimuli content`),
+         `Stimuli sex` = as.factor(`Stimuli sex`)) |> 
   # Filter participants in non-stable relationships
   filter(Relationship != "Non-stable") |>
   droplevels()

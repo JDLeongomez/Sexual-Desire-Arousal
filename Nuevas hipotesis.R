@@ -25,6 +25,8 @@ ggplot(dat_m1, aes(x = Gender, y = `Solitary sexual desire`, color = Gender)) +
   guides(color = "none") +
   theme_tq()
 
+emmeans(m1a, pairwise ~ Gender | Relationship)
+
 ## H1b 
 m1b <- lm(`Dyadic sexual desire (Attractive person)` ~ Gender * Relationship,
           data = dat_m1)
@@ -42,6 +44,8 @@ ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire (Attractive person)`, c
                color = "black", size = 0.2) +
   guides(color = "none") +
   theme_tq()
+
+emmeans(m1b, pairwise ~ Gender | Relationship)
 
 ## H1c 
 m1c <- lm(`Dyadic sexual desire (Partner)` ~ Gender * Relationship,
@@ -61,7 +65,27 @@ ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire (Partner)`, color = Gen
   guides(color = "none") +
   theme_tq()
 
+emmeans(m1c, pairwise ~ Gender | Relationship)
+
 # H2
+
+## Modelo para filtrar solo eroticos
+m2 <- lmer(`Subjective sexual arousal` ~ 
+             Gender * `Stimuli sex` * `Stimuli content` +
+             (1 | `Stimuli code`) +
+             (1 | Participant),
+           data = dat,
+           control = lmerControl(optimizer = "bobyqa"))
+anova(m2)
+
+emmip(m2, `Stimuli sex` ~ `Stimuli content` | Gender, cov.reduce = range, CIs = TRUE) +
+  theme_tq()
+library(ggeffects)
+predict_response(m2, terms = c("Stimuli sex", "Stimuli content", "Gender")) |> 
+  plot() +
+  theme_tq()
+
+emmeans(m2, pairwise ~ `Stimuli content` | `Stimuli sex` + Gender)
 
 ## Data
 dat_m2 <- dat |>
@@ -81,7 +105,6 @@ interact_plot(m2a, pred = `Solitary sexual desire`, modx = `Stimuli sex`, mod2 =
   theme_tq()
 sim_slopes(m2a, pred = `Solitary sexual desire`, modx = `Stimuli sex`, mod2 = Gender)
 
-
 ## H2b 
 m2b <- lmer(`Subjective sexual arousal` ~ 
               `Dyadic sexual desire (Attractive person)` * Gender * `Stimuli sex` +
@@ -95,7 +118,6 @@ interact_plot(m2b, pred = `Dyadic sexual desire (Attractive person)`, modx = `St
               interval = TRUE) +
   theme_tq()
 sim_slopes(m2b, pred = `Dyadic sexual desire (Attractive person)`, modx = `Stimuli sex`, mod2 = Gender)
-
 
 ## H2c 
 m2c <- lmer(`Subjective sexual arousal` ~ 
@@ -111,28 +133,54 @@ interact_plot(m2c, pred = `Dyadic sexual desire (Partner)`, modx = `Stimuli sex`
   theme_tq()
 sim_slopes(m2c, pred = `Dyadic sexual desire (Partner)`, modx = `Stimuli sex`, mod2 = Gender)
 
-dat <- dat |> 
-  mutate(`Stimuli content` = as.factor(`Stimuli content`),
-         `Stimuli sex` = as.factor(`Stimuli sex`))
+# H3
 
-m2 <- lmer(`Subjective sexual arousal` ~ 
-              Gender * `Stimuli sex` * `Stimuli content` +
+## Data
+dat_m3 <- dat |>
+  filter(`Stimuli content` == "Erotic" &
+           `Stimuli sex` == `Preferred sex`)
+
+## H3a 
+m3a <- lmer(`Subjective sexual arousal` ~ 
+              `Solitary sexual desire` * Gender * Relationship +
               (1 | `Stimuli code`) +
               (1 | Participant),
-            data = dat,
+            data = dat_m3,
             control = lmerControl(optimizer = "bobyqa"))
-anova(m2)
+anova(m3a)
 
-emmip(m2, `Stimuli sex` ~ `Stimuli content` | Gender, cov.reduce = range, CIs = TRUE) +
+interact_plot(m3a, pred = `Solitary sexual desire`, modx = Gender, mod2 = Relationship,
+              interval = TRUE) +
   theme_tq()
 
-library(ggeffects)
-predict_response(m2, terms = c("Stimuli sex", "Stimuli content", "Gender")) |> 
-  plot() +
+sim_slopes(m3a, pred = `Solitary sexual desire`, modx = Gender, mod2 = Relationship)
+
+## H3b 
+m3b <- lmer(`Subjective sexual arousal` ~ 
+              `Dyadic sexual desire (Attractive person)` * Gender * Relationship +
+              (1 | `Stimuli code`) +
+              (1 | Participant),
+            data = dat_m3,
+            control = lmerControl(optimizer = "bobyqa"))
+anova(m3b)
+
+interact_plot(m3b, pred = `Dyadic sexual desire (Attractive person)`, modx = Gender, mod2 = Relationship,
+              interval = TRUE) +
   theme_tq()
 
-library(gtsummary)
-tbl_regression(m2,
-               add_pairwise_contrasts = TRUE)
+sim_slopes(m3b, pred = `Dyadic sexual desire (Attractive person)`, modx = Gender, mod2 = Relationship)
 
-emmeans(m2, pairwise ~ `Stimuli content` | `Stimuli sex` + Gender)
+## H3c 
+m3c <- lmer(`Subjective sexual arousal` ~ 
+              `Dyadic sexual desire (Partner)` * Gender * Relationship +
+              (1 | `Stimuli code`) +
+              (1 | Participant),
+            data = dat_m3,
+            control = lmerControl(optimizer = "bobyqa"))
+anova(m3c)
+
+interact_plot(m3c, pred = `Dyadic sexual desire (Partner)`, modx = Gender, mod2 = Relationship,
+              interval = TRUE) +
+  theme_tq()
+
+sim_slopes(m3c, pred = `Dyadic sexual desire (Partner)`, modx = Gender, mod2 = Relationship)
