@@ -1,8 +1,8 @@
-# H1
+# H1----
 
 library(bestNormalize)
 
-## Data
+## Data----
 dat_m1 <- dat |>
   # Group the data by participant and then select one (the top) observation for each one
   group_by(Participant) |>
@@ -21,7 +21,7 @@ dat_m1 <- dat_m1 |>
          "Dyadic sexual desire: Attractive person (trans)" = predict(trs_DSDat),
          "Dyadic sexual desire: Partner (trans)" = predict(trs_DSDpt))
 
-## H1a 
+## H1a ----
 m1a <- lm(`Solitary sexual desire (proportion)` ~ Gender * Relationship,
             data = dat_m1)
 Anova(m1a, type = 3)
@@ -41,7 +41,7 @@ ggplot(dat_m1, aes(x = Gender, y = `Solitary sexual desire (proportion)`, color 
 
 emmeans(m1a, pairwise ~ Gender | Relationship)
 
-
+### V2----
 m1a2 <- lm(`Solitary sexual desire (trans)` ~ Gender * Relationship,
            data = dat_m1)
 Anova(m1a2, type = 3)
@@ -61,7 +61,7 @@ ggplot(dat_m1, aes(x = Gender, y = `Solitary sexual desire (trans)`, color = Gen
 
 emmeans(m1a2, pairwise ~ Gender | Relationship)
 
-## H1b 
+## H1b ----
 m1b <- lm(`Dyadic sexual desire: Attractive person (proportion)` ~ Gender * Relationship,
           data = dat_m1)
 Anova(m1b, type = 3)
@@ -81,7 +81,7 @@ ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Attractive person (pro
 
 emmeans(m1b, pairwise ~ Gender | Relationship)
 
-
+### V2----
 m1b2 <- lm(`Dyadic sexual desire: Attractive person (trans)` ~ Gender * Relationship,
            data = dat_m1)
 Anova(m1b2, type = 3)
@@ -101,7 +101,7 @@ ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Attractive person (tra
 
 emmeans(m1b2, pairwise ~ Gender | Relationship)
 
-## H1c 
+## H1c ----
 m1c <- lm(`Dyadic sexual desire: Partner (proportion)` ~ Gender * Relationship,
           data = dat_m1)
 Anova(m1c, type = 3)
@@ -121,7 +121,7 @@ ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Partner (proportion)`,
 
 emmeans(m1c, pairwise ~ Gender | Relationship)
 
-
+### V2----
 m1c2 <- lm(`Dyadic sexual desire: Partner (trans)` ~ Gender * Relationship,
            data = dat_m1)
 Anova(m1c2, type = 3)
@@ -141,9 +141,9 @@ ggplot(dat_m1, aes(x = Gender, y = `Solitary sexual desire (trans)`, color = Gen
 
 emmeans(m1c2, pairwise ~ Gender | Relationship)
 
-# H2
+# H2----
 
-## Modelo para filtrar solo eroticos
+## Modelo para filtrar solo eroticos----
 m2 <- lmer(`Subjective sexual arousal` ~ 
              Gender * `Stimuli sex` * `Stimuli content` +
              (1 | `Stimuli code`) +
@@ -163,11 +163,11 @@ predict_response(m2, terms = c("Stimuli sex", "Stimuli content", "Gender")) |>
 
 emmeans(m2, pairwise ~ `Stimuli content` | `Stimuli sex` + Gender)
 
-## Data
+## Data----
 dat_m2 <- dat |>
   filter(`Stimuli content` == "Erotic")
 
-## H2a 
+## H2a ----
 m2a <- lmer(`Subjective sexual arousal` ~ 
               `Solitary sexual desire` * Gender * `Stimuli sex` +
               (1 | `Stimuli code`) +
@@ -182,7 +182,7 @@ interact_plot(m2a, pred = `Solitary sexual desire`, modx = `Stimuli sex`, mod2 =
   theme_tq()
 sim_slopes(m2a, pred = `Solitary sexual desire`, modx = `Stimuli sex`, mod2 = Gender)
 
-
+### V2----
 library(ordinal)
 
 dat_m2a <- dat_m2 |> 
@@ -214,6 +214,8 @@ emtrends(m2a2, ~ Solitary.sexual.desire | Gender + Stimuli.sex,
 # Como no podemos ver significancia de las pendientes, quiero ver si es posible calcular la predicción del modelo,
 # y hacer correlaciones de Spearman para cada combinacion de genero y sexo del estímulo. 
 # Para esto, sin em,bargo, hay que transformar la predicción en la escala original a partir de los "tresholds"
+
+### V3----
 bla <- m2a2$model
 bla <- bla |> 
   mutate(dependiente = predict(m2a2))
@@ -238,7 +240,7 @@ interact_plot(m2a3, pred = Solitary.sexual.desire, modx = Stimuli.sex, mod2 = Ge
 sim_slopes(m2a3, pred = Solitary.sexual.desire, modx = Stimuli.sex, mod2 = Gender)
 
 
-## H2b 
+## H2b ----
 m2b <- lmer(`Subjective sexual arousal` ~ 
               `Dyadic sexual desire (Attractive person)` * Gender * `Stimuli sex` +
               (1 | `Stimuli code`) +
@@ -252,7 +254,7 @@ interact_plot(m2b, pred = `Dyadic sexual desire (Attractive person)`, modx = `St
   theme_tq()
 sim_slopes(m2b, pred = `Dyadic sexual desire (Attractive person)`, modx = `Stimuli sex`, mod2 = Gender)
 
-## H2c 
+## H2c ----
 m2c <- lmer(`Subjective sexual arousal` ~ 
               `Dyadic sexual desire (Partner)` * Gender * `Stimuli sex` +
               (1 | `Stimuli code`) +
@@ -266,14 +268,14 @@ interact_plot(m2c, pred = `Dyadic sexual desire (Partner)`, modx = `Stimuli sex`
   theme_tq()
 sim_slopes(m2c, pred = `Dyadic sexual desire (Partner)`, modx = `Stimuli sex`, mod2 = Gender)
 
-# H3
+# H3----
 
-## Data
+## Data----
 dat_m3 <- dat |>
   filter(`Stimuli content` == "Erotic" &
            `Stimuli sex` == `Preferred sex`)
 
-## H3a 
+## H3a ----
 m3a <- lmer(`Subjective sexual arousal` ~ 
               `Solitary sexual desire` * Gender * Relationship +
               (1 | `Stimuli code`) +
@@ -288,7 +290,7 @@ interact_plot(m3a, pred = `Solitary sexual desire`, modx = Gender, mod2 = Relati
 
 sim_slopes(m3a, pred = `Solitary sexual desire`, modx = Gender, mod2 = Relationship)
 
-## H3b 
+## H3b ----
 m3b <- lmer(`Subjective sexual arousal` ~ 
               `Dyadic sexual desire (Attractive person)` * Gender * Relationship +
               (1 | `Stimuli code`) +
@@ -303,7 +305,7 @@ interact_plot(m3b, pred = `Dyadic sexual desire (Attractive person)`, modx = Gen
 
 sim_slopes(m3b, pred = `Dyadic sexual desire (Attractive person)`, modx = Gender, mod2 = Relationship)
 
-## H3c 
+## H3c ----
 m3c <- lmer(`Subjective sexual arousal` ~ 
               `Dyadic sexual desire (Partner)` * Gender * Relationship +
               (1 | `Stimuli code`) +
