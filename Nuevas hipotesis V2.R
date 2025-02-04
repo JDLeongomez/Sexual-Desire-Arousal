@@ -1,6 +1,7 @@
 # H1----
 
 library(bestNormalize)
+library(effectsize)
 
 ## Data----
 dat_m1 <- dat |>
@@ -25,8 +26,8 @@ dat_m1 <- dat_m1 |>
 m1a <- lm(`Solitary sexual desire (proportion)` ~ Gender * Relationship,
             data = dat_m1)
 Anova(m1a, type = 3)
-check_model(m1a)
-check_distribution(m1a)
+#check_model(m1a)
+#check_distribution(m1a)
 
 ggplot(dat_m1, aes(x = Gender, y = `Solitary sexual desire (proportion)`, color = Gender)) +
   geom_violin(trim = FALSE) +
@@ -39,14 +40,17 @@ ggplot(dat_m1, aes(x = Gender, y = `Solitary sexual desire (proportion)`, color 
   guides(color = "none") +
   theme_tq()
 
+emmeans(m1a, pairwise ~ Gender)
+emmeans(m1a, pairwise ~ Relationship)
 emmeans(m1a, pairwise ~ Gender | Relationship)
+effectsize::eta_squared(m1a)
 
 ### V2----
 m1a2 <- lm(`Solitary sexual desire (trans)` ~ Gender * Relationship,
            data = dat_m1)
 Anova(m1a2, type = 3)
-check_model(m1a2)
-check_distribution(m1a2)
+#check_model(m1a2)
+#check_distribution(m1a2)
 
 ggplot(dat_m1, aes(x = Gender, y = `Solitary sexual desire (trans)`, color = Gender)) +
   geom_violin(trim = FALSE) +
@@ -65,8 +69,8 @@ emmeans(m1a2, pairwise ~ Gender | Relationship)
 m1b <- lm(`Dyadic sexual desire: Attractive person (proportion)` ~ Gender * Relationship,
           data = dat_m1)
 Anova(m1b, type = 3)
-check_model(m1b)
-check_distribution(m1b)
+#check_model(m1b)
+#check_distribution(m1b)
 
 ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Attractive person (proportion)`, color = Gender)) +
   geom_violin(trim = FALSE) +
@@ -85,8 +89,8 @@ emmeans(m1b, pairwise ~ Gender | Relationship)
 m1b2 <- lm(`Dyadic sexual desire: Attractive person (trans)` ~ Gender * Relationship,
            data = dat_m1)
 Anova(m1b2, type = 3)
-check_model(m1b2)
-check_distribution(m1b2)
+#check_model(m1b2)
+#check_distribution(m1b2)
 
 ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Attractive person (trans)`, color = Gender)) +
   geom_violin(trim = FALSE) +
@@ -105,8 +109,8 @@ emmeans(m1b2, pairwise ~ Gender | Relationship)
 m1c <- lm(`Dyadic sexual desire: Partner (proportion)` ~ Gender * Relationship,
           data = dat_m1)
 Anova(m1c, type = 3)
-check_model(m1c)
-check_distribution(m1c)
+#check_model(m1c)
+#check_distribution(m1c)
 
 ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Partner (proportion)`, color = Gender)) +
   geom_violin(trim = FALSE) +
@@ -125,10 +129,10 @@ emmeans(m1c, pairwise ~ Gender | Relationship)
 m1c2 <- lm(`Dyadic sexual desire: Partner (trans)` ~ Gender * Relationship,
            data = dat_m1)
 Anova(m1c2, type = 3)
-check_model(m1c2)
-check_distribution(m1c2)
+#check_model(m1c2)
+#check_distribution(m1c2)
 
-ggplot(dat_m1, aes(x = Gender, y = `Solitary sexual desire (trans)`, color = Gender)) +
+ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Partner (trans)`, color = Gender)) +
   geom_violin(trim = FALSE) +
   geom_jitter(alpha = 0.3, width = 0.1) +
   facet_wrap(~Relationship) +
@@ -147,12 +151,12 @@ emmeans(m1c2, pairwise ~ Gender | Relationship)
 m2 <- lmer(`Subjective sexual arousal` ~ 
              Gender * `Stimuli sex` * `Stimuli content` +
              (1 | `Stimuli code`) +
-             (1 | Participant),
+             (1 + `Stimuli content` | Participant),
            data = dat,
            control = lmerControl(optimizer = "bobyqa"))
 anova(m2)
 
-check_model(m2)
+#check_model(m2)
 
 emmip(m2, `Stimuli sex` ~ `Stimuli content` | Gender, cov.reduce = range, CIs = TRUE) +
   theme_tq()
@@ -177,14 +181,16 @@ m2a1 <- lmer(`Subjective sexual arousal` ~
             data = dat_m2,
             control = lmerControl(optimizer = "bobyqa"))
 anova(m2a1)
-check_model(m2a1)
-check_distribution(m2a1)
+#check_model(m2a1)
+#check_distribution(m2a1)
 
 predict_response(m2a1, terms = c("Solitary sexual desire", "Stimuli sex", "Gender")) |> 
   plot() +
   theme_tq()
 
-sim_slopes(m2a1, pred = `Solitary sexual desire`, modx = `Stimuli sex`, mod2 = Gender)
+sim_slopes(m2a1, pred = `Solitary sexual desire`, modx = `Stimuli sex`, mod2 = Gender,
+           confint = TRUE)
+
 
 
 ### V2 clmm----
@@ -220,7 +226,7 @@ predict_response(m2a2, terms = c("Solitary.sexual.desire", "Stimuli.sex", "Gende
   geom_smooth() +
   facet_wrap(~group)
 
-check_model(m2a2M)
+#check_model(m2a2M)
 
 
 emtrends(m2a2, ~ Solitary.sexual.desire | Gender + Stimuli.sex,
@@ -237,14 +243,14 @@ m2a3 <- glmer(Subjective.sexual.arousal ~
               family = poisson)
 
 anova(m2a3)
-check_model(m2a3)
-check_distribution(m2a3)
+#check_model(m2a3)
+#check_distribution(m2a3)
 
 predict_response(m2a3, terms = c("Solitary.sexual.desire", "Stimuli.sex", "Gender")) |> 
   plot() +
   theme_tq()
 
-sim_slopes(m2a3, pred = Solitary.sexual.desire, modx = Stimuli.sex, mod2 = Gender)
+#sim_slopes(m2a3, pred = Solitary.sexual.desire, modx = Stimuli.sex, mod2 = Gender)
 
 ## H2b ----
 ### V1 lmer ----
@@ -255,14 +261,15 @@ m2b1 <- lmer(`Subjective sexual arousal` ~
              data = dat_m2,
              control = lmerControl(optimizer = "bobyqa"))
 anova(m2b1)
-check_model(m2b1)
-check_distribution(m2b1)
+#check_model(m2b1)
+#check_distribution(m2b1)
 
 predict_response(m2b1, terms = c("Dyadic sexual desire (Attractive person)", "Stimuli sex", "Gender")) |> 
   plot() +
   theme_tq()
 
-sim_slopes(m2b1, pred = `Dyadic sexual desire (Attractive person)`, modx = `Stimuli sex`, mod2 = Gender)
+sim_slopes(m2b1, pred = `Dyadic sexual desire (Attractive person)`, modx = `Stimuli sex`, mod2 = Gender,
+           confint = TRUE)
 
 
 ### V2 clmm----
@@ -304,14 +311,14 @@ m2b3 <- glmer(Subjective.sexual.arousal ~
               family = poisson)
 
 anova(m2b3)
-check_model(m2b3)
-check_distribution(m2b3)
+#check_model(m2b3)
+#check_distribution(m2b3)
 
 predict_response(m2b3, terms = c("Dyadic sexual desire (Attractive person)", "Stimuli.sex", "Gender")) |> 
   plot() +
   theme_tq()
 
-sim_slopes(m2b3, pred = `Dyadic sexual desire (Attractive person)`, modx = Stimuli.sex, mod2 = Gender)
+#sim_slopes(m2b3, pred = `Dyadic sexual desire (Attractive person)`, modx = Stimuli.sex, mod2 = Gender)
 
 
 
@@ -332,14 +339,15 @@ m2c1 <- lmer(`Subjective sexual arousal` ~
              data = dat_m2,
              control = lmerControl(optimizer = "bobyqa"))
 anova(m2c1)
-check_model(m2c1)
-check_distribution(m2c1)
+#check_model(m2c1)
+#check_distribution(m2c1)
 
 predict_response(m2c1, terms = c("Dyadic sexual desire (Partner)", "Stimuli sex", "Gender")) |> 
   plot() +
   theme_tq()
 
-sim_slopes(m2c1, pred = `Dyadic sexual desire (Partner)`, modx = `Stimuli sex`, mod2 = Gender)
+sim_slopes(m2c1, pred = `Dyadic sexual desire (Partner)`, modx = `Stimuli sex`, mod2 = Gender,
+           confint = TRUE)
 
 
 ### V2 clmm----
@@ -380,14 +388,14 @@ m2c3 <- glmer(Subjective.sexual.arousal ~
               family = poisson)
 
 anova(m2c3)
-check_model(m2c3)
-check_distribution(m2c3)
+#check_model(m2c3)
+#check_distribution(m2c3)
 
 predict_response(m2c3, terms = c("Dyadic sexual desire (Partner)", "Stimuli.sex", "Gender")) |> 
   plot() +
   theme_tq()
 
-sim_slopes(m2c3, pred = `Dyadic sexual desire (Partner)`, modx = Stimuli.sex, mod2 = Gender)
+#sim_slopes(m2c3, pred = `Dyadic sexual desire (Partner)`, modx = Stimuli.sex, mod2 = Gender)
 
 
 
@@ -415,7 +423,8 @@ predict_response(m3a1, terms = c("Solitary sexual desire", "Relationship", "Gend
   plot() +
   theme_tq()
 
-sim_slopes(m3a1, pred = `Solitary sexual desire`, modx = `Relationship`, mod2 = Gender)
+sim_slopes(m3a1, pred = `Solitary sexual desire`, modx = `Relationship`, mod2 = Gender,
+           confint = TRUE)
 
 
 ### V2 clmm----
@@ -475,7 +484,7 @@ predict_response(m3a3, terms = c("Solitary.sexual.desire", "Relationship", "Gend
   plot() +
   theme_tq()
 
-sim_slopes(m3a3, pred = Solitary.sexual.desire, modx = Relationship, mod2 = Gender)
+#sim_slopes(m3a3, pred = Solitary.sexual.desire, modx = Relationship, mod2 = Gender)
 
 
 ## H3b ----
@@ -495,7 +504,8 @@ predict_response(m3b1, terms = c("Dyadic sexual desire (Attractive person)", "Re
   plot() +
   theme_tq()
 
-sim_slopes(m3b1, pred = `Dyadic sexual desire (Attractive person)`, modx = `Relationship`, mod2 = Gender)
+sim_slopes(m3b1, pred = `Dyadic sexual desire (Attractive person)`, modx = `Relationship`, mod2 = Gender,
+           confint = TRUE)
 
 
 ### V2 clmm----
@@ -548,7 +558,7 @@ predict_response(m3b3, terms = c("Dyadic sexual desire (Attractive person)", "Re
   plot() +
   theme_tq()
 
-sim_slopes(m3b3, pred = `Dyadic sexual desire (Attractive person)`, modx = Relationship, mod2 = Gender)
+#sim_slopes(m3b3, pred = `Dyadic sexual desire (Attractive person)`, modx = Relationship, mod2 = Gender)
 
 
 
@@ -573,7 +583,8 @@ predict_response(m3c1, terms = c("Dyadic sexual desire (Partner)", "Relationship
   plot() +
   theme_tq()
 
-sim_slopes(m3c1, pred = `Dyadic sexual desire (Partner)`, modx = `Relationship`, mod2 = Gender)
+sim_slopes(m3c1, pred = `Dyadic sexual desire (Partner)`, modx = `Relationship`, mod2 = Gender,
+           confint = TRUE)
 
 
 ### V2 clmm----
@@ -628,5 +639,5 @@ predict_response(m3c3, terms = c("Dyadic sexual desire (Partner)", "Relationship
   plot() +
   theme_tq()
 
-sim_slopes(m3c3, pred = `Dyadic sexual desire (Partner)`, modx = Relationship, mod2 = Gender)
+#sim_slopes(m3c3, pred = `Dyadic sexual desire (Partner)`, modx = Relationship, mod2 = Gender)
 
