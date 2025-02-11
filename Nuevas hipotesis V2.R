@@ -18,9 +18,9 @@ trs_DSDat <- orderNorm(dat_m1$`Dyadic sexual desire: Attractive person (proporti
 trs_DSDpt <- orderNorm(dat_m1$`Dyadic sexual desire: Partner (proportion)`)
 
 dat_m1 <- dat_m1 |> 
-  mutate("Solitary sexual desire (trans)" = predict(trs_SSD),
-         "Dyadic sexual desire: Attractive person (trans)" = predict(trs_DSDat),
-         "Dyadic sexual desire: Partner (trans)" = predict(trs_DSDpt))
+  mutate("Solitary sexual desire (normalized)" = predict(trs_SSD),
+         "Dyadic sexual desire: Attractive person (normalized)" = predict(trs_DSDat),
+         "Dyadic sexual desire: Partner (normalized)" = predict(trs_DSDpt))
 
 ## H1a ----
 m1a <- lm(`Solitary sexual desire (proportion)` ~ Gender * Relationship,
@@ -46,13 +46,13 @@ emmeans(m1a, pairwise ~ Gender | Relationship)
 effectsize::eta_squared(m1a)
 
 ### V2----
-m1a2 <- lm(`Solitary sexual desire (trans)` ~ Gender * Relationship,
+m1a2 <- lm(`Solitary sexual desire (normalized)` ~ Gender * Relationship,
            data = dat_m1)
 Anova(m1a2, type = 3)
 #check_model(m1a2)
 #check_distribution(m1a2)
 
-ggplot(dat_m1, aes(x = Gender, y = `Solitary sexual desire (trans)`, color = Gender)) +
+ggplot(dat_m1, aes(x = Gender, y = `Solitary sexual desire (normalized)`, color = Gender)) +
   geom_violin(trim = FALSE) +
   geom_jitter(alpha = 0.3, width = 0.1) +
   facet_wrap(~Relationship) +
@@ -86,13 +86,13 @@ ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Attractive person (pro
 emmeans(m1b, pairwise ~ Gender | Relationship)
 
 ### V2----
-m1b2 <- lm(`Dyadic sexual desire: Attractive person (trans)` ~ Gender * Relationship,
+m1b2 <- lm(`Dyadic sexual desire: Attractive person (normalized)` ~ Gender * Relationship,
            data = dat_m1)
 Anova(m1b2, type = 3)
 #check_model(m1b2)
 #check_distribution(m1b2)
 
-ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Attractive person (trans)`, color = Gender)) +
+ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Attractive person (normalized)`, color = Gender)) +
   geom_violin(trim = FALSE) +
   geom_jitter(alpha = 0.3, width = 0.1) +
   facet_wrap(~Relationship) +
@@ -126,13 +126,13 @@ ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Partner (proportion)`,
 emmeans(m1c, pairwise ~ Gender | Relationship)
 
 ### V2----
-m1c2 <- lm(`Dyadic sexual desire: Partner (trans)` ~ Gender * Relationship,
+m1c2 <- lm(`Dyadic sexual desire: Partner (normalized)` ~ Gender * Relationship,
            data = dat_m1)
 Anova(m1c2, type = 3)
 #check_model(m1c2)
 #check_distribution(m1c2)
 
-ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Partner (trans)`, color = Gender)) +
+ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Partner (normalized)`, color = Gender)) +
   geom_violin(trim = FALSE) +
   geom_jitter(alpha = 0.3, width = 0.1) +
   facet_wrap(~Relationship) +
