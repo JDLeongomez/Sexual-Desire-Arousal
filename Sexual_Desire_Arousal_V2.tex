@@ -219,7 +219,6 @@ All packages used in this file can be directly installed from the Comprehensive 
 \FunctionTok{library}\NormalTok{(berryFunctions)}
 \FunctionTok{library}\NormalTok{(bestNormalize)}
 \FunctionTok{library}\NormalTok{(effectsize)}
-\CommentTok{\#library(dplyr)}
 \CommentTok{\#library(interactions)}
 \CommentTok{\#library(MetBrewer)}
 \CommentTok{\#library(ggpmisc)}
@@ -235,13 +234,16 @@ Individual color palettes for figures by gender, stimuli sex, or relationship ty
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Palette to color figures by gender}
-\NormalTok{color.Gender }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"\#bd3106"}\NormalTok{,}\StringTok{"\#5b7314"}\NormalTok{)}
+\NormalTok{color.Gender }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{,}\StringTok{"black"}\NormalTok{)}
 \CommentTok{\# Palette to color figures by stimuli sex}
-\NormalTok{color.StimuliSex }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"\#454b87"}\NormalTok{,}\StringTok{"\#d9700e"}\NormalTok{)}
+\NormalTok{color.StimuliSex }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"\#54278F"}\NormalTok{,}\StringTok{"\#FC4E2A"}\NormalTok{)}
 \CommentTok{\# Palette to color figures by relationship type}
-\NormalTok{color.Relationship }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"\#b39e05"}\NormalTok{,}\StringTok{"\#a513d6"}\NormalTok{)}
+\NormalTok{color.Relationship }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"\#2171B5"}\NormalTok{,}\StringTok{"\#DD3497"}\NormalTok{)}
+
+
+
 \CommentTok{\# Palette to color figures by dimension type}
-\NormalTok{color.Dimension }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"\#582310"}\NormalTok{,}\StringTok{"\#318f49"}\NormalTok{,}\StringTok{"\#0cb4bb"}\NormalTok{)}
+\CommentTok{\#color.Dimension \textless{}{-} c("\#54278F","\#41AB5D","\#0570B0")}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1378,7 +1380,7 @@ MGSS sexual satisfaction (General) &  & 5 & 188 & 0.92 & 0.88 & 0.94\\
 \cmidrule{1-7}
 MGSS sexual satisfaction (Partner) &  & 5 & 187 & 0.91 & 0.85 & 0.95\\
 \cmidrule{1-7}
-Dyadic sexual desire (Partner) &  & 5 & 309 & 0.90 & 0.87 & 0.92\\
+Dyadic sexual desire (Partner) &  & 5 & 309 & 0.90 & 0.88 & 0.92\\
 \cmidrule{1-7}
 Solitary sexual desire &  & 4 & 314 & 0.91 & 0.89 & 0.93\\
 \cmidrule{1-7}
@@ -1398,186 +1400,62 @@ Dyadic sexual desire (Attractive person) &  & 4 & 320 & 0.89 & 0.87 & 0.91\\
 
 \section{Controlling the effects of Relationship Duration and MGSS sexual satisfaction (Partner) on sexual desire dimensions}\label{controlling-the-effects-of-relationship-duration-and-mgss-sexual-satisfaction-partner-on-sexual-desire-dimensions}
 
-We standardized the scores of all three sexual desire dimensions so that they were not correlated with Relationship Duration or MGSS sexual satisfaction (Partner). To do this, we performed two steps.
+To ensure that the three sexual desire dimensions were not influenced by Relationship Duration or MGSS sexual satisfaction (Partner), we standardized the scores using a two-step process.
 
-First, we conducted linear regression analyses to identify the relationships between Relationship Duration and MGSS sexual satisfaction (Partner) on each of the three sexual desire dimensions. Next, we made the effect zero, but kept the model residuals, to control for the effects of Relationship Duration and MGSS sexual satisfaction (Partner). By doing so, we effectively removed their influence on the resulting scores, leaving us with adjusted versions of the three desire dimensions that are not correlated with these external variables. MGSS sexual satisfaction (Partner) was mean centered.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Modeling the relationships: we performed linear regressions where each sexual desire dimension was predicted using Relationship Duration and MGSS sexual satisfaction (Partner). This allowed us to estimate their effects.
+\item
+  Removing the effects: we extracted the residuals from each regression model, which represent the variation in sexual desire that is independent of Relationship Duration and MGSS sexual satisfaction (Partner). These residuals were then standardized to ensure comparability across participants.
+\end{enumerate}
+
+Additionally, MGSS sexual satisfaction (Partner) was mean-centered before analysis.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Create a subset of the data that only includes stable relationships}
+\CommentTok{\# Select only participants in stable relationships}
 \NormalTok{dat\_ctl }\OtherTok{\textless{}{-}}\NormalTok{ dat }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Group the data by participant and then select one (the top) observation for each one}
-  \FunctionTok{group\_by}\NormalTok{(Participant) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{slice\_head}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{filter}\NormalTok{(Relationship }\SpecialCharTok{==} \StringTok{"Stable"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{group\_by}\NormalTok{(Participant) }\SpecialCharTok{|\textgreater{}}  \CommentTok{\# Group by participant}
+  \FunctionTok{slice\_head}\NormalTok{() }\SpecialCharTok{|\textgreater{}}           \CommentTok{\# Select the first observation per participant}
+  \FunctionTok{filter}\NormalTok{(Relationship }\SpecialCharTok{==} \StringTok{"Stable"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}  \CommentTok{\# Retain only stable relationships}
   \FunctionTok{ungroup}\NormalTok{()}
 
-\CommentTok{\# Fit a linear model to predict solitary sexual desire based on relationship duration and partner satisfaction}
+\CommentTok{\# Fit linear models to predict each dimension of sexual desire }
+\CommentTok{\# based on relationship duration and partner sexual satisfaction}
+
 \NormalTok{ctl\_SSD }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Solitary sexual desire}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}} 
                 \StringTok{\textasciigrave{}}\AttributeTok{Relationship duration}\StringTok{\textasciigrave{}} \SpecialCharTok{+} \StringTok{\textasciigrave{}}\AttributeTok{MGSS sexual satisfaction (Partner)}\StringTok{\textasciigrave{}}\NormalTok{,}
               \AttributeTok{data =}\NormalTok{ dat\_ctl)}
 
-\CommentTok{\# Perform an ANOVA test for the CTL SSD model}
-\FunctionTok{Anova}\NormalTok{(ctl\_SSD, }\AttributeTok{type =} \DecValTok{3}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Anova Table (Type III tests)
-## 
-## Response: Solitary sexual desire
-##                                       Sum Sq  Df F value   Pr(>F)   
-## (Intercept)                            614.3   1  8.1789 0.004786 **
-## `Relationship duration`                108.6   3  0.4822 0.695135   
-## `MGSS sexual satisfaction (Partner)`     2.2   1  0.0289 0.865254   
-## Residuals                            12393.5 165                    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Fit a model to predict dyadic sexual desire based on relationship duration and partner satisfaction}
 \NormalTok{ctl\_PD }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner)}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}} 
-                \StringTok{\textasciigrave{}}\AttributeTok{Relationship duration}\StringTok{\textasciigrave{}} \SpecialCharTok{+} \StringTok{\textasciigrave{}}\AttributeTok{MGSS sexual satisfaction (Partner)}\StringTok{\textasciigrave{}}\NormalTok{,}
+               \StringTok{\textasciigrave{}}\AttributeTok{Relationship duration}\StringTok{\textasciigrave{}} \SpecialCharTok{+} \StringTok{\textasciigrave{}}\AttributeTok{MGSS sexual satisfaction (Partner)}\StringTok{\textasciigrave{}}\NormalTok{,}
               \AttributeTok{data =}\NormalTok{ dat\_ctl)}
 
-\CommentTok{\# Perform an ANOVA test for the CTL PD model}
-\FunctionTok{Anova}\NormalTok{(ctl\_PD, }\AttributeTok{type =} \DecValTok{3}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Anova Table (Type III tests)
-## 
-## Response: Dyadic sexual desire (Partner)
-##                                      Sum Sq  Df F value    Pr(>F)    
-## (Intercept)                           844.3   1 18.3715 3.082e-05 ***
-## `Relationship duration`               286.9   3  2.0807  0.104744    
-## `MGSS sexual satisfaction (Partner)`  407.9   1  8.8752  0.003327 ** 
-## Residuals                            7582.7 165                      
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Fit a model to predict dyadic sexual desire based on relationship duration and partner satisfaction,}
-\CommentTok{\# but without accounting for participant{-}level variance}
 \NormalTok{ctl\_APD }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Attractive person)}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}} 
                 \StringTok{\textasciigrave{}}\AttributeTok{Relationship duration}\StringTok{\textasciigrave{}} \SpecialCharTok{+} \StringTok{\textasciigrave{}}\AttributeTok{MGSS sexual satisfaction (Partner)}\StringTok{\textasciigrave{}}\NormalTok{,}
               \AttributeTok{data =}\NormalTok{ dat\_ctl)}
 
-\CommentTok{\# Perform an ANOVA test for the CTL APD model}
-\FunctionTok{Anova}\NormalTok{(ctl\_APD, }\AttributeTok{type =} \DecValTok{3}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Anova Table (Type III tests)
-## 
-## Response: Dyadic sexual desire (Attractive person)
-##                                       Sum Sq  Df F value    Pr(>F)    
-## (Intercept)                            737.1   1 11.5389 0.0008541 ***
-## `Relationship duration`                 18.2   3  0.0948 0.9628077    
-## `MGSS sexual satisfaction (Partner)`    56.5   1  0.8842 0.3484284    
-## Residuals                            10539.5 165                      
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Create a new dataset with only the desired variables and drop any missing values}
+\CommentTok{\# Prepare a dataset with relevant variables, removing missing values}
 \NormalTok{dat\_tl\_PD\_fin }\OtherTok{\textless{}{-}}\NormalTok{ dat\_ctl }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{select}\NormalTok{(Participant, }\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner)}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{MGSS sexual satisfaction (Partner)}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(Participant, }\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner)}\StringTok{\textasciigrave{}}\NormalTok{, }
+         \StringTok{\textasciigrave{}}\AttributeTok{MGSS sexual satisfaction (Partner)}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{drop\_na}\NormalTok{()}
 
-\CommentTok{\# Fit a model to predict dyadic sexual desire based on partner satisfaction}
+\CommentTok{\# Fit a model to predict Dyadic Sexual Desire (Partner) using partner satisfaction only}
 \NormalTok{ctl\_PD\_fin }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner)}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}} \StringTok{\textasciigrave{}}\AttributeTok{MGSS sexual satisfaction (Partner)}\StringTok{\textasciigrave{}}\NormalTok{,}
-              \AttributeTok{data =}\NormalTok{ dat\_tl\_PD\_fin)}
+                 \AttributeTok{data =}\NormalTok{ dat\_tl\_PD\_fin)}
 
-\FunctionTok{ggplot}\NormalTok{(ctl\_PD\_fin}\SpecialCharTok{$}\NormalTok{model, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner)}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{y =} \FunctionTok{predict}\NormalTok{(ctl\_PD\_fin))) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## `geom_smooth()` using formula = 'y ~ x'
-\end{verbatim}
-
-\includegraphics{Sexual_Desire_Arousal_V2_files/figure-latex/unnamed-chunk-14-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{summary}\NormalTok{(ctl\_PD\_fin)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = `Dyadic sexual desire (Partner)` ~ `MGSS sexual satisfaction (Partner)`, 
-##     data = dat_tl_PD_fin)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -30.331  -4.092   1.563   4.669  15.161 
-## 
-## Coefficients:
-##                                      Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)                           15.9666     3.8417   4.156 5.15e-05 ***
-## `MGSS sexual satisfaction (Partner)`   0.4788     0.1346   3.558 0.000487 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 6.844 on 168 degrees of freedom
-## Multiple R-squared:  0.07006,    Adjusted R-squared:  0.06452 
-## F-statistic: 12.66 on 1 and 168 DF,  p-value: 0.0004865
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Create a new dataset with the predicted values for dyadic sexual desire added back in}
+\CommentTok{\# Adjust the Dyadic Sexual Desire (Partner) scores by replacing them with their residuals}
 \NormalTok{dat\_ctl }\OtherTok{\textless{}{-}}\NormalTok{ dat\_tl\_PD\_fin }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{mean}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner)}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{+}
            \FunctionTok{resid}\NormalTok{(ctl\_PD\_fin))}
 
-\FunctionTok{ggplot}\NormalTok{(dat\_ctl, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner)}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{MGSS sexual satisfaction (Partner)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## `geom_smooth()` using formula = 'y ~ x'
-\end{verbatim}
-
-\includegraphics{Sexual_Desire_Arousal_V2_files/figure-latex/unnamed-chunk-14-2.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(dat\_tl\_PD\_fin, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner)}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{MGSS sexual satisfaction (Partner)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## `geom_smooth()` using formula = 'y ~ x'
-\end{verbatim}
-
-\includegraphics{Sexual_Desire_Arousal_V2_files/figure-latex/unnamed-chunk-14-3.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Convert the dyadic sexual desire variable to a numeric value}
+\CommentTok{\# Update the original dataset with the adjusted scores}
 \NormalTok{dat }\OtherTok{\textless{}{-}}\NormalTok{ dat }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{as.numeric}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{rows\_update}\NormalTok{(dat\_ctl }\SpecialCharTok{|\textgreater{}}
-                \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\StringTok{\textasciigrave{}}\AttributeTok{MGSS sexual satisfaction (Partner)}\StringTok{\textasciigrave{}}\NormalTok{), }
-  \AttributeTok{by =} \StringTok{"Participant"}\NormalTok{, }\AttributeTok{unmatched =} \StringTok{"ignore"}\NormalTok{)}
+  \FunctionTok{rows\_update}\NormalTok{(dat\_ctl }\SpecialCharTok{|\textgreater{}} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\StringTok{\textasciigrave{}}\AttributeTok{MGSS sexual satisfaction (Partner)}\StringTok{\textasciigrave{}}\NormalTok{), }
+              \AttributeTok{by =} \StringTok{"Participant"}\NormalTok{, }\AttributeTok{unmatched =} \StringTok{"ignore"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1615,35 +1493,9 @@ A data frame was created with one row per participant, where sexual desire varia
 
 \CommentTok{\# Apply ordered normalization transformations to the proportion variables  }
 \NormalTok{trs\_SSD }\OtherTok{\textless{}{-}} \FunctionTok{orderNorm}\NormalTok{(dat\_m1}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Solitary sexual desire (proportion)}\StringTok{\textasciigrave{}}\NormalTok{)  }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning in orderNorm(dat_m1$`Solitary sexual desire (proportion)`): Ties in data, Normal distribution not guaranteed
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{trs\_DSDat }\OtherTok{\textless{}{-}} \FunctionTok{orderNorm}\NormalTok{(dat\_m1}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire: Attractive person (proportion)}\StringTok{\textasciigrave{}}\NormalTok{)  }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning in orderNorm(dat_m1$`Dyadic sexual desire: Attractive person (proportion)`): Ties in data, Normal distribution not guaranteed
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{trs\_DSDpt }\OtherTok{\textless{}{-}} \FunctionTok{orderNorm}\NormalTok{(dat\_m1}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire: Partner (proportion)}\StringTok{\textasciigrave{}}\NormalTok{)  }
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-## Warning in orderNorm(dat_m1$`Dyadic sexual desire: Partner (proportion)`): Ties in data, Normal distribution not guaranteed
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \CommentTok{\# Add the transformed variables back into the dataset  }
 \NormalTok{dat\_m1 }\OtherTok{\textless{}{-}}\NormalTok{ dat\_m1 }\SpecialCharTok{|\textgreater{}}  
   \FunctionTok{mutate}\NormalTok{(}\StringTok{"Solitary sexual desire (normalized)"} \OtherTok{=} 
@@ -1659,7 +1511,7 @@ A data frame was created with one row per participant, where sexual desire varia
 
 \paragraph{Model the effects of relationship type and gender on Solitary TSD}\label{model-the-effects-of-relationship-type-and-gender-on-solitary-tsd}
 
-We fitted and checked model fitness of both the original (proportion; \texttt{m1a\_prop}) and transformed (normalized; \texttt{m1a\_norm}) TSD scores
+We fitted models with both the original (proportion; \texttt{m1a\_prop}) and transformed (normalized; \texttt{m1a\_norm}) TSD scores, and performed posterior predictive checks (PPCs). As shown elsewhere \autocite[e.g.,][]{gabryVisualizationBayesianWorkflow2019}, if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1671,220 +1523,36 @@ We fitted and checked model fitness of both the original (proportion; \texttt{m1
 \end{Highlighting}
 \end{Shaded}
 
-\subparagraph{Model assumptions}\label{model-assumptions}
+\subparagraph{Figure \ref{fig:assu-m1a}. Posterior predictive checks (PPCs)}\label{figure-reffigassu-m1a.-posterior-predictive-checks-ppcs}
 
-Most model assumptions were checked using the \texttt{check\_model} function from the \texttt{performance} package \autocite{ludecke2021}, and reported in Fig. \ref{fig:assu-m1}. These assumptions do not include collinearity, as the function plots \(VIF\) instead of the recommended Generalized Variance Inflation Factors (\(GVIF\)) and the most comparable \(GVIF^{{1}/{(2 \times df)}}\) \autocite{fox1992}. Instead, \(GVIF\) and \(GVIF^{{1}/{(2 \times df)}}\) values are reported in Table \ref{tab:coli-m1}.
-
-Figure \ref{fig:assu-m1}. Model assumptions
-
-This figure includes most assumptions: linearity, homogeneity of variance, and normality of both residuals and random effects.
+PPCs were performed using the \texttt{check\_model} function from the \texttt{performance} package \autocite{ludecke2021}, and reported in Fig. \ref{fig:assu-m1a}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ggarrange}\NormalTok{(}\FunctionTok{ggarrange}\NormalTok{(}\AttributeTok{plotlist =} \FunctionTok{plot}\NormalTok{(}\FunctionTok{check\_model}\NormalTok{(m1a\_prop, }\AttributeTok{panel =} \ConstantTok{FALSE}\NormalTok{)),}
-                    \AttributeTok{ncol =} \DecValTok{2}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{3}\NormalTok{),}
-          \FunctionTok{ggarrange}\NormalTok{(}\AttributeTok{plotlist =} \FunctionTok{plot}\NormalTok{(}\FunctionTok{check\_model}\NormalTok{(m1a\_norm, }\AttributeTok{panel =} \ConstantTok{FALSE}\NormalTok{)),}
-                    \AttributeTok{ncol =} \DecValTok{2}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{3}\NormalTok{),}
-          \AttributeTok{labels =} \StringTok{"AUTO"}\NormalTok{)}
+\FunctionTok{ggarrange}\NormalTok{(}\FunctionTok{plot}\NormalTok{(}\FunctionTok{check\_model}\NormalTok{(m1a\_prop, }
+                           \AttributeTok{panel =} \ConstantTok{FALSE}\NormalTok{,}
+                           \AttributeTok{check =} \StringTok{"pp\_check"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{PP\_CHECK,}
+               \AttributeTok{colors =} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"black"}\NormalTok{)) }\SpecialCharTok{+}
+            \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Original (proportion) Solitary TSD"}\NormalTok{,}
+                 \AttributeTok{subtitle =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
+            \FunctionTok{theme\_tq}\NormalTok{(),}
+          \FunctionTok{plot}\NormalTok{(}\FunctionTok{check\_model}\NormalTok{(m1a\_norm, }
+                           \AttributeTok{panel =} \ConstantTok{FALSE}\NormalTok{,}
+                           \AttributeTok{check =} \StringTok{"pp\_check"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{PP\_CHECK,}
+               \AttributeTok{colors =} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"black"}\NormalTok{)) }\SpecialCharTok{+}
+            \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Transformed (normalized) Solitary TSD"}\NormalTok{,}
+                 \AttributeTok{subtitle =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
+            \FunctionTok{theme\_tq}\NormalTok{(),}
+          \AttributeTok{labels =} \StringTok{"auto"}\NormalTok{,}
+          \AttributeTok{common.legend =} \ConstantTok{TRUE}\NormalTok{,}
+          \AttributeTok{legend =} \StringTok{"bottom"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : pseudoinverse used at 0.37096
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : neighborhood radius 0.19266
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : reciprocal condition number 5.6133e-15
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : There are other near singularities as well. 0.036702
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used at
-## 0.37096
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
-## 0.19266
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : reciprocal condition
-## number 5.6133e-15
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : There are other near
-## singularities as well. 0.036702
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : pseudoinverse used at 0.37096
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : neighborhood radius 0.19266
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : reciprocal condition number 5.6133e-15
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : There are other near singularities as well. 0.036702
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used at
-## 0.37096
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
-## 0.19266
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : reciprocal condition
-## number 5.6133e-15
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : There are other near
-## singularities as well. 0.036702
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : pseudoinverse used at -0.4311
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : neighborhood radius 0.67558
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : reciprocal condition number 6.1313e-15
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : There are other near singularities as well. 0.4513
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used at
-## -0.4311
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
-## 0.67558
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : reciprocal condition
-## number 6.1313e-15
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : There are other near
-## singularities as well. 0.4513
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : pseudoinverse used at -0.4311
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : neighborhood radius 0.67558
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : reciprocal condition number 6.1313e-15
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-## : There are other near singularities as well. 0.4513
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used at
-## -0.4311
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
-## 0.67558
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : reciprocal condition
-## number 6.1313e-15
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in predLoess(object$y, object$x, newx = if (is.null(newdata)) object$x
-## else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : There are other near
-## singularities as well. 0.4513
-\end{verbatim}
-
 \begin{figure}
 \centering
-\includegraphics{Sexual_Desire_Arousal_V2_files/figure-latex/assu-m1-1.pdf}
-\caption{\label{fig:assu-m1}Model assumptions. Plots represent linearity, homogeneity of variance, and normality of both residuals and random effects (as QQ plots), respectively.}
+\includegraphics{Sexual_Desire_Arousal_V2_files/figure-latex/assu-m1a-1.pdf}
+\caption{\label{fig:assu-m1a}Posterior predictive check. \textbf{(a)} Original (proportion) Solitary TSD; \textbf{(b)} Transformed (normalized) Solitary TSD. In both panels, red lines represent the observed data, and thin black lines represent 50 iterations of simulated data from each model. In this case, simulated data from the normalized Solitary TSD model (panel b) are more similar to the observed outcome, so this model is preferred.}
 \end{figure}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -1909,7 +1577,7 @@ This figure includes most assumptions: linearity, homogeneity of variance, and n
 \emph{pander(v.0.6.5)}, \emph{Hmisc(v.5.2-2)}, \emph{effectsize(v.1.0.0)}, \emph{bestNormalize(v.1.9.1)}, \emph{berryFunctions(v.1.22.5)}, \emph{emmeans(v.1.10.7)}, \emph{lmerTest(v.3.1-3)}, \emph{lme4(v.1.1-36)}, \emph{Matrix(v.1.7-2)}, \emph{scales(v.1.3.0)}, \emph{psych(v.2.4.12)}, \emph{kableExtra(v.1.4.0)}, \emph{performance(v.0.13.0)}, \emph{PerformanceAnalytics(v.2.0.8)}, \emph{quantmod(v.0.4.26)}, \emph{TTR(v.0.24.4)}, \emph{xts(v.0.14.1)}, \emph{zoo(v.1.8-12)}, \emph{tidyquant(v.1.0.10)}, \emph{ggpubr(v.0.6.0)}, \emph{lubridate(v.1.9.4)}, \emph{forcats(v.1.0.0)}, \emph{stringr(v.1.5.1)}, \emph{dplyr(v.1.1.4)}, \emph{purrr(v.1.0.4)}, \emph{readr(v.2.1.5)}, \emph{tidyr(v.1.3.1)}, \emph{tibble(v.3.2.1)}, \emph{ggplot2(v.3.5.1)}, \emph{tidyverse(v.2.0.0)}, \emph{car(v.3.1-3)}, \emph{carData(v.3.0-5)}, \emph{ltm(v.1.2-0)}, \emph{polycor(v.0.8-1)}, \emph{msm(v.1.8.2)}, \emph{MASS(v.7.3-64)}, \emph{readxl(v.1.4.3)} and \emph{knitr(v.1.49)}
 
 \textbf{loaded via a namespace (and not attached):}
-\emph{rstudioapi(v.0.17.1)}, \emph{datawizard(v.1.0.0)}, \emph{magrittr(v.2.0.3)}, \emph{TH.data(v.1.1-3)}, \emph{estimability(v.1.5.1)}, \emph{farver(v.2.1.2)}, \emph{nloptr(v.2.1.1)}, \emph{rmarkdown(v.2.29)}, \emph{vctrs(v.0.6.5)}, \emph{minqa(v.1.2.8)}, \emph{base64enc(v.0.1-3)}, \emph{rstatix(v.0.7.2)}, \emph{butcher(v.0.3.4)}, \emph{htmltools(v.0.5.8.1)}, \emph{curl(v.6.2.0)}, \emph{broom(v.1.0.7)}, \emph{cellranger(v.1.1.0)}, \emph{Formula(v.1.2-5)}, \emph{parallelly(v.1.41.0)}, \emph{htmlwidgets(v.1.6.4)}, \emph{sandwich(v.3.1-1)}, \emph{admisc(v.0.37)}, \emph{lifecycle(v.1.0.4)}, \emph{iterators(v.1.0.14)}, \emph{pkgconfig(v.2.0.3)}, \emph{R6(v.2.5.1)}, \emph{fastmap(v.1.2.0)}, \emph{rbibutils(v.2.3)}, \emph{future(v.1.34.0)}, \emph{digest(v.0.6.37)}, \emph{numDeriv(v.2016.8-1.1)}, \emph{colorspace(v.2.1-1)}, \emph{labeling(v.0.4.3)}, \emph{timechange(v.0.3.0)}, \emph{mgcv(v.1.9-1)}, \emph{abind(v.1.4-8)}, \emph{compiler(v.4.4.2)}, \emph{rngtools(v.1.5.2)}, \emph{withr(v.3.0.2)}, \emph{doParallel(v.1.0.17)}, \emph{htmlTable(v.2.4.3)}, \emph{backports(v.1.5.0)}, \emph{ggsignif(v.0.6.4)}, \emph{lava(v.1.8.1)}, \emph{tools(v.4.4.2)}, \emph{foreign(v.0.8-88)}, \emph{RobStatTM(v.1.0.11)}, \emph{future.apply(v.1.11.3)}, \emph{nnet(v.7.3-20)}, \emph{glue(v.1.8.0)}, \emph{quadprog(v.1.5-8)}, \emph{nlme(v.3.1-167)}, \emph{grid(v.4.4.2)}, \emph{checkmate(v.2.3.2)}, \emph{cluster(v.2.1.8)}, \emph{see(v.0.10.0)}, \emph{generics(v.0.1.3)}, \emph{recipes(v.1.1.0)}, \emph{gtable(v.0.3.6)}, \emph{nortest(v.1.0-4)}, \emph{tzdb(v.0.4.0)}, \emph{class(v.7.3-23)}, \emph{data.table(v.1.16.4)}, \emph{hms(v.1.1.3)}, \emph{xml2(v.1.3.6)}, \emph{ggrepel(v.0.9.6)}, \emph{foreach(v.1.5.2)}, \emph{pillar(v.1.10.1)}, \emph{splines(v.4.4.2)}, \emph{lattice(v.0.22-6)}, \emph{survival(v.3.8-3)}, \emph{tidyselect(v.1.2.1)}, \emph{gridExtra(v.2.3)}, \emph{reformulas(v.0.4.0)}, \emph{bookdown(v.0.42)}, \emph{svglite(v.2.1.3)}, \emph{xfun(v.0.50)}, \emph{expm(v.1.0-0)}, \emph{hardhat(v.1.4.0)}, \emph{timeDate(v.4041.110)}, \emph{stringi(v.1.8.4)}, \emph{yaml(v.2.3.10)}, \emph{boot(v.1.3-31)}, \emph{evaluate(v.1.0.3)}, \emph{codetools(v.0.2-20)}, \emph{cli(v.3.6.3)}, \emph{rpart(v.4.1.24)}, \emph{parameters(v.0.24.1)}, \emph{xtable(v.1.8-4)}, \emph{systemfonts(v.1.2.1)}, \emph{Rdpack(v.2.6.2)}, \emph{munsell(v.0.5.1)}, \emph{Rcpp(v.1.0.14)}, \emph{globals(v.0.16.3)}, \emph{coda(v.0.19-4.1)}, \emph{parallel(v.4.4.2)}, \emph{gower(v.1.0.2)}, \emph{bayestestR(v.0.15.1)}, \emph{doRNG(v.1.8.6.1)}, \emph{listenv(v.0.9.1)}, \emph{viridisLite(v.0.4.2)}, \emph{mvtnorm(v.1.3-3)}, \emph{ipred(v.0.9-15)}, \emph{prodlim(v.2024.06.25)}, \emph{insight(v.1.0.1)}, \emph{rlang(v.1.1.5)}, \emph{cowplot(v.1.1.3)}, \emph{multcomp(v.1.4-28)} and \emph{mnormt(v.2.1.1)}
+\emph{rstudioapi(v.0.17.1)}, \emph{datawizard(v.1.0.0)}, \emph{magrittr(v.2.0.3)}, \emph{TH.data(v.1.1-3)}, \emph{estimability(v.1.5.1)}, \emph{farver(v.2.1.2)}, \emph{nloptr(v.2.1.1)}, \emph{rmarkdown(v.2.29)}, \emph{vctrs(v.0.6.5)}, \emph{minqa(v.1.2.8)}, \emph{base64enc(v.0.1-3)}, \emph{rstatix(v.0.7.2)}, \emph{butcher(v.0.3.4)}, \emph{htmltools(v.0.5.8.1)}, \emph{curl(v.6.2.0)}, \emph{broom(v.1.0.7)}, \emph{cellranger(v.1.1.0)}, \emph{Formula(v.1.2-5)}, \emph{parallelly(v.1.42.0)}, \emph{htmlwidgets(v.1.6.4)}, \emph{sandwich(v.3.1-1)}, \emph{admisc(v.0.37)}, \emph{lifecycle(v.1.0.4)}, \emph{iterators(v.1.0.14)}, \emph{pkgconfig(v.2.0.3)}, \emph{R6(v.2.5.1)}, \emph{fastmap(v.1.2.0)}, \emph{rbibutils(v.2.3)}, \emph{future(v.1.34.0)}, \emph{digest(v.0.6.37)}, \emph{numDeriv(v.2016.8-1.1)}, \emph{colorspace(v.2.1-1)}, \emph{labeling(v.0.4.3)}, \emph{timechange(v.0.3.0)}, \emph{abind(v.1.4-8)}, \emph{compiler(v.4.4.2)}, \emph{rngtools(v.1.5.2)}, \emph{withr(v.3.0.2)}, \emph{doParallel(v.1.0.17)}, \emph{htmlTable(v.2.4.3)}, \emph{backports(v.1.5.0)}, \emph{ggsignif(v.0.6.4)}, \emph{lava(v.1.8.1)}, \emph{tools(v.4.4.2)}, \emph{foreign(v.0.8-88)}, \emph{RobStatTM(v.1.0.11)}, \emph{future.apply(v.1.11.3)}, \emph{nnet(v.7.3-20)}, \emph{glue(v.1.8.0)}, \emph{quadprog(v.1.5-8)}, \emph{nlme(v.3.1-167)}, \emph{grid(v.4.4.2)}, \emph{checkmate(v.2.3.2)}, \emph{cluster(v.2.1.8)}, \emph{see(v.0.10.0)}, \emph{generics(v.0.1.3)}, \emph{recipes(v.1.1.0)}, \emph{gtable(v.0.3.6)}, \emph{nortest(v.1.0-4)}, \emph{tzdb(v.0.4.0)}, \emph{class(v.7.3-23)}, \emph{data.table(v.1.16.4)}, \emph{hms(v.1.1.3)}, \emph{xml2(v.1.3.6)}, \emph{foreach(v.1.5.2)}, \emph{pillar(v.1.10.1)}, \emph{splines(v.4.4.2)}, \emph{lattice(v.0.22-6)}, \emph{survival(v.3.8-3)}, \emph{tidyselect(v.1.2.1)}, \emph{gridExtra(v.2.3)}, \emph{reformulas(v.0.4.0)}, \emph{bookdown(v.0.42)}, \emph{svglite(v.2.1.3)}, \emph{xfun(v.0.50)}, \emph{expm(v.1.0-0)}, \emph{hardhat(v.1.4.1)}, \emph{timeDate(v.4041.110)}, \emph{stringi(v.1.8.4)}, \emph{yaml(v.2.3.10)}, \emph{boot(v.1.3-31)}, \emph{evaluate(v.1.0.3)}, \emph{codetools(v.0.2-20)}, \emph{cli(v.3.6.3)}, \emph{rpart(v.4.1.24)}, \emph{parameters(v.0.24.1)}, \emph{xtable(v.1.8-4)}, \emph{systemfonts(v.1.2.1)}, \emph{Rdpack(v.2.6.2)}, \emph{munsell(v.0.5.1)}, \emph{Rcpp(v.1.0.14)}, \emph{globals(v.0.16.3)}, \emph{coda(v.0.19-4.1)}, \emph{parallel(v.4.4.2)}, \emph{gower(v.1.0.2)}, \emph{bayestestR(v.0.15.2)}, \emph{doRNG(v.1.8.6.1)}, \emph{listenv(v.0.9.1)}, \emph{viridisLite(v.0.4.2)}, \emph{mvtnorm(v.1.3-3)}, \emph{ipred(v.0.9-15)}, \emph{prodlim(v.2024.06.25)}, \emph{insight(v.1.0.2)}, \emph{rlang(v.1.1.5)}, \emph{cowplot(v.1.1.3)}, \emph{multcomp(v.1.4-28)} and \emph{mnormt(v.2.1.1)}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
