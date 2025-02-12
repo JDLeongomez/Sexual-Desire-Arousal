@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.29)  11 FEB 2025 17:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.14)  12 FEB 2025 16:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **Sexual_Desire_Arousal_V2.tex
 (./Sexual_Desire_Arousal_V2.tex
-LaTeX2e <2024-11-01> patch level 1
-L3 programming layer <2024-12-25>
+LaTeX2e <2024-11-01>
+L3 programming layer <2024-11-02>
 (/home/jdl/.TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
 (/home/jdl/.TinyTeX/texmf-dist/tex/latex/base/size10.clo
@@ -95,7 +95,7 @@ LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
-Package: iftex 2024/12/12 v1.0g TeX engine tests
+Package: iftex 2022/02/03 v1.0f TeX engine tests
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
@@ -310,34 +310,28 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks29
 \@floatcapt=\box64
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
-Package: fancyhdr 2025/01/07 v5.1.1 Extensive control of page headers and footers
+Package: fancyhdr 2024/07/23 v4.3.1 Extensive control of page headers and footers
 \f@nch@headwidth=\skip64
-\f@nch@offset@elh=\skip65
-\f@nch@offset@erh=\skip66
-\f@nch@offset@olh=\skip67
-\f@nch@offset@orh=\skip68
-\f@nch@offset@elf=\skip69
-\f@nch@offset@erf=\skip70
-\f@nch@offset@olf=\skip71
-\f@nch@offset@orf=\skip72
-\f@nch@height=\skip73
-\f@nch@footalignment=\skip74
-\f@nch@widthL=\skip75
-\f@nch@widthC=\skip76
-\f@nch@widthR=\skip77
-\@temptokenb=\toks30
+\f@nch@O@elh=\skip65
+\f@nch@O@erh=\skip66
+\f@nch@O@olh=\skip67
+\f@nch@O@orh=\skip68
+\f@nch@O@elf=\skip69
+\f@nch@O@erf=\skip70
+\f@nch@O@olf=\skip71
+\f@nch@O@orf=\skip72
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/latex/hanging/hanging.sty
 Package: hanging 2009/09/02 v1.2b hanging paragraphs and punctuation
-\h@ngcommawd=\skip78
-\h@ngfstopwd=\skip79
-\h@ngquotewd=\skip80
-\h@ngdquotewd=\skip81
-\h@ngquerywd=\skip82
-\h@ngexclwd=\skip83
-\h@ngcolonwd=\skip84
-\h@ngscolonwd=\skip85
+\h@ngcommawd=\skip73
+\h@ngfstopwd=\skip74
+\h@ngquotewd=\skip75
+\h@ngdquotewd=\skip76
+\h@ngquerywd=\skip77
+\h@ngexclwd=\skip78
+\h@ngcolonwd=\skip79
+\h@ngscolonwd=\skip80
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2025/01/25 v25.2 The multilingual framework for pdfLaTeX, LuaLaTeX and XeLaTeX
+Package: babel 2024/11/08 v24.13 The multilingual framework for pdfLaTeX, LuaLaTeX and XeLaTeX
 \babel@savecnt=\count304
 \U@D=\dimen192
 \l@unhyphenated=\language8
@@ -365,7 +359,7 @@ Package: csquotes 2024-04-04 v5.2o context-sensitive quotations (JAW)
 \csq@qlevel=\count309
 \csq@maxlvl=\count310
 \csq@tshold=\count311
-\csq@ltx@everypar=\toks31
+\csq@ltx@everypar=\toks30
 (/home/jdl/.TinyTeX/texmf-dist/tex/latex/csquotes/csquotes.def
 File: csquotes.def 2024-04-04 v5.2o csquotes generic definitions (JAW)
 )
@@ -437,14 +431,14 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 \blx@sectionciteorderinternal@0=\count353
 \blx@entrysetcounter=\count354
 \blx@biblioinstance=\count355
-\labelnumberwidth=\skip86
-\labelalphawidth=\skip87
-\biblabelsep=\skip88
-\bibitemsep=\skip89
-\bibnamesep=\skip90
-\bibinitsep=\skip91
-\bibparsep=\skip92
-\bibhang=\skip93
+\labelnumberwidth=\skip81
+\labelalphawidth=\skip82
+\biblabelsep=\skip83
+\bibitemsep=\skip84
+\bibnamesep=\skip85
+\bibinitsep=\skip86
+\bibparsep=\skip87
+\bibhang=\skip88
 \blx@bcfin=\read4
 \blx@bcfout=\write4
 \blx@langwohyphens=\language9
@@ -541,20 +535,20 @@ Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
 \c@savedcitation=\count434
 \c@pageref=\count435
 \c@savedpageref=\count436
-\shorthandwidth=\skip94
-\shortjournalwidth=\skip95
-\shortserieswidth=\skip96
-\shorttitlewidth=\skip97
-\shortauthorwidth=\skip98
-\shorteditorwidth=\skip99
-\locallabelnumberwidth=\skip100
-\locallabelalphawidth=\skip101
-\localshorthandwidth=\skip102
-\localshortjournalwidth=\skip103
-\localshortserieswidth=\skip104
-\localshorttitlewidth=\skip105
-\localshortauthorwidth=\skip106
-\localshorteditorwidth=\skip107
+\shorthandwidth=\skip89
+\shortjournalwidth=\skip90
+\shortserieswidth=\skip91
+\shorttitlewidth=\skip92
+\shortauthorwidth=\skip93
+\shorteditorwidth=\skip94
+\locallabelnumberwidth=\skip95
+\locallabelalphawidth=\skip96
+\localshorthandwidth=\skip97
+\localshortjournalwidth=\skip98
+\localshortserieswidth=\skip99
+\localshorttitlewidth=\skip100
+\localshortauthorwidth=\skip101
+\localshorteditorwidth=\skip102
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
 (/home/jdl/.TinyTeX/texmf-dist/tex/latex/biblatex/blx-compat.def
@@ -624,14 +618,14 @@ File: biblatex.cfg
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Document encoding is UTF8 ....
 (/home/jdl/.TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2024-12-25 L3 programming layer (loader) 
+Package: expl3 2024-11-02 L3 programming layer (loader) 
 (/home/jdl/.TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count448
 \l__pdf_internal_box=\box65
 ))
 Package biblatex Info: ... and expl3
-(biblatex)             2024-12-25 L3 programming layer (loader) 
+(biblatex)             2024-11-02 L3 programming layer (loader) 
 (biblatex)             is new enough (at least 2020/04/06),
 (biblatex)             setting 'casechanger=expl3'.
 (/home/jdl/.TinyTeX/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty (/home/jdl/.TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
@@ -640,17 +634,17 @@ Package: xparse 2024-08-16 L3 Experimental document command parser
 Package: blx-case-expl3 2024/03/21 v3.20 expl3 case changing code for biblatex
 )) (/home/jdl/.TinyTeX/texmf-dist/tex/latex/amscls/amsthm.sty
 Package: amsthm 2020/05/29 v2.20.6
-\thm@style=\toks32
-\thm@bodyfont=\toks33
-\thm@headfont=\toks34
-\thm@notefont=\toks35
-\thm@headpunct=\toks36
-\thm@preskip=\skip108
-\thm@postskip=\skip109
-\thm@headsep=\skip110
-\dth@everypar=\toks37
+\thm@style=\toks31
+\thm@bodyfont=\toks32
+\thm@headfont=\toks33
+\thm@notefont=\toks34
+\thm@headpunct=\toks35
+\thm@preskip=\skip103
+\thm@postskip=\skip104
+\thm@headsep=\skip105
+\dth@everypar=\toks36
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (/home/jdl/.TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty (/home/jdl/.TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
-\pgfutil@everybye=\toks38
+\pgfutil@everybye=\toks37
 \pgfutil@tempdima=\dimen193
 \pgfutil@tempdimb=\dimen194
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
@@ -662,10 +656,10 @@ Package: pgf 2023-01-15 v3.1.10 (3.1.10)
 (/home/jdl/.TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty (/home/jdl/.TinyTeX/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
 Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
 (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks39
-\pgfkeys@temptoks=\toks40
+\pgfkeys@pathtoks=\toks38
+\pgfkeys@temptoks=\toks39
 (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered.code.tex
-\pgfkeys@tmptoks=\toks41
+\pgfkeys@tmptoks=\toks40
 ))
 \pgf@x=\dimen195
 \pgf@y=\dimen196
@@ -683,9 +677,9 @@ Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
 \c@pgf@countb=\count450
 \c@pgf@countc=\count451
 \c@pgf@countd=\count452
-\t@pgf@toka=\toks42
-\t@pgf@tokb=\toks43
-\t@pgf@tokc=\toks44
+\t@pgf@toka=\toks41
+\t@pgf@tokb=\toks42
+\t@pgf@tokc=\toks43
 \pgf@sys@id@count=\count453
 (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
@@ -707,9 +701,9 @@ Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
 \pgfmath@dimen=\dimen261
 \pgfmath@count=\count456
 \pgfmath@box=\box67
-\pgfmath@toks=\toks45
-\pgfmath@stack@operand=\toks46
-\pgfmath@stack@operation=\toks47
+\pgfmath@toks=\toks44
+\pgfmath@stack@operand=\toks45
+\pgfmath@stack@operation=\toks46
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
 \c@pgfmathroundto@lastzeros=\count457
 )) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfint.code.tex) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
@@ -792,8 +786,8 @@ Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
 Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
 \pgffor@iter=\dimen288
 \pgffor@skip=\dimen289
-\pgffor@stack=\toks48
-\pgffor@toks=\toks49
+\pgffor@stack=\toks47
+\pgffor@toks=\toks48
 )) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
 Package: tikz 2023-01-15 v3.1.10 (3.1.10)
 (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
@@ -847,8 +841,8 @@ Package: multicol 2024/09/14 v1.9i multicolumn formatting (FMi)
 \page@free=\dimen301
 \premulticols=\dimen302
 \postmulticols=\dimen303
-\multicolsep=\skip111
-\multicolbaselineskip=\skip112
+\multicolsep=\skip106
+\multicolbaselineskip=\skip107
 \partial@page=\box78
 \last@line=\box79
 \mc@boxedresult=\box80
@@ -990,7 +984,7 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
-\Hy@SectionHShift=\skip113
+\Hy@SectionHShift=\skip108
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarysvg.path.code.tex
 File: tikzlibrarysvg.path.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (/home/jdl/.TinyTeX/texmf-dist/tex/generic/pgf/libraries/pgflibrarysvg.path.code.tex
@@ -1006,12 +1000,12 @@ File: pgfmoduleparser.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgf@lib@svg@count=\count495
 \pgf@lib@svg@max@num=\count496
 ))
-\@curXheight=\skip114
+\@curXheight=\skip109
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
-\multirow@colwidth=\skip115
+\multirow@colwidth=\skip110
 \multirow@cntb=\count497
-\multirow@dima=\skip116
+\multirow@dima=\skip111
 \bigstrutjot=\dimen316
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
@@ -1020,12 +1014,12 @@ Package: setspace 2022/12/04 v6.7b set line spacing
 \WF@size=\dimen318
 \c@WF@wrappedlines=\count498
 \WF@box=\box123
-\WF@everypar=\toks50
+\WF@everypar=\toks49
 Package: wrapfig 2003/01/31  v 3.6
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2024/07/06 v1.0i Color table columns (DPC)
-\everycr=\toks51
-\minrowclearance=\skip117
+\everycr=\toks50
+\minrowclearance=\skip112
 \rownum=\count499
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
@@ -1059,13 +1053,13 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \abovetabulinesep=\dimen327
 \belowtabulinesep=\dimen328
 \tabustrutrule=\dimen329
-\tabu@thebody=\toks52
-\tabu@footnotes=\toks53
+\tabu@thebody=\toks51
+\tabu@footnotes=\toks52
 \tabu@box=\box125
 \tabu@arstrutbox=\box126
 \tabu@hleads=\box127
 \tabu@vleads=\box128
-\tabu@cellskip=\skip118
+\tabu@cellskip=\skip113
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/latex/threeparttable/threeparttable.sty
 Package: threeparttable 2003/06/13  v 3.0
 \@tempboxb=\box129
@@ -1076,12 +1070,12 @@ Package: environ 2014/05/04 v0.3 A new way to define environments
 (/home/jdl/.TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
-\TPTL@width=\skip119
+\TPTL@width=\skip114
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/generic/ulem/ulem.sty
 \UL@box=\box130
 \UL@hyphenbox=\box131
-\UL@skip=\skip120
-\UL@hook=\toks54
+\UL@skip=\skip115
+\UL@hook=\toks53
 \UL@height=\dimen330
 \UL@pe=\count507
 \UL@pixel=\dimen331
@@ -1092,7 +1086,7 @@ Package: ulem 2019/11/18
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \rotheadsize=\dimen333
 \c@nlinenum=\count508
-\TeXr@lab=\toks55
+\TeXr@lab=\toks54
 ) (/home/jdl/.TinyTeX/texmf-dist/tex/latex/bookmark/bookmark.sty
 Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
 (/home/jdl/.TinyTeX/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
@@ -1266,94 +1260,110 @@ File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 \openout6 = `Sexual_Desire_Arousal_V2.toc'.
 
 
+Overfull \vbox (0.74901pt too high) detected at line 229
+ []
+
+
 
 [2]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 252.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 253.
 
 
 [3]
 
-LaTeX Warning: Reference `hypothesis2' on page 4 undefined on input line 336.
+LaTeX Warning: Reference `hypothesis2' on page 4 undefined on input line 337.
 
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 344.
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 347.
 (/home/jdl/.TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 
-[4{/home/jdl/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/home/jdl/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
-Underfull \vbox (badness 10000) detected at line 456
+[4{/home/jdl/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}]
+Underfull \vbox (badness 10000) detected at line 436
  []
 
 
-Underfull \vbox (badness 10000) detected at line 456
+Underfull \vbox (badness 10000) detected at line 436
  []
 
 
 
-[5]
+[5{/home/jdl/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+Overfull \vbox (0.59381pt too high) detected at line 562
+ []
+
+
 
 [6]
-Underfull \vbox (badness 10000) detected at line 582
+Underfull \vbox (badness 10000) detected at line 562
  []
 
 
-Underfull \vbox (badness 10000) detected at line 582
+Underfull \vbox (badness 10000) detected at line 562
  []
 
 
 
 [7]
+Overfull \vbox (0.71559pt too high) detected at line 588
+ []
+
+
 
 [8]
 
 [9]
-Overfull \vbox (0.2509pt too high) detected at line 754
+Underfull \vbox (badness 10000) detected at line 734
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 734
  []
 
 
 
 [10]
-
-[11]
-Overfull \vbox (1.41463pt too high) detected at line 828
+Overfull \vbox (0.96173pt too high) detected at line 808
  []
 
 
 
-[12]
-<Sexual_Desire_Arousal_V2_files/figure-latex/sample-plot-1.pdf, id=180, 867.24pt x 505.89pt>
+[11]
+<Sexual_Desire_Arousal_V2_files/figure-latex/sample-plot-1.pdf, id=202, 867.24pt x 505.89pt>
 File: Sexual_Desire_Arousal_V2_files/figure-latex/sample-plot-1.pdf Graphic file (type pdf)
 <use Sexual_Desire_Arousal_V2_files/figure-latex/sample-plot-1.pdf>
-Package pdftex.def Info: Sexual_Desire_Arousal_V2_files/figure-latex/sample-plot-1.pdf  used on input line 832.
+Package pdftex.def Info: Sexual_Desire_Arousal_V2_files/figure-latex/sample-plot-1.pdf  used on input line 812.
 (pdftex.def)             Requested size: 500.48529pt x 291.94974pt.
 
 
+[12]
+
 [13 <./Sexual_Desire_Arousal_V2_files/figure-latex/sample-plot-1.pdf>]
-LaTeX Font Info:    Calculating math sizes for size <8.2> on input line 908.
+LaTeX Font Info:    Calculating math sizes for size <8.2> on input line 888.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8.2> on input line 908.
+(Font)              <8.2> on input line 888.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5.73996> on input line 908.
+(Font)              <5.73996> on input line 888.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <4.09999> on input line 908.
+(Font)              <4.09999> on input line 888.
 [14]
 
 [15]
-Underfull \vbox (badness 10000) detected at line 1092
+Underfull \vbox (badness 10000) detected at line 1072
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1092
+Underfull \vbox (badness 10000) detected at line 1072
  []
 
 
 
 [16]
-<Sexual_Desire_Arousal_V2_files/figure-latex/density-plot-1.pdf, id=207, 867.24pt x 650.43pt>
+<Sexual_Desire_Arousal_V2_files/figure-latex/density-plot-1.pdf, id=233, 867.24pt x 650.43pt>
 File: Sexual_Desire_Arousal_V2_files/figure-latex/density-plot-1.pdf Graphic file (type pdf)
 <use Sexual_Desire_Arousal_V2_files/figure-latex/density-plot-1.pdf>
-Package pdftex.def Info: Sexual_Desire_Arousal_V2_files/figure-latex/density-plot-1.pdf  used on input line 1096.
+Package pdftex.def Info: Sexual_Desire_Arousal_V2_files/figure-latex/density-plot-1.pdf  used on input line 1076.
 (pdftex.def)             Requested size: 500.48529pt x 375.36395pt.
 
 
@@ -1364,7 +1374,7 @@ Package pdftex.def Info: Sexual_Desire_Arousal_V2_files/figure-latex/density-plo
 [19
 
 {/home/jdl/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
-Overfull \vbox (0.67871pt too high) detected at line 1292
+Overfull \vbox (0.67871pt too high) detected at line 1272
  []
 
 
@@ -1374,80 +1384,79 @@ Overfull \vbox (0.67871pt too high) detected at line 1292
 ]
 
 [21]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1394.
+(/home/jdl/.TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
 
 [22{/home/jdl/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}]
 
 [23]
 
 [24]
-<Sexual_Desire_Arousal_V2_files/figure-latex/assu-m1a-1.pdf, id=270, 867.24pt x 289.08pt>
-File: Sexual_Desire_Arousal_V2_files/figure-latex/assu-m1a-1.pdf Graphic file (type pdf)
-<use Sexual_Desire_Arousal_V2_files/figure-latex/assu-m1a-1.pdf>
-Package pdftex.def Info: Sexual_Desire_Arousal_V2_files/figure-latex/assu-m1a-1.pdf  used on input line 1554.
+
+[25]
+<Sexual_Desire_Arousal_V2_files/figure-latex/ppc-m1a-1.pdf, id=310, 867.24pt x 289.08pt>
+File: Sexual_Desire_Arousal_V2_files/figure-latex/ppc-m1a-1.pdf Graphic file (type pdf)
+<use Sexual_Desire_Arousal_V2_files/figure-latex/ppc-m1a-1.pdf>
+Package pdftex.def Info: Sexual_Desire_Arousal_V2_files/figure-latex/ppc-m1a-1.pdf  used on input line 1641.
 (pdftex.def)             Requested size: 500.48529pt x 166.82841pt.
 
-Underfull \hbox (badness 2828) in paragraph at lines 1576--1578
+
+[26 <./Sexual_Desire_Arousal_V2_files/figure-latex/ppc-m1a-1.pdf>]
+
+[27]
+
+[28]
+
+[29]
+
+[30]
+<Sexual_Desire_Arousal_V2_files/figure-latex/fig-h1a-1.pdf, id=355, 867.24pt x 289.08pt>
+File: Sexual_Desire_Arousal_V2_files/figure-latex/fig-h1a-1.pdf Graphic file (type pdf)
+<use Sexual_Desire_Arousal_V2_files/figure-latex/fig-h1a-1.pdf>
+Package pdftex.def Info: Sexual_Desire_Arousal_V2_files/figure-latex/fig-h1a-1.pdf  used on input line 2003.
+(pdftex.def)             Requested size: 500.48529pt x 166.82841pt.
+
+
+[31]
+Underfull \hbox (badness 2828) in paragraph at lines 2025--2027
 \T1/lmr/m/it/10 Func-tions(v.1.22.5)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 em-means(v.1.10.7)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 lmerTest(v.3.1-3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 lme4(v.1.1-36)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 Matrix(v.1.7-2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 scales(v.1.3.0)\T1/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 1308) in paragraph at lines 1576--1578
+Underfull \hbox (badness 1308) in paragraph at lines 2025--2027
 \T1/lmr/m/it/10 verse(v.2.0.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 car(v.3.1-3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 carData(v.3.0-5)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 ltm(v.1.2-0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 polycor(v.0.8-1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 msm(v.1.8.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 MASS(v.7.3-64)\T1/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 4967) in paragraph at lines 1579--1581
-\T1/lmr/m/it/10 TH.data(v.1.1-3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 es-tim-ab-il-ity(v.1.5.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 farver(v.2.1.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 nloptr(v.2.1.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 rmark-down(v.2.29)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 vc-trs(v.0.6.5)\T1/lmr/m/n/10 ,
+Underfull \hbox (badness 1874) in paragraph at lines 2028--2030
+\T1/lmr/m/it/10 3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 es-tim-ab-il-ity(v.1.5.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 farver(v.2.1.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 nloptr(v.2.1.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 rmark-down(v.2.29)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 vc-trs(v.0.6.5)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 minqa(v.1.2.8)\T1/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1579--1581
-\T1/lmr/m/it/10 minqa(v.1.2.8)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 base64enc(v.0.1-3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 rstatix(v.0.7.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 butcher(v.0.3.4)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 htm-ltools(v.0.5.8.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 curl(v.6.2.0)\T1/lmr/m/n/10 ,
+Underfull \hbox (badness 4001) in paragraph at lines 2028--2030
+\T1/lmr/m/it/10 base64enc(v.0.1-3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 butcher(v.0.3.4)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 htm-ltools(v.0.5.8.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 curl(v.6.2.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 broom(v.1.0.7)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 cellranger(v.1.1.0)\T1/lmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 1584) in paragraph at lines 1579--1581
-\T1/lmr/m/it/10 ad-misc(v.0.37)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 li-fe-cycle(v.1.0.4)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 iter-at-ors(v.1.0.14)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 pkg-con-fig(v.2.0.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 R6(v.2.5.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 fast-map(v.1.2.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 rbib-
+Underfull \hbox (badness 4217) in paragraph at lines 2028--2030
+\T1/lmr/m/it/10 iter-at-ors(v.1.0.14)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 pkg-con-fig(v.2.0.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 R6(v.2.5.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 fast-map(v.1.2.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 rbib-utils(v.2.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 fu-ture(v.1.34.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 di-
  []
 
 
-Underfull \hbox (badness 2181) in paragraph at lines 1579--1581
-\T1/lmr/m/it/10 utils(v.2.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 fu-ture(v.1.34.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 di-gest(v.0.6.37)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 numDeriv(v.2016.8-1.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 colorspace(v.2.1-1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 la-beling(v.0.4.3)\T1/lmr/m/n/10 ,
- []
-
-
-Underfull \hbox (badness 2042) in paragraph at lines 1579--1581
-\T1/lmr/m/it/10 timechange(v.0.3.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 abind(v.1.4-8)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 com-piler(v.4.4.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 rng-tools(v.1.5.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 withr(v.3.0.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 doPa-r-al-lel(v.1.0.17)\T1/lmr/m/n/10 ,
- []
-
-
-Underfull \hbox (badness 1762) in paragraph at lines 1579--1581
-\T1/lmr/m/it/10 htm-lT-able(v.2.4.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 back-ports(v.1.5.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 gg-sig-nif(v.0.6.4)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 lava(v.1.8.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 tools(v.4.4.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 foreign(v.0.8-88)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 Rob-
- []
-
-
-Underfull \hbox (badness 4120) in paragraph at lines 1579--1581
-\T1/lmr/m/it/10 StatTM(v.1.0.11)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 fu-ture.apply(v.1.11.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 nnet(v.7.3-20)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 glue(v.1.8.0)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 quadprog(v.1.5-8)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 nlme(v.3.1-167)\T1/lmr/m/n/10 ,
- []
-
-
-Underfull \hbox (badness 1173) in paragraph at lines 1579--1581
-\T1/lmr/m/it/10 para-met-ers(v.0.24.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 xtable(v.1.8-4)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 sys-tem-fonts(v.1.2.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 Rd-pack(v.2.6.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 mun-sell(v.0.5.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 Rcpp(v.1.0.14)\T1/lmr/m/n/10 ,
- []
-
-
-Underfull \hbox (badness 2213) in paragraph at lines 1579--1581
-\T1/lmr/m/it/10 glob-als(v.0.16.3)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 coda(v.0.19-4.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 par-al-lel(v.4.4.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 gower(v.1.0.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 bayes-t-estR(v.0.15.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 doRNG(v.1.8.6.1)\T1/lmr/m/n/10 ,
+Underfull \hbox (badness 1675) in paragraph at lines 2028--2030
+\T1/lmr/m/it/10 gg-sig-nif(v.0.6.4)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 lava(v.1.8.1)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 tools(v.4.4.2)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 foreign(v.0.8-88)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 Rob-StatTM(v.1.0.11)\T1/lmr/m/n/10 , \T1/lmr/m/it/10 fu-ture.apply(v.1.11.3)\T1/lmr/m/n/10 ,
  []
 
 
 
-[25 <./Sexual_Desire_Arousal_V2_files/figure-latex/assu-m1a-1.pdf>]
+[32 <./Sexual_Desire_Arousal_V2_files/figure-latex/fig-h1a-1.pdf>]
 
-[26] (./Sexual_Desire_Arousal_V2.aux)
+[33] (./Sexual_Desire_Arousal_V2.aux)
  ***********
-LaTeX2e <2024-11-01> patch level 1
-L3 programming layer <2024-12-25>
+LaTeX2e <2024-11-01>
+L3 programming layer <2024-11-02>
  ***********
 
 LaTeX Warning: There were undefined references.
@@ -1457,18 +1466,18 @@ Package logreq Info: Writing requests to 'Sexual_Desire_Arousal_V2.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 36779 strings out of 475119
- 696311 string characters out of 5764637
- 1803437 words of memory out of 5000000
- 59069 multiletter control sequences out of 15000+600000
- 642705 words of font info for 101 fonts, out of 8000000 for 9000
+ 36740 strings out of 475263
+ 695867 string characters out of 5768616
+ 1801837 words of memory out of 5000000
+ 58863 multiletter control sequences out of 15000+600000
+ 646573 words of font info for 103 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 84i,16n,95p,2770b,8649s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri8.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on Sexual_Desire_Arousal_V2.pdf (26 pages, 736849 bytes).
+ 84i,20n,95p,2659b,8649s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri8.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></home/jdl/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
+Output written on Sexual_Desire_Arousal_V2.pdf (33 pages, 886727 bytes).
 PDF statistics:
- 500 PDF objects out of 1000 (max. 8388607)
- 429 compressed objects within 5 object streams
- 83 named destinations out of 1000 (max. 500000)
- 268 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 628 PDF objects out of 1000 (max. 8388607)
+ 543 compressed objects within 6 object streams
+ 109 named destinations out of 1000 (max. 500000)
+ 321 words of extra memory for PDF output out of 10000 (max. 10000000)
 
