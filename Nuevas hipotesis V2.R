@@ -167,6 +167,8 @@ predict_response(m2, terms = c("Stimuli sex", "Stimuli content", "Gender")) |>
 
 emmeans(m2, pairwise ~ `Stimuli content` | `Stimuli sex` + Gender)
 
+emmeans(m2, pairwise ~ `Stimuli sex` | `Stimuli content`  + Gender)
+
 ## Data----
 dat_m2 <- dat |>
   filter(`Stimuli content` == "Erotic")

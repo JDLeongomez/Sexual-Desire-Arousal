@@ -2139,11 +2139,10 @@ ggplot(dat, aes(x = `Stimuli sex`, y = `Subjective sexual arousal`,
                      tip.length = 0,
                      color = "Stimuli content",
                      position = position_dodge(0.9)) +
-  guides(color = "none") +
   theme_tq()
 ```
 
-Considering this, we tested all predictions of hypothesis 2 only on responses to erotic stimuli.
+Considering this, we tested all predictions of hypotheses 2 and 3 only on responses to erotic stimuli.
 
 ## Hypothesis 2: The association between trait sexual desire (TSD) and subjective sexual arousal (SSA) will vary by TSD dimension, with these associations being gender-specific in men and gender-non-specific in women. {#hyp2}
 
