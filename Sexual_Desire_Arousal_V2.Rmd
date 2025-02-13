@@ -157,7 +157,8 @@ library(emmeans)
 library(berryFunctions)
 library(bestNormalize)
 library(rstatix)
-#library(effectsize)
+library(effectsize)
+library(ggeffects)
 #library(gtsummary)
 #library(gt)
 #library(interactions)
@@ -266,9 +267,10 @@ Functions to bold significant *p* values from summary model tables. It highlight
 ```{r results = "hold"}
 # Version 1 for linear models (lm)
 anova.sig.lm <- function(model, custom_caption) {
-  aovTab <- anova_summary(Anova(model, type = 3)) |>
+  aovTab <- bind_cols(anova_summary(Anova(model, type = 3)),
+                      epsilon_squared(model)) |> 
     unite(col = "df", DFn:DFd, sep = ", ") |> 
-    select(-"p<.05") |> 
+    select(Effect, df, F, p, Epsilon2_partial) |> 
     mutate(p = pval.lev(p)) |> 
     mutate_at("Effect", str_replace_all, ":", " × ") |>
     kable(digits = 2,
@@ -276,18 +278,23 @@ anova.sig.lm <- function(model, custom_caption) {
           align = c("l", rep("c", 3)),
           linesep = "",
           caption = custom_caption,
-          col.names = c("Effect", "$df$", "$F$", "$p$", "$\\eta^2_G$"),
+          col.names = c("Effect", "$df$", "$F$", "$p$", "$\\epsilon^2_p$"),
           escape = FALSE) |>
     kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
     footnote(general = paste0("Sexual desire was transformed using an ordered quantile 
                               normalization 
                               (\\\\cite{petersonOrderedQuantileNormalization2020a}).
                               Results are type III ANOVA.
-                              Gender = participants gender (women, men); 
+                              $R^2$ = ",
+                              round(r2(model)$R2, 3),
+                              ", $R^2_{adjusted}$ = ",
+                              round(r2(model)$R2_adjusted, 3),
+                              ". Gender = participants gender (women, men); 
                               Relationship = relationship type (stable, single).
-                              As effect size, we used the generalized eta squared 
-                              ($\\\\eta^2_G$; see
-                              \\\\cite{bakemanRecommendedEffectSize2005}).
+                              As effect size, we report partial epsilon squared 
+                              ($\\\\epsilon^2_p$), which provides a less biases
+                              estimate than $\\\\eta^2$ (see
+                              \\\\cite{albersWhenPowerAnalyses2018}).
                               Significant effects are in bold."),
              escape = FALSE,
              threeparttable = TRUE,
@@ -297,31 +304,36 @@ anova.sig.lm <- function(model, custom_caption) {
 
 # Version 2 for linear mixed models (lmer)
 anova.sig.lmer <- function(model, custom_caption) {
-  aovTab <- anova(mod) |>
+  aovTab <- bind_cols(anova(model),
+                      epsilon_squared(model)) |>
     mutate(DenDF = round(DenDF, 2)) |> 
     unite(col = "df", NumDF:DenDF, sep = ", ") |> 
     rownames_to_column(var = "Effect") |> 
     rename("F" = "F value",
            "p" = "Pr(>F)") |> 
-    select(Effect, df, F, p) |> 
+    select(Effect, df, F, p, Epsilon2_partial) |> 
     mutate(p = pval.lev(p)) |> 
     mutate_at("Effect", str_replace_all, ":", " × ") |>
-    mutate_at("Effect", str_replace_all, "`", "")
-  kable(digits = 2,
-        booktabs = TRUE,
-        align = c("l", rep("c", 3)),
-        linesep = "",
-        caption = custom_caption,
-        col.names = c("Effect", "$df$", "$F$", "$p$"),
-        escape = FALSE) |>
+    mutate_at("Effect", str_replace_all, "`", "") |> 
+    kable(digits = 2,
+          booktabs = TRUE,
+          align = c("l", rep("c", 3)),
+          linesep = "",
+          caption = custom_caption,
+          col.names = c("Effect", "$df$", "$F$", "$p$", "$\\omega^2_p$"),
+          escape = FALSE) |>
     kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
     footnote(general = paste0("Results are type III ANOVA.
-                              Gender = participants gender (women, men); 
+                              $R^2_{conditional}$ = ",
+                              round(r2_nakagawa(model)$R2_conditional, 3),
+                              ", $R^2_{marginal}$ = ",
+                              round(r2_nakagawa(model)$R2_marginal, 3),
+                              ". Gender = participants gender (women, men); 
                               Stimuli sex = sex of each stimulus (male, female);
                               Stimuli content = content of each stimulus (erotic, non-erotic).
-                              As effect size, we used the generalized eta squared 
-                              ($\\\\eta^2_G$; see
-                              \\\\cite{bakemanRecommendedEffectSize2005}).
+                              As effect size, we report partial omega squared 
+                              ($\\\\omega^2_p$; see
+                              \\\\cite{albersWhenPowerAnalyses2018}).
                               Significant effects are in bold."),
              escape = FALSE,
              threeparttable = TRUE,
@@ -958,19 +970,19 @@ SSD.p <- dat.reli |>
 # Dyadic sexual desire (Attractive person)
 DSD.a <- dat.reli |>
   select(20:23) |> 
-  drop_na()|> 
+  drop_na() |> 
   cronbach.alpha(CI = TRUE, standardized = TRUE)
 
 # MGSS sexual satisfaction (General)
 MGSS.g <- dat.reli |>
   select(26:30) |> 
-  drop_na()|> 
+  drop_na() |> 
   cronbach.alpha(CI = TRUE, standardized = TRUE)
 
 # MGSS sexual satisfaction (Partner)
 MGSS.p <- dat.reli |>
   select(32:36) |> 
-  drop_na()|> 
+  drop_na() |> 
   cronbach.alpha(CI = TRUE, standardized = TRUE)
 ```
 
@@ -1092,13 +1104,16 @@ The table below presents Type III ANOVA results for each model. Significant effe
 
 ```{r message = FALSE}
 # Combine ANOVA results for all models
-anova_results <- bind_cols(anova_summary(Anova(ctl_SSD, type = 3)) |>
+anova_results <- bind_cols(bind_cols(anova_summary(Anova(ctl_SSD, type = 3)),
+                                     epsilon_squared(ctl_SSD)) |>
                              unite(col = "df", DFn:DFd, sep = ", "),
-                           anova_summary(Anova(ctl_PD, type = 3)) |>
+                           bind_cols(anova_summary(Anova(ctl_PD, type = 3)),
+                                     epsilon_squared(ctl_PD)) |>
                              unite(col = "df", DFn:DFd, sep = ", "),
-                           anova_summary(Anova(ctl_APD, type = 3)) |>
+                           bind_cols(anova_summary(Anova(ctl_APD, type = 3)),
+                                     epsilon_squared(ctl_APD)) |>
                              unite(col = "df", DFn:DFd, sep = ", ")) |>
-  select(-starts_with("p<.05")) |>  # Remove Sum of Squares columns
+  select(-starts_with(c("p<.05", "ges...", "Parameter...", "CI"))) |>  # Remove Sum of Squares columns
   mutate(across(starts_with("p..."), pval.lev)) |> # Format p-values
   rename(Effect = Effect...1) |> 
   select(-starts_with("Effect...")) |> 
@@ -1111,16 +1126,17 @@ anova_results |>
         digits = 3,
         caption = "Effects of relationship duration and MGSS sexual satisfaction (Partner) in 
                    sexual desire dimensions",
-        col.names = c("Effect", rep(c("$df$", "$F$", "$p$", "$\\eta^2_G$"), times = 3)),
+        col.names = c("Effect", rep(c("$df$", "$F$", "$p$", "$\\epsilon^2_p$"), times = 3)),
         escape = FALSE) |> 
   kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
   add_header_above(c(" " = 1, 
                      "Solitary sexual desire" = 4,
                      "Dyadic sexual desire\n(Partner)" = 4,
                      "Dyadic sexual desire\n(Attractive person)" = 4)) |>
-  footnote(general = "As effect size, we used the generalized eta squared 
-                     ($\\\\eta^2_G$; see
-                     \\\\cite{bakemanRecommendedEffectSize2005}).
+  footnote(general = "As effect size, we report partial epsilon squared
+                     ($\\\\epsilon^2_p$), which provides a less biases
+                     estimate than $\\\\eta^2$ (see
+                     \\\\cite{albersWhenPowerAnalyses2018}).
                      Significant effects are in bold.",
            threeparttable = TRUE,
            footnote_as_chunk = TRUE,
@@ -1402,26 +1418,22 @@ merge(emms.m1a3.tab, t.m1a3.f, by = 0, all = TRUE) |>
 
 This figure summarizes the results of hypothesis 1a.
 
-```{r fig-h1a, results = "hold", fig.height = 4, fig.cap = "Effects of gender and relationship type on solitary sexual desire. Solitary sexual desire was transformed using ordered quantile normalization [@petersonOrderedQuantileNormalization2020a]. **(a)** Simple comparison between sexual desire by gender (for detailed results, see Table \\@ref(tab:tab-m1a-emm1)); **(b)** Simple comparison between relationship status levels (for detailed results, see Table \\@ref(tab:tab-m1a-emm2)); **(c)** Interaction between relationship type and relationship status (see Table \\@ref(tab:tab-m1a); for detailed results, see Table \\@ref(tab:tab-m1a-emm3)). White dots and black bars represent estimated marginal means and 95% CI. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
+```{r fig-h1a, results = "hold", fig.height = 4, fig.cap = "Effects of gender and relationship type on solitary sexual desire. Solitary sexual desire was transformed using ordered quantile normalization [@petersonOrderedQuantileNormalization2020a]. **(a)** Simple comparison between sexual desire by gender (for detailed results, see Table \\@ref(tab:tab-m1a-emm1)); **(b)** Simple comparison between relationship status levels (for detailed results, see Table \\@ref(tab:tab-m1a-emm2)); **(c)** Interaction between relationship type and relationship status (see Table \\@ref(tab:tab-m1a); for detailed results, see Table \\@ref(tab:tab-m1a-emm3)). Dots and bars represent estimated marginal means and 95% CI. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
 # Gender main effect
 h1a1 <- ggplot(dat_m1, aes(x = Gender, y = `Solitary sexual desire (normalized)`, 
                           color = Gender)) +
-  geom_violin(trim = FALSE) +
-  geom_jitter(alpha = 0.3, width = 0.1) +
   scale_color_manual(values = color.Gender) +
   scale_fill_manual(values = color.Gender) +
-  geom_errorbar(data = emms.m1a1.tab |> 
-                  rename('Solitary sexual desire (normalized)' = emmean),
-                mapping = aes(ymin = lower.CL, ymax = upper.CL), 
-                colour = "black", width = 0.1) +
+  geom_linerange(data = emms.m1a1.tab |> 
+                  rename("Solitary sexual desire (normalized)" = emmean),
+                mapping = aes(ymin = lower.CL, ymax = upper.CL)) +
   geom_point(data = emms.m1a1.tab |> 
-                  rename('Solitary sexual desire (normalized)' = emmean), 
+                  rename("Solitary sexual desire (normalized)" = emmean), 
              position = position_dodge(0.1), 
-             shape = 21, size = 3,
-             color = "black", fill = "white") +
+             size = 3) +
   stat_pvalue_manual(t.m1a1, 
                      label = "p.signif", 
-                     y.position = 3.5, 
+                     y.position = 0.55, 
                      tip.length = 0) +
   guides(color = "none") +
   theme_tq()
@@ -1429,22 +1441,18 @@ h1a1 <- ggplot(dat_m1, aes(x = Gender, y = `Solitary sexual desire (normalized)`
 # Relationship main effect
 h1a2 <- ggplot(dat_m1, aes(x = Relationship, y = `Solitary sexual desire (normalized)`, 
                           color = Relationship)) +
-  geom_violin(trim = FALSE) +
-  geom_jitter(alpha = 0.3, width = 0.1) +
   scale_color_manual(values = color.Relationship) +
   scale_fill_manual(values = color.Relationship) +
-  geom_errorbar(data = emms.m1a2.tab |> 
-                  rename('Solitary sexual desire (normalized)' = emmean),
-                mapping = aes(ymin = lower.CL, ymax = upper.CL), 
-                colour = "black", width = 0.1) +
+  geom_linerange(data = emms.m1a2.tab |> 
+                  rename("Solitary sexual desire (normalized)" = emmean),
+                mapping = aes(ymin = lower.CL, ymax = upper.CL)) +
   geom_point(data = emms.m1a2.tab |> 
-                  rename('Solitary sexual desire (normalized)' = emmean), 
+                  rename("Solitary sexual desire (normalized)" = emmean), 
              position = position_dodge(0.1), 
-             shape = 21, size = 3,
-             color = "black", fill = "white") +
+             size = 3) +
   stat_pvalue_manual(t.m1a2, 
                      label = "p.signif", 
-                     y.position = 3.5, 
+                     y.position = 0.45, 
                      tip.length = 0) +
   guides(color = "none") +
   theme_tq()
@@ -1452,23 +1460,21 @@ h1a2 <- ggplot(dat_m1, aes(x = Relationship, y = `Solitary sexual desire (normal
 # Relationship × Gender interaction
 h1a3 <- ggplot(dat_m1, aes(x = Gender, y = `Solitary sexual desire (normalized)`, 
                            color = Gender)) +
-  geom_violin(trim = FALSE) +
-  geom_jitter(alpha = 0.3, width = 0.1) +
   scale_color_manual(values = color.Gender) +
   scale_fill_manual(values = color.Gender) +
   facet_wrap(~Relationship) +
-  geom_errorbar(data = emms.m1a3.tab |> 
-                  rename('Solitary sexual desire (normalized)' = emmean), 
-                mapping = aes(ymin = lower.CL, ymax = upper.CL), 
-                colour = "black", width = 0.1) +
-  geom_point(data = emms.m1a3.tab|> 
-                  rename('Solitary sexual desire (normalized)' = emmean), 
+  geom_linerange(data = emms.m1a3.tab |> 
+                  rename("Solitary sexual desire (normalized)" = emmean), 
+                mapping = aes(ymin = lower.CL, ymax = upper.CL)) +
+                
+  geom_point(data = emms.m1a3.tab |> 
+                  rename("Solitary sexual desire (normalized)" = emmean), 
              position = position_dodge(0.1), 
-             shape = 21, size = 3,
-             color = "black", fill = "white") +
+             size = 3) +
+             
   stat_pvalue_manual(t.m1a3, 
                      label = "p.signif", 
-                     y.position = 3.5, 
+                     y.position = 0.7, 
                      tip.length = 0) +
   guides(color = "none") +
   theme_tq()
@@ -1683,26 +1689,24 @@ merge(emms.m1b3.tab, t.m1b3.f, by = 0, all = TRUE) |>
 
 This figure summarizes the results of hypothesis 1b.
 
-```{r fig-h1b, results = "hold", fig.height = 4, fig.cap = "Effects of gender and relationship type on Dyadic sexual desire: Attractive person. Dyadic sexual desire: Attractive person was transformed using ordered quantile normalization [@petersonOrderedQuantileNormalization2020a]. **(a)** Simple comparison between sexual desire by gender (for detailed results, see Table \\@ref(tab:tab-m1b-emm1)); **(b)** Simple comparison between relationship status levels (for detailed results, see Table \\@ref(tab:tab-m1b-emm2)); **(c)** Interaction between relationship type and relationship status (see Table \\@ref(tab:tab-m1b); for detailed results, see Table \\@ref(tab:tab-m1b-emm3)). White dots and black bars represent estimated marginal means and 95% CI. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
+```{r fig-h1b, results = "hold", fig.height = 4, fig.cap = "Effects of gender and relationship type on Dyadic sexual desire: Attractive person. Dyadic sexual desire: Attractive person was transformed using ordered quantile normalization [@petersonOrderedQuantileNormalization2020a]. **(a)** Simple comparison between sexual desire by gender (for detailed results, see Table \\@ref(tab:tab-m1b-emm1)); **(b)** Simple comparison between relationship status levels (for detailed results, see Table \\@ref(tab:tab-m1b-emm2)); **(c)** Interaction between relationship type and relationship status (see Table \\@ref(tab:tab-m1b); for detailed results, see Table \\@ref(tab:tab-m1b-emm3)). Dots and bars represent estimated marginal means and 95% CI. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
 # Gender main effect
 h1b1 <- ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Attractive person (normalized)`, 
                           color = Gender)) +
-  geom_violin(trim = FALSE) +
-  geom_jitter(alpha = 0.3, width = 0.1) +
   scale_color_manual(values = color.Gender) +
   scale_fill_manual(values = color.Gender) +
-  geom_errorbar(data = emms.m1b1.tab |> 
-                  rename('Dyadic sexual desire: Attractive person (normalized)' = emmean),
-                mapping = aes(ymin = lower.CL, ymax = upper.CL), 
-                colour = "black", width = 0.1) +
+  geom_linerange(data = emms.m1b1.tab |> 
+                  rename("Dyadic sexual desire: Attractive person (normalized)" = emmean),
+                mapping = aes(ymin = lower.CL, ymax = upper.CL)) +
+                
   geom_point(data = emms.m1b1.tab |> 
-                  rename('Dyadic sexual desire: Attractive person (normalized)' = emmean), 
+                  rename("Dyadic sexual desire: Attractive person (normalized)" = emmean), 
              position = position_dodge(0.1), 
-             shape = 21, size = 3,
-             color = "black", fill = "white") +
+             size = 3) +
+             
   stat_pvalue_manual(t.m1b1, 
                      label = "p.signif", 
-                     y.position = 3.5, 
+                     y.position = 0.6, 
                      tip.length = 0) +
   guides(color = "none") +
   theme_tq()
@@ -1710,22 +1714,20 @@ h1b1 <- ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Attractive per
 # Relationship main effect
 h1b2 <- ggplot(dat_m1, aes(x = Relationship, y = `Dyadic sexual desire: Attractive person (normalized)`, 
                           color = Relationship)) +
-  geom_violin(trim = FALSE) +
-  geom_jitter(alpha = 0.3, width = 0.1) +
   scale_color_manual(values = color.Relationship) +
   scale_fill_manual(values = color.Relationship) +
-  geom_errorbar(data = emms.m1b2.tab |> 
-                  rename('Dyadic sexual desire: Attractive person (normalized)' = emmean),
-                mapping = aes(ymin = lower.CL, ymax = upper.CL), 
-                colour = "black", width = 0.1) +
+  geom_linerange(data = emms.m1b2.tab |> 
+                  rename("Dyadic sexual desire: Attractive person (normalized)" = emmean),
+                mapping = aes(ymin = lower.CL, ymax = upper.CL)) +
+                
   geom_point(data = emms.m1b2.tab |> 
-                  rename('Dyadic sexual desire: Attractive person (normalized)' = emmean), 
+                  rename("Dyadic sexual desire: Attractive person (normalized)" = emmean), 
              position = position_dodge(0.1), 
-             shape = 21, size = 3,
-             color = "black", fill = "white") +
+             size = 3) +
+             
   stat_pvalue_manual(t.m1b2, 
                      label = "p.signif", 
-                     y.position = 3.5, 
+                     y.position = 0.45, 
                      tip.length = 0) +
   guides(color = "none") +
   theme_tq()
@@ -1733,23 +1735,21 @@ h1b2 <- ggplot(dat_m1, aes(x = Relationship, y = `Dyadic sexual desire: Attracti
 # Relationship × Gender interaction
 h1b3 <- ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Attractive person (normalized)`, 
                            color = Gender)) +
-  geom_violin(trim = FALSE) +
-  geom_jitter(alpha = 0.3, width = 0.1) +
   scale_color_manual(values = color.Gender) +
   scale_fill_manual(values = color.Gender) +
   facet_wrap(~Relationship) +
-  geom_errorbar(data = emms.m1b3.tab |> 
-                  rename('Dyadic sexual desire: Attractive person (normalized)' = emmean), 
-                mapping = aes(ymin = lower.CL, ymax = upper.CL), 
-                colour = "black", width = 0.1) +
-  geom_point(data = emms.m1b3.tab|> 
-                  rename('Dyadic sexual desire: Attractive person (normalized)' = emmean), 
+  geom_linerange(data = emms.m1b3.tab |> 
+                  rename("Dyadic sexual desire: Attractive person (normalized)" = emmean), 
+                mapping = aes(ymin = lower.CL, ymax = upper.CL)) +
+                
+  geom_point(data = emms.m1b3.tab |> 
+                  rename("Dyadic sexual desire: Attractive person (normalized)" = emmean), 
              position = position_dodge(0.1), 
-             shape = 21, size = 3,
-             color = "black", fill = "white") +
+             size = 3) +
+             
   stat_pvalue_manual(t.m1b3, 
                      label = "p.signif", 
-                     y.position = 3.5, 
+                     y.position = c(0.6, 0.7), 
                      tip.length = 0) +
   guides(color = "none") +
   theme_tq()
@@ -1915,7 +1915,7 @@ t.m1c3 <- contr.stars(emms.m1c3) |>
 
 t.m1c3.f <- t.m1c3 |> 
   insertRows(2, new = NA) |>
-insertRows(4, new = NA)
+  insertRows(4, new = NA)
 
 merge(emms.m1c3.tab, t.m1c3.f, by = 0, all = TRUE) |>
   select(-c(1,3,11,17)) |> 
@@ -1964,26 +1964,22 @@ merge(emms.m1c3.tab, t.m1c3.f, by = 0, all = TRUE) |>
 
 This figure summarizes the results of hypothesis 1c.
 
-```{r fig-h1c, results = "hold", fig.height = 4, fig.cap = "Effects of gender and relationship type on Dyadic sexual desire: Partner. Dyadic sexual desire: Partner was transformed using ordered quantile normalization [@petersonOrderedQuantileNormalization2020a]. **(a)** Simple comparison between sexual desire by gender (for detailed results, see Table \\@ref(tab:tab-m1c-emm1)); **(b)** Simple comparison between relationship status levels (for detailed results, see Table \\@ref(tab:tab-m1c-emm2)); **(c)** Interaction between relationship type and relationship status (see Table \\@ref(tab:tab-m1c); for detailed results, see Table \\@ref(tab:tab-m1c-emm3)). White dots and black bars represent estimated marginal means and 95% CI. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
+```{r fig-h1c, results = "hold", fig.height = 4, fig.cap = "Effects of gender and relationship type on Dyadic sexual desire: Partner. Dyadic sexual desire: Partner was transformed using ordered quantile normalization [@petersonOrderedQuantileNormalization2020a]. **(a)** Simple comparison between sexual desire by gender (for detailed results, see Table \\@ref(tab:tab-m1c-emm1)); **(b)** Simple comparison between relationship status levels (for detailed results, see Table \\@ref(tab:tab-m1c-emm2)); **(c)** Interaction between relationship type and relationship status (see Table \\@ref(tab:tab-m1c); for detailed results, see Table \\@ref(tab:tab-m1c-emm3)). Dots and bars represent estimated marginal means and 95% CI. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
 # Gender main effect
 h1c1 <- ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Partner (normalized)`, 
-                          color = Gender)) +
-  geom_violin(trim = FALSE) +
-  geom_jitter(alpha = 0.3, width = 0.1) +
+                           color = Gender)) +
   scale_color_manual(values = color.Gender) +
   scale_fill_manual(values = color.Gender) +
-  geom_errorbar(data = emms.m1c1.tab |> 
-                  rename('Dyadic sexual desire: Partner (normalized)' = emmean),
-                mapping = aes(ymin = lower.CL, ymax = upper.CL), 
-                colour = "black", width = 0.1) +
+  geom_linerange(data = emms.m1c1.tab |> 
+                   rename("Dyadic sexual desire: Partner (normalized)" = emmean),
+                 mapping = aes(ymin = lower.CL, ymax = upper.CL)) +
   geom_point(data = emms.m1c1.tab |> 
-                  rename('Dyadic sexual desire: Partner (normalized)' = emmean), 
+               rename("Dyadic sexual desire: Partner (normalized)" = emmean), 
              position = position_dodge(0.1), 
-             shape = 21, size = 3,
-             color = "black", fill = "white") +
+             size = 3) +
   stat_pvalue_manual(t.m1c1, 
                      label = "p.signif", 
-                     y.position = 3.5, 
+                     y.position = 0.4, 
                      tip.length = 0) +
   guides(color = "none") +
   theme_tq()
@@ -1991,22 +1987,18 @@ h1c1 <- ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Partner (norma
 # Relationship main effect
 h1c2 <- ggplot(dat_m1, aes(x = Relationship, y = `Dyadic sexual desire: Partner (normalized)`, 
                           color = Relationship)) +
-  geom_violin(trim = FALSE) +
-  geom_jitter(alpha = 0.3, width = 0.1) +
   scale_color_manual(values = color.Relationship) +
   scale_fill_manual(values = color.Relationship) +
-  geom_errorbar(data = emms.m1c2.tab |> 
-                  rename('Dyadic sexual desire: Partner (normalized)' = emmean),
-                mapping = aes(ymin = lower.CL, ymax = upper.CL), 
-                colour = "black", width = 0.1) +
+  geom_linerange(data = emms.m1c2.tab |> 
+                  rename("Dyadic sexual desire: Partner (normalized)" = emmean),
+                mapping = aes(ymin = lower.CL, ymax = upper.CL)) +
   geom_point(data = emms.m1c2.tab |> 
-                  rename('Dyadic sexual desire: Partner (normalized)' = emmean), 
+                  rename("Dyadic sexual desire: Partner (normalized)" = emmean), 
              position = position_dodge(0.1), 
-             shape = 21, size = 3,
-             color = "black", fill = "white") +
+             size = 3) +
   stat_pvalue_manual(t.m1c2, 
                      label = "p.signif", 
-                     y.position = 3.5, 
+                     y.position = 0.5, 
                      tip.length = 0) +
   guides(color = "none") +
   theme_tq()
@@ -2014,23 +2006,19 @@ h1c2 <- ggplot(dat_m1, aes(x = Relationship, y = `Dyadic sexual desire: Partner 
 # Relationship × Gender interaction
 h1c3 <- ggplot(dat_m1, aes(x = Gender, y = `Dyadic sexual desire: Partner (normalized)`, 
                            color = Gender)) +
-  geom_violin(trim = FALSE) +
-  geom_jitter(alpha = 0.3, width = 0.1) +
   scale_color_manual(values = color.Gender) +
   scale_fill_manual(values = color.Gender) +
   facet_wrap(~Relationship) +
-  geom_errorbar(data = emms.m1c3.tab |> 
-                  rename('Dyadic sexual desire: Partner (normalized)' = emmean), 
-                mapping = aes(ymin = lower.CL, ymax = upper.CL), 
-                colour = "black", width = 0.1) +
-  geom_point(data = emms.m1c3.tab|> 
-                  rename('Dyadic sexual desire: Partner (normalized)' = emmean), 
+  geom_linerange(data = emms.m1c3.tab |> 
+                  rename("Dyadic sexual desire: Partner (normalized)" = emmean), 
+                mapping = aes(ymin = lower.CL, ymax = upper.CL)) +
+  geom_point(data = emms.m1c3.tab |> 
+                  rename("Dyadic sexual desire: Partner (normalized)" = emmean), 
              position = position_dodge(0.1), 
-             shape = 21, size = 3,
-             color = "black", fill = "white") +
+             size = 3) +
   stat_pvalue_manual(t.m1c3, 
                      label = "p.signif", 
-                     y.position = 3.5, 
+                     y.position = c(0.8, 0.2), 
                      tip.length = 0) +
   guides(color = "none") +
   theme_tq()
@@ -2043,6 +2031,120 @@ p1c <- ggarrange(h1c1, h1c2, h1c3,
 p1c
 ```
 
+## Data filtering for hypotheses 2 and 3
+
+To avoid over-complicating the model, first we tested whether the effects on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic). This was, in fact, the case:
+
+```{r tab-m-stimuli-content, message = FALSE}
+m_stim_cont <- lmer(`Subjective sexual arousal` ~ 
+             Gender * `Stimuli sex` * `Stimuli content` +
+             (1 | `Stimuli code`) +
+             (1 + `Stimuli content` | Participant),
+           data = dat,
+           control = lmerControl(optimizer = "bobyqa"))
+
+anova.sig.lmer(model = m_stim_cont, custom_caption = "Effects of relationship type and gender on 
+          Dyadic sexual desire: Partner")
+```
+
+```{r tab-stim-cont-emms, message = FALSE}
+emms.stim_cont <- emmeans(m_stim_cont, pairwise ~ `Stimuli sex` | `Stimuli content`  + Gender,
+                    adjust = "bonferroni",
+                    lmer.df = "satterthwaite")
+
+emms.stim_cont.tab <- tibble(data.frame(emms.stim_cont$emmeans))|> 
+  rename("Subjective sexual arousal" = emmean,
+         "Stimuli content" = Stimuli.content,
+         "Stimuli sex" = Stimuli.sex)
+
+t.stim_cont <- contr.stars(emms.stim_cont) |> 
+  mutate(p.value = pval.lev(p.value))
+
+t.stim_cont.f <- t.stim_cont |> 
+  insertRows(2, new = NA) |>
+  insertRows(4, new = NA) |> 
+  insertRows(6, new = NA) |> 
+  insertRows(8, new = NA)
+
+merge(emms.stim_cont.tab, t.stim_cont.f, by = 0, all = TRUE) |>
+  select(-c(1,3,4,12,13,19)) |> 
+  drop_na("Stimuli sex") |> 
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", " ") |> 
+  kable(digits = 2,
+          booktabs = TRUE,
+          align = c("l", "l", rep("c", 5), "l", rep("c", 5)),
+          linesep = "",
+          caption = "Estimated marginal means for the three dimensions of sexual desire by
+        relationship status",
+          col.names = c("Stimuli sex",
+                        "EMM",
+                        "$SE$",
+                        "$df$",
+                        "$2.5\\% CI$",
+                        "$97.5\\% CI$",
+                        "Contrast",
+                        "Difference",
+                        "$SE$",
+                        "$df$",
+                        "$z$",
+                        "$p$"),
+          escape = FALSE) |>
+  pack_rows(group_label = "Gender: Women - Stimuli content: Erotic",
+            start_row = 1,
+            end_row = 2,
+            bold = TRUE) |>
+  pack_rows(group_label = "Gender: Women - Stimuli content: Non-erotic",
+            start_row = 3,
+            end_row = 4,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  pack_rows(group_label = "Gender: Men - Stimuli content: Erotic",
+            start_row = 5,
+            end_row = 6,
+            hline_before = TRUE,
+            bold = TRUE) |>
+  pack_rows(group_label = "Gender: Men - Stimuli content: Non-erotic",
+            start_row = 7,
+            end_row = 8,
+            bold = TRUE) |>
+  add_header_above(c(" " = 6, "Contrasts" = 6)) |> 
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(general = "EMM = estimated marginal mean.
+           Degrees of freedom ($df$) are asymptotic.
+           Bonferroni adjustment was used.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+
+
+```{r fig-m-stimuli-content, results = "hold", fig.height = 4, fig.width = 8, fig.cap = "Effects of stimuli content (erotic, non-erotic) on subjective sexual arousal for women's (left panel) and men's (right panel) scores of male and female stimuli (see Table \\@ref(tab:tab-m-stimuli-content); for detailed results, see Table \\@ref(tab:tab-stim-cont-emms)). Dots and bars represent estimated marginal means and 95% CI. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
+# Gender main effect
+ggplot(dat, aes(x = `Stimuli sex`, y = `Subjective sexual arousal`, 
+                color = `Stimuli content`)) +
+  facet_wrap(~Gender) +
+  scale_color_manual(values = color.Gender) +
+  scale_fill_manual(values = color.Gender) +
+  geom_linerange(data = emms.stim_cont.tab,
+                 mapping = aes(ymin = asymp.LCL, ymax = asymp.UCL),
+                 position = position_dodge(0.9)) + 
+  geom_point(data = emms.stim_cont.tab, 
+             position = position_dodge(0.9), 
+             size = 3) +
+  stat_pvalue_manual(t.stim_cont, 
+                     label = "p.signif", 
+                     y.position = c(2.7, 3, 4.1, 3), 
+                     tip.length = 0,
+                     color = "Stimuli content",
+                     position = position_dodge(0.9)) +
+  guides(color = "none") +
+  theme_tq()
+```
+
+Considering this, we tested all predictions of hypothesis 2 only on responses to erotic stimuli.
+
 ## Hypothesis 2: The association between trait sexual desire (TSD) and subjective sexual arousal (SSA) will vary by TSD dimension, with these associations being gender-specific in men and gender-non-specific in women. {#hyp2}
 
 We tested whether the slope of SSA as predictor of sexual desire varies for each of the three dimensions of TSD (H1a: Solitary TSD; H1b: Dyadic TSD toward an attractive person; H1c: Dyadic TSD toward a partner), depending on the gender of the participants and the sex of the stimuli. The prediction was specific for each TSD dimension:
@@ -2051,24 +2153,7 @@ We tested whether the slope of SSA as predictor of sexual desire varies for each
 * **H2b**: A significant association between dyadic TSD toward an attractive person and SSA toward erotic stimuli.
 * **H2c**: No significant association between dyadic TSD toward a partner and SSA toward erotic stimuli.
 
-To avoid over-complicating the model, first we tested whether the effects on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic). This was, in fact, the case:
-
-```{r}
-m2 <- lmer(`Subjective sexual arousal` ~ 
-             Gender * `Stimuli sex` * `Stimuli content` +
-             (1 | `Stimuli code`) +
-             (1 + `Stimuli content` | Participant),
-           data = dat,
-           control = lmerControl(optimizer = "bobyqa"))
-
-anova.sig.lmer(model = m2, custom_caption = "Effects of relationship type and gender on 
-          Dyadic sexual desire: Partner")
-```
-
-Considering this, we tested all predictions of hypothesis 2 only on responses to erotic stimuli.
-
-
-To examine this hypothesis, we modeled the effects of SSA, gender, stimulus sex, and their interactions, on each of the three TSD scores. We included random intercepts for each stimuls, as well as random intercepts and slopes of stimuli sex for each participant. 
+To examine this hypothesis, we modeled the effects of SSA, gender, stimulus sex, and their interactions, on each of the three TSD scores. We included random intercepts for each stimulus, as well as random intercepts and slopes of stimuli sex for each participant. 
 
 However, models using the original TSD scores did not meet the assumption of normally distributed residuals. To address this, we applied an ordered normalization transformation to each TSD variable. We then fitted and compared models predicting both the original (as a proportion, to make scores comparable) and transformed (normalized) TSD dimensions. In all three cases, models using the normalized variables provided a better fit, so all inferences are based on these models.
 
@@ -2112,7 +2197,7 @@ dat_m1 <- dat_m1 |>
 
 #### Model the effects of relationship type and gender on Solitary TSD
 
-We fitted models with both the original (proportion; `m1a_prop`) and transformed (normalized; `m1a_norm`) TSD scores, and performed posterior predictive checks (PPCs). As shown elsewhere [e.g., @gabryVisualizationBayesianWorkflow2019], if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
+We fitted models with both the original (proportion; `m1a_prop`) and transformed (normalized; `m1a_norm`) TSD scores, and performed posterior predictive checks (PPCs) to select the best model. As shown elsewhere [e.g., @gabryVisualizationBayesianWorkflow2019], if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
 
 ```{r}
 options(contrasts = c("contr.sum","contr.poly"))
