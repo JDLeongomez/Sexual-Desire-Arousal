@@ -147,15 +147,15 @@
 \makeatother
 \subtitle{Code and analyses}
 \author{Milena Vásquez-Amézquita \orcidlink{0000-0001-7317-8430}\textsuperscript{1,2,3,4,*} \and Juan David Leongómez \orcidlink{0000-0002-0092-6298}\textsuperscript{2,4} \and Marina Begoña Martínez-González \orcidlink{0000-0002-5840-6383}\textsuperscript{1} \and Meredith L. Chivers \orcidlink{0000-0002-5495-9263}\textsuperscript{5}}
-\date{12 February, 2025}
+\date{13 February, 2025}
 
 \begin{document}
 \maketitle
 
-\textsuperscript{1} Departamento de Ciencias Sociales, Universidad de la Costa, Barranquilla, 080002, Colombia.\\
-\textsuperscript{2} Facultad de Psicología, Universidad El Bosque, Bogotá, 110121, Colombia.\\
-\textsuperscript{3} Grupo de Investigación en Cultura, Educación y Sociedad, Universidad de la Costa, Barranquilla, 080002, Colombia.\\
-\textsuperscript{4} CODEC: Ciencias Cognitivas y del Comportamiento, Universidad El Bosque, Bogotá, 110121, Colombia.\\
+\textsuperscript{1} Departamento de Ciencias Sociales, Universidad de la Costa, Barranquilla 080002, Colombia.\\
+\textsuperscript{2} Facultad de Psicología, Universidad El Bosque, Bogotá 110121, Colombia.\\
+\textsuperscript{3} Grupo de Investigación en Cultura, Educación y Sociedad, Universidad de la Costa, Barranquilla 080002, Colombia.\\
+\textsuperscript{4} CODEC: Ciencias Cognitivas y del Comportamiento, Universidad El Bosque, Bogotá 110121, Colombia.\\
 \textsuperscript{5} Department of Psychology, Queen's University, Kingston ON K7L 3N6, Canada.
 
 \textsuperscript{*} Correspondence: \href{mailto:mvasquezam@unbosque.edu.co}{\href{mailto:mvasquezam@unbosque.edu.co}{\nolinkurl{mvasquezam@unbosque.edu.co}}}
@@ -1352,15 +1352,15 @@ Table of Cronbach's \(\alpha\) for construct variables.
 \toprule
 Variable & Gender & Items & $n$ & $\alpha$ & $2.5\% CI$ & $97.5\% CI$\\
 \midrule
- & Men & 5 & 139 & 0.82 & 0.70 & 0.89\\
+ & Men & 5 & 139 & 0.82 & 0.72 & 0.89\\
 \cmidrule{2-7}
 \multirow{-2}{*}{\raggedright\arraybackslash MGH-SFQ} & Women & 4 & 181 & 0.86 & 0.82 & 0.90\\
 \cmidrule{1-7}
-MGSS sexual satisfaction (General) &  & 5 & 188 & 0.92 & 0.89 & 0.94\\
+MGSS sexual satisfaction (General) &  & 5 & 188 & 0.92 & 0.88 & 0.94\\
 \cmidrule{1-7}
 MGSS sexual satisfaction (Partner) &  & 5 & 187 & 0.91 & 0.85 & 0.95\\
 \cmidrule{1-7}
-Dyadic sexual desire (Partner) &  & 5 & 309 & 0.90 & 0.88 & 0.92\\
+Dyadic sexual desire (Partner) &  & 5 & 309 & 0.90 & 0.87 & 0.92\\
 \cmidrule{1-7}
 Solitary sexual desire &  & 4 & 314 & 0.91 & 0.89 & 0.93\\
 \cmidrule{1-7}
@@ -1648,13 +1648,15 @@ This tables summarizes the results of the model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{anova.sig}\NormalTok{(}\AttributeTok{model =}\NormalTok{ m1a\_norm, }\AttributeTok{custom\_caption =} \StringTok{"Effects of relationship type and gender on solitary sexual desire"}\NormalTok{)}
+\FunctionTok{anova.sig}\NormalTok{(}\AttributeTok{model =}\NormalTok{ m1a\_norm, }\AttributeTok{custom\_caption =} \StringTok{"Effects of relationship type and gender on }
+\StringTok{          solitary sexual desire"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-m1a}Effects of relationship type and gender on solitary sexual desire}
+\caption{\label{tab:tab-m1a}Effects of relationship type and gender on 
+          solitary sexual desire}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -1687,7 +1689,7 @@ Gender × Relationship & 1, 319 & 4.23 & \textbf{0.04} & 0.01\\
 
 Because the main effects of gender, relationship type, and their interaction are significant, we explored these effects using estimated marginal means.
 
-\subparagraph{Table \ref{tab:tab-m1a-emm1}. Estimated marginal means and contrasts between participants' genders.}\label{table-reftabtab-m1a-emm1.-estimated-marginal-means-and-contrasts-between-participants-genders.}
+\subparagraph{Table \ref{tab:tab-m1a-emm1}. Estimated marginal means and contrasts between participants' gender.}\label{table-reftabtab-m1a-emm1.-estimated-marginal-means-and-contrasts-between-participants-gender.}
 
 Table of estimated marginal means and contrasts between genders. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package \autocite{emmeanscit}.
 
@@ -1708,7 +1710,7 @@ Table of estimated marginal means and contrasts between genders. All estimated m
           \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
           \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
           \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
-          \AttributeTok{caption =} \StringTok{"Estimated marginal means each gender"}\NormalTok{,}
+          \AttributeTok{caption =} \StringTok{"Estimated marginal means and contrasts between participants\textquotesingle{} gender"}\NormalTok{,}
           \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Gender"}\NormalTok{,}
                         \StringTok{"EMM"}\NormalTok{,}
                         \StringTok{"$SE$"}\NormalTok{,}
@@ -1733,7 +1735,7 @@ Table of estimated marginal means and contrasts between genders. All estimated m
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-m1a-emm1}Estimated marginal means each gender}
+\caption{\label{tab:tab-m1a-emm1}Estimated marginal means and contrasts between participants' gender}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -1754,9 +1756,9 @@ Men & 0.29 & 0.08 & 319 & 0.13 & 0.44 &  &  &  &  &  & \\
 \end{threeparttable}}
 \end{table}
 
-\subparagraph{Table \ref{tab:tab-m1a-emm2}. Estimated marginal means and contrasts between relationship types.}\label{table-reftabtab-m1a-emm2.-estimated-marginal-means-and-contrasts-between-relationship-types.}
+\subparagraph{Table \ref{tab:tab-m1a-emm2}. Estimated marginal means and contrasts between relationship status.}\label{table-reftabtab-m1a-emm2.-estimated-marginal-means-and-contrasts-between-relationship-status.}
 
-Table of estimated marginal means and contrasts between relationship types. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package \autocite{emmeanscit}.
+Table of estimated marginal means and contrasts between relationship status. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package \autocite{emmeanscit}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1775,7 +1777,7 @@ Table of estimated marginal means and contrasts between relationship types. All 
           \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
           \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
           \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
-          \AttributeTok{caption =} \StringTok{"Estimated marginal means each gender"}\NormalTok{,}
+          \AttributeTok{caption =} \StringTok{"Estimated marginal means and contrasts between relationship status"}\NormalTok{,}
           \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Relationship type"}\NormalTok{,}
                         \StringTok{"EMM"}\NormalTok{,}
                         \StringTok{"$SE$"}\NormalTok{,}
@@ -1800,7 +1802,7 @@ Table of estimated marginal means and contrasts between relationship types. All 
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-m1a-emm2}Estimated marginal means each gender}
+\caption{\label{tab:tab-m1a-emm2}Estimated marginal means and contrasts between relationship status}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -1821,9 +1823,9 @@ Single & 0.21 & 0.08 & 319 & 0.06 & 0.36 &  &  &  &  &  & \\
 \end{threeparttable}}
 \end{table}
 
-\subparagraph{Table \ref{tab:tab-m1a-emm3}. Estimated marginal means and contrasts between gender by relationship types.}\label{table-reftabtab-m1a-emm3.-estimated-marginal-means-and-contrasts-between-gender-by-relationship-types.}
+\subparagraph{Table \ref{tab:tab-m1a-emm3}. Estimated marginal means and contrasts between gender by relationship status.}\label{table-reftabtab-m1a-emm3.-estimated-marginal-means-and-contrasts-between-gender-by-relationship-status.}
 
-Table of estimated marginal means and contrasts between gender by relationship types. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package \autocite{emmeanscit}.
+Table of estimated marginal means and contrasts between gender by relationship status. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package \autocite{emmeanscit}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1847,8 +1849,8 @@ Table of estimated marginal means and contrasts between gender by relationship t
           \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
           \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
           \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
-          \AttributeTok{caption =} \StringTok{"Estimated marginal means for the three dimensions of sexual desire by}
-\StringTok{        relationship status"}\NormalTok{,}
+          \AttributeTok{caption =} \StringTok{"Estimated marginal means and contrasts between gender by }
+\StringTok{                    relationship status"}\NormalTok{,}
           \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Gender"}\NormalTok{,}
                         \CommentTok{\#"Relationship",}
                         \StringTok{"EMM"}\NormalTok{,}
@@ -1884,8 +1886,8 @@ Table of estimated marginal means and contrasts between gender by relationship t
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-m1a-emm3}Estimated marginal means for the three dimensions of sexual desire by
-        relationship status}
+\caption{\label{tab:tab-m1a-emm3}Estimated marginal means and contrasts between gender by 
+                    relationship status}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -1913,9 +1915,9 @@ Gender & EMM & $SE$ & $df$ & $2.5\% CI$ & $97.5\% CI$ & Contrast & Difference & 
 \end{threeparttable}}
 \end{table}
 
-\subsubsection{Figure \ref{fig:fig-h1a}. Differences among the three dimensions of sexual desire}\label{figure-reffigfig-h1a.-differences-among-the-three-dimensions-of-sexual-desire}
+\paragraph{Figure \ref{fig:fig-h1a}. Differences among the three dimensions of sexual desire}\label{figure-reffigfig-h1a.-differences-among-the-three-dimensions-of-sexual-desire}
 
-This figure summarizes the results of hypothesis 1.
+This figure summarizes the results of hypothesis 1a.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2004,6 +2006,946 @@ This figure summarizes the results of hypothesis 1.
 \caption{\label{fig:fig-h1a}Effects of gender and relationship type on solitary sexual desire. Solitary sexual desire was transformed using ordered quantile normalization \autocite{petersonOrderedQuantileNormalization2020a}. \textbf{(a)} Simple comparison between sexual desire by gender (for detailed results, see Table \ref{tab:tab-m1a-emm1}); \textbf{(b)} Simple comparison between relationship status levels (for detailed results, see Table \ref{tab:tab-m1a-emm2}); \textbf{(c)} Interaction between relationship type and relationship status (see Table \ref{tab:tab-m1a}; for detailed results, see Table \ref{tab:tab-m1a-emm3}). White dots and black bars represent estimated marginal means and 95\% CI. In all cases, significant effects are represented with lines and stars: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
 \end{figure}
 
+\subsubsection{Hypothesis 1b: Solitary TSD}\label{hypothesis1b}
+
+\paragraph{Model the effects of relationship type and gender on Solitary TSD}\label{model-the-effects-of-relationship-type-and-gender-on-solitary-tsd-1}
+
+We fitted models with both the original (proportion; \texttt{m1b\_prop}) and transformed (normalized; \texttt{m1b\_norm}) TSD scores, and performed posterior predictive checks (PPCs). As shown elsewhere \autocite[e.g.,][]{gabryVisualizationBayesianWorkflow2019}, if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{options}\NormalTok{(}\AttributeTok{contrasts =} \FunctionTok{c}\NormalTok{(}\StringTok{"contr.sum"}\NormalTok{,}\StringTok{"contr.poly"}\NormalTok{))}
+\NormalTok{m1b\_prop }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire: Attractive person (proportion)}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Relationship,}
+            \AttributeTok{data =}\NormalTok{ dat\_m1)}
+
+\NormalTok{m1b\_norm }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire: Attractive person (normalized)}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Relationship,}
+           \AttributeTok{data =}\NormalTok{ dat\_m1)}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{Figure \ref{fig:ppc-m1b}: Posterior predictive checks (PPCs) for Hypothesis 1b.}\label{figure-reffigppc-m1b-posterior-predictive-checks-ppcs-for-hypothesis-1b.}
+
+PPCs were performed using the \texttt{check\_model} function from the \texttt{performance} package \autocite{ludecke2021}, and reported in Fig. \ref{fig:ppc-m1b}. Simulated data from the normalized Solitary TSD model (Fig. \ref{fig:ppc-m1b}b) are more similar to the observed outcome, so this model is preferred.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ppc\_m1b }\OtherTok{\textless{}{-}} \FunctionTok{ggarrange}\NormalTok{(}\FunctionTok{plot}\NormalTok{(}\FunctionTok{check\_model}\NormalTok{(m1b\_prop, }
+                                      \AttributeTok{panel =} \ConstantTok{FALSE}\NormalTok{,}
+                                      \AttributeTok{check =} \StringTok{"pp\_check"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{PP\_CHECK,}
+                          \AttributeTok{colors =} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"grey30"}\NormalTok{)) }\SpecialCharTok{+}
+                       \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{subtitle =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
+                       \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
+                       \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\AttributeTok{labeller =} \FunctionTok{as\_labeller}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
+                         \StringTok{"1"} \OtherTok{=} \StringTok{"Original (proportion) Dyadic TSD: Attractive person"}\NormalTok{))),}
+                     \FunctionTok{plot}\NormalTok{(}\FunctionTok{check\_model}\NormalTok{(m1b\_norm, }
+                                      \AttributeTok{panel =} \ConstantTok{FALSE}\NormalTok{,}
+                                      \AttributeTok{check =} \StringTok{"pp\_check"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{PP\_CHECK,}
+                          \AttributeTok{colors =} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"grey30"}\NormalTok{)) }\SpecialCharTok{+}
+                       \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{subtitle =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
+                       \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
+                       \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\AttributeTok{labeller =} \FunctionTok{as\_labeller}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
+                         \StringTok{"1"} \OtherTok{=} \StringTok{"Transformed (normalized) Dyadic TSD: Attractive person"}\NormalTok{))),}
+                     \AttributeTok{labels =} \StringTok{"auto"}\NormalTok{,}
+                     \AttributeTok{common.legend =} \ConstantTok{TRUE}\NormalTok{,}
+                     \AttributeTok{legend =} \StringTok{"bottom"}\NormalTok{)}
+\NormalTok{ppc\_m1b}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{Sexual_Desire_Arousal_V2_files/figure-latex/ppc-m1b-1.pdf}
+\caption{\label{fig:ppc-m1b}Posterior predictive check. \textbf{(a)} Original (proportion) Solitary TSD; \textbf{(b)} Transformed (normalized) Solitary TSD. In both panels, red lines represent the observed data, and thin black lines represent 50 iterations of simulated data from each model.}
+\end{figure}
+
+\paragraph{\texorpdfstring{Table \ref{tab:tab-m1b}. Regression-type table for the interaction between \texttt{Relationship\ type}, and \texttt{Gender}}{Table \ref{tab:tab-m1b}. Regression-type table for the interaction between Relationship type, and Gender}}\label{table-reftabtab-m1b.-regression-type-table-for-the-interaction-between-relationship-type-and-gender}
+
+This tables summarizes the results of the model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{anova.sig}\NormalTok{(}\AttributeTok{model =}\NormalTok{ m1b\_norm, }\AttributeTok{custom\_caption =} \StringTok{"Effects of relationship type and gender on }
+\StringTok{          Dyadic sexual desire: Attractive person"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:tab-m1b}Effects of relationship type and gender on 
+          Dyadic sexual desire: Attractive person}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{threeparttable}
+\begin{tabular}[t]{lcccl}
+\toprule
+Effect & $df$ & $F$ & $p$ & $\eta^2_G$\\
+\midrule
+Gender & 1, 319 & 29.85 & \textbf{< 0.0001} & 0.09\\
+Relationship & 1, 319 & 8.20 & \textbf{0.004} & 0.03\\
+Gender × Relationship & 1, 319 & 1.73 & 0.19 & 0.00\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[para]
+\item \textit{Note: } 
+\item Sexual desire was transformed using an ordered quantile 
+                              normalization 
+                              (\cite{petersonOrderedQuantileNormalization2020a}).
+                              Results are type III ANOVA.
+                              Gender = participants gender (women, men); 
+                              Relationship = relationship type (stable, single).
+                              As effect size, we used the generalized eta squared 
+                              ($\eta^2_G$; see
+                              \cite{bakemanRecommendedEffectSize2005}).
+                              Significant effects are in bold.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+\paragraph{\texorpdfstring{\emph{Post-hoc} comparisons}{Post-hoc comparisons}}\label{post-hoc-comparisons-1}
+
+Because the main effects of gender and relationship type, but not their interaction, are significant, we explored these effects using estimated marginal means.
+
+\subparagraph{Table \ref{tab:tab-m1b-emm1}. Estimated marginal means and contrasts between participants' gender.}\label{table-reftabtab-m1b-emm1.-estimated-marginal-means-and-contrasts-between-participants-gender.}
+
+Table of estimated marginal means and contrasts between genders. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package \autocite{emmeanscit}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{emms.m1b1 }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m1b\_norm, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender)}
+
+\NormalTok{emms.m1b1.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m1b1))}
+
+\NormalTok{t.m1b1 }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m1b1) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value))}
+
+\FunctionTok{merge}\NormalTok{(emms.m1b1.tab, t.m1b1, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{15}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{unite}\NormalTok{(Contrast, group1, group2, }\AttributeTok{sep =} \StringTok{" {-} "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"Contrast"}\NormalTok{, str\_replace\_all, }\StringTok{"NA {-} NA"}\NormalTok{, }\StringTok{" "}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
+          \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
+          \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
+          \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
+          \AttributeTok{caption =} \StringTok{"Estimated marginal means and contrasts between participants\textquotesingle{} gender"}\NormalTok{,}
+          \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Gender"}\NormalTok{,}
+                        \StringTok{"EMM"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$df$"}\NormalTok{,}
+                        \StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"Contrast"}\NormalTok{,}
+                        \StringTok{"Difference"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$df$"}\NormalTok{,}
+                        \StringTok{"$t$"}\NormalTok{,}
+                        \StringTok{"$p$"}\NormalTok{),}
+          \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{6}\NormalTok{, }\StringTok{"Contrasts"} \OtherTok{=} \DecValTok{6}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \StringTok{"Significant effects are in bold."}\NormalTok{,}
+           \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:tab-m1b-emm1}Estimated marginal means and contrasts between participants' gender}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{threeparttable}
+\begin{tabular}[t]{lccccclccccc}
+\toprule
+\multicolumn{6}{c}{ } & \multicolumn{6}{c}{Contrasts} \\
+\cmidrule(l{3pt}r{3pt}){7-12}
+Gender & EMM & $SE$ & $df$ & $2.5\% CI$ & $97.5\% CI$ & Contrast & Difference & $SE$ & $df$ & $t$ & $p$\\
+\midrule
+Women & -0.22 & 0.07 & 319 & -0.36 & -0.09 & Women - Men & -0.57 & 0.1 & 319 & -5.46 & \textbf{< 0.0001}\\
+Men & 0.35 & 0.08 & 319 & 0.19 & 0.50 &  &  &  &  &  & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[para]
+\item \textit{Note: } 
+\item Significant effects are in bold.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+\subparagraph{Table \ref{tab:tab-m1b-emm2}. Estimated marginal means and contrasts between relationship status.}\label{table-reftabtab-m1b-emm2.-estimated-marginal-means-and-contrasts-between-relationship-status.}
+
+Table of estimated marginal means and contrasts between relationship status. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package \autocite{emmeanscit}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{emms.m1b2 }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m1b\_norm, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Relationship)}
+
+\NormalTok{emms.m1b2.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m1b2))}
+
+\NormalTok{t.m1b2 }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m1b2) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value))}
+
+\FunctionTok{merge}\NormalTok{(emms.m1b2.tab, t.m1b2, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{15}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{unite}\NormalTok{(Contrast, group1, group2, }\AttributeTok{sep =} \StringTok{" {-} "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"Contrast"}\NormalTok{, str\_replace\_all, }\StringTok{"NA {-} NA"}\NormalTok{, }\StringTok{" "}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
+          \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
+          \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
+          \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
+          \AttributeTok{caption =} \StringTok{"Estimated marginal means and contrasts between relationship status"}\NormalTok{,}
+          \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Relationship type"}\NormalTok{,}
+                        \StringTok{"EMM"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$df$"}\NormalTok{,}
+                        \StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"Contrast"}\NormalTok{,}
+                        \StringTok{"Difference"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$df$"}\NormalTok{,}
+                        \StringTok{"$t$"}\NormalTok{,}
+                        \StringTok{"$p$"}\NormalTok{),}
+          \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{6}\NormalTok{, }\StringTok{"Contrasts"} \OtherTok{=} \DecValTok{6}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \StringTok{"Significant effects are in bold."}\NormalTok{,}
+           \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:tab-m1b-emm2}Estimated marginal means and contrasts between relationship status}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{threeparttable}
+\begin{tabular}[t]{lccccclccccc}
+\toprule
+\multicolumn{6}{c}{ } & \multicolumn{6}{c}{Contrasts} \\
+\cmidrule(l{3pt}r{3pt}){7-12}
+Relationship type & EMM & $SE$ & $df$ & $2.5\% CI$ & $97.5\% CI$ & Contrast & Difference & $SE$ & $df$ & $t$ & $p$\\
+\midrule
+Stable & -0.09 & 0.07 & 319 & -0.22 & 0.05 & Stable - Single & -0.3 & 0.1 & 319 & -2.86 & \textbf{0.0045}\\
+Single & 0.21 & 0.08 & 319 & 0.06 & 0.36 &  &  &  &  &  & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[para]
+\item \textit{Note: } 
+\item Significant effects are in bold.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+\subparagraph{Table \ref{tab:tab-m1b-emm3}. Estimated marginal means and contrasts between gender by relationship status.}\label{table-reftabtab-m1b-emm3.-estimated-marginal-means-and-contrasts-between-gender-by-relationship-status.}
+
+Table of estimated marginal means and contrasts between gender by relationship status. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package \autocite{emmeanscit}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{emms.m1b3 }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m1b\_norm, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender }\SpecialCharTok{|}\NormalTok{ Relationship)}
+
+\NormalTok{emms.m1b3.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m1b3))}
+
+\NormalTok{t.m1b3 }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m1b3) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value))}
+
+\NormalTok{t.m1b3.f }\OtherTok{\textless{}{-}}\NormalTok{ t.m1b3 }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{insertRows}\NormalTok{(}\DecValTok{2}\NormalTok{, }\AttributeTok{new =} \ConstantTok{NA}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+\FunctionTok{insertRows}\NormalTok{(}\DecValTok{4}\NormalTok{, }\AttributeTok{new =} \ConstantTok{NA}\NormalTok{)}
+
+\FunctionTok{merge}\NormalTok{(emms.m1b3.tab, t.m1b3.f, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{11}\NormalTok{,}\DecValTok{17}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{drop\_na}\NormalTok{(Gender) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{unite}\NormalTok{(Contrast, group1, group2, }\AttributeTok{sep =} \StringTok{" {-} "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"Contrast"}\NormalTok{, str\_replace\_all, }\StringTok{"NA {-} NA"}\NormalTok{, }\StringTok{""}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
+          \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
+          \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
+          \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
+          \AttributeTok{caption =} \StringTok{"Estimated marginal means and contrasts between gender by }
+\StringTok{                    relationship status"}\NormalTok{,}
+          \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Gender"}\NormalTok{,}
+                        \CommentTok{\#"Relationship",}
+                        \StringTok{"EMM"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$df$"}\NormalTok{,}
+                        \StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"Contrast"}\NormalTok{,}
+                        \StringTok{"Difference"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$df$"}\NormalTok{,}
+                        \StringTok{"$t$"}\NormalTok{,}
+                        \StringTok{"$p$"}\NormalTok{),}
+          \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pack\_rows}\NormalTok{(}\AttributeTok{group\_label =} \StringTok{"Relationship status: Stable"}\NormalTok{,}
+            \AttributeTok{start\_row =} \DecValTok{1}\NormalTok{,}
+            \AttributeTok{end\_row =} \DecValTok{2}\NormalTok{,}
+            \AttributeTok{hline\_before =} \ConstantTok{FALSE}\NormalTok{,}
+            \AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pack\_rows}\NormalTok{(}\AttributeTok{group\_label =} \StringTok{"Relationship status: Single"}\NormalTok{,}
+            \AttributeTok{start\_row =} \DecValTok{3}\NormalTok{,}
+            \AttributeTok{end\_row =} \DecValTok{4}\NormalTok{,}
+            \AttributeTok{hline\_before =} \ConstantTok{TRUE}\NormalTok{,}
+            \AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{6}\NormalTok{, }\StringTok{"Contrasts"} \OtherTok{=} \DecValTok{6}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \StringTok{"Significant effects are in bold."}\NormalTok{,}
+           \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:tab-m1b-emm3}Estimated marginal means and contrasts between gender by 
+                    relationship status}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{threeparttable}
+\begin{tabular}[t]{llccccclcccc}
+\toprule
+\multicolumn{6}{c}{ } & \multicolumn{6}{c}{Contrasts} \\
+\cmidrule(l{3pt}r{3pt}){7-12}
+Gender & EMM & $SE$ & $df$ & $2.5\% CI$ & $97.5\% CI$ & Contrast & Difference & $SE$ & $df$ & $t$ & $p$\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{12}{l}{\textbf{Relationship status: Stable}}\\
+\hspace{1em}Women & -0.44 & 0.09 & 319 & -0.62 & -0.26 & Women - Men & -0.71 & 0.14 & 319 & -5.00 & \textbf{< 0.0001}\\
+\hspace{1em}Men & 0.27 & 0.11 & 319 & 0.05 & 0.48 &  &  &  &  &  & \\
+\addlinespace[0.3em]
+\hline
+\multicolumn{12}{l}{\textbf{Relationship status: Single}}\\
+\hspace{1em}Women & 0.00 & 0.10 & 319 & -0.21 & 0.20 & Women - Men & -0.43 & 0.15 & 319 & -2.82 & \textbf{0.0051}\\
+\hspace{1em}Men & 0.43 & 0.11 & 319 & 0.21 & 0.65 &  &  &  &  &  & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[para]
+\item \textit{Note: } 
+\item Significant effects are in bold.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+\paragraph{Figure \ref{fig:fig-h1b}. Differences among the three dimensions of sexual desire}\label{figure-reffigfig-h1b.-differences-among-the-three-dimensions-of-sexual-desire}
+
+This figure summarizes the results of hypothesis 1b.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Gender main effect}
+\NormalTok{h1b1 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat\_m1, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Gender, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire: Attractive person (normalized)}\StringTok{\textasciigrave{}}\NormalTok{, }
+                          \AttributeTok{color =}\NormalTok{ Gender)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{trim =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Gender) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Gender) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1b1.tab }\SpecialCharTok{|\textgreater{}} 
+                  \FunctionTok{rename}\NormalTok{(}\StringTok{\textquotesingle{}Dyadic sexual desire: Attractive person (normalized)\textquotesingle{}} \OtherTok{=}\NormalTok{ emmean),}
+                \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ lower.CL, }\AttributeTok{ymax =}\NormalTok{ upper.CL), }
+                \AttributeTok{colour =} \StringTok{"black"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1b1.tab }\SpecialCharTok{|\textgreater{}} 
+                  \FunctionTok{rename}\NormalTok{(}\StringTok{\textquotesingle{}Dyadic sexual desire: Attractive person (normalized)\textquotesingle{}} \OtherTok{=}\NormalTok{ emmean), }
+             \AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.1}\NormalTok{), }
+             \AttributeTok{shape =} \DecValTok{21}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{,}
+             \AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_pvalue\_manual}\NormalTok{(t.m1b1, }
+                     \AttributeTok{label =} \StringTok{"p.signif"}\NormalTok{, }
+                     \AttributeTok{y.position =} \FloatTok{3.5}\NormalTok{, }
+                     \AttributeTok{tip.length =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{color =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_tq}\NormalTok{()}
+
+\CommentTok{\# Relationship main effect}
+\NormalTok{h1b2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat\_m1, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Relationship, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire: Attractive person (normalized)}\StringTok{\textasciigrave{}}\NormalTok{, }
+                          \AttributeTok{color =}\NormalTok{ Relationship)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{trim =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Relationship) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Relationship) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1b2.tab }\SpecialCharTok{|\textgreater{}} 
+                  \FunctionTok{rename}\NormalTok{(}\StringTok{\textquotesingle{}Dyadic sexual desire: Attractive person (normalized)\textquotesingle{}} \OtherTok{=}\NormalTok{ emmean),}
+                \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ lower.CL, }\AttributeTok{ymax =}\NormalTok{ upper.CL), }
+                \AttributeTok{colour =} \StringTok{"black"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1b2.tab }\SpecialCharTok{|\textgreater{}} 
+                  \FunctionTok{rename}\NormalTok{(}\StringTok{\textquotesingle{}Dyadic sexual desire: Attractive person (normalized)\textquotesingle{}} \OtherTok{=}\NormalTok{ emmean), }
+             \AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.1}\NormalTok{), }
+             \AttributeTok{shape =} \DecValTok{21}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{,}
+             \AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_pvalue\_manual}\NormalTok{(t.m1b2, }
+                     \AttributeTok{label =} \StringTok{"p.signif"}\NormalTok{, }
+                     \AttributeTok{y.position =} \FloatTok{3.5}\NormalTok{, }
+                     \AttributeTok{tip.length =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{color =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_tq}\NormalTok{()}
+
+\CommentTok{\# Relationship × Gender interaction}
+\NormalTok{h1b3 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat\_m1, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Gender, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire: Attractive person (normalized)}\StringTok{\textasciigrave{}}\NormalTok{, }
+                           \AttributeTok{color =}\NormalTok{ Gender)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{trim =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Gender) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Gender) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Relationship) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1b3.tab }\SpecialCharTok{|\textgreater{}} 
+                  \FunctionTok{rename}\NormalTok{(}\StringTok{\textquotesingle{}Dyadic sexual desire: Attractive person (normalized)\textquotesingle{}} \OtherTok{=}\NormalTok{ emmean), }
+                \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ lower.CL, }\AttributeTok{ymax =}\NormalTok{ upper.CL), }
+                \AttributeTok{colour =} \StringTok{"black"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1b3.tab}\SpecialCharTok{|\textgreater{}} 
+                  \FunctionTok{rename}\NormalTok{(}\StringTok{\textquotesingle{}Dyadic sexual desire: Attractive person (normalized)\textquotesingle{}} \OtherTok{=}\NormalTok{ emmean), }
+             \AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.1}\NormalTok{), }
+             \AttributeTok{shape =} \DecValTok{21}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{,}
+             \AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_pvalue\_manual}\NormalTok{(t.m1b3, }
+                     \AttributeTok{label =} \StringTok{"p.signif"}\NormalTok{, }
+                     \AttributeTok{y.position =} \FloatTok{3.5}\NormalTok{, }
+                     \AttributeTok{tip.length =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{color =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_tq}\NormalTok{()}
+
+\CommentTok{\# Full figure for hypothesis 1 (a, b and c)}
+\NormalTok{p1b }\OtherTok{\textless{}{-}} \FunctionTok{ggarrange}\NormalTok{(h1b1, h1b2, h1b3,}
+                 \AttributeTok{ncol =} \DecValTok{3}\NormalTok{,}
+                 \AttributeTok{labels =} \StringTok{"auto"}\NormalTok{,}
+                 \AttributeTok{widths =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\FloatTok{1.5}\NormalTok{))}
+\NormalTok{p1b}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{Sexual_Desire_Arousal_V2_files/figure-latex/fig-h1b-1.pdf}
+\caption{\label{fig:fig-h1b}Effects of gender and relationship type on Dyadic sexual desire: Attractive person. Dyadic sexual desire: Attractive person was transformed using ordered quantile normalization \autocite{petersonOrderedQuantileNormalization2020a}. \textbf{(a)} Simple comparison between sexual desire by gender (for detailed results, see Table \ref{tab:tab-m1b-emm1}); \textbf{(b)} Simple comparison between relationship status levels (for detailed results, see Table \ref{tab:tab-m1b-emm2}); \textbf{(c)} Interaction between relationship type and relationship status (see Table \ref{tab:tab-m1b}; for detailed results, see Table \ref{tab:tab-m1b-emm3}). White dots and black bars represent estimated marginal means and 95\% CI. In all cases, significant effects are represented with lines and stars: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
+\end{figure}
+
+\subsubsection{Hypothesis 1c: Solitary TSD}\label{hypothesis1c}
+
+\paragraph{Model the effects of relationship type and gender on Solitary TSD}\label{model-the-effects-of-relationship-type-and-gender-on-solitary-tsd-2}
+
+We fitted models with both the original (proportion; \texttt{m1c\_prop}) and transformed (normalized; \texttt{m1c\_norm}) TSD scores, and performed posterior predictive checks (PPCs). As shown elsewhere \autocite[e.g.,][]{gabryVisualizationBayesianWorkflow2019}, if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{options}\NormalTok{(}\AttributeTok{contrasts =} \FunctionTok{c}\NormalTok{(}\StringTok{"contr.sum"}\NormalTok{,}\StringTok{"contr.poly"}\NormalTok{))}
+\NormalTok{m1c\_prop }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire: Partner (proportion)}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Relationship,}
+            \AttributeTok{data =}\NormalTok{ dat\_m1)}
+
+\NormalTok{m1c\_norm }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire: Partner (normalized)}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Relationship,}
+           \AttributeTok{data =}\NormalTok{ dat\_m1)}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{Figure \ref{fig:ppc-m1c}: Posterior predictive checks (PPCs) for Hypothesis 1c.}\label{figure-reffigppc-m1c-posterior-predictive-checks-ppcs-for-hypothesis-1c.}
+
+PPCs were performed using the \texttt{check\_model} function from the \texttt{performance} package \autocite{ludecke2021}, and reported in Fig. \ref{fig:ppc-m1c}. Simulated data from the normalized Solitary TSD model (Fig. \ref{fig:ppc-m1c}b) are more similar to the observed outcome, so this model is preferred.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ppc\_m1c }\OtherTok{\textless{}{-}} \FunctionTok{ggarrange}\NormalTok{(}\FunctionTok{plot}\NormalTok{(}\FunctionTok{check\_model}\NormalTok{(m1c\_prop, }
+                                      \AttributeTok{panel =} \ConstantTok{FALSE}\NormalTok{,}
+                                      \AttributeTok{check =} \StringTok{"pp\_check"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{PP\_CHECK,}
+                          \AttributeTok{colors =} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"grey30"}\NormalTok{)) }\SpecialCharTok{+}
+                       \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{subtitle =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
+                       \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
+                       \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\AttributeTok{labeller =} \FunctionTok{as\_labeller}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
+                         \StringTok{"1"} \OtherTok{=} \StringTok{"Original (proportion) Dyadic TSD: Partner"}\NormalTok{))),}
+                     \FunctionTok{plot}\NormalTok{(}\FunctionTok{check\_model}\NormalTok{(m1c\_norm, }
+                                      \AttributeTok{panel =} \ConstantTok{FALSE}\NormalTok{,}
+                                      \AttributeTok{check =} \StringTok{"pp\_check"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{PP\_CHECK,}
+                          \AttributeTok{colors =} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"grey30"}\NormalTok{)) }\SpecialCharTok{+}
+                       \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{subtitle =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
+                       \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
+                       \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\AttributeTok{labeller =} \FunctionTok{as\_labeller}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
+                         \StringTok{"1"} \OtherTok{=} \StringTok{"Transformed (normalized) Dyadic TSD: Partner"}\NormalTok{))),}
+                     \AttributeTok{labels =} \StringTok{"auto"}\NormalTok{,}
+                     \AttributeTok{common.legend =} \ConstantTok{TRUE}\NormalTok{,}
+                     \AttributeTok{legend =} \StringTok{"bottom"}\NormalTok{)}
+\NormalTok{ppc\_m1c}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{Sexual_Desire_Arousal_V2_files/figure-latex/ppc-m1c-1.pdf}
+\caption{\label{fig:ppc-m1c}Posterior predictive check. \textbf{(a)} Original (proportion) Solitary TSD; \textbf{(b)} Transformed (normalized) Solitary TSD. In both panels, red lines represent the observed data, and thin black lines represent 50 iterations of simulated data from each model.}
+\end{figure}
+
+\paragraph{\texorpdfstring{Table \ref{tab:tab-m1c}. Regression-type table for the interaction between \texttt{Relationship\ type}, and \texttt{Gender}}{Table \ref{tab:tab-m1c}. Regression-type table for the interaction between Relationship type, and Gender}}\label{table-reftabtab-m1c.-regression-type-table-for-the-interaction-between-relationship-type-and-gender}
+
+This tables summarizes the results of the model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{anova.sig}\NormalTok{(}\AttributeTok{model =}\NormalTok{ m1c\_norm, }\AttributeTok{custom\_caption =} \StringTok{"Effects of relationship type and gender on }
+\StringTok{          Dyadic sexual desire: Partner"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:tab-m1c}Effects of relationship type and gender on 
+          Dyadic sexual desire: Partner}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{threeparttable}
+\begin{tabular}[t]{lcccl}
+\toprule
+Effect & $df$ & $F$ & $p$ & $\eta^2_G$\\
+\midrule
+Gender & 1, 316 & 15.49 & \textbf{< 0.001} & 0.05\\
+Relationship & 1, 316 & 31.60 & \textbf{< 0.0001} & 0.09\\
+Gender × Relationship & 1, 316 & 0.00 & 0.98 & 0.00\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[para]
+\item \textit{Note: } 
+\item Sexual desire was transformed using an ordered quantile 
+                              normalization 
+                              (\cite{petersonOrderedQuantileNormalization2020a}).
+                              Results are type III ANOVA.
+                              Gender = participants gender (women, men); 
+                              Relationship = relationship type (stable, single).
+                              As effect size, we used the generalized eta squared 
+                              ($\eta^2_G$; see
+                              \cite{bakemanRecommendedEffectSize2005}).
+                              Significant effects are in bold.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+\paragraph{\texorpdfstring{\emph{Post-hoc} comparisons}{Post-hoc comparisons}}\label{post-hoc-comparisons-2}
+
+Because the main effects of gender and relationship type, but not their interaction, are significant, we explored these effects using estimated marginal means.
+
+\subparagraph{Table \ref{tab:tab-m1c-emm1}. Estimated marginal means and contrasts between participants' gender.}\label{table-reftabtab-m1c-emm1.-estimated-marginal-means-and-contrasts-between-participants-gender.}
+
+Table of estimated marginal means and contrasts between genders. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package \autocite{emmeanscit}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{emms.m1c1 }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m1c\_norm, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender)}
+
+\NormalTok{emms.m1c1.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m1c1))}
+
+\NormalTok{t.m1c1 }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m1c1) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value))}
+
+\FunctionTok{merge}\NormalTok{(emms.m1c1.tab, t.m1c1, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{15}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{unite}\NormalTok{(Contrast, group1, group2, }\AttributeTok{sep =} \StringTok{" {-} "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"Contrast"}\NormalTok{, str\_replace\_all, }\StringTok{"NA {-} NA"}\NormalTok{, }\StringTok{" "}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
+          \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
+          \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
+          \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
+          \AttributeTok{caption =} \StringTok{"Estimated marginal means and contrasts between participants\textquotesingle{} gender"}\NormalTok{,}
+          \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Gender"}\NormalTok{,}
+                        \StringTok{"EMM"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$df$"}\NormalTok{,}
+                        \StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"Contrast"}\NormalTok{,}
+                        \StringTok{"Difference"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$df$"}\NormalTok{,}
+                        \StringTok{"$t$"}\NormalTok{,}
+                        \StringTok{"$p$"}\NormalTok{),}
+          \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{6}\NormalTok{, }\StringTok{"Contrasts"} \OtherTok{=} \DecValTok{6}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \StringTok{"Significant effects are in bold."}\NormalTok{,}
+           \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:tab-m1c-emm1}Estimated marginal means and contrasts between participants' gender}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{threeparttable}
+\begin{tabular}[t]{lccccclccccc}
+\toprule
+\multicolumn{6}{c}{ } & \multicolumn{6}{c}{Contrasts} \\
+\cmidrule(l{3pt}r{3pt}){7-12}
+Gender & EMM & $SE$ & $df$ & $2.5\% CI$ & $97.5\% CI$ & Contrast & Difference & $SE$ & $df$ & $t$ & $p$\\
+\midrule
+Women & -0.21 & 0.07 & 316 & -0.35 & -0.07 & Women - Men & -0.42 & 0.11 & 316 & -3.94 & \textbf{< 0.001}\\
+Men & 0.20 & 0.08 & 316 & 0.05 & 0.36 &  &  &  &  &  & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[para]
+\item \textit{Note: } 
+\item Significant effects are in bold.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+\subparagraph{Table \ref{tab:tab-m1c-emm2}. Estimated marginal means and contrasts between relationship status.}\label{table-reftabtab-m1c-emm2.-estimated-marginal-means-and-contrasts-between-relationship-status.}
+
+Table of estimated marginal means and contrasts between relationship status. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package \autocite{emmeanscit}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{emms.m1c2 }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m1c\_norm, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Relationship)}
+
+\NormalTok{emms.m1c2.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m1c2))}
+
+\NormalTok{t.m1c2 }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m1c2) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value))}
+
+\FunctionTok{merge}\NormalTok{(emms.m1c2.tab, t.m1c2, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{15}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{unite}\NormalTok{(Contrast, group1, group2, }\AttributeTok{sep =} \StringTok{" {-} "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"Contrast"}\NormalTok{, str\_replace\_all, }\StringTok{"NA {-} NA"}\NormalTok{, }\StringTok{" "}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
+          \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
+          \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
+          \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
+          \AttributeTok{caption =} \StringTok{"Estimated marginal means and contrasts between relationship status"}\NormalTok{,}
+          \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Relationship type"}\NormalTok{,}
+                        \StringTok{"EMM"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$df$"}\NormalTok{,}
+                        \StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"Contrast"}\NormalTok{,}
+                        \StringTok{"Difference"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$df$"}\NormalTok{,}
+                        \StringTok{"$t$"}\NormalTok{,}
+                        \StringTok{"$p$"}\NormalTok{),}
+          \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{6}\NormalTok{, }\StringTok{"Contrasts"} \OtherTok{=} \DecValTok{6}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \StringTok{"Significant effects are in bold."}\NormalTok{,}
+           \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:tab-m1c-emm2}Estimated marginal means and contrasts between relationship status}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{threeparttable}
+\begin{tabular}[t]{lccccclccccc}
+\toprule
+\multicolumn{6}{c}{ } & \multicolumn{6}{c}{Contrasts} \\
+\cmidrule(l{3pt}r{3pt}){7-12}
+Relationship type & EMM & $SE$ & $df$ & $2.5\% CI$ & $97.5\% CI$ & Contrast & Difference & $SE$ & $df$ & $t$ & $p$\\
+\midrule
+Stable & 0.29 & 0.07 & 316 & 0.15 & 0.43 & Stable - Single & 0.6 & 0.11 & 316 & 5.62 & \textbf{< 0.0001}\\
+Single & -0.30 & 0.08 & 316 & -0.46 & -0.15 &  &  &  &  &  & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[para]
+\item \textit{Note: } 
+\item Significant effects are in bold.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+\subparagraph{Table \ref{tab:tab-m1c-emm3}. Estimated marginal means and contrasts between gender by relationship status.}\label{table-reftabtab-m1c-emm3.-estimated-marginal-means-and-contrasts-between-gender-by-relationship-status.}
+
+Table of estimated marginal means and contrasts between gender by relationship status. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package \autocite{emmeanscit}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{emms.m1c3 }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m1c\_norm, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender }\SpecialCharTok{|}\NormalTok{ Relationship)}
+
+\NormalTok{emms.m1c3.tab }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(emms.m1c3))}
+
+\NormalTok{t.m1c3 }\OtherTok{\textless{}{-}} \FunctionTok{contr.stars}\NormalTok{(emms.m1c3) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value))}
+
+\NormalTok{t.m1c3.f }\OtherTok{\textless{}{-}}\NormalTok{ t.m1c3 }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{insertRows}\NormalTok{(}\DecValTok{2}\NormalTok{, }\AttributeTok{new =} \ConstantTok{NA}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+\FunctionTok{insertRows}\NormalTok{(}\DecValTok{4}\NormalTok{, }\AttributeTok{new =} \ConstantTok{NA}\NormalTok{)}
+
+\FunctionTok{merge}\NormalTok{(emms.m1c3.tab, t.m1c3.f, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{11}\NormalTok{,}\DecValTok{17}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{drop\_na}\NormalTok{(Gender) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{unite}\NormalTok{(Contrast, group1, group2, }\AttributeTok{sep =} \StringTok{" {-} "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"Contrast"}\NormalTok{, str\_replace\_all, }\StringTok{"NA {-} NA"}\NormalTok{, }\StringTok{""}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
+          \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
+          \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
+          \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
+          \AttributeTok{caption =} \StringTok{"Estimated marginal means and contrasts between gender by }
+\StringTok{                    relationship status"}\NormalTok{,}
+          \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Gender"}\NormalTok{,}
+                        \CommentTok{\#"Relationship",}
+                        \StringTok{"EMM"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$df$"}\NormalTok{,}
+                        \StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+                        \StringTok{"Contrast"}\NormalTok{,}
+                        \StringTok{"Difference"}\NormalTok{,}
+                        \StringTok{"$SE$"}\NormalTok{,}
+                        \StringTok{"$df$"}\NormalTok{,}
+                        \StringTok{"$t$"}\NormalTok{,}
+                        \StringTok{"$p$"}\NormalTok{),}
+          \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pack\_rows}\NormalTok{(}\AttributeTok{group\_label =} \StringTok{"Relationship status: Stable"}\NormalTok{,}
+            \AttributeTok{start\_row =} \DecValTok{1}\NormalTok{,}
+            \AttributeTok{end\_row =} \DecValTok{2}\NormalTok{,}
+            \AttributeTok{hline\_before =} \ConstantTok{FALSE}\NormalTok{,}
+            \AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pack\_rows}\NormalTok{(}\AttributeTok{group\_label =} \StringTok{"Relationship status: Single"}\NormalTok{,}
+            \AttributeTok{start\_row =} \DecValTok{3}\NormalTok{,}
+            \AttributeTok{end\_row =} \DecValTok{4}\NormalTok{,}
+            \AttributeTok{hline\_before =} \ConstantTok{TRUE}\NormalTok{,}
+            \AttributeTok{bold =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{6}\NormalTok{, }\StringTok{"Contrasts"} \OtherTok{=} \DecValTok{6}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \StringTok{"Significant effects are in bold."}\NormalTok{,}
+           \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:tab-m1c-emm3}Estimated marginal means and contrasts between gender by 
+                    relationship status}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{threeparttable}
+\begin{tabular}[t]{llccccclcccc}
+\toprule
+\multicolumn{6}{c}{ } & \multicolumn{6}{c}{Contrasts} \\
+\cmidrule(l{3pt}r{3pt}){7-12}
+Gender & EMM & $SE$ & $df$ & $2.5\% CI$ & $97.5\% CI$ & Contrast & Difference & $SE$ & $df$ & $t$ & $p$\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{12}{l}{\textbf{Relationship status: Stable}}\\
+\hspace{1em}Women & 0.09 & 0.09 & 316 & -0.09 & 0.27 & Women - Men & -0.41 & 0.14 & 316 & -2.90 & \textbf{0.004}\\
+\hspace{1em}Men & 0.50 & 0.11 & 316 & 0.28 & 0.72 &  &  &  &  &  & \\
+\addlinespace[0.3em]
+\hline
+\multicolumn{12}{l}{\textbf{Relationship status: Single}}\\
+\hspace{1em}Women & -0.51 & 0.11 & 316 & -0.72 & -0.30 & Women - Men & -0.42 & 0.16 & 316 & -2.68 & \textbf{0.0077}\\
+\hspace{1em}Men & -0.09 & 0.11 & 316 & -0.32 & 0.13 &  &  &  &  &  & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[para]
+\item \textit{Note: } 
+\item Significant effects are in bold.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+\paragraph{Figure \ref{fig:fig-h1c}. Differences among the three dimensions of sexual desire}\label{figure-reffigfig-h1c.-differences-among-the-three-dimensions-of-sexual-desire}
+
+This figure summarizes the results of hypothesis 1c.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Gender main effect}
+\NormalTok{h1c1 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat\_m1, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Gender, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire: Partner (normalized)}\StringTok{\textasciigrave{}}\NormalTok{, }
+                          \AttributeTok{color =}\NormalTok{ Gender)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{trim =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Gender) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Gender) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1c1.tab }\SpecialCharTok{|\textgreater{}} 
+                  \FunctionTok{rename}\NormalTok{(}\StringTok{\textquotesingle{}Dyadic sexual desire: Partner (normalized)\textquotesingle{}} \OtherTok{=}\NormalTok{ emmean),}
+                \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ lower.CL, }\AttributeTok{ymax =}\NormalTok{ upper.CL), }
+                \AttributeTok{colour =} \StringTok{"black"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1c1.tab }\SpecialCharTok{|\textgreater{}} 
+                  \FunctionTok{rename}\NormalTok{(}\StringTok{\textquotesingle{}Dyadic sexual desire: Partner (normalized)\textquotesingle{}} \OtherTok{=}\NormalTok{ emmean), }
+             \AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.1}\NormalTok{), }
+             \AttributeTok{shape =} \DecValTok{21}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{,}
+             \AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_pvalue\_manual}\NormalTok{(t.m1c1, }
+                     \AttributeTok{label =} \StringTok{"p.signif"}\NormalTok{, }
+                     \AttributeTok{y.position =} \FloatTok{3.5}\NormalTok{, }
+                     \AttributeTok{tip.length =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{color =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_tq}\NormalTok{()}
+
+\CommentTok{\# Relationship main effect}
+\NormalTok{h1c2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat\_m1, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Relationship, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire: Partner (normalized)}\StringTok{\textasciigrave{}}\NormalTok{, }
+                          \AttributeTok{color =}\NormalTok{ Relationship)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{trim =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Relationship) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Relationship) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1c2.tab }\SpecialCharTok{|\textgreater{}} 
+                  \FunctionTok{rename}\NormalTok{(}\StringTok{\textquotesingle{}Dyadic sexual desire: Partner (normalized)\textquotesingle{}} \OtherTok{=}\NormalTok{ emmean),}
+                \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ lower.CL, }\AttributeTok{ymax =}\NormalTok{ upper.CL), }
+                \AttributeTok{colour =} \StringTok{"black"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1c2.tab }\SpecialCharTok{|\textgreater{}} 
+                  \FunctionTok{rename}\NormalTok{(}\StringTok{\textquotesingle{}Dyadic sexual desire: Partner (normalized)\textquotesingle{}} \OtherTok{=}\NormalTok{ emmean), }
+             \AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.1}\NormalTok{), }
+             \AttributeTok{shape =} \DecValTok{21}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{,}
+             \AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_pvalue\_manual}\NormalTok{(t.m1c2, }
+                     \AttributeTok{label =} \StringTok{"p.signif"}\NormalTok{, }
+                     \AttributeTok{y.position =} \FloatTok{3.5}\NormalTok{, }
+                     \AttributeTok{tip.length =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{color =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_tq}\NormalTok{()}
+
+\CommentTok{\# Relationship × Gender interaction}
+\NormalTok{h1c3 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(dat\_m1, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Gender, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire: Partner (normalized)}\StringTok{\textasciigrave{}}\NormalTok{, }
+                           \AttributeTok{color =}\NormalTok{ Gender)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{trim =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_jitter}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Gender) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Gender) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Relationship) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1c3.tab }\SpecialCharTok{|\textgreater{}} 
+                  \FunctionTok{rename}\NormalTok{(}\StringTok{\textquotesingle{}Dyadic sexual desire: Partner (normalized)\textquotesingle{}} \OtherTok{=}\NormalTok{ emmean), }
+                \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ lower.CL, }\AttributeTok{ymax =}\NormalTok{ upper.CL), }
+                \AttributeTok{colour =} \StringTok{"black"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.m1c3.tab}\SpecialCharTok{|\textgreater{}} 
+                  \FunctionTok{rename}\NormalTok{(}\StringTok{\textquotesingle{}Dyadic sexual desire: Partner (normalized)\textquotesingle{}} \OtherTok{=}\NormalTok{ emmean), }
+             \AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.1}\NormalTok{), }
+             \AttributeTok{shape =} \DecValTok{21}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{,}
+             \AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{stat\_pvalue\_manual}\NormalTok{(t.m1c3, }
+                     \AttributeTok{label =} \StringTok{"p.signif"}\NormalTok{, }
+                     \AttributeTok{y.position =} \FloatTok{3.5}\NormalTok{, }
+                     \AttributeTok{tip.length =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{guides}\NormalTok{(}\AttributeTok{color =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_tq}\NormalTok{()}
+
+\CommentTok{\# Full figure for hypothesis 1 (a, b and c)}
+\NormalTok{p1c }\OtherTok{\textless{}{-}} \FunctionTok{ggarrange}\NormalTok{(h1c1, h1c2, h1c3,}
+                 \AttributeTok{ncol =} \DecValTok{3}\NormalTok{,}
+                 \AttributeTok{labels =} \StringTok{"auto"}\NormalTok{,}
+                 \AttributeTok{widths =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\FloatTok{1.5}\NormalTok{))}
+\NormalTok{p1c}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{Sexual_Desire_Arousal_V2_files/figure-latex/fig-h1c-1.pdf}
+\caption{\label{fig:fig-h1c}Effects of gender and relationship type on Dyadic sexual desire: Partner. Dyadic sexual desire: Partner was transformed using ordered quantile normalization \autocite{petersonOrderedQuantileNormalization2020a}. \textbf{(a)} Simple comparison between sexual desire by gender (for detailed results, see Table \ref{tab:tab-m1c-emm1}); \textbf{(b)} Simple comparison between relationship status levels (for detailed results, see Table \ref{tab:tab-m1c-emm2}); \textbf{(c)} Interaction between relationship type and relationship status (see Table \ref{tab:tab-m1c}; for detailed results, see Table \ref{tab:tab-m1c-emm3}). White dots and black bars represent estimated marginal means and 95\% CI. In all cases, significant effects are represented with lines and stars: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
+\end{figure}
+
+\subsection{Hypothesis 2: The association between trait sexual desire (TSD) and subjective sexual arousal (SSA) will vary by TSD dimension, with these associations being gender-specific in men and gender-non-specific in women.}\label{hyp2}
+
+We tested whether the slope of SSA as predictor of sexual desire varies for each of the three dimensions of TSD (H1a: Solitary TSD; H1b: Dyadic TSD toward an attractive person; H1c: Dyadic TSD toward a partner), depending on the gender of the participants and the sex of the stimuli. The prediction was specific for each TSD dimension:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{H2a}: A significant association between solitary TSD and SSA toward erotic stimuli.
+\item
+  \textbf{H2b}: A significant association between dyadic TSD toward an attractive person and SSA toward erotic stimuli.
+\item
+  \textbf{H2c}: No significant association between dyadic TSD toward a partner and SSA toward erotic stimuli.
+\end{itemize}
+
+To examine this hypothesis, we modeled the effects of SSA, gender, stimulus sex, and their interactions, on each of the three TSD scores. We included random intercepts for each stimuls, as well as random intercepts and slopes of stimuli sex for each participant.
+
+However, models using the original TSD scores did not meet the assumption of normally distributed residuals. To address this, we applied an ordered normalization transformation to each TSD variable. We then fitted and compared models predicting both the original (as a proportion, to make scores comparable) and transformed (normalized) TSD dimensions. In all three cases, models using the normalized variables provided a better fit, so all inferences are based on these models.
+
+\subsubsection{Data}\label{data-1}
+
+A data frame was created with one row per participant, where sexual desire variables were normalized as proportions. An ordered quantile normalization transformation \autocite{petersonOrderedQuantileNormalization2020a} was then applied using the \texttt{orderNorm} function from the \texttt{bestNormalize} package \autocite{bestNormalizecit}, and the transformed values were added as new variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Process the dataset and create transformed variables  }
+\NormalTok{dat\_m1 }\OtherTok{\textless{}{-}}\NormalTok{ dat }\SpecialCharTok{|\textgreater{}}  
+  \CommentTok{\# Group the data by participant  }
+  \FunctionTok{group\_by}\NormalTok{(Participant) }\SpecialCharTok{|\textgreater{}}  
+  \CommentTok{\# Select only the first (top) observation for each participant  }
+  \FunctionTok{slice\_head}\NormalTok{() }\SpecialCharTok{|\textgreater{}}  
+  \CommentTok{\# Remove the grouping structure to avoid unintended behavior in later operations  }
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{|\textgreater{}}  
+  \CommentTok{\# Create new proportion variables by normalizing each sexual desire measure  }
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{"Solitary sexual desire (proportion)"} \OtherTok{=} 
+           \StringTok{\textasciigrave{}}\AttributeTok{Solitary sexual desire}\StringTok{\textasciigrave{}} \SpecialCharTok{/} \DecValTok{31}\NormalTok{,  }
+         \StringTok{"Dyadic sexual desire: Attractive person (proportion)"} \OtherTok{=} 
+           \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Attractive person)}\StringTok{\textasciigrave{}} \SpecialCharTok{/} \DecValTok{32}\NormalTok{,  }
+         \StringTok{"Dyadic sexual desire: Partner (proportion)"} \OtherTok{=} 
+           \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner)}\StringTok{\textasciigrave{}} \SpecialCharTok{/} \DecValTok{38}\NormalTok{)  }
+
+\CommentTok{\# Apply ordered normalization transformations to the proportion variables  }
+\NormalTok{trs\_SSD }\OtherTok{\textless{}{-}} \FunctionTok{orderNorm}\NormalTok{(dat\_m1}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Solitary sexual desire (proportion)}\StringTok{\textasciigrave{}}\NormalTok{)  }
+\NormalTok{trs\_DSDat }\OtherTok{\textless{}{-}} \FunctionTok{orderNorm}\NormalTok{(dat\_m1}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire: Attractive person (proportion)}\StringTok{\textasciigrave{}}\NormalTok{)  }
+\NormalTok{trs\_DSDpt }\OtherTok{\textless{}{-}} \FunctionTok{orderNorm}\NormalTok{(dat\_m1}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire: Partner (proportion)}\StringTok{\textasciigrave{}}\NormalTok{)  }
+
+\CommentTok{\# Add the transformed variables back into the dataset  }
+\NormalTok{dat\_m1 }\OtherTok{\textless{}{-}}\NormalTok{ dat\_m1 }\SpecialCharTok{|\textgreater{}}  
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{"Solitary sexual desire (normalized)"} \OtherTok{=} 
+           \FunctionTok{predict}\NormalTok{(trs\_SSD),  }\CommentTok{\# Transformed solitary sexual desire  }
+         \StringTok{"Dyadic sexual desire: Attractive person (normalized)"} \OtherTok{=} 
+           \FunctionTok{predict}\NormalTok{(trs\_DSDat),  }\CommentTok{\# Transformed dyadic sexual desire (attractive person)  }
+         \StringTok{"Dyadic sexual desire: Partner (normalized)"} \OtherTok{=} 
+           \FunctionTok{predict}\NormalTok{(trs\_DSDpt))  }\CommentTok{\# Transformed dyadic sexual desire (partner)  }
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Hypothesis 1a: Solitary TSD}\label{hypothesis1a}
+
+\paragraph{Model the effects of relationship type and gender on Solitary TSD}\label{model-the-effects-of-relationship-type-and-gender-on-solitary-tsd-3}
+
+We fitted models with both the original (proportion; \texttt{m1a\_prop}) and transformed (normalized; \texttt{m1a\_norm}) TSD scores, and performed posterior predictive checks (PPCs). As shown elsewhere \autocite[e.g.,][]{gabryVisualizationBayesianWorkflow2019}, if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{options}\NormalTok{(}\AttributeTok{contrasts =} \FunctionTok{c}\NormalTok{(}\StringTok{"contr.sum"}\NormalTok{,}\StringTok{"contr.poly"}\NormalTok{))}
+\NormalTok{m1a\_prop }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Solitary sexual desire (proportion)}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Relationship,}
+            \AttributeTok{data =}\NormalTok{ dat\_m1)}
+
+\NormalTok{m1a\_norm }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Solitary sexual desire (normalized)}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Relationship,}
+           \AttributeTok{data =}\NormalTok{ dat\_m1)}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{Figure \ref{fig:ppc-m1a}: Posterior predictive checks (PPCs) for Hypothesis 1a.}\label{figure-reffigppc-m1a-posterior-predictive-checks-ppcs-for-hypothesis-1a.-1}
+
+PPCs were performed using the \texttt{check\_model} function from the \texttt{performance} package \autocite{ludecke2021}, and reported in Fig. \ref{fig:ppc-m1a}. Simulated data from the normalized Solitary TSD model (Fig. \ref{fig:ppc-m1a}b) are more similar to the observed outcome, so this model is preferred.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ppc\_m2a }\OtherTok{\textless{}{-}} \FunctionTok{ggarrange}\NormalTok{(}\FunctionTok{plot}\NormalTok{(}\FunctionTok{check\_model}\NormalTok{(m1a\_prop, }
+                                      \AttributeTok{panel =} \ConstantTok{FALSE}\NormalTok{,}
+                                      \AttributeTok{check =} \StringTok{"pp\_check"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{PP\_CHECK,}
+                          \AttributeTok{colors =} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"grey30"}\NormalTok{)) }\SpecialCharTok{+}
+                       \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{subtitle =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
+                       \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
+                       \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\AttributeTok{labeller =} \FunctionTok{as\_labeller}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
+                         \StringTok{"1"} \OtherTok{=} \StringTok{"Original (proportion) Solitary TSD"}\NormalTok{))),}
+                     \FunctionTok{plot}\NormalTok{(}\FunctionTok{check\_model}\NormalTok{(m1a\_norm, }
+                                      \AttributeTok{panel =} \ConstantTok{FALSE}\NormalTok{,}
+                                      \AttributeTok{check =} \StringTok{"pp\_check"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{PP\_CHECK,}
+                          \AttributeTok{colors =} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"grey30"}\NormalTok{)) }\SpecialCharTok{+}
+                       \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{subtitle =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
+                       \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
+                       \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\AttributeTok{labeller =} \FunctionTok{as\_labeller}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
+                         \StringTok{"1"} \OtherTok{=} \StringTok{"Transformed (normalized) Solitary TSD"}\NormalTok{))),}
+                     \AttributeTok{labels =} \StringTok{"auto"}\NormalTok{,}
+                     \AttributeTok{common.legend =} \ConstantTok{TRUE}\NormalTok{,}
+                     \AttributeTok{legend =} \StringTok{"bottom"}\NormalTok{)}
+\NormalTok{ppc\_m1a}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{Sexual_Desire_Arousal_V2_files/figure-latex/ppc-m2a-1.pdf}
+\caption{\label{fig:ppc-m2a}Posterior predictive check. \textbf{(a)} Original (proportion) Solitary TSD; \textbf{(b)} Transformed (normalized) Solitary TSD. In both panels, red lines represent the observed data, and thin black lines represent 50 iterations of simulated data from each model.}
+\end{figure}
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \section{Session info (for reproducibility)}\label{session}
@@ -2026,7 +2968,7 @@ This figure summarizes the results of hypothesis 1.
 \emph{pander(v.0.6.5)}, \emph{Hmisc(v.5.2-2)}, \emph{rstatix(v.0.7.2)}, \emph{bestNormalize(v.1.9.1)}, \emph{berryFunctions(v.1.22.5)}, \emph{emmeans(v.1.10.7)}, \emph{lmerTest(v.3.1-3)}, \emph{lme4(v.1.1-36)}, \emph{Matrix(v.1.7-2)}, \emph{scales(v.1.3.0)}, \emph{psych(v.2.4.12)}, \emph{kableExtra(v.1.4.0)}, \emph{performance(v.0.13.0)}, \emph{PerformanceAnalytics(v.2.0.8)}, \emph{quantmod(v.0.4.26)}, \emph{TTR(v.0.24.4)}, \emph{xts(v.0.14.1)}, \emph{zoo(v.1.8-12)}, \emph{tidyquant(v.1.0.10)}, \emph{ggpubr(v.0.6.0)}, \emph{lubridate(v.1.9.4)}, \emph{forcats(v.1.0.0)}, \emph{stringr(v.1.5.1)}, \emph{dplyr(v.1.1.4)}, \emph{purrr(v.1.0.4)}, \emph{readr(v.2.1.5)}, \emph{tidyr(v.1.3.1)}, \emph{tibble(v.3.2.1)}, \emph{ggplot2(v.3.5.1)}, \emph{tidyverse(v.2.0.0)}, \emph{car(v.3.1-3)}, \emph{carData(v.3.0-5)}, \emph{ltm(v.1.2-0)}, \emph{polycor(v.0.8-1)}, \emph{msm(v.1.8.2)}, \emph{MASS(v.7.3-64)}, \emph{readxl(v.1.4.3)} and \emph{knitr(v.1.49)}
 
 \textbf{loaded via a namespace (and not attached):}
-\emph{rstudioapi(v.0.17.1)}, \emph{magrittr(v.2.0.3)}, \emph{TH.data(v.1.1-3)}, \emph{estimability(v.1.5.1)}, \emph{farver(v.2.1.2)}, \emph{nloptr(v.2.1.1)}, \emph{rmarkdown(v.2.29)}, \emph{vctrs(v.0.6.5)}, \emph{minqa(v.1.2.8)}, \emph{base64enc(v.0.1-3)}, \emph{butcher(v.0.3.4)}, \emph{htmltools(v.0.5.8.1)}, \emph{curl(v.6.2.0)}, \emph{broom(v.1.0.7)}, \emph{cellranger(v.1.1.0)}, \emph{Formula(v.1.2-5)}, \emph{parallelly(v.1.41.0)}, \emph{htmlwidgets(v.1.6.4)}, \emph{sandwich(v.3.1-1)}, \emph{admisc(v.0.37)}, \emph{lifecycle(v.1.0.4)}, \emph{iterators(v.1.0.14)}, \emph{pkgconfig(v.2.0.3)}, \emph{R6(v.2.5.1)}, \emph{fastmap(v.1.2.0)}, \emph{rbibutils(v.2.3)}, \emph{future(v.1.34.0)}, \emph{digest(v.0.6.37)}, \emph{numDeriv(v.2016.8-1.1)}, \emph{colorspace(v.2.1-1)}, \emph{labeling(v.0.4.3)}, \emph{timechange(v.0.3.0)}, \emph{abind(v.1.4-8)}, \emph{compiler(v.4.4.2)}, \emph{rngtools(v.1.5.2)}, \emph{withr(v.3.0.2)}, \emph{doParallel(v.1.0.17)}, \emph{htmlTable(v.2.4.3)}, \emph{backports(v.1.5.0)}, \emph{ggsignif(v.0.6.4)}, \emph{lava(v.1.8.1)}, \emph{tools(v.4.4.2)}, \emph{foreign(v.0.8-88)}, \emph{RobStatTM(v.1.0.11)}, \emph{future.apply(v.1.11.3)}, \emph{nnet(v.7.3-20)}, \emph{glue(v.1.8.0)}, \emph{quadprog(v.1.5-8)}, \emph{nlme(v.3.1-167)}, \emph{grid(v.4.4.2)}, \emph{checkmate(v.2.3.2)}, \emph{cluster(v.2.1.8)}, \emph{see(v.0.10.0)}, \emph{generics(v.0.1.3)}, \emph{recipes(v.1.1.0)}, \emph{gtable(v.0.3.6)}, \emph{nortest(v.1.0-4)}, \emph{tzdb(v.0.4.0)}, \emph{class(v.7.3-23)}, \emph{data.table(v.1.16.4)}, \emph{hms(v.1.1.3)}, \emph{xml2(v.1.3.6)}, \emph{foreach(v.1.5.2)}, \emph{pillar(v.1.10.1)}, \emph{splines(v.4.4.2)}, \emph{lattice(v.0.22-6)}, \emph{survival(v.3.8-3)}, \emph{tidyselect(v.1.2.1)}, \emph{gridExtra(v.2.3)}, \emph{reformulas(v.0.4.0)}, \emph{bookdown(v.0.42)}, \emph{svglite(v.2.1.3)}, \emph{xfun(v.0.50)}, \emph{expm(v.1.0-0)}, \emph{hardhat(v.1.4.0)}, \emph{timeDate(v.4041.110)}, \emph{stringi(v.1.8.4)}, \emph{yaml(v.2.3.10)}, \emph{boot(v.1.3-31)}, \emph{evaluate(v.1.0.3)}, \emph{codetools(v.0.2-20)}, \emph{cli(v.3.6.3)}, \emph{rpart(v.4.1.24)}, \emph{xtable(v.1.8-4)}, \emph{systemfonts(v.1.2.1)}, \emph{Rdpack(v.2.6.2)}, \emph{munsell(v.0.5.1)}, \emph{Rcpp(v.1.0.14)}, \emph{globals(v.0.16.3)}, \emph{coda(v.0.19-4.1)}, \emph{parallel(v.4.4.2)}, \emph{gower(v.1.0.2)}, \emph{doRNG(v.1.8.6.1)}, \emph{listenv(v.0.9.1)}, \emph{viridisLite(v.0.4.2)}, \emph{mvtnorm(v.1.3-3)}, \emph{ipred(v.0.9-15)}, \emph{prodlim(v.2024.06.25)}, \emph{insight(v.1.0.1)}, \emph{rlang(v.1.1.5)}, \emph{cowplot(v.1.1.3)}, \emph{multcomp(v.1.4-28)} and \emph{mnormt(v.2.1.1)}
+\emph{rstudioapi(v.0.17.1)}, \emph{magrittr(v.2.0.3)}, \emph{TH.data(v.1.1-3)}, \emph{estimability(v.1.5.1)}, \emph{farver(v.2.1.2)}, \emph{nloptr(v.2.1.1)}, \emph{rmarkdown(v.2.29)}, \emph{vctrs(v.0.6.5)}, \emph{minqa(v.1.2.8)}, \emph{base64enc(v.0.1-3)}, \emph{butcher(v.0.3.4)}, \emph{htmltools(v.0.5.8.1)}, \emph{curl(v.6.2.0)}, \emph{broom(v.1.0.7)}, \emph{cellranger(v.1.1.0)}, \emph{Formula(v.1.2-5)}, \emph{parallelly(v.1.42.0)}, \emph{htmlwidgets(v.1.6.4)}, \emph{sandwich(v.3.1-1)}, \emph{admisc(v.0.37)}, \emph{lifecycle(v.1.0.4)}, \emph{iterators(v.1.0.14)}, \emph{pkgconfig(v.2.0.3)}, \emph{R6(v.2.5.1)}, \emph{fastmap(v.1.2.0)}, \emph{rbibutils(v.2.3)}, \emph{future(v.1.34.0)}, \emph{digest(v.0.6.37)}, \emph{numDeriv(v.2016.8-1.1)}, \emph{colorspace(v.2.1-1)}, \emph{labeling(v.0.4.3)}, \emph{timechange(v.0.3.0)}, \emph{abind(v.1.4-8)}, \emph{compiler(v.4.4.2)}, \emph{rngtools(v.1.5.2)}, \emph{withr(v.3.0.2)}, \emph{doParallel(v.1.0.17)}, \emph{htmlTable(v.2.4.3)}, \emph{backports(v.1.5.0)}, \emph{ggsignif(v.0.6.4)}, \emph{lava(v.1.8.1)}, \emph{tools(v.4.4.2)}, \emph{foreign(v.0.8-88)}, \emph{RobStatTM(v.1.0.11)}, \emph{future.apply(v.1.11.3)}, \emph{nnet(v.7.3-20)}, \emph{glue(v.1.8.0)}, \emph{quadprog(v.1.5-8)}, \emph{nlme(v.3.1-167)}, \emph{grid(v.4.4.2)}, \emph{checkmate(v.2.3.2)}, \emph{cluster(v.2.1.8)}, \emph{see(v.0.10.0)}, \emph{generics(v.0.1.3)}, \emph{recipes(v.1.1.0)}, \emph{gtable(v.0.3.6)}, \emph{nortest(v.1.0-4)}, \emph{tzdb(v.0.4.0)}, \emph{class(v.7.3-23)}, \emph{data.table(v.1.16.4)}, \emph{hms(v.1.1.3)}, \emph{xml2(v.1.3.6)}, \emph{foreach(v.1.5.2)}, \emph{pillar(v.1.10.1)}, \emph{splines(v.4.4.2)}, \emph{lattice(v.0.22-6)}, \emph{survival(v.3.8-3)}, \emph{tidyselect(v.1.2.1)}, \emph{gridExtra(v.2.3)}, \emph{reformulas(v.0.4.0)}, \emph{bookdown(v.0.42)}, \emph{svglite(v.2.1.3)}, \emph{xfun(v.0.50)}, \emph{expm(v.1.0-0)}, \emph{hardhat(v.1.4.1)}, \emph{timeDate(v.4041.110)}, \emph{stringi(v.1.8.4)}, \emph{yaml(v.2.3.10)}, \emph{boot(v.1.3-31)}, \emph{evaluate(v.1.0.3)}, \emph{codetools(v.0.2-20)}, \emph{cli(v.3.6.3)}, \emph{rpart(v.4.1.24)}, \emph{xtable(v.1.8-4)}, \emph{systemfonts(v.1.2.1)}, \emph{Rdpack(v.2.6.2)}, \emph{munsell(v.0.5.1)}, \emph{Rcpp(v.1.0.14)}, \emph{globals(v.0.16.3)}, \emph{coda(v.0.19-4.1)}, \emph{parallel(v.4.4.2)}, \emph{gower(v.1.0.2)}, \emph{doRNG(v.1.8.6.1)}, \emph{listenv(v.0.9.1)}, \emph{viridisLite(v.0.4.2)}, \emph{mvtnorm(v.1.3-3)}, \emph{ipred(v.0.9-15)}, \emph{prodlim(v.2024.06.25)}, \emph{insight(v.1.0.2)}, \emph{rlang(v.1.1.5)}, \emph{cowplot(v.1.1.3)}, \emph{multcomp(v.1.4-28)} and \emph{mnormt(v.2.1.1)}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
