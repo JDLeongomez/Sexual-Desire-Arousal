@@ -377,17 +377,18 @@ emms.sig <- function(low.i, mid.i, hi.i) {
   pack_rows(group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean - SD"),
             start_row = 1,
             end_row = 2,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   pack_rows(group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean"),
             start_row = 3,
             end_row = 4,
-            hline_before = TRUE,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   pack_rows(group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean + SD"),
             start_row = 5,
             end_row = 6,
-            hline_before = TRUE,
-            bold = TRUE) |> 
+            bold = FALSE,
+            background = "lightgray") |> 
   add_header_above(c(" " = 5, "Contrasts" = 3)) |> 
   kable_styling(latex_options = "HOLD_position") |>
   footnote(general = paste0("EMM = estimated marginal mean.
@@ -437,17 +438,18 @@ emms.sig2 <- function(low.i, mid.i, hi.i) {
   pack_rows(group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean - SD"),
             start_row = 1,
             end_row = 6,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   pack_rows(group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean"),
             start_row = 7,
             end_row = 12,
-            hline_before = TRUE,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   pack_rows(group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean + SD"),
             start_row = 13,
             end_row = 18,
-            hline_before = TRUE,
-            bold = TRUE) |> 
+            bold = FALSE,
+            background = "lightgray") |> 
   add_header_above(c(" " = 6, "Contrasts" = 3)) |> 
   kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
   footnote(general = paste0("EMM = estimated marginal mean.
@@ -898,15 +900,16 @@ bind_rows(dat.corr.W, dat.corr.M, dat.corr.All) |>
         escape = FALSE) |>
   pack_rows(group_label = "Women",
             start_row = 1, end_row = 10,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   pack_rows(group_label = "Men",
             start_row = 11, end_row = 20,
-            hline_before = TRUE,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   pack_rows(group_label = "All participants",
             start_row = 21, end_row = 30,
-            hline_before = TRUE,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
   column_spec(2:10, width = "2.2cm") |>
   footnote(general = paste0("Values represent Pearson correlation coefficients ($r$). ",
@@ -1258,7 +1261,7 @@ ppc_m1a <- ggarrange(plot(check_model(m1a_prop,
 ppc_m1a
 ```
 
-#### Table \@ref(tab:tab-m1a). Regression-type table for the interaction between `Relationship type`, and `Gender`
+#### Table \@ref(tab:tab-m1a). ANOVA-type table for the interaction between `Relationship type`, and `Gender`
 
 This tables summarizes the results of the model.
 
@@ -1399,13 +1402,13 @@ merge(emms.m1a3.tab, t.m1a3.f, by = 0, all = TRUE) |>
   pack_rows(group_label = "Relationship status: Stable",
             start_row = 1,
             end_row = 2,
-            hline_before = FALSE,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   pack_rows(group_label = "Relationship status: Single",
             start_row = 3,
             end_row = 4,
-            hline_before = TRUE,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   add_header_above(c(" " = 6, "Contrasts" = 6)) |> 
   kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
   footnote(general = "Significant effects are in bold.",
@@ -1414,7 +1417,7 @@ merge(emms.m1a3.tab, t.m1a3.f, by = 0, all = TRUE) |>
            escape = FALSE)
 ```
 
-#### Figure \@ref(fig:fig-h1a). Differences among the three dimensions of sexual desire
+#### Figure \@ref(fig:fig-h1a). Effects of gender and relationship type on solitary sexual desire
 
 This figure summarizes the results of hypothesis 1a.
 
@@ -1529,7 +1532,7 @@ ppc_m1b <- ggarrange(plot(check_model(m1b_prop,
 ppc_m1b
 ```
 
-#### Table \@ref(tab:tab-m1b). Regression-type table for the interaction between `Relationship type`, and `Gender`
+#### Table \@ref(tab:tab-m1b). ANOVA-type table for the interaction between `Relationship type`, and `Gender`
 
 This tables summarizes the results of the model.
 
@@ -1670,13 +1673,13 @@ merge(emms.m1b3.tab, t.m1b3.f, by = 0, all = TRUE) |>
   pack_rows(group_label = "Relationship status: Stable",
             start_row = 1,
             end_row = 2,
-            hline_before = FALSE,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   pack_rows(group_label = "Relationship status: Single",
             start_row = 3,
             end_row = 4,
-            hline_before = TRUE,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   add_header_above(c(" " = 6, "Contrasts" = 6)) |> 
   kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
   footnote(general = "Significant effects are in bold.",
@@ -1685,7 +1688,7 @@ merge(emms.m1b3.tab, t.m1b3.f, by = 0, all = TRUE) |>
            escape = FALSE)
 ```
 
-#### Figure \@ref(fig:fig-h1b). Differences among the three dimensions of sexual desire
+#### Figure \@ref(fig:fig-h1b). Effects of gender and relationship type on Dyadic sexual desire: Attractive person
 
 This figure summarizes the results of hypothesis 1b.
 
@@ -1804,7 +1807,7 @@ ppc_m1c <- ggarrange(plot(check_model(m1c_prop,
 ppc_m1c
 ```
 
-#### Table \@ref(tab:tab-m1c). Regression-type table for the interaction between `Relationship type`, and `Gender`
+#### Table \@ref(tab:tab-m1c). ANOVA-type table for the interaction between `Relationship type`, and `Gender`
 
 This tables summarizes the results of the model.
 
@@ -1923,35 +1926,35 @@ merge(emms.m1c3.tab, t.m1c3.f, by = 0, all = TRUE) |>
   unite(Contrast, group1, group2, sep = " - ") |>
   mutate_at("Contrast", str_replace_all, "NA - NA", "") |> 
   kable(digits = 2,
-          booktabs = TRUE,
-          align = c("l", "l", rep("c", 5), "l", rep("c", 5)),
-          linesep = "",
-          caption = "Estimated marginal means and contrasts between gender by 
+        booktabs = TRUE,
+        align = c("l", "l", rep("c", 5), "l", rep("c", 5)),
+        linesep = "",
+        caption = "Estimated marginal means and contrasts between gender by 
                     relationship status",
-          col.names = c("Gender",
-                        #"Relationship",
-                        "EMM",
-                        "$SE$",
-                        "$df$",
-                        "$2.5\\% CI$",
-                        "$97.5\\% CI$",
-                        "Contrast",
-                        "Difference",
-                        "$SE$",
-                        "$df$",
-                        "$t$",
-                        "$p$"),
-          escape = FALSE) |>
+        col.names = c("Gender",
+                      #"Relationship",
+                      "EMM",
+                      "$SE$",
+                      "$df$",
+                      "$2.5\\% CI$",
+                      "$97.5\\% CI$",
+                      "Contrast",
+                      "Difference",
+                      "$SE$",
+                      "$df$",
+                      "$t$",
+                      "$p$"),
+        escape = FALSE) |>
   pack_rows(group_label = "Relationship status: Stable",
             start_row = 1,
             end_row = 2,
-            hline_before = FALSE,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   pack_rows(group_label = "Relationship status: Single",
             start_row = 3,
             end_row = 4,
-            hline_before = TRUE,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   add_header_above(c(" " = 6, "Contrasts" = 6)) |> 
   kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
   footnote(general = "Significant effects are in bold.",
@@ -1960,7 +1963,7 @@ merge(emms.m1c3.tab, t.m1c3.f, by = 0, all = TRUE) |>
            escape = FALSE)
 ```
 
-#### Figure \@ref(fig:fig-h1c). Differences among the three dimensions of sexual desire
+#### Figure \@ref(fig:fig-h1c). Effects of gender and relationship type on Dyadic sexual desire: Partner
 
 This figure summarizes the results of hypothesis 1c.
 
@@ -2031,23 +2034,33 @@ p1c <- ggarrange(h1c1, h1c2, h1c3,
 p1c
 ```
 
-## Data filtering for hypotheses 2 and 3
+## Data filtering for hypotheses 2 and 3. {#datfil2and3} 
 
-To avoid over-complicating the model, first we tested whether the effects on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic). This was, in fact, the case:
+To avoid over-complicating the model, first we tested whether the effects of stimuli on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic). This was, in fact, the case.
 
-```{r tab-m-stimuli-content, message = FALSE}
+### Table \@ref(tab:ab-m-stimuli-content). ANOVA-type table for the effects of stimuli content, gender and stimuli content on Subjective sexual arousal
+
+We fitted a linear mixed model with Gender, Stimuli sex, Stimuli content, and their interactions, as fixed effects for Subjective sexual arousal and including, as random effects, random intercepts per stimulus, as well as random intercepts and slopes for the effect of stimuli content.
+
+```{r tab-m-stimuli-content, message = FALSE, cache = TRUE}
 m_stim_cont <- lmer(`Subjective sexual arousal` ~ 
              Gender * `Stimuli sex` * `Stimuli content` +
              (1 | `Stimuli code`) +
-             (1 + `Stimuli content` | Participant),
+             (1 + `Stimuli content`*`Stimuli sex` | Participant),
            data = dat,
            control = lmerControl(optimizer = "bobyqa"))
 
-anova.sig.lmer(model = m_stim_cont, custom_caption = "Effects of relationship type and gender on 
-          Dyadic sexual desire: Partner")
+anova.sig.lmer(model = m_stim_cont, custom_caption = "Effects of relationship type and gender 
+               on Dyadic sexual desire: Partner")
 ```
 
-```{r tab-stim-cont-emms, message = FALSE}
+The effects of stimuli on sexual arousal were stronger for erotic compared to non-erotic stimuli; to illustrate this, we compared the (within-subject) difference in reported sexual arousal between stimuli sexes, for women and men. This difference was larger when viewing erotic than non-erotic stimuli in both women (erotic: 0.77, non-erotic: 0.57) but especially in men (erotic: 2.75, non-erotic: 1.60; see Table \@ref(tab:tab-stim-cont-emms) and Fig. \@ref(fig:fig-m-stimuli-content)). Considering this, we tested all predictions of hypotheses 2 and 3 only on responses to erotic stimuli.
+
+### Table \@ref(tab:tab-stim-cont-emms). Estimated marginal means and contrasts between subjective sexual arousal depending on stimuli sex, by stimuli content and participant gender.
+
+Table of estimated marginal means and contrasts between between subjective sexual arousal depending on stimuli sex, by stimuli content and participant gender. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+```{r tab-stim-cont-emms, message = FALSE, warning = FALSE, cache = TRUE}
 emms.stim_cont <- emmeans(m_stim_cont, pairwise ~ `Stimuli sex` | `Stimuli content`  + Gender,
                     adjust = "bonferroni",
                     lmer.df = "satterthwaite")
@@ -2071,6 +2084,8 @@ merge(emms.stim_cont.tab, t.stim_cont.f, by = 0, all = TRUE) |>
   drop_na("Stimuli sex") |> 
   unite(Contrast, group1, group2, sep = " - ") |>
   mutate_at("Contrast", str_replace_all, "NA - NA", " ") |> 
+  mutate(across(c(df.x, df.y), as.character)) |> 
+  mutate(across(c(df.x, df.y), str_replace_all, "Inf", "$\\\\infty$")) |>
   kable(digits = 2,
           booktabs = TRUE,
           align = c("l", "l", rep("c", 5), "l", rep("c", 5)),
@@ -2093,21 +2108,23 @@ merge(emms.stim_cont.tab, t.stim_cont.f, by = 0, all = TRUE) |>
   pack_rows(group_label = "Gender: Women - Stimuli content: Erotic",
             start_row = 1,
             end_row = 2,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   pack_rows(group_label = "Gender: Women - Stimuli content: Non-erotic",
             start_row = 3,
             end_row = 4,
-            hline_before = TRUE,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   pack_rows(group_label = "Gender: Men - Stimuli content: Erotic",
             start_row = 5,
             end_row = 6,
-            hline_before = TRUE,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   pack_rows(group_label = "Gender: Men - Stimuli content: Non-erotic",
             start_row = 7,
             end_row = 8,
-            bold = TRUE) |>
+            bold = FALSE,
+            background = "lightgray") |>
   add_header_above(c(" " = 6, "Contrasts" = 6)) |> 
   kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
   footnote(general = "EMM = estimated marginal mean.
@@ -2118,31 +2135,74 @@ merge(emms.stim_cont.tab, t.stim_cont.f, by = 0, all = TRUE) |>
            escape = FALSE)
 ```
 
+### Figure \@ref(fig:fig-m-stimuli-content). Effects of stimuli content (erotic, non-erotic) on subjective sexual arousal
 
+This figure summarizes the results of the model to determine whether the effects of stimuli on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic).
 
 ```{r fig-m-stimuli-content, results = "hold", fig.height = 4, fig.width = 8, fig.cap = "Effects of stimuli content (erotic, non-erotic) on subjective sexual arousal for women's (left panel) and men's (right panel) scores of male and female stimuli (see Table \\@ref(tab:tab-m-stimuli-content); for detailed results, see Table \\@ref(tab:tab-stim-cont-emms)). Dots and bars represent estimated marginal means and 95% CI. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
-# Gender main effect
-ggplot(dat, aes(x = `Stimuli sex`, y = `Subjective sexual arousal`, 
-                color = `Stimuli content`)) +
+# Prepare data for vertical comparison lines between Male and Female
+diff_data <- emms.stim_cont.tab %>%
+  select(`Stimuli sex`, Gender, `Stimuli content`, `Subjective sexual arousal`) %>%
+  pivot_wider(names_from = `Stimuli sex`, values_from = `Subjective sexual arousal`) %>%
+  mutate(
+    ymin = Male,  # Start of line at Male's mean arousal
+    ymax = Female  # End of line at Female's mean arousal
+  ) %>%
+  mutate(
+    # Define custom x positions slightly offset for better readability
+    x_pos = rep(c(as.numeric(as.factor(`Stimuli content`[1])) - 0.25, 
+                  as.numeric(as.factor(`Stimuli content`[2])) + 0.25), 2)
+  )
+
+# Create the plot
+ggplot(emms.stim_cont.tab, aes(x = `Stimuli sex`, y = `Subjective sexual arousal`, 
+                               color = `Stimuli content`)) +
+  # Separate plots for each Gender
   facet_wrap(~Gender) +
+  # Set custom colors for Stimuli content
   scale_color_manual(values = color.Gender) +
   scale_fill_manual(values = color.Gender) +
+  # Add confidence interval ranges
   geom_linerange(data = emms.stim_cont.tab,
                  mapping = aes(ymin = asymp.LCL, ymax = asymp.UCL),
-                 position = position_dodge(0.9)) + 
+                 position = position_dodge(0.5)) + 
+  # Add individual data points with position dodge to avoid overlap
   geom_point(data = emms.stim_cont.tab, 
-             position = position_dodge(0.9), 
+             position = position_dodge(0.5), 
              size = 3) +
+  # Add statistical significance annotations
   stat_pvalue_manual(t.stim_cont, 
                      label = "p.signif", 
-                     y.position = c(2.7, 3, 4.1, 3), 
+                     y.position = c(2.7, 3, 4.2, 3),  # Adjusted y positions for clarity
                      tip.length = 0,
                      color = "Stimuli content",
-                     position = position_dodge(0.9)) +
+                     position = position_dodge(0.5)) +
+  # Add vertical dotted lines WITHOUT arrows
+  geom_segment(data = diff_data, 
+               aes(x = x_pos, xend = x_pos, 
+                   y = ymin, yend = ymax, 
+                   color = `Stimuli content`),
+               linewidth = 0.5,
+               linetype = "dotted") +  # Dotted lines
+  # Add SOLID arrows separately, with NO line
+  geom_segment(data = diff_data, 
+               aes(x = x_pos, xend = x_pos, 
+                   y = ymin, yend = ymax, 
+                   color = `Stimuli content`),
+               linetype = "solid",    # Make sure arrows are solid
+               linewidth = 0,         # Hide the line itself
+               arrow = arrow(length = unit(0.3, "cm"), type = "closed", ends = "both")) +
+  # Rotated & Centered Difference Labels on the vertical lines
+  geom_text(data = diff_data, 
+            aes(x = x_pos - 0.06, y = (ymin + ymax) / 2, 
+                label = abs(round(ymax - ymin, 2)), 
+                color = `Stimuli content`), 
+            angle = 90,        # Rotate text vertically
+            hjust = 0.5,       # Center horizontally
+            vjust = 0.5,       # Center vertically on the line
+            size = 3) +
   theme_tq()
 ```
-
-Considering this, we tested all predictions of hypotheses 2 and 3 only on responses to erotic stimuli.
 
 ## Hypothesis 2: The association between trait sexual desire (TSD) and subjective sexual arousal (SSA) will vary by TSD dimension, with these associations being gender-specific in men and gender-non-specific in women. {#hyp2}
 
@@ -2192,7 +2252,7 @@ dat_m1 <- dat_m1 |>
            predict(trs_DSDpt))  # Transformed dyadic sexual desire (partner)  
 ```
 
-### Hypothesis 1a: Solitary TSD {#hypothesis1a}
+### Hypothesis 2a: Solitary TSD {#hypothesis2a}
 
 #### Model the effects of relationship type and gender on Solitary TSD
 
