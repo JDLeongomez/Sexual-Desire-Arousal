@@ -392,7 +392,7 @@ Functions to bold significant \emph{p} values from summary model tables. It high
           \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{3}\NormalTok{)),}
           \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
           \AttributeTok{caption =}\NormalTok{ custom\_caption,}
-          \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Effect"}\NormalTok{, }\StringTok{"$df$"}\NormalTok{, }\StringTok{"$F$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{, }\StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{omega\^{}2\_p$"}\NormalTok{),}
+          \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Effect"}\NormalTok{, }\StringTok{"$df$"}\NormalTok{, }\StringTok{"$F$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{, }\StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{epsilon\^{}2\_p$"}\NormalTok{),}
           \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
     \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
     \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"Results are type III ANOVA.}
@@ -403,8 +403,9 @@ Functions to bold significant \emph{p} values from summary model tables. It high
                               \StringTok{". Gender = participants gender (women, men); }
 \StringTok{                              Stimuli sex = sex of each stimulus (male, female);}
 \StringTok{                              Stimuli content = content of each stimulus (erotic, non{-}erotic).}
-\StringTok{                              As effect size, we report partial omega squared }
-\StringTok{                              ($}\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{omega\^{}2\_p$; see}
+\StringTok{                              As effect size, we report partial epsilon squared }
+\StringTok{                              ($}\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{epsilon\^{}2\_p$), which provides a less biases}
+\StringTok{                              estimate than $}\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{eta\^{}2$ (see}
 \StringTok{                              }\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{cite\{albersWhenPowerAnalyses2018\}).}
 \StringTok{                              Significant effects are in bold."}\NormalTok{),}
              \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{,}
@@ -1333,7 +1334,7 @@ Table of Cronbach's \(\alpha\) for construct variables.
 \toprule
 Variable & Gender & Items & $n$ & $\alpha$ & $2.5\% CI$ & $97.5\% CI$\\
 \midrule
- & Men & 5 & 139 & 0.82 & 0.70 & 0.89\\
+ & Men & 5 & 139 & 0.82 & 0.71 & 0.88\\
 \cmidrule{2-7}
 \multirow{-2}{*}{\raggedright\arraybackslash MGH-SFQ} & Women & 4 & 181 & 0.86 & 0.82 & 0.90\\
 \cmidrule{1-7}
@@ -1341,7 +1342,7 @@ MGSS sexual satisfaction (General) &  & 5 & 188 & 0.92 & 0.89 & 0.94\\
 \cmidrule{1-7}
 MGSS sexual satisfaction (Partner) &  & 5 & 187 & 0.91 & 0.85 & 0.95\\
 \cmidrule{1-7}
-Dyadic sexual desire (Partner) &  & 5 & 309 & 0.90 & 0.87 & 0.92\\
+Dyadic sexual desire (Partner) &  & 5 & 309 & 0.90 & 0.88 & 0.92\\
 \cmidrule{1-7}
 Solitary sexual desire &  & 4 & 314 & 0.91 & 0.89 & 0.93\\
 \cmidrule{1-7}
@@ -1982,9 +1983,9 @@ This figure summarizes the results of hypothesis 1a.
 \caption{\label{fig:fig-h1a}Effects of gender and relationship type on solitary sexual desire. Solitary sexual desire was transformed using ordered quantile normalization \autocite{petersonOrderedQuantileNormalization2020a}. \textbf{(a)} Simple comparison between sexual desire by gender (for detailed results, see Table \ref{tab:tab-m1a-emm1}); \textbf{(b)} Simple comparison between relationship status levels (for detailed results, see Table \ref{tab:tab-m1a-emm2}); \textbf{(c)} Interaction between relationship type and relationship status (see Table \ref{tab:tab-m1a}; for detailed results, see Table \ref{tab:tab-m1a-emm3}). Dots and bars represent estimated marginal means and 95\% CI. In all cases, significant effects are represented with lines and stars: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
 \end{figure}
 
-\subsubsection{Hypothesis 1b: Solitary TSD}\label{hypothesis1b}
+\subsubsection{Hypothesis 1b: Dyadic TSD (Attractive person)}\label{hypothesis1b}
 
-\paragraph{Model the effects of relationship type and gender on Solitary TSD}\label{model-the-effects-of-relationship-type-and-gender-on-solitary-tsd-1}
+\paragraph{Model the effects of relationship type and gender on Dyadic TSD: Attractive person}\label{model-the-effects-of-relationship-type-and-gender-on-dyadic-tsd-attractive-person}
 
 We fitted models with both the original (proportion; \texttt{m1b\_prop}) and transformed (normalized; \texttt{m1b\_norm}) TSD scores, and performed posterior predictive checks (PPCs). As shown elsewhere \autocite[e.g.,][]{gabryVisualizationBayesianWorkflow2019}, if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
 
@@ -2392,9 +2393,9 @@ This figure summarizes the results of hypothesis 1b.
 \caption{\label{fig:fig-h1b}Effects of gender and relationship type on Dyadic sexual desire: Attractive person. Dyadic sexual desire: Attractive person was transformed using ordered quantile normalization \autocite{petersonOrderedQuantileNormalization2020a}. \textbf{(a)} Simple comparison between sexual desire by gender (for detailed results, see Table \ref{tab:tab-m1b-emm1}); \textbf{(b)} Simple comparison between relationship status levels (for detailed results, see Table \ref{tab:tab-m1b-emm2}); \textbf{(c)} Interaction between relationship type and relationship status (see Table \ref{tab:tab-m1b}; for detailed results, see Table \ref{tab:tab-m1b-emm3}). Dots and bars represent estimated marginal means and 95\% CI. In all cases, significant effects are represented with lines and stars: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
 \end{figure}
 
-\subsubsection{Hypothesis 1c: Solitary TSD}\label{hypothesis1c}
+\subsubsection{Hypothesis 1c: Dyadic TSD (Partner)}\label{hypothesis1c}
 
-\paragraph{Model the effects of relationship type and gender on Solitary TSD}\label{model-the-effects-of-relationship-type-and-gender-on-solitary-tsd-2}
+\paragraph{Model the effects of relationship type and gender on Dyadic TSD: Partner}\label{model-the-effects-of-relationship-type-and-gender-on-dyadic-tsd-partner}
 
 We fitted models with both the original (proportion; \texttt{m1c\_prop}) and transformed (normalized; \texttt{m1c\_norm}) TSD scores, and performed posterior predictive checks (PPCs). As shown elsewhere \autocite[e.g.,][]{gabryVisualizationBayesianWorkflow2019}, if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
 
@@ -2798,9 +2799,9 @@ This figure summarizes the results of hypothesis 1c.
 
 \subsection{Data filtering for hypotheses 2 and 3.}\label{datfil2and3}
 
-To avoid over-complicating the model, first we tested whether the effects of stimuli on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic). This was, in fact, the case.
+To avoid over-complicating the models, first we tested whether the effects of stimuli on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic). This was, in fact, the case.
 
-\subsubsection{Table \ref{tab:ab-m-stimuli-content}. ANOVA-type table for the effects of stimuli content, gender and stimuli content on Subjective sexual arousal}\label{table-reftabab-m-stimuli-content.-anova-type-table-for-the-effects-of-stimuli-content-gender-and-stimuli-content-on-subjective-sexual-arousal}
+\subsubsection{Table \ref{tab:tab-m-stimuli-content}. ANOVA-type table for the effects of stimuli content, gender and stimuli content on Subjective sexual arousal}\label{table-reftabtab-m-stimuli-content.-anova-type-table-for-the-effects-of-stimuli-content-gender-and-stimuli-content-on-subjective-sexual-arousal}
 
 We fitted a linear mixed model with Gender, Stimuli sex, Stimuli content, and their interactions, as fixed effects for Subjective sexual arousal and including, as random effects, random intercepts per stimulus, as well as random intercepts and slopes for the effect of stimuli content.
 
@@ -2817,17 +2818,6 @@ We fitted a linear mixed model with Gender, Stimuli sex, Stimuli content, and th
 \StringTok{               on Dyadic sexual desire: Partner"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Warning: Looks like you are using syntactically invalid variable names, quoted in
-##   backticks: `Stimuli content`. This may result in unexpected behaviour.
-##   Please rename your variables (e.g., `Stimuli.content` instead of
-##   `Stimuli content`) and fit the model again.
-## Warning: Looks like you are using syntactically invalid variable names, quoted in
-##   backticks: `Stimuli content`. This may result in unexpected behaviour.
-##   Please rename your variables (e.g., `Stimuli.content` instead of
-##   `Stimuli content`) and fit the model again.
-\end{verbatim}
 
 \begin{table}[H]
 \centering
@@ -3052,7 +3042,7 @@ This figure summarizes the results of the model to determine whether the effects
             \AttributeTok{angle =} \DecValTok{90}\NormalTok{,        }\CommentTok{\# Rotate text vertically}
             \AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{,       }\CommentTok{\# Center horizontally}
             \AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{,       }\CommentTok{\# Center vertically on the line}
-            \AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
+            \AttributeTok{size =} \FloatTok{2.5}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -3060,7 +3050,7 @@ This figure summarizes the results of the model to determine whether the effects
 \begin{figure}
 \centering
 \includegraphics{Sexual_Desire_Arousal_V2_files/figure-latex/fig-m-stimuli-content-1.pdf}
-\caption{\label{fig:fig-m-stimuli-content}Effects of stimuli content (erotic, non-erotic) on subjective sexual arousal for women's (left panel) and men's (right panel) scores of male and female stimuli (see Table \ref{tab:tab-m-stimuli-content}; for detailed results, see Table \ref{tab:tab-stim-cont-emms}). Dots and bars represent estimated marginal means and 95\% CI. In all cases, significant effects are represented with lines and stars: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
+\caption{\label{fig:fig-m-stimuli-content}Effects of stimuli content (erotic, non-erotic) on subjective sexual arousal for women's (left panel) and men's (right panel) scores of male and female stimuli (see Table \ref{tab:tab-m-stimuli-content}; for detailed results, see Table \ref{tab:tab-stim-cont-emms}). Dots and bars represent estimated marginal means and 95\% CI. Vertical laines represent the (absolute) difference in reported subjective sexual arousal for male and femnale stimuli, by stimuli content and gender. In all cases, significant effects are represented with lines and stars: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
 \end{figure}
 
 \subsection{Hypothesis 2: The association between trait sexual desire (TSD) and subjective sexual arousal (SSA) will vary by TSD dimension, with these associations being gender-specific in men and gender-non-specific in women.}\label{hyp2}
@@ -3121,7 +3111,7 @@ A data frame was created with one row per participant, where sexual desire varia
 
 \subsubsection{Hypothesis 2a: Solitary TSD}\label{hypothesis2a}
 
-\paragraph{Model the effects of relationship type and gender on Solitary TSD}\label{model-the-effects-of-relationship-type-and-gender-on-solitary-tsd-3}
+\paragraph{Model the effects of relationship type and gender on Solitary TSD}\label{model-the-effects-of-relationship-type-and-gender-on-solitary-tsd-1}
 
 We fitted models with both the original (proportion; \texttt{m1a\_prop}) and transformed (normalized; \texttt{m1a\_norm}) TSD scores, and performed posterior predictive checks (PPCs) to select the best model. As shown elsewhere \autocite[e.g.,][]{gabryVisualizationBayesianWorkflow2019}, if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
 

@@ -320,7 +320,7 @@ anova.sig.lmer <- function(model, custom_caption) {
           align = c("l", rep("c", 3)),
           linesep = "",
           caption = custom_caption,
-          col.names = c("Effect", "$df$", "$F$", "$p$", "$\\omega^2_p$"),
+          col.names = c("Effect", "$df$", "$F$", "$p$", "$\\epsilon^2_p$"),
           escape = FALSE) |>
     kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
     footnote(general = paste0("Results are type III ANOVA.
@@ -331,8 +331,9 @@ anova.sig.lmer <- function(model, custom_caption) {
                               ". Gender = participants gender (women, men); 
                               Stimuli sex = sex of each stimulus (male, female);
                               Stimuli content = content of each stimulus (erotic, non-erotic).
-                              As effect size, we report partial omega squared 
-                              ($\\\\omega^2_p$; see
+                              As effect size, we report partial epsilon squared 
+                              ($\\\\epsilon^2_p$), which provides a less biases
+                              estimate than $\\\\eta^2$ (see
                               \\\\cite{albersWhenPowerAnalyses2018}).
                               Significant effects are in bold."),
              escape = FALSE,
@@ -1490,9 +1491,9 @@ p1a <- ggarrange(h1a1, h1a2, h1a3,
 p1a
 ```
 
-### Hypothesis 1b: Solitary TSD {#hypothesis1b}
+### Hypothesis 1b: Dyadic TSD (Attractive person) {#hypothesis1b}
 
-#### Model the effects of relationship type and gender on Solitary TSD
+#### Model the effects of relationship type and gender on Dyadic TSD: Attractive person
 
 We fitted models with both the original (proportion; `m1b_prop`) and transformed (normalized; `m1b_norm`) TSD scores, and performed posterior predictive checks (PPCs). As shown elsewhere [e.g., @gabryVisualizationBayesianWorkflow2019], if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
 
@@ -1765,9 +1766,9 @@ p1b <- ggarrange(h1b1, h1b2, h1b3,
 p1b
 ```
 
-### Hypothesis 1c: Solitary TSD {#hypothesis1c}
+### Hypothesis 1c: Dyadic TSD (Partner) {#hypothesis1c}
 
-#### Model the effects of relationship type and gender on Solitary TSD
+#### Model the effects of relationship type and gender on Dyadic TSD: Partner
 
 We fitted models with both the original (proportion; `m1c_prop`) and transformed (normalized; `m1c_norm`) TSD scores, and performed posterior predictive checks (PPCs). As shown elsewhere [e.g., @gabryVisualizationBayesianWorkflow2019], if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
 
@@ -2036,13 +2037,13 @@ p1c
 
 ## Data filtering for hypotheses 2 and 3. {#datfil2and3} 
 
-To avoid over-complicating the model, first we tested whether the effects of stimuli on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic). This was, in fact, the case.
+To avoid over-complicating the models, first we tested whether the effects of stimuli on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic). This was, in fact, the case.
 
-### Table \@ref(tab:ab-m-stimuli-content). ANOVA-type table for the effects of stimuli content, gender and stimuli content on Subjective sexual arousal
+### Table \@ref(tab:tab-m-stimuli-content). ANOVA-type table for the effects of stimuli content, gender and stimuli content on Subjective sexual arousal
 
 We fitted a linear mixed model with Gender, Stimuli sex, Stimuli content, and their interactions, as fixed effects for Subjective sexual arousal and including, as random effects, random intercepts per stimulus, as well as random intercepts and slopes for the effect of stimuli content.
 
-```{r tab-m-stimuli-content, message = FALSE, cache = TRUE}
+```{r tab-m-stimuli-content, message = FALSE, warning = FALSE, cache = TRUE}
 m_stim_cont <- lmer(`Subjective sexual arousal` ~ 
              Gender * `Stimuli sex` * `Stimuli content` +
              (1 | `Stimuli code`) +
@@ -2139,7 +2140,7 @@ merge(emms.stim_cont.tab, t.stim_cont.f, by = 0, all = TRUE) |>
 
 This figure summarizes the results of the model to determine whether the effects of stimuli on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic).
 
-```{r fig-m-stimuli-content, results = "hold", fig.height = 4, fig.width = 8, fig.cap = "Effects of stimuli content (erotic, non-erotic) on subjective sexual arousal for women's (left panel) and men's (right panel) scores of male and female stimuli (see Table \\@ref(tab:tab-m-stimuli-content); for detailed results, see Table \\@ref(tab:tab-stim-cont-emms)). Dots and bars represent estimated marginal means and 95% CI. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
+```{r fig-m-stimuli-content, results = "hold", fig.height = 4, fig.width = 8, fig.cap = "Effects of stimuli content (erotic, non-erotic) on subjective sexual arousal for women's (left panel) and men's (right panel) scores of male and female stimuli (see Table \\@ref(tab:tab-m-stimuli-content); for detailed results, see Table \\@ref(tab:tab-stim-cont-emms)). Dots and bars represent estimated marginal means and 95% CI. Vertical laines represent the (absolute) difference in reported subjective sexual arousal for male and femnale stimuli, by stimuli content and gender. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
 # Prepare data for vertical comparison lines between Male and Female
 diff_data <- emms.stim_cont.tab %>%
   select(`Stimuli sex`, Gender, `Stimuli content`, `Subjective sexual arousal`) %>%
@@ -2200,7 +2201,7 @@ ggplot(emms.stim_cont.tab, aes(x = `Stimuli sex`, y = `Subjective sexual arousal
             angle = 90,        # Rotate text vertically
             hjust = 0.5,       # Center horizontally
             vjust = 0.5,       # Center vertically on the line
-            size = 3) +
+            size = 2.5) +
   theme_tq()
 ```
 
