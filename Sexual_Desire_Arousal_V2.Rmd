@@ -186,9 +186,9 @@ color.Relationship <- c("#2171B5","#DD3497")
 
 ## Custom functions
 
-### `pval.lev`
+### `pval.lev` and `pe2.lev`
 
-This function takes p-values and formats them in \LaTeX, highlighting significant results in bold.
+This functions take p-values and epsilon squared effect sizes and formats them in \LaTeX, highlighting significant p-values in bold and representing all in an appropriate level.
 
 ```{r}
 # Version 1 for LaTeX format
@@ -200,12 +200,12 @@ pval.lev <- function(pvals) {
 }
 
 
-# Version 2 without LaTeX format
-pval.lev2 <- function(pvals) {
+# Version for partial epsilon squared
+pe2.lev <- function(pvals) {
   ifelse(pvals < 0.0001, "< 0.0001",
          ifelse(pvals < 0.001, "< 0.001",
-                ifelse(pvals < 0.05, paste0("= ", round(pvals, 4)), 
-                       paste0("= ", round(pvals, 2)))))
+                ifelse(pvals < 0.05, round(pvals, 4), 
+                       round(pvals, 2))))
 }
 ```
 
@@ -271,11 +271,12 @@ anova.sig.lm <- function(model, custom_caption) {
                       epsilon_squared(model)) |> 
     unite(col = "df", DFn:DFd, sep = ", ") |> 
     select(Effect, df, F, p, Epsilon2_partial) |> 
-    mutate(p = pval.lev(p)) |> 
+    mutate(p = pval.lev(p),
+           Epsilon2_partial = pe2.lev(Epsilon2_partial)) |> 
     mutate_at("Effect", str_replace_all, ":", " × ") |>
     kable(digits = 2,
           booktabs = TRUE,
-          align = c("l", rep("c", 3)),
+          align = c("l", rep("c", 4)),
           linesep = "",
           caption = custom_caption,
           col.names = c("Effect", "$df$", "$F$", "$p$", "$\\epsilon^2_p$"),
@@ -312,12 +313,13 @@ anova.sig.lmer <- function(model, custom_caption) {
     rename("F" = "F value",
            "p" = "Pr(>F)") |> 
     select(Effect, df, F, p, Epsilon2_partial) |> 
-    mutate(p = pval.lev(p)) |> 
+    mutate(p = pval.lev(p),
+           Epsilon2_partial = pe2.lev(Epsilon2_partial)) |> 
     mutate_at("Effect", str_replace_all, ":", " × ") |>
     mutate_at("Effect", str_replace_all, "`", "") |> 
     kable(digits = 2,
           booktabs = TRUE,
-          align = c("l", rep("c", 3)),
+          align = c("l", rep("c", 4)),
           linesep = "",
           caption = custom_caption,
           col.names = c("Effect", "$df$", "$F$", "$p$", "$\\epsilon^2_p$"),
@@ -1227,7 +1229,6 @@ dat_m1 <- dat_m1 |>
 We fitted models with both the original (proportion; `m1a_prop`) and transformed (normalized; `m1a_norm`) TSD scores, and performed posterior predictive checks (PPCs). As shown elsewhere [e.g., @gabryVisualizationBayesianWorkflow2019], if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
 
 ```{r}
-options(contrasts = c("contr.sum","contr.poly"))
 m1a_prop <- lm(`Solitary sexual desire (proportion)` ~ Gender * Relationship,
             data = dat_m1)
 
@@ -2051,7 +2052,8 @@ m_stim_cont <- lmer(`Subjective sexual arousal` ~
            data = dat,
            control = lmerControl(optimizer = "bobyqa"))
 
-anova.sig.lmer(model = m_stim_cont, custom_caption = "Effects of relationship type and gender 
+anova.sig.lmer(model = m_stim_cont, 
+               custom_caption = "Effects of relationship type and gender 
                on Dyadic sexual desire: Partner")
 ```
 
@@ -2140,7 +2142,7 @@ merge(emms.stim_cont.tab, t.stim_cont.f, by = 0, all = TRUE) |>
 
 This figure summarizes the results of the model to determine whether the effects of stimuli on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic).
 
-```{r fig-m-stimuli-content, results = "hold", fig.height = 4, fig.width = 8, fig.cap = "Effects of stimuli content (erotic, non-erotic) on subjective sexual arousal for women's (left panel) and men's (right panel) scores of male and female stimuli (see Table \\@ref(tab:tab-m-stimuli-content); for detailed results, see Table \\@ref(tab:tab-stim-cont-emms)). Dots and bars represent estimated marginal means and 95% CI. Vertical laines represent the (absolute) difference in reported subjective sexual arousal for male and femnale stimuli, by stimuli content and gender. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
+```{r fig-m-stimuli-content, results = "hold", fig.height = 4, fig.width = 8, fig.cap = "Effects of stimuli content (erotic, non-erotic) on subjective sexual arousal for women's (left panel) and men's (right panel) scores of male and female stimuli (see Table \\@ref(tab:tab-m-stimuli-content); for detailed results, see Table \\@ref(tab:tab-stim-cont-emms)). Dots and bars represent estimated marginal means and 95% CI. Vertical lines with arrow heads represent the (absolute) difference in reported subjective sexual arousal for male and femnale stimuli, by stimuli content and gender. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
 # Prepare data for vertical comparison lines between Male and Female
 diff_data <- emms.stim_cont.tab %>%
   select(`Stimuli sex`, Gender, `Stimuli content`, `Subjective sexual arousal`) %>%
@@ -2213,9 +2215,9 @@ We tested whether the slope of SSA as predictor of sexual desire varies for each
 * **H2b**: A significant association between dyadic TSD toward an attractive person and SSA toward erotic stimuli.
 * **H2c**: No significant association between dyadic TSD toward a partner and SSA toward erotic stimuli.
 
-To examine this hypothesis, we modeled the effects of SSA, gender, stimulus sex, and their interactions, on each of the three TSD scores. We included random intercepts for each stimulus, as well as random intercepts and slopes of stimuli sex for each participant. 
+To examine this hypothesis, we modeled the effects of each of the three TSD dimension scores, gender, stimulus sex, and their interactions, on SSA. We included random intercepts for each stimulus, as well as random intercepts and slopes between stimuli sex for each participant. 
 
-However, models using the original TSD scores did not meet the assumption of normally distributed residuals. To address this, we applied an ordered normalization transformation to each TSD variable. We then fitted and compared models predicting both the original (as a proportion, to make scores comparable) and transformed (normalized) TSD dimensions. In all three cases, models using the normalized variables provided a better fit, so all inferences are based on these models.
+SSA is, however, a discrete variable with only 7 ordered levels. Because of this, we modelled iech hipothesis as a Cumulative Link Mixed Model (CLMM), a Generalized Mixed Model (GLMM) with a Poisson family, and as a linear mixed model (LMM). Because the predictions of the three types of model largely agree and are therefore robust (as shown below), we made inferences from the LMM, as it is the easiest to interpret and the one with the most useful functions available in R to extract information from.
 
 ### Data
 
@@ -2223,34 +2225,8 @@ A data frame was created with one row per participant, where sexual desire varia
 
 ```{r message = FALSE, warning = FALSE}
 # Process the dataset and create transformed variables  
-dat_m1 <- dat |>  
-  # Group the data by participant  
-  group_by(Participant) |>  
-  # Select only the first (top) observation for each participant  
-  slice_head() |>  
-  # Remove the grouping structure to avoid unintended behavior in later operations  
-  ungroup() |>  
-  # Create new proportion variables by normalizing each sexual desire measure  
-  mutate("Solitary sexual desire (proportion)" = 
-           `Solitary sexual desire` / 31,  
-         "Dyadic sexual desire: Attractive person (proportion)" = 
-           `Dyadic sexual desire (Attractive person)` / 32,  
-         "Dyadic sexual desire: Partner (proportion)" = 
-           `Dyadic sexual desire (Partner)` / 38)  
-
-# Apply ordered normalization transformations to the proportion variables  
-trs_SSD <- orderNorm(dat_m1$`Solitary sexual desire (proportion)`)  
-trs_DSDat <- orderNorm(dat_m1$`Dyadic sexual desire: Attractive person (proportion)`)  
-trs_DSDpt <- orderNorm(dat_m1$`Dyadic sexual desire: Partner (proportion)`)  
-
-# Add the transformed variables back into the dataset  
-dat_m1 <- dat_m1 |>  
-  mutate("Solitary sexual desire (normalized)" = 
-           predict(trs_SSD),  # Transformed solitary sexual desire  
-         "Dyadic sexual desire: Attractive person (normalized)" = 
-           predict(trs_DSDat),  # Transformed dyadic sexual desire (attractive person)  
-         "Dyadic sexual desire: Partner (normalized)" = 
-           predict(trs_DSDpt))  # Transformed dyadic sexual desire (partner)  
+dat_m2 <- dat |>
+  filter(`Stimuli content` == "Erotic")
 ```
 
 ### Hypothesis 2a: Solitary TSD {#hypothesis2a}
@@ -2259,14 +2235,42 @@ dat_m1 <- dat_m1 |>
 
 We fitted models with both the original (proportion; `m1a_prop`) and transformed (normalized; `m1a_norm`) TSD scores, and performed posterior predictive checks (PPCs) to select the best model. As shown elsewhere [e.g., @gabryVisualizationBayesianWorkflow2019], if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
 
-```{r}
-options(contrasts = c("contr.sum","contr.poly"))
-m1a_prop <- lm(`Solitary sexual desire (proportion)` ~ Gender * Relationship,
-            data = dat_m1)
+```{r cache = TRUE, message = FALSE, warning = FALSE}
+m2a_clmm <- clmm(`Subjective sexual arousal` ~ 
+                   `Solitary sexual desire` * Gender * `Stimuli sex` +
+                   (1 | `Stimuli code`) +
+                   (1 + `Solitary sexual desire` | Participant),
+                 data = dat_m2 |> 
+                   mutate(`Subjective sexual arousal` = as.factor(`Subjective sexual arousal`)),
+                 link = "probit",
+                 control = list(method = "nlminb"))
 
-m1a_norm <- lm(`Solitary sexual desire (normalized)` ~ Gender * Relationship,
-           data = dat_m1)
+RVAideMemoire::Anova.clmm(m2a_clmm, type = 3)
+
+summary(m2a_clmm)
+
+m2a_lmer <- lmer(`Subjective sexual arousal` ~ 
+                   `Solitary sexual desire` * Gender * `Stimuli sex` +
+                   (1 | `Stimuli code`) +
+                   (1 + `Solitary sexual desire` | Participant),
+                 data = dat_m2,
+                 control = lmerControl(optimizer = "bobyqa"))
+
+m2a_poisson <- glmer(Subjective.sexual.arousal ~ 
+                Solitary.sexual.desire * Stimuli.sex * Gender +
+                (1 | Stimuli.code) +
+                (1 + Stimuli.sex | Participant),
+              data = dat_m2a,
+              family = poisson)
 ```
+
+```{r}
+anova.sig.lmer(model = m2a_lmer, 
+               custom_caption = "Effects of Solitary sexual desire, Stimuli sex, and gender 
+               on Subjective sexual arousal")
+```
+
+
 
 ##### Figure \@ref(fig:ppc-m1a): Posterior predictive checks (PPCs) for Hypothesis 1a. 
 
