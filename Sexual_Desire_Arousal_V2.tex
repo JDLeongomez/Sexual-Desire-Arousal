@@ -147,7 +147,7 @@
 \makeatother
 \subtitle{Code and analyses}
 \author{Milena Vásquez-Amézquita \orcidlink{0000-0001-7317-8430}\textsuperscript{1,2,3,4,*} \and Juan David Leongómez \orcidlink{0000-0002-0092-6298}\textsuperscript{2,4} \and Marina Begoña Martínez-González \orcidlink{0000-0002-5840-6383}\textsuperscript{1} \and Meredith L. Chivers \orcidlink{0000-0002-5495-9263}\textsuperscript{5}}
-\date{17 February, 2025}
+\date{18 February, 2025}
 
 \begin{document}
 \maketitle
@@ -205,22 +205,24 @@ All packages used in this file can be directly installed from the Comprehensive 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(readxl)}
+\FunctionTok{library}\NormalTok{(lme4)}
+\FunctionTok{library}\NormalTok{(ordinal)}
+\FunctionTok{library}\NormalTok{(lmerTest)}
 \FunctionTok{library}\NormalTok{(ltm)}
 \FunctionTok{library}\NormalTok{(car)}
-\FunctionTok{library}\NormalTok{(tidyverse)}
-\FunctionTok{library}\NormalTok{(ggpubr)}
 \FunctionTok{library}\NormalTok{(tidyquant)}
 \FunctionTok{library}\NormalTok{(performance)}
 \FunctionTok{library}\NormalTok{(kableExtra)}
 \FunctionTok{library}\NormalTok{(psych)}
 \FunctionTok{library}\NormalTok{(scales)}
-\FunctionTok{library}\NormalTok{(lmerTest)}
 \FunctionTok{library}\NormalTok{(emmeans)}
 \FunctionTok{library}\NormalTok{(berryFunctions)}
 \FunctionTok{library}\NormalTok{(bestNormalize)}
 \FunctionTok{library}\NormalTok{(rstatix)}
 \FunctionTok{library}\NormalTok{(effectsize)}
-\FunctionTok{library}\NormalTok{(ggeffects)}
+\CommentTok{\#library(ggeffects)}
+\FunctionTok{library}\NormalTok{(ggpubr)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
 \CommentTok{\#library(gtsummary)}
 \CommentTok{\#library(gt)}
 \CommentTok{\#library(interactions)}
@@ -241,11 +243,8 @@ Individual color palettes for figures by gender, stimuli sex, or relationship ty
 \NormalTok{color.StimuliSex }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"\#54278F"}\NormalTok{,}\StringTok{"\#FC4E2A"}\NormalTok{)}
 \CommentTok{\# Palette to color figures by relationship type}
 \NormalTok{color.Relationship }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"\#2171B5"}\NormalTok{,}\StringTok{"\#DD3497"}\NormalTok{)}
-
-
-
-\CommentTok{\# Palette to color figures by dimension type}
-\CommentTok{\#color.Dimension \textless{}{-} c("\#54278F","\#41AB5D","\#0570B0")}
+\CommentTok{\# Palette to color figures by stimuli content}
+\NormalTok{color.Content }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"\#41AB5D"}\NormalTok{,}\StringTok{"navyblue"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1336,19 +1335,19 @@ Table of Cronbach's \(\alpha\) for construct variables.
 \toprule
 Variable & Gender & Items & $n$ & $\alpha$ & $2.5\% CI$ & $97.5\% CI$\\
 \midrule
- & Men & 5 & 139 & 0.82 & 0.72 & 0.88\\
+ & Men & 5 & 139 & 0.82 & 0.72 & 0.89\\
 \cmidrule{2-7}
 \multirow{-2}{*}{\raggedright\arraybackslash MGH-SFQ} & Women & 4 & 181 & 0.86 & 0.82 & 0.90\\
 \cmidrule{1-7}
 MGSS sexual satisfaction (General) &  & 5 & 188 & 0.92 & 0.89 & 0.94\\
 \cmidrule{1-7}
-MGSS sexual satisfaction (Partner) &  & 5 & 187 & 0.91 & 0.84 & 0.95\\
+MGSS sexual satisfaction (Partner) &  & 5 & 187 & 0.91 & 0.85 & 0.95\\
 \cmidrule{1-7}
 Dyadic sexual desire (Partner) &  & 5 & 309 & 0.90 & 0.88 & 0.92\\
 \cmidrule{1-7}
 Solitary sexual desire &  & 4 & 314 & 0.91 & 0.89 & 0.93\\
 \cmidrule{1-7}
-Dyadic sexual desire (Attractive person) &  & 4 & 320 & 0.89 & 0.86 & 0.91\\
+Dyadic sexual desire (Attractive person) &  & 4 & 320 & 0.89 & 0.87 & 0.91\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
@@ -2986,13 +2985,13 @@ This figure summarizes the results of the model to determine whether the effects
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Prepare data for vertical comparison lines between Male and Female}
-\NormalTok{diff\_data }\OtherTok{\textless{}{-}}\NormalTok{ emms.stim\_cont.tab }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, Gender, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{names\_from =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{values\_from =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{diff\_data }\OtherTok{\textless{}{-}}\NormalTok{ emms.stim\_cont.tab }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, Gender, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{names\_from =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{values\_from =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}
     \AttributeTok{ymin =}\NormalTok{ Male,  }\CommentTok{\# Start of line at Male\textquotesingle{}s mean arousal}
     \AttributeTok{ymax =}\NormalTok{ Female  }\CommentTok{\# End of line at Female\textquotesingle{}s mean arousal}
-\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}
     \CommentTok{\# Define custom x positions slightly offset for better readability}
     \AttributeTok{x\_pos =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}}\NormalTok{[}\DecValTok{1}\NormalTok{])) }\SpecialCharTok{{-}} \FloatTok{0.25}\NormalTok{, }
@@ -3005,8 +3004,8 @@ This figure summarizes the results of the model to determine whether the effects
   \CommentTok{\# Separate plots for each Gender}
   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Gender) }\SpecialCharTok{+}
   \CommentTok{\# Set custom colors for Stimuli content}
-  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Gender) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Gender) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Content) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.Content) }\SpecialCharTok{+}
   \CommentTok{\# Add confidence interval ranges}
   \FunctionTok{geom\_linerange}\NormalTok{(}\AttributeTok{data =}\NormalTok{ emms.stim\_cont.tab,}
                  \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL),}
@@ -3072,124 +3071,224 @@ We tested whether the slope of SSA as predictor of sexual desire varies for each
 
 To examine this hypothesis, we modeled the effects of each of the three TSD dimension scores, gender, stimulus sex, and their interactions, on SSA. We included random intercepts for each stimulus, as well as random intercepts and slopes between stimuli sex for each participant.
 
-SSA is, however, a discrete variable with only 7 ordered levels. Because of this, we modelled iech hipothesis as a Cumulative Link Mixed Model (CLMM), a Generalized Mixed Model (GLMM) with a Poisson family, and as a linear mixed model (LMM). Because the predictions of the three types of model largely agree and are therefore robust (as shown below), we made inferences from the LMM, as it is the easiest to interpret and the one with the most useful functions available in R to extract information from.
+SSA is, however, a discrete variable with only 7 ordered levels. Because of this, we modelled iech hipothesis in three different ways:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Cumulative Link Mixed Model (CLMM), using the \texttt{clmm} function from the package \texttt{ordinal} \autocite{ordinalcit}
+\item
+  Generalized Mixed Model (GLMM) with a Poisson family, using the \texttt{glmer} function from the package \texttt{lme4} \autocite{lme4cit}
+\item
+  Linear mixed model (LMM), using the \texttt{lmer} function from the package \texttt{lmerTest} \autocite{lmertestcit}
+\end{enumerate}
+
+Because the predictions of the three types of model largely agree and are therefore robust (as shown below), we made inferences from the LMM, as it is the easiest to interpret and the one with the most useful functions available in R to extract information from.
 
 \subsubsection{Data}\label{data-1}
 
-A data frame was created with one row per participant, where sexual desire variables were normalized as proportions. An ordered quantile normalization transformation \autocite{petersonOrderedQuantileNormalization2020a} was then applied using the \texttt{orderNorm} function from the \texttt{bestNormalize} package \autocite{bestNormalizecit}, and the transformed values were added as new variables.
+We created a new dataset by selecting only responses to erotic stimuli, renaming key variables to remove spaces for compatibility with certain functions, and converting relevant variables to factors. Specifically, the Gender and Stimuli sex variables are transformed into factors, and a factor version of Subjective sexual arousal is created for use in the CLMM model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Process the dataset and create transformed variables  }
 \NormalTok{dat\_m2 }\OtherTok{\textless{}{-}}\NormalTok{ dat }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{filter}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Erotic"}\NormalTok{)}
+  \FunctionTok{filter}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Erotic"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Subjective.sexual.arousal =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}}\NormalTok{,}
+         \AttributeTok{Solitary.sexual.desire =} \StringTok{\textasciigrave{}}\AttributeTok{Solitary sexual desire}\StringTok{\textasciigrave{}}\NormalTok{,}
+         \AttributeTok{Stimuli.sex =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{,}
+         \AttributeTok{Stimuli.code =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli code}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Gender =} \FunctionTok{as.factor}\NormalTok{(Gender),}
+         \AttributeTok{Stimuli.sex =} \FunctionTok{as.factor}\NormalTok{(Stimuli.sex),}
+         \AttributeTok{Subjective.sexual.arousal.factor =} \FunctionTok{as.factor}\NormalTok{(Subjective.sexual.arousal)) }
 \end{Highlighting}
 \end{Shaded}
 
 \subsubsection{Hypothesis 2a: Solitary TSD}\label{hypothesis2a}
 
-\paragraph{Model the effects of relationship type and gender on Solitary TSD}\label{model-the-effects-of-relationship-type-and-gender-on-solitary-tsd-1}
+\paragraph{Robustness of models of the effects variation in the slope of Solitary TSD as predictor of SSA, by gender and sex of stimuli}\label{robustness-of-models-of-the-effects-variation-in-the-slope-of-solitary-tsd-as-predictor-of-ssa-by-gender-and-sex-of-stimuli}
 
-We fitted models with both the original (proportion; \texttt{m1a\_prop}) and transformed (normalized; \texttt{m1a\_norm}) TSD scores, and performed posterior predictive checks (PPCs) to select the best model. As shown elsewhere \autocite[e.g.,][]{gabryVisualizationBayesianWorkflow2019}, if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{m2a\_lmer }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}} 
-              \StringTok{\textasciigrave{}}\AttributeTok{Solitary sexual desire}\StringTok{\textasciigrave{}} \SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{+}
-\NormalTok{              (}\DecValTok{1} \SpecialCharTok{|} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli code}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{+}
-\NormalTok{              (}\DecValTok{1} \SpecialCharTok{+} \StringTok{\textasciigrave{}}\AttributeTok{Solitary sexual desire}\StringTok{\textasciigrave{}} \SpecialCharTok{|}\NormalTok{ Participant),}
-            \AttributeTok{data =}\NormalTok{ dat\_m2,}
-            \AttributeTok{control =} \FunctionTok{lmerControl}\NormalTok{(}\AttributeTok{optimizer =} \StringTok{"bobyqa"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
+We fitted Cumulative Link Mixed Model (CLMM; \texttt{m2a\_clmm}), a Generalized Mixed Model (GLMM; \texttt{m2a\_poisson}) with a Poisson family, and as a linear mixed model (LMM; \texttt{m2a\_lmer}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{anova.sig.lmer}\NormalTok{(}\AttributeTok{model =}\NormalTok{ m2a\_lmer, }
-               \AttributeTok{custom\_caption =} \StringTok{"Effects of Solitary sexual desire, Stimuli sex, and gender }
-\StringTok{               on Subjective sexual arousal"}\NormalTok{)}
+\NormalTok{m2a\_clmm }\OtherTok{\textless{}{-}} \FunctionTok{clmm}\NormalTok{(Subjective.sexual.arousal.factor }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                   Solitary.sexual.desire }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex }\SpecialCharTok{+}
+\NormalTok{                   (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stimuli.code) }\SpecialCharTok{+}
+\NormalTok{                   (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.sex }\SpecialCharTok{|}\NormalTok{ Participant),}
+                 \AttributeTok{data =}\NormalTok{ dat\_m2,}
+                 \AttributeTok{link =} \StringTok{"probit"}\NormalTok{,}
+                 \AttributeTok{control =} \FunctionTok{list}\NormalTok{(}\AttributeTok{method =} \StringTok{"nlminb"}\NormalTok{))}
+
+\NormalTok{m2a\_poisson }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(Subjective.sexual.arousal }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                       Solitary.sexual.desire }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex }\SpecialCharTok{+}
+\NormalTok{                       (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stimuli.code) }\SpecialCharTok{+}
+\NormalTok{                       (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.sex }\SpecialCharTok{|}\NormalTok{ Participant),}
+                     \AttributeTok{data =}\NormalTok{ dat\_m2,}
+                     \AttributeTok{family =}\NormalTok{ poisson)}
+
+\NormalTok{m2a\_lmer }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(Subjective.sexual.arousal }\SpecialCharTok{\textasciitilde{}} 
+\NormalTok{                   Solitary.sexual.desire }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex }\SpecialCharTok{+}
+\NormalTok{                   (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stimuli.code) }\SpecialCharTok{+}
+\NormalTok{                   (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.sex }\SpecialCharTok{|}\NormalTok{ Participant),}
+                 \AttributeTok{data =}\NormalTok{ dat\_m2,}
+                 \AttributeTok{control =} \FunctionTok{lmerControl}\NormalTok{(}\AttributeTok{optimizer =} \StringTok{"bobyqa"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## Warning: Looks like you are using syntactically invalid variable names, quoted in
-##   backticks: `Stimuli sex`. This may result in unexpected behaviour.
-##   Please rename your variables (e.g., `Stimuli.sex` instead of `Stimuli
-##   sex`) and fit the model again.
-## Warning: Looks like you are using syntactically invalid variable names, quoted in
-##   backticks: `Stimuli sex`. This may result in unexpected behaviour.
-##   Please rename your variables (e.g., `Stimuli.sex` instead of `Stimuli
-##   sex`) and fit the model again.
-\end{verbatim}
+\subparagraph{\texorpdfstring{Table \ref{tab:tab-m1b}. ANOVA-type table for the interaction between \texttt{Relationship\ type}, and \texttt{Gender}}{Table \ref{tab:tab-m1b}. ANOVA-type table for the interaction between Relationship type, and Gender}}\label{table-reftabtab-m1b.-anova-type-table-for-the-interaction-between-relationship-type-and-gender-1}
+
+This tables summarizes the results of the model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{bind\_cols}\NormalTok{(}\FunctionTok{Anova}\NormalTok{(m2a\_clmm, }\AttributeTok{type =} \DecValTok{3}\NormalTok{),}
+          \FunctionTok{Anova}\NormalTok{(m2a\_poisson, }\AttributeTok{type =} \DecValTok{3}\NormalTok{)  }\SpecialCharTok{|\textgreater{}} 
+            \FunctionTok{select}\NormalTok{(Df, Chisq, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+            \FunctionTok{slice\_tail}\NormalTok{(}\AttributeTok{n =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{),}
+          \FunctionTok{anova}\NormalTok{(m2a\_lmer, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+            \FunctionTok{mutate}\NormalTok{(}\AttributeTok{DenDF =} \FunctionTok{round}\NormalTok{(DenDF, }\DecValTok{2}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+            \FunctionTok{unite}\NormalTok{(}\AttributeTok{col =} \StringTok{"df"}\NormalTok{, NumDF}\SpecialCharTok{:}\NormalTok{DenDF, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+            \FunctionTok{select}\NormalTok{(df, }\StringTok{\textasciigrave{}}\AttributeTok{F value}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"Pr"}\NormalTok{), pval.lev)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
+        \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{9}\NormalTok{)),  }\CommentTok{\# Align columns (left for first, center for the rest)}
+        \AttributeTok{digits =} \DecValTok{3}\NormalTok{,}
+        \AttributeTok{caption =} \StringTok{"XXXXXXX"}\NormalTok{,}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Effect"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"$df$"}\NormalTok{, }\StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{chi\^{}2$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{), }\AttributeTok{times =} \DecValTok{2}\NormalTok{),}
+                      \StringTok{"$df$"}\NormalTok{, }\StringTok{"$F$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{),}
+        \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{1}\NormalTok{, }
+                     \StringTok{"CLMM"} \OtherTok{=} \DecValTok{3}\NormalTok{,}
+                     \StringTok{"GLMER (Poisson)"} \OtherTok{=} \DecValTok{3}\NormalTok{,}
+                     \StringTok{"LMM"} \OtherTok{=} \DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{footnote}\NormalTok{(}\AttributeTok{general =} \StringTok{"As effect size, we report partial epsilon squared}
+\StringTok{                     ($}\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{epsilon\^{}2\_p$), which provides a less biases}
+\StringTok{                     estimate than $}\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{eta\^{}2$ (see}
+\StringTok{                     }\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{cite\{albersWhenPowerAnalyses2018\}).}
+\StringTok{                     Significant effects are in bold."}\NormalTok{,}
+           \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:unnamed-chunk-23}Effects of Solitary sexual desire, Stimuli sex, and gender 
-               on Subjective sexual arousal}
+\caption{\label{tab:tab-m2a}XXXXXXX}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
-\begin{tabular}[t]{lcccc}
+\begin{tabular}[t]{llcccccccc}
 \toprule
-Effect & $df$ & $F$ & $p$ & $\epsilon^2_p$\\
+\multicolumn{1}{c}{ } & \multicolumn{3}{c}{CLMM} & \multicolumn{3}{c}{GLMER (Poisson)} & \multicolumn{3}{c}{LMM} \\
+\cmidrule(l{3pt}r{3pt}){2-4} \cmidrule(l{3pt}r{3pt}){5-7} \cmidrule(l{3pt}r{3pt}){8-10}
+Effect & $df$ & $\chi^2$ & $p$ & $df$ & $\chi^2$ & $p$ & $df$ & $F$ & $p$\\
 \midrule
-Solitary sexual desire & 1, 184.93 & 14.87 & \textbf{< 0.001} & 0.07\\
-Gender & 1, 139.14 & 13.38 & \textbf{< 0.001} & 0.08\\
-Stimuli sex & 1, 125.55 & 208.69 & \textbf{< 0.0001} & 0.62\\
-Solitary sexual desire × Gender & 1, 184.93 & 1.71 & 0.19 & 0.0038\\
-Solitary sexual desire × Stimuli sex & 1, 25435 & 0.73 & 0.39 & < 0.0001\\
-Gender × Stimuli sex & 1, 25435 & 2224.73 & \textbf{< 0.0001} & 0.08\\
-Solitary sexual desire × Gender × Stimuli sex & 1, 25435 & 52.89 & \textbf{< 0.0001} & 0.002\\
+Solitary.sexual.desire & 1 & 27.377 & \textbf{< 0.0001} & 1 & 24.430 & \textbf{< 0.0001} & 1, 319 & 17.464 & \textbf{< 0.0001}\\
+Gender & 1 & 0.015 & 0.9 & 1 & 7.086 & \textbf{0.0078} & 1, 319 & 8.838 & \textbf{0.0032}\\
+Stimuli.sex & 1 & 43.812 & \textbf{< 0.0001} & 1 & 31.553 & \textbf{< 0.0001} & 1, 369.21 & 24.715 & \textbf{< 0.0001}\\
+Solitary.sexual.desire:Gender & 1 & 2.409 & 0.12 & 1 & 2.795 & 0.09 & 1, 319 & 0.852 & 0.36\\
+Solitary.sexual.desire:Stimuli.sex & 1 & 0.137 & 0.71 & 1 & 0.321 & 0.57 & 1, 319 & 0.024 & 0.88\\
+\addlinespace
+Gender:Stimuli.sex & 1 & 181.478 & \textbf{< 0.0001} & 1 & 127.568 & \textbf{< 0.0001} & 1, 319 & 74.790 & \textbf{< 0.0001}\\
+Solitary.sexual.desire:Gender:Stimuli.sex & 1 & 2.959 & 0.09 & 1 & 0.605 & 0.44 & 1, 319 & 1.778 & 0.18\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
 \item \textit{Note: } 
-\item Results are type III ANOVA.
-                              $R^2_{conditional}$ = 0.597, $R^2_{marginal}$ = 0.334. Gender = participants gender (women, men); 
-                              Stimuli sex = sex of each stimulus (male, female);
-                              Stimuli content = content of each stimulus (erotic, non-erotic).
-                              As effect size, we report partial epsilon squared 
-                              ($\epsilon^2_p$), which provides a less biases
-                              estimate than $\eta^2$ (see
-                              \cite{albersWhenPowerAnalyses2018}).
-                              Significant effects are in bold.
+\item As effect size, we report partial epsilon squared
+                     ($\epsilon^2_p$), which provides a less biases
+                     estimate than $\eta^2$ (see
+                     \cite{albersWhenPowerAnalyses2018}).
+                     Significant effects are in bold.
 \end{tablenotes}
 \end{threeparttable}}
 \end{table}
 
-\subparagraph{Figure \ref{fig:ppc-m1a}: Posterior predictive checks (PPCs) for Hypothesis 1a.}\label{figure-reffigppc-m1a-posterior-predictive-checks-ppcs-for-hypothesis-1a.-1}
+\subparagraph{Figure \ref{fig:preds-m2a}: Posterior predictive checks (PPCs) for Hypothesis 2a.}\label{figure-reffigpreds-m2a-posterior-predictive-checks-ppcs-for-hypothesis-2a.}
 
-PPCs were performed using the \texttt{check\_model} function from the \texttt{performance} package \autocite{ludecke2021}, and reported in Fig. \ref{fig:ppc-m1a}. Simulated data from the normalized Solitary TSD model (Fig. \ref{fig:ppc-m1a}b) are more similar to the observed outcome, so this model is preferred.
+PPCs were performed using the \texttt{check\_model} function from the \texttt{performance} package \autocite{ludecke2021}, and reported in Fig. \ref{fig:preds-m2a}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{ppc\_m2a }\OtherTok{\textless{}{-}} \FunctionTok{ggarrange}\NormalTok{(}\FunctionTok{plot}\NormalTok{(}\FunctionTok{check\_model}\NormalTok{(m1a\_prop, }
-                                      \AttributeTok{panel =} \ConstantTok{FALSE}\NormalTok{,}
-                                      \AttributeTok{check =} \StringTok{"pp\_check"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{PP\_CHECK,}
-                          \AttributeTok{colors =} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"grey30"}\NormalTok{)) }\SpecialCharTok{+}
-                       \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{subtitle =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
-                       \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
-                       \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\AttributeTok{labeller =} \FunctionTok{as\_labeller}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
-                         \StringTok{"1"} \OtherTok{=} \StringTok{"Original (proportion) Solitary TSD"}\NormalTok{))),}
-                     \FunctionTok{plot}\NormalTok{(}\FunctionTok{check\_model}\NormalTok{(m1a\_norm, }
-                                      \AttributeTok{panel =} \ConstantTok{FALSE}\NormalTok{,}
-                                      \AttributeTok{check =} \StringTok{"pp\_check"}\NormalTok{)}\SpecialCharTok{$}\NormalTok{PP\_CHECK,}
-                          \AttributeTok{colors =} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"grey30"}\NormalTok{)) }\SpecialCharTok{+}
-                       \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{subtitle =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
-                       \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
-                       \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\AttributeTok{labeller =} \FunctionTok{as\_labeller}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
-                         \StringTok{"1"} \OtherTok{=} \StringTok{"Transformed (normalized) Solitary TSD"}\NormalTok{))),}
-                     \AttributeTok{labels =} \StringTok{"auto"}\NormalTok{,}
-                     \AttributeTok{common.legend =} \ConstantTok{TRUE}\NormalTok{,}
-                     \AttributeTok{legend =} \StringTok{"bottom"}\NormalTok{)}
-\NormalTok{ppc\_m1a}
+\NormalTok{p\_m2a\_clmm }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2a\_clmm, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Solitary.sexual.desire }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex,}
+                      \AttributeTok{at =} \FunctionTok{list}\NormalTok{(}\AttributeTok{Solitary.sexual.desire =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{31}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)),}
+                      \AttributeTok{mode =} \StringTok{"mean.class"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Solitary.sexual.desire, }\AttributeTok{y =}\NormalTok{ mean.class , }
+             \AttributeTok{color =}\NormalTok{ Stimuli.sex, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Smooth prediction line}
+  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex), }
+              \AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{color =} \ConstantTok{NA}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# CIs with no border}
+  \CommentTok{\# Set custom colors for Stimuli sex}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender, }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Facet by Gender}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Predicted Subjective sexual arousal"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Solitary Sexual Desire"}\NormalTok{,}
+       \AttributeTok{title =} \StringTok{"CLMM"}\NormalTok{,}
+       \AttributeTok{color =} \StringTok{"Stimuli sex"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli sex"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"top"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.3}\NormalTok{,}\FloatTok{5.3}\NormalTok{))}
+
+\NormalTok{p\_m2a\_poisson }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2a\_poisson, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Solitary.sexual.desire }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex,}
+                         \AttributeTok{at =} \FunctionTok{list}\NormalTok{(}\AttributeTok{Solitary.sexual.desire =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{31}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)),}
+                         \AttributeTok{type =} \StringTok{"response"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Solitary.sexual.desire, }\AttributeTok{y =}\NormalTok{ rate, }
+             \AttributeTok{color =}\NormalTok{ Stimuli.sex, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Smooth prediction line}
+  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex), }
+              \AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{color =} \ConstantTok{NA}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# CIs with no border}
+  \CommentTok{\# Set custom colors for Stimuli sex}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender, }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Facet by Gender}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{""}\NormalTok{, }\AttributeTok{x =} \StringTok{"Solitary Sexual Desire"}\NormalTok{,}
+       \AttributeTok{title =} \StringTok{"GLMER (Poisson)"}\NormalTok{,}
+       \AttributeTok{color =} \StringTok{"Stimuli sex"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli sex"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"top"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.3}\NormalTok{,}\FloatTok{5.3}\NormalTok{))}
+
+\NormalTok{p\_m2a\_lmer  }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2a\_lmer, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Solitary.sexual.desire }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex,}
+                       \AttributeTok{at =} \FunctionTok{list}\NormalTok{(}\AttributeTok{Solitary.sexual.desire =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{31}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)),}
+                       \AttributeTok{type =} \StringTok{"response"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Solitary.sexual.desire, }\AttributeTok{y =}\NormalTok{ emmean, }
+             \AttributeTok{color =}\NormalTok{ Stimuli.sex, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Smooth prediction line}
+  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex), }
+              \AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{color =} \ConstantTok{NA}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# CIs with no border}
+  \CommentTok{\# Set custom colors for Stimuli sex}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender, }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Facet by Gender}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{""}\NormalTok{, }\AttributeTok{x =} \StringTok{"Solitary Sexual Desire"}\NormalTok{,}
+       \AttributeTok{title =} \StringTok{"LMM"}\NormalTok{,}
+       \AttributeTok{color =} \StringTok{"Stimuli sex"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli sex"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"top"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.3}\NormalTok{,}\FloatTok{5.3}\NormalTok{))}
+
+
+\NormalTok{p\_m2a }\OtherTok{\textless{}{-}} \FunctionTok{ggarrange}\NormalTok{(p\_m2a\_clmm, p\_m2a\_poisson, p\_m2a\_lmer,}
+                   \AttributeTok{common.legend =} \ConstantTok{TRUE}\NormalTok{,}
+                   \AttributeTok{labels =} \StringTok{"auto"}\NormalTok{,}
+                   \AttributeTok{legend =} \StringTok{"bottom"}\NormalTok{,}
+                   \AttributeTok{nrow =} \DecValTok{1}\NormalTok{)}
+
+\NormalTok{p\_m2a}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{figure}
 \centering
-\includegraphics{Sexual_Desire_Arousal_V2_files/figure-latex/ppc-m2a-1.pdf}
-\caption{\label{fig:ppc-m2a}Posterior predictive check. \textbf{(a)} Original (proportion) Solitary TSD; \textbf{(b)} Transformed (normalized) Solitary TSD. In both panels, red lines represent the observed data, and thin black lines represent 50 iterations of simulated data from each model.}
+\includegraphics{Sexual_Desire_Arousal_V2_files/figure-latex/preds-m2a-1.pdf}
+\caption{\label{fig:preds-m2a}Predictions for the trhree fitted models to test hypothesis 2a. \textbf{(a)} Cumulative Link Mixed Model (CLMM); \textbf{(b)} Generalized Mixed Model (GLMM) with a Poisson family; \textbf{(c)} Linear mixed model (LMM).}
 \end{figure}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -3211,10 +3310,10 @@ PPCs were performed using the \texttt{check\_model} function from the \texttt{pe
 \emph{stats}, \emph{graphics}, \emph{grDevices}, \emph{utils}, \emph{datasets}, \emph{methods} and \emph{base}
 
 \textbf{other attached packages:}
-\emph{pander(v.0.6.5)}, \emph{Hmisc(v.5.2-2)}, \emph{ggeffects(v.2.2.0)}, \emph{effectsize(v.1.0.0)}, \emph{rstatix(v.0.7.2)}, \emph{bestNormalize(v.1.9.1)}, \emph{berryFunctions(v.1.22.5)}, \emph{emmeans(v.1.10.7)}, \emph{lmerTest(v.3.1-3)}, \emph{lme4(v.1.1-36)}, \emph{Matrix(v.1.7-2)}, \emph{scales(v.1.3.0)}, \emph{psych(v.2.4.12)}, \emph{kableExtra(v.1.4.0)}, \emph{performance(v.0.13.0)}, \emph{PerformanceAnalytics(v.2.0.8)}, \emph{quantmod(v.0.4.26)}, \emph{TTR(v.0.24.4)}, \emph{xts(v.0.14.1)}, \emph{zoo(v.1.8-12)}, \emph{tidyquant(v.1.0.10)}, \emph{ggpubr(v.0.6.0)}, \emph{lubridate(v.1.9.4)}, \emph{forcats(v.1.0.0)}, \emph{stringr(v.1.5.1)}, \emph{dplyr(v.1.1.4)}, \emph{purrr(v.1.0.4)}, \emph{readr(v.2.1.5)}, \emph{tidyr(v.1.3.1)}, \emph{tibble(v.3.2.1)}, \emph{ggplot2(v.3.5.1)}, \emph{tidyverse(v.2.0.0)}, \emph{car(v.3.1-3)}, \emph{carData(v.3.0-5)}, \emph{ltm(v.1.2-0)}, \emph{polycor(v.0.8-1)}, \emph{msm(v.1.8.2)}, \emph{MASS(v.7.3-64)}, \emph{readxl(v.1.4.3)} and \emph{knitr(v.1.49)}
+\emph{pander(v.0.6.5)}, \emph{Hmisc(v.5.2-2)}, \emph{lubridate(v.1.9.4)}, \emph{forcats(v.1.0.0)}, \emph{stringr(v.1.5.1)}, \emph{dplyr(v.1.1.4)}, \emph{purrr(v.1.0.4)}, \emph{readr(v.2.1.5)}, \emph{tidyr(v.1.3.1)}, \emph{tibble(v.3.2.1)}, \emph{tidyverse(v.2.0.0)}, \emph{ggpubr(v.0.6.0)}, \emph{ggplot2(v.3.5.1)}, \emph{effectsize(v.1.0.0)}, \emph{rstatix(v.0.7.2)}, \emph{bestNormalize(v.1.9.1)}, \emph{berryFunctions(v.1.22.5)}, \emph{emmeans(v.1.10.7)}, \emph{scales(v.1.3.0)}, \emph{psych(v.2.4.12)}, \emph{kableExtra(v.1.4.0)}, \emph{performance(v.0.13.0)}, \emph{PerformanceAnalytics(v.2.0.8)}, \emph{quantmod(v.0.4.26)}, \emph{TTR(v.0.24.4)}, \emph{xts(v.0.14.1)}, \emph{zoo(v.1.8-12)}, \emph{tidyquant(v.1.0.10)}, \emph{car(v.3.1-3)}, \emph{carData(v.3.0-5)}, \emph{ltm(v.1.2-0)}, \emph{polycor(v.0.8-1)}, \emph{msm(v.1.8.2)}, \emph{MASS(v.7.3-64)}, \emph{lmerTest(v.3.1-3)}, \emph{ordinal(v.2023.12-4.1)}, \emph{lme4(v.1.1-36)}, \emph{Matrix(v.1.7-2)}, \emph{readxl(v.1.4.3)} and \emph{knitr(v.1.49)}
 
 \textbf{loaded via a namespace (and not attached):}
-\emph{rstudioapi(v.0.17.1)}, \emph{datawizard(v.1.0.0)}, \emph{magrittr(v.2.0.3)}, \emph{TH.data(v.1.1-3)}, \emph{estimability(v.1.5.1)}, \emph{farver(v.2.1.2)}, \emph{nloptr(v.2.1.1)}, \emph{rmarkdown(v.2.29)}, \emph{vctrs(v.0.6.5)}, \emph{minqa(v.1.2.8)}, \emph{base64enc(v.0.1-3)}, \emph{butcher(v.0.3.4)}, \emph{htmltools(v.0.5.8.1)}, \emph{curl(v.6.2.0)}, \emph{broom(v.1.0.7)}, \emph{cellranger(v.1.1.0)}, \emph{Formula(v.1.2-5)}, \emph{parallelly(v.1.42.0)}, \emph{htmlwidgets(v.1.6.4)}, \emph{sandwich(v.3.1-1)}, \emph{admisc(v.0.37)}, \emph{lifecycle(v.1.0.4)}, \emph{iterators(v.1.0.14)}, \emph{pkgconfig(v.2.0.3)}, \emph{R6(v.2.5.1)}, \emph{fastmap(v.1.2.0)}, \emph{rbibutils(v.2.3)}, \emph{future(v.1.34.0)}, \emph{digest(v.0.6.37)}, \emph{numDeriv(v.2016.8-1.1)}, \emph{colorspace(v.2.1-1)}, \emph{labeling(v.0.4.3)}, \emph{timechange(v.0.3.0)}, \emph{abind(v.1.4-8)}, \emph{compiler(v.4.4.2)}, \emph{rngtools(v.1.5.2)}, \emph{withr(v.3.0.2)}, \emph{doParallel(v.1.0.17)}, \emph{htmlTable(v.2.4.3)}, \emph{backports(v.1.5.0)}, \emph{ggsignif(v.0.6.4)}, \emph{lava(v.1.8.1)}, \emph{tools(v.4.4.2)}, \emph{foreign(v.0.8-88)}, \emph{RobStatTM(v.1.0.11)}, \emph{future.apply(v.1.11.3)}, \emph{nnet(v.7.3-20)}, \emph{glue(v.1.8.0)}, \emph{quadprog(v.1.5-8)}, \emph{nlme(v.3.1-167)}, \emph{grid(v.4.4.2)}, \emph{checkmate(v.2.3.2)}, \emph{cluster(v.2.1.8)}, \emph{see(v.0.10.0)}, \emph{generics(v.0.1.3)}, \emph{recipes(v.1.1.0)}, \emph{gtable(v.0.3.6)}, \emph{nortest(v.1.0-4)}, \emph{tzdb(v.0.4.0)}, \emph{class(v.7.3-23)}, \emph{data.table(v.1.16.4)}, \emph{hms(v.1.1.3)}, \emph{xml2(v.1.3.6)}, \emph{foreach(v.1.5.2)}, \emph{pillar(v.1.10.1)}, \emph{splines(v.4.4.2)}, \emph{lattice(v.0.22-6)}, \emph{survival(v.3.8-3)}, \emph{tidyselect(v.1.2.1)}, \emph{gridExtra(v.2.3)}, \emph{reformulas(v.0.4.0)}, \emph{bookdown(v.0.42)}, \emph{svglite(v.2.1.3)}, \emph{xfun(v.0.50)}, \emph{expm(v.1.0-0)}, \emph{hardhat(v.1.4.1)}, \emph{timeDate(v.4041.110)}, \emph{stringi(v.1.8.4)}, \emph{yaml(v.2.3.10)}, \emph{boot(v.1.3-31)}, \emph{evaluate(v.1.0.3)}, \emph{codetools(v.0.2-20)}, \emph{cli(v.3.6.3)}, \emph{rpart(v.4.1.24)}, \emph{parameters(v.0.24.1)}, \emph{xtable(v.1.8-4)}, \emph{systemfonts(v.1.2.1)}, \emph{Rdpack(v.2.6.2)}, \emph{munsell(v.0.5.1)}, \emph{Rcpp(v.1.0.14)}, \emph{globals(v.0.16.3)}, \emph{coda(v.0.19-4.1)}, \emph{parallel(v.4.4.2)}, \emph{gower(v.1.0.2)}, \emph{bayestestR(v.0.15.2)}, \emph{doRNG(v.1.8.6.1)}, \emph{listenv(v.0.9.1)}, \emph{viridisLite(v.0.4.2)}, \emph{mvtnorm(v.1.3-3)}, \emph{ipred(v.0.9-15)}, \emph{prodlim(v.2024.06.25)}, \emph{insight(v.1.0.2)}, \emph{rlang(v.1.1.5)}, \emph{cowplot(v.1.1.3)}, \emph{multcomp(v.1.4-28)} and \emph{mnormt(v.2.1.1)}
+\emph{rstudioapi(v.0.17.1)}, \emph{datawizard(v.1.0.0)}, \emph{magrittr(v.2.0.3)}, \emph{TH.data(v.1.1-3)}, \emph{estimability(v.1.5.1)}, \emph{farver(v.2.1.2)}, \emph{nloptr(v.2.1.1)}, \emph{rmarkdown(v.2.29)}, \emph{vctrs(v.0.6.5)}, \emph{minqa(v.1.2.8)}, \emph{base64enc(v.0.1-3)}, \emph{butcher(v.0.3.4)}, \emph{htmltools(v.0.5.8.1)}, \emph{curl(v.6.2.0)}, \emph{broom(v.1.0.7)}, \emph{cellranger(v.1.1.0)}, \emph{Formula(v.1.2-5)}, \emph{parallelly(v.1.42.0)}, \emph{htmlwidgets(v.1.6.4)}, \emph{sandwich(v.3.1-1)}, \emph{admisc(v.0.37)}, \emph{lifecycle(v.1.0.4)}, \emph{iterators(v.1.0.14)}, \emph{pkgconfig(v.2.0.3)}, \emph{R6(v.2.5.1)}, \emph{fastmap(v.1.2.0)}, \emph{rbibutils(v.2.3)}, \emph{future(v.1.34.0)}, \emph{digest(v.0.6.37)}, \emph{numDeriv(v.2016.8-1.1)}, \emph{colorspace(v.2.1-1)}, \emph{labeling(v.0.4.3)}, \emph{timechange(v.0.3.0)}, \emph{abind(v.1.4-8)}, \emph{compiler(v.4.4.2)}, \emph{rngtools(v.1.5.2)}, \emph{withr(v.3.0.2)}, \emph{doParallel(v.1.0.17)}, \emph{htmlTable(v.2.4.3)}, \emph{backports(v.1.5.0)}, \emph{ggsignif(v.0.6.4)}, \emph{lava(v.1.8.1)}, \emph{ucminf(v.1.2.2)}, \emph{tools(v.4.4.2)}, \emph{foreign(v.0.8-88)}, \emph{RobStatTM(v.1.0.11)}, \emph{future.apply(v.1.11.3)}, \emph{nnet(v.7.3-20)}, \emph{glue(v.1.8.0)}, \emph{quadprog(v.1.5-8)}, \emph{nlme(v.3.1-167)}, \emph{grid(v.4.4.2)}, \emph{checkmate(v.2.3.2)}, \emph{cluster(v.2.1.8)}, \emph{see(v.0.10.0)}, \emph{generics(v.0.1.3)}, \emph{recipes(v.1.1.0)}, \emph{gtable(v.0.3.6)}, \emph{nortest(v.1.0-4)}, \emph{tzdb(v.0.4.0)}, \emph{class(v.7.3-23)}, \emph{data.table(v.1.16.4)}, \emph{hms(v.1.1.3)}, \emph{xml2(v.1.3.6)}, \emph{foreach(v.1.5.2)}, \emph{pillar(v.1.10.1)}, \emph{splines(v.4.4.2)}, \emph{lattice(v.0.22-6)}, \emph{survival(v.3.8-3)}, \emph{tidyselect(v.1.2.1)}, \emph{gridExtra(v.2.3)}, \emph{reformulas(v.0.4.0)}, \emph{bookdown(v.0.42)}, \emph{svglite(v.2.1.3)}, \emph{xfun(v.0.50)}, \emph{expm(v.1.0-0)}, \emph{hardhat(v.1.4.1)}, \emph{timeDate(v.4041.110)}, \emph{stringi(v.1.8.4)}, \emph{yaml(v.2.3.10)}, \emph{boot(v.1.3-31)}, \emph{evaluate(v.1.0.3)}, \emph{codetools(v.0.2-20)}, \emph{cli(v.3.6.3)}, \emph{rpart(v.4.1.24)}, \emph{xtable(v.1.8-4)}, \emph{parameters(v.0.24.1)}, \emph{systemfonts(v.1.2.1)}, \emph{Rdpack(v.2.6.2)}, \emph{munsell(v.0.5.1)}, \emph{Rcpp(v.1.0.14)}, \emph{globals(v.0.16.3)}, \emph{coda(v.0.19-4.1)}, \emph{parallel(v.4.4.2)}, \emph{gower(v.1.0.2)}, \emph{bayestestR(v.0.15.2)}, \emph{doRNG(v.1.8.6.1)}, \emph{listenv(v.0.9.1)}, \emph{viridisLite(v.0.4.2)}, \emph{mvtnorm(v.1.3-3)}, \emph{ipred(v.0.9-15)}, \emph{prodlim(v.2024.06.25)}, \emph{insight(v.1.0.2)}, \emph{rlang(v.1.1.5)}, \emph{cowplot(v.1.1.3)}, \emph{multcomp(v.1.4-28)} and \emph{mnormt(v.2.1.1)}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 

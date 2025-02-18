@@ -143,23 +143,24 @@ All packages used in this file can be directly installed from the Comprehensive 
 
 ```{r message = FALSE}
 library(readxl)
+library(lme4)
+library(ordinal)
+library(lmerTest)
 library(ltm)
 library(car)
-library(tidyverse)
-library(ggpubr)
 library(tidyquant)
 library(performance)
 library(kableExtra)
 library(psych)
 library(scales)
-library(lmerTest)
 library(emmeans)
 library(berryFunctions)
 library(bestNormalize)
 library(rstatix)
 library(effectsize)
-library(ggeffects)
-library(ordinal)
+#library(ggeffects)
+library(ggpubr)
+library(tidyverse)
 #library(gtsummary)
 #library(gt)
 #library(interactions)
@@ -178,11 +179,8 @@ color.Gender <- c("red","black")
 color.StimuliSex <- c("#54278F","#FC4E2A")
 # Palette to color figures by relationship type
 color.Relationship <- c("#2171B5","#DD3497")
-
-
-
-# Palette to color figures by dimension type
-#color.Dimension <- c("#54278F","#41AB5D","#0570B0")
+# Palette to color figures by stimuli content
+color.Content <- c("#41AB5D","navyblue")
 ```
 
 ## Custom functions
@@ -2164,8 +2162,8 @@ ggplot(emms.stim_cont.tab, aes(x = `Stimuli sex`, y = `Subjective sexual arousal
   # Separate plots for each Gender
   facet_wrap(~Gender) +
   # Set custom colors for Stimuli content
-  scale_color_manual(values = color.Gender) +
-  scale_fill_manual(values = color.Gender) +
+  scale_color_manual(values = color.Content) +
+  scale_fill_manual(values = color.Content) +
   # Add confidence interval ranges
   geom_linerange(data = emms.stim_cont.tab,
                  mapping = aes(ymin = asymp.LCL, ymax = asymp.UCL),
@@ -2218,152 +2216,172 @@ We tested whether the slope of SSA as predictor of sexual desire varies for each
 
 To examine this hypothesis, we modeled the effects of each of the three TSD dimension scores, gender, stimulus sex, and their interactions, on SSA. We included random intercepts for each stimulus, as well as random intercepts and slopes between stimuli sex for each participant. 
 
-SSA is, however, a discrete variable with only 7 ordered levels. Because of this, we modelled iech hipothesis as a Cumulative Link Mixed Model (CLMM), a Generalized Mixed Model (GLMM) with a Poisson family, and as a linear mixed model (LMM). Because the predictions of the three types of model largely agree and are therefore robust (as shown below), we made inferences from the LMM, as it is the easiest to interpret and the one with the most useful functions available in R to extract information from.
+SSA is, however, a discrete variable with only 7 ordered levels. Because of this, we modelled iech hipothesis in three different ways:
+
+1. Cumulative Link Mixed Model (CLMM), using the `clmm` function from the package `ordinal` [@ordinalcit]
+2. Generalized Mixed Model (GLMM) with a Poisson family, using the `glmer` function from the package `lme4` [@lme4cit]
+3. Linear mixed model (LMM), using the `lmer` function from the package `lmerTest` [@lmertestcit]
+
+Because the predictions of the three types of model largely agree and are therefore robust (as shown below), we made inferences from the LMM, as it is the easiest to interpret and the one with the most useful functions available in R to extract information from.
 
 ### Data
 
-A data frame was created with one row per participant, where sexual desire variables were normalized as proportions. An ordered quantile normalization transformation [@petersonOrderedQuantileNormalization2020a] was then applied using the `orderNorm` function from the `bestNormalize` package [@bestNormalizecit], and the transformed values were added as new variables.
+We created a new dataset by selecting only responses to erotic stimuli, renaming key variables to remove spaces for compatibility with certain functions, and converting relevant variables to factors. Specifically, the Gender and Stimuli sex variables are transformed into factors, and a factor version of Subjective sexual arousal is created for use in the CLMM model. 
 
 ```{r message = FALSE, warning = FALSE}
 # Process the dataset and create transformed variables  
 dat_m2 <- dat |>
-  filter(`Stimuli content` == "Erotic")
-```
-
-### Hypothesis 2a: Solitary TSD {#hypothesis2a}
-
-#### Model the effects of relationship type and gender on Solitary TSD
-
-We fitted models with both the original (proportion; `m1a_prop`) and transformed (normalized; `m1a_norm`) TSD scores, and performed posterior predictive checks (PPCs) to select the best model. As shown elsewhere [e.g., @gabryVisualizationBayesianWorkflow2019], if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
-
-```{r cache = TRUE, message = FALSE, warning = FALSE}
-dat_m2_clmm <- dat_m2 |>
+  filter(`Stimuli content` == "Erotic") |> 
   rename(Subjective.sexual.arousal = `Subjective sexual arousal`,
          Solitary.sexual.desire = `Solitary sexual desire`,
          Stimuli.sex = `Stimuli sex`,
          Stimuli.code = `Stimuli code`) |> 
   mutate(Gender = as.factor(Gender),
          Stimuli.sex = as.factor(Stimuli.sex),
-         Subjective.sexual.arousal = as.factor(Subjective.sexual.arousal)) 
+         Subjective.sexual.arousal.factor = as.factor(Subjective.sexual.arousal)) 
+```
 
-m2a_clmm <- clmm(Subjective.sexual.arousal ~ 
+### Hypothesis 2a: Solitary TSD {#hypothesis2a}
+
+#### Robustness of models of the effects variation in the slope of Solitary TSD as predictor of SSA, by gender and sex of stimuli
+
+We fitted Cumulative Link Mixed Model (CLMM; `m2a_clmm`), a Generalized Mixed Model (GLMM; `m2a_poisson`) with a Poisson family, and as a linear mixed model (LMM; `m2a_lmer`).
+
+```{r cache = TRUE, message = FALSE, warning = FALSE}
+m2a_clmm <- clmm(Subjective.sexual.arousal.factor ~ 
                    Solitary.sexual.desire * Gender * Stimuli.sex +
                    (1 | Stimuli.code) +
                    (1 + Stimuli.sex | Participant),
-                 data = dat_m2_clmm,
+                 data = dat_m2,
                  link = "probit",
                  control = list(method = "nlminb"))
 
-Anova(m2a_clmm, type = 3)
-
-p_m2a_clmm <- emmeans(m2a_clmm, ~ Solitary.sexual.desire | Gender * Stimuli.sex,
-                   at = list(Solitary.sexual.desire = seq(0, 31, length.out = 100)),
-                   mode = "mean.class") |> 
-  as.data.frame() |> 
-  ggplot(aes(x = Solitary.sexual.desire, y = mean.class , 
-                    color = Stimuli.sex, fill = Stimuli.sex)) +
-  geom_line(size = 1) +  # Smooth prediction line
-  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL), alpha = 0.2) +  # CIs
-  facet_wrap(~ Gender) +  # Facet by Gender
-  labs(y = "Predicted Subjective sexual arousal", x = "Solitary Sexual Desire",
-       title = "CLMM") +
-  theme_tq() +
-  theme(legend.position = "top")
-
-
-
-m2a_lmer <- lmer(`Subjective sexual arousal` ~ 
-                   `Solitary sexual desire` * Gender * `Stimuli sex` +
-                   (1 | `Stimuli code`) +
-                   (1 + `Stimuli sex` | Participant),
-                 data = dat_m2,
-                 control = lmerControl(optimizer = "bobyqa"))
-
-Anova(m2a_lmer, type = 3)
-
-p_m2a_lmer  <- emmeans(m2a_lmer, ~ `Solitary sexual desire` | Gender * `Stimuli sex`,
-                   at = list(`Solitary sexual desire` = seq(0, 31, length.out = 100)),
-                   type = "response") |> 
-  as.data.frame() |> 
-  ggplot(aes(x = `Solitary sexual desire`, y = emmean, 
-                    color = `Stimuli sex`, fill = `Stimuli sex`)) +
-  geom_line(size = 1) +  # Smooth prediction line
-  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL), alpha = 0.2) +  # CIs
-  facet_wrap(~ Gender) +  # Facet by Gender
-  labs(y = "Predicted Subjective sexual arousal", x = "Solitary Sexual Desire",
-       title = "LMM") +
-  theme_tq() +
-  theme(legend.position = "top")
-
-
-m2a_poisson <- glmer(`Subjective sexual arousal` ~ 
-                       `Solitary sexual desire` * Gender * `Stimuli sex` +
-                       (1 | `Stimuli code`) +
-                       (1 + `Stimuli sex` | Participant),
+m2a_poisson <- glmer(Subjective.sexual.arousal ~ 
+                       Solitary.sexual.desire * Gender * Stimuli.sex +
+                       (1 | Stimuli.code) +
+                       (1 + Stimuli.sex | Participant),
                      data = dat_m2,
                      family = poisson)
 
-Anova(m2a_poisson, type = 3)
+m2a_lmer <- lmer(Subjective.sexual.arousal ~ 
+                   Solitary.sexual.desire * Gender * Stimuli.sex +
+                   (1 | Stimuli.code) +
+                   (1 + Stimuli.sex | Participant),
+                 data = dat_m2,
+                 control = lmerControl(optimizer = "bobyqa"))
+```
 
-p_m2a_poisson <- emmeans(m2a_poisson, ~ `Solitary sexual desire` | Gender * `Stimuli sex`,
-                   at = list(`Solitary sexual desire` = seq(0, 31, length.out = 100)),
-                   type = "response") |> 
+##### Table \@ref(tab:tab-m1b). ANOVA-type table for the interaction between `Relationship type`, and `Gender`
+
+This tables summarizes the results of the model.
+
+```{r tab-m2a, message = FALSE}
+bind_cols(Anova(m2a_clmm, type = 3),
+          Anova(m2a_poisson, type = 3)  |> 
+            select(Df, Chisq, `Pr(>Chisq)`) |> 
+            slice_tail(n = -1),
+          anova(m2a_lmer, type = 3) |> 
+            mutate(DenDF = round(DenDF, 2)) |> 
+            unite(col = "df", NumDF:DenDF, sep = ", ") |>
+            select(df, `F value`, `Pr(>F)`)) |> 
+  mutate(across(starts_with("Pr"), pval.lev)) |> 
+  kable(booktabs = TRUE,
+        align = c("l", rep("c", 9)),  # Align columns (left for first, center for the rest)
+        digits = 3,
+        caption = "XXXXXXX",
+        col.names = c("Effect", rep(c("$df$", "$\\chi^2$", "$p$"), times = 2),
+                      "$df$", "$F$", "$p$"),
+        escape = FALSE) |> 
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  add_header_above(c(" " = 1, 
+                     "CLMM" = 3,
+                     "GLMER (Poisson)" = 3,
+                     "LMM" = 3)) |>
+  footnote(general = "As effect size, we report partial epsilon squared
+                     ($\\\\epsilon^2_p$), which provides a less biases
+                     estimate than $\\\\eta^2$ (see
+                     \\\\cite{albersWhenPowerAnalyses2018}).
+                     Significant effects are in bold.",
+           threeparttable = TRUE,
+           footnote_as_chunk = TRUE,
+           escape = FALSE)
+```
+
+##### Figure \@ref(fig:preds-m2a): Posterior predictive checks (PPCs) for Hypothesis 2a. 
+
+PPCs were performed using the `check_model` function from the `performance` package [@ludecke2021], and reported in Fig. \@ref(fig:preds-m2a).
+
+```{r preds-m2a, message = FALSE, fig.height = 6, fig.cap = "Predictions for the trhree fitted models to test hypothesis 2a. **(a)** Cumulative Link Mixed Model (CLMM); **(b)** Generalized Mixed Model (GLMM) with a Poisson family; **(c)** Linear mixed model (LMM)."}
+
+p_m2a_clmm <- emmeans(m2a_clmm, ~ Solitary.sexual.desire | Gender * Stimuli.sex,
+                      at = list(Solitary.sexual.desire = seq(0, 31, length.out = 100)),
+                      mode = "mean.class") |> 
   as.data.frame() |> 
-  ggplot(aes(x = `Solitary sexual desire`, y = rate, 
-                    color = `Stimuli sex`, fill = `Stimuli sex`)) +
+  ggplot(aes(x = Solitary.sexual.desire, y = mean.class , 
+             color = Stimuli.sex, fill = Stimuli.sex)) +
   geom_line(size = 1) +  # Smooth prediction line
-  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL), alpha = 0.2) +  # CIs
-  facet_wrap(~ Gender) +  # Facet by Gender
+  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, fill = Stimuli.sex), 
+              alpha = 0.2, color = NA) +  # CIs with no border
+  # Set custom colors for Stimuli sex
+  scale_color_manual(values = color.StimuliSex) +
+  scale_fill_manual(values = color.StimuliSex) +
+  facet_wrap(~ Gender, ncol = 1) +  # Facet by Gender
   labs(y = "Predicted Subjective sexual arousal", x = "Solitary Sexual Desire",
-       title = "GLMER (Poisson)") +
+       title = "CLMM",
+       color = "Stimuli sex", fill = "Stimuli sex") +
   theme_tq() +
-  theme(legend.position = "top")
+  theme(legend.position = "top") +
+  ylim(c(0.3,5.3))
+
+p_m2a_poisson <- emmeans(m2a_poisson, ~ Solitary.sexual.desire | Gender * Stimuli.sex,
+                         at = list(Solitary.sexual.desire = seq(0, 31, length.out = 100)),
+                         type = "response") |> 
+  as.data.frame() |> 
+  ggplot(aes(x = Solitary.sexual.desire, y = rate, 
+             color = Stimuli.sex, fill = Stimuli.sex)) +
+  geom_line(size = 1) +  # Smooth prediction line
+  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, fill = Stimuli.sex), 
+              alpha = 0.2, color = NA) +  # CIs with no border
+  # Set custom colors for Stimuli sex
+  scale_color_manual(values = color.StimuliSex) +
+  scale_fill_manual(values = color.StimuliSex) +
+  facet_wrap(~ Gender, ncol = 1) +  # Facet by Gender
+  labs(y = "", x = "Solitary Sexual Desire",
+       title = "GLMER (Poisson)",
+       color = "Stimuli sex", fill = "Stimuli sex") +
+  theme_tq() +
+  theme(legend.position = "top") +
+  ylim(c(0.3,5.3))
+
+p_m2a_lmer  <- emmeans(m2a_lmer, ~ Solitary.sexual.desire | Gender * Stimuli.sex,
+                       at = list(Solitary.sexual.desire = seq(0, 31, length.out = 100)),
+                       type = "response") |> 
+  as.data.frame() |> 
+  ggplot(aes(x = Solitary.sexual.desire, y = emmean, 
+             color = Stimuli.sex, fill = Stimuli.sex)) +
+  geom_line(size = 1) +  # Smooth prediction line
+  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, fill = Stimuli.sex), 
+              alpha = 0.2, color = NA) +  # CIs with no border
+  # Set custom colors for Stimuli sex
+  scale_color_manual(values = color.StimuliSex) +
+  scale_fill_manual(values = color.StimuliSex) +
+  facet_wrap(~ Gender, ncol = 1) +  # Facet by Gender
+  labs(y = "", x = "Solitary Sexual Desire",
+       title = "LMM",
+       color = "Stimuli sex", fill = "Stimuli sex") +
+  theme_tq() +
+  theme(legend.position = "top") +
+  ylim(c(0.3,5.3))
 
 
-ggarrange(p_m2a_clmm, p_m2a_lmer, p_m2a_poisson,
-          common.legend = TRUE,
-          labels = "auto",
-          legend = "right",
-          nrow = 1)
+p_m2a <- ggarrange(p_m2a_clmm, p_m2a_poisson, p_m2a_lmer,
+                   common.legend = TRUE,
+                   labels = "auto",
+                   legend = "bottom",
+                   nrow = 1)
+
+p_m2a
 ```
-
-```{r}
-anova.sig.lmer(model = m2a_lmer, 
-               custom_caption = "Effects of Solitary sexual desire, Stimuli sex, and gender 
-               on Subjective sexual arousal")
-```
-
-
-
-##### Figure \@ref(fig:ppc-m1a): Posterior predictive checks (PPCs) for Hypothesis 1a. 
-
-PPCs were performed using the `check_model` function from the `performance` package [@ludecke2021], and reported in Fig. \@ref(fig:ppc-m1a). Simulated data from the normalized Solitary TSD model (Fig. \@ref(fig:ppc-m1a)b) are more similar to the observed outcome, so this model is preferred.
-
-```{r ppc-m2a, message = FALSE, fig.height = 4, fig.cap = "Posterior predictive check. **(a)** Original (proportion) Solitary TSD; **(b)** Transformed (normalized) Solitary TSD. In both panels, red lines represent the observed data, and thin black lines represent 50 iterations of simulated data from each model. "}
-ppc_m2a <- ggarrange(plot(check_model(m1a_prop, 
-                                      panel = FALSE,
-                                      check = "pp_check")$PP_CHECK,
-                          colors = c("red", "grey30")) +
-                       labs(title = NULL, subtitle = NULL) +
-                       theme_tq() +
-                       facet_wrap(~ 1, labeller = as_labeller(c(
-                         "1" = "Original (proportion) Solitary TSD"))),
-                     plot(check_model(m1a_norm, 
-                                      panel = FALSE,
-                                      check = "pp_check")$PP_CHECK,
-                          colors = c("red", "grey30")) +
-                       labs(title = NULL, subtitle = NULL) +
-                       theme_tq() +
-                       facet_wrap(~ 1, labeller = as_labeller(c(
-                         "1" = "Transformed (normalized) Solitary TSD"))),
-                     labels = "auto",
-                     common.legend = TRUE,
-                     legend = "bottom")
-ppc_m1a
-```
-
-
-
 
 -----------------------------------------------------------------------
 
