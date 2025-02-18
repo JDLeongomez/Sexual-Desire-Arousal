@@ -159,6 +159,7 @@ library(bestNormalize)
 library(rstatix)
 library(effectsize)
 library(ggeffects)
+library(ordinal)
 #library(gtsummary)
 #library(gt)
 #library(interactions)
@@ -2144,13 +2145,13 @@ This figure summarizes the results of the model to determine whether the effects
 
 ```{r fig-m-stimuli-content, results = "hold", fig.height = 4, fig.width = 8, fig.cap = "Effects of stimuli content (erotic, non-erotic) on subjective sexual arousal for women's (left panel) and men's (right panel) scores of male and female stimuli (see Table \\@ref(tab:tab-m-stimuli-content); for detailed results, see Table \\@ref(tab:tab-stim-cont-emms)). Dots and bars represent estimated marginal means and 95% CI. Vertical lines with arrow heads represent the (absolute) difference in reported subjective sexual arousal for male and femnale stimuli, by stimuli content and gender. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
 # Prepare data for vertical comparison lines between Male and Female
-diff_data <- emms.stim_cont.tab %>%
-  select(`Stimuli sex`, Gender, `Stimuli content`, `Subjective sexual arousal`) %>%
-  pivot_wider(names_from = `Stimuli sex`, values_from = `Subjective sexual arousal`) %>%
+diff_data <- emms.stim_cont.tab |> 
+  select(`Stimuli sex`, Gender, `Stimuli content`, `Subjective sexual arousal`) |> 
+  pivot_wider(names_from = `Stimuli sex`, values_from = `Subjective sexual arousal`) |> 
   mutate(
     ymin = Male,  # Start of line at Male's mean arousal
     ymax = Female  # End of line at Female's mean arousal
-  ) %>%
+  ) |> 
   mutate(
     # Define custom x positions slightly offset for better readability
     x_pos = rep(c(as.numeric(as.factor(`Stimuli content`[1])) - 0.25, 
@@ -2236,32 +2237,94 @@ dat_m2 <- dat |>
 We fitted models with both the original (proportion; `m1a_prop`) and transformed (normalized; `m1a_norm`) TSD scores, and performed posterior predictive checks (PPCs) to select the best model. As shown elsewhere [e.g., @gabryVisualizationBayesianWorkflow2019], if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
 
 ```{r cache = TRUE, message = FALSE, warning = FALSE}
-m2a_clmm <- clmm(`Subjective sexual arousal` ~ 
-                   `Solitary sexual desire` * Gender * `Stimuli sex` +
-                   (1 | `Stimuli code`) +
-                   (1 + `Solitary sexual desire` | Participant),
-                 data = dat_m2 |> 
-                   mutate(`Subjective sexual arousal` = as.factor(`Subjective sexual arousal`)),
+dat_m2_clmm <- dat_m2 |>
+  rename(Subjective.sexual.arousal = `Subjective sexual arousal`,
+         Solitary.sexual.desire = `Solitary sexual desire`,
+         Stimuli.sex = `Stimuli sex`,
+         Stimuli.code = `Stimuli code`) |> 
+  mutate(Gender = as.factor(Gender),
+         Stimuli.sex = as.factor(Stimuli.sex),
+         Subjective.sexual.arousal = as.factor(Subjective.sexual.arousal)) 
+
+m2a_clmm <- clmm(Subjective.sexual.arousal ~ 
+                   Solitary.sexual.desire * Gender * Stimuli.sex +
+                   (1 | Stimuli.code) +
+                   (1 + Stimuli.sex | Participant),
+                 data = dat_m2_clmm,
                  link = "probit",
                  control = list(method = "nlminb"))
 
-RVAideMemoire::Anova.clmm(m2a_clmm, type = 3)
+Anova(m2a_clmm, type = 3)
 
-summary(m2a_clmm)
+p_m2a_clmm <- emmeans(m2a_clmm, ~ Solitary.sexual.desire | Gender * Stimuli.sex,
+                   at = list(Solitary.sexual.desire = seq(0, 31, length.out = 100)),
+                   mode = "mean.class") |> 
+  as.data.frame() |> 
+  ggplot(aes(x = Solitary.sexual.desire, y = mean.class , 
+                    color = Stimuli.sex, fill = Stimuli.sex)) +
+  geom_line(size = 1) +  # Smooth prediction line
+  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL), alpha = 0.2) +  # CIs
+  facet_wrap(~ Gender) +  # Facet by Gender
+  labs(y = "Predicted Subjective sexual arousal", x = "Solitary Sexual Desire",
+       title = "CLMM") +
+  theme_tq() +
+  theme(legend.position = "top")
+
+
 
 m2a_lmer <- lmer(`Subjective sexual arousal` ~ 
                    `Solitary sexual desire` * Gender * `Stimuli sex` +
                    (1 | `Stimuli code`) +
-                   (1 + `Solitary sexual desire` | Participant),
+                   (1 + `Stimuli sex` | Participant),
                  data = dat_m2,
                  control = lmerControl(optimizer = "bobyqa"))
 
-m2a_poisson <- glmer(Subjective.sexual.arousal ~ 
-                Solitary.sexual.desire * Stimuli.sex * Gender +
-                (1 | Stimuli.code) +
-                (1 + Stimuli.sex | Participant),
-              data = dat_m2a,
-              family = poisson)
+Anova(m2a_lmer, type = 3)
+
+p_m2a_lmer  <- emmeans(m2a_lmer, ~ `Solitary sexual desire` | Gender * `Stimuli sex`,
+                   at = list(`Solitary sexual desire` = seq(0, 31, length.out = 100)),
+                   type = "response") |> 
+  as.data.frame() |> 
+  ggplot(aes(x = `Solitary sexual desire`, y = emmean, 
+                    color = `Stimuli sex`, fill = `Stimuli sex`)) +
+  geom_line(size = 1) +  # Smooth prediction line
+  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL), alpha = 0.2) +  # CIs
+  facet_wrap(~ Gender) +  # Facet by Gender
+  labs(y = "Predicted Subjective sexual arousal", x = "Solitary Sexual Desire",
+       title = "LMM") +
+  theme_tq() +
+  theme(legend.position = "top")
+
+
+m2a_poisson <- glmer(`Subjective sexual arousal` ~ 
+                       `Solitary sexual desire` * Gender * `Stimuli sex` +
+                       (1 | `Stimuli code`) +
+                       (1 + `Stimuli sex` | Participant),
+                     data = dat_m2,
+                     family = poisson)
+
+Anova(m2a_poisson, type = 3)
+
+p_m2a_poisson <- emmeans(m2a_poisson, ~ `Solitary sexual desire` | Gender * `Stimuli sex`,
+                   at = list(`Solitary sexual desire` = seq(0, 31, length.out = 100)),
+                   type = "response") |> 
+  as.data.frame() |> 
+  ggplot(aes(x = `Solitary sexual desire`, y = rate, 
+                    color = `Stimuli sex`, fill = `Stimuli sex`)) +
+  geom_line(size = 1) +  # Smooth prediction line
+  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL), alpha = 0.2) +  # CIs
+  facet_wrap(~ Gender) +  # Facet by Gender
+  labs(y = "Predicted Subjective sexual arousal", x = "Solitary Sexual Desire",
+       title = "GLMER (Poisson)") +
+  theme_tq() +
+  theme(legend.position = "top")
+
+
+ggarrange(p_m2a_clmm, p_m2a_lmer, p_m2a_poisson,
+          common.legend = TRUE,
+          labels = "auto",
+          legend = "right",
+          nrow = 1)
 ```
 
 ```{r}
