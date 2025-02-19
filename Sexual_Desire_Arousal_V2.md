@@ -1,0 +1,4272 @@
+---
+title: 'Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic and Non-Erotic Stimuli: Gender, Relationship Status, and Gender-Specificity'
+subtitle: Code and analyses
+author:
+  - name: Milena Vásquez-Amézquita \orcidlink{0000-0001-7317-8430}
+    correspondence: true
+    institute: [costa, ueb, gcul, codec]
+    email: mvasquezam@unbosque.edu.co
+  - name: Juan David Leongómez \orcidlink{0000-0002-0092-6298}
+    correspondence: false
+    institute: [ueb, codec]
+  - name: Marina Begoña Martínez-González \orcidlink{0000-0002-5840-6383}
+    correspondence: false
+    institute: costa
+  - name: Meredith L. Chivers \orcidlink{0000-0002-5495-9263}
+    correspondence: false
+    institute: queen
+institute:
+  - costa: 'Departamento de Ciencias Sociales, Universidad de la Costa, Barranquilla 080002, Colombia.'
+  - ueb: 'Facultad de Psicología, Universidad El Bosque, Bogotá 110121, Colombia.'
+  - gcul: 'Grupo de Investigación en Cultura, Educación y Sociedad, Universidad de la Costa, Barranquilla 080002, Colombia.'
+  - codec: 'CODEC: Ciencias Cognitivas y del Comportamiento, Universidad El Bosque, Bogotá 110121, Colombia.'
+  - queen: 'Department of Psychology, Queen’s University, Kingston ON K7L 3N6, Canada.'
+date: "19 February, 2025"
+output:
+  bookdown::pdf_document2:
+    citation_package: biblatex
+    highlight: zenburn
+    number_sections: yes
+    keep_tex:  true
+    toc: no
+    pandoc_args:
+      - '--lua-filter=lua/scholarly-metadata.lua'
+      - '--lua-filter=lua/author-info-blocks.lua'
+classoption: 
+      - bookmarksnumbered
+editor_options:
+  chunk_output_type: console
+geometry: margin=2cm
+header-includes: 
+  \usepackage{caption} 
+  \usepackage{float} 
+  \floatplacement{figure}{H} 
+  \usepackage[utf8]{inputenc} 
+  \usepackage{fancyhdr}
+  \pagestyle{fancy} 
+  \usepackage{hanging}
+  \lhead{Vásquez-Amézquita et al.} 
+  \rhead{\textit{Desire and sexual arousal}} 
+  \renewcommand{\abstractname}{Description} 
+  \usepackage[british]{babel}
+  \usepackage{csquotes}
+  \usepackage[style=apa,backend=biber]{biblatex}
+  \DeclareLanguageMapping{british}{british-apa}
+  \usepackage{hanging}
+  \usepackage{amsthm,amssymb,amsfonts}
+  \usepackage{tikz,lipsum,lmodern}
+  \usepackage{multicol}
+  \usepackage{orcidlink}
+  \newcommand{\opensupplement}{\setcounter{table}{0}
+    \renewcommand{\thetable}{S\arabic{table}} \setcounter{figure}{0}
+    \renewcommand{\thefigure}{S\arabic{figure}}}
+  \newcommand{\closesupplement}{\setcounter{table}{0}
+    \renewcommand{\thetable}{\arabic{table}} \setcounter{figure}{0}
+    \renewcommand{\thefigure}{\arabic{figure}}}
+  \usepackage{multirow,booktabs,setspace}
+  \DeclareCaptionLabelSeparator{point}{. }
+  \DeclareCaptionLabelSeparator{point}{. }
+  \captionsetup[table]{labelfont=bf,
+    textfont=it,
+    format=plain,
+    labelsep=point,
+    skip=5pt}
+  \captionsetup[figure]{labelfont=bf,
+    format=plain,
+    justification=justified,
+    singlelinecheck=false,
+    labelsep=point,
+    skip=5pt}
+always_allow_html: yes
+bibliography: bib/Bibliography.bib
+urlcolor: blue
+linkcolor: gray
+citecolor: gray
+link-citations: true
+---
+
+------------------------------------------------------------------------
+
+```{=tex}
+\begin{center}
+\textbf{Description}
+\end{center}
+
+\par
+\begingroup
+\leftskip3em
+\rightskip\leftskip
+```
+
+This document contains all code, and step by step explanations for all analyses, figures and tables (including supplementary figures and tables) for:
+
+```{=latex}
+\begin{hangparas}{.25in}{1}
+Vásquez-Amézquita, M., Leongómez, J. D., Martínez-González, M. B., \& Chivers, M. L. (in prep). \textit{Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic and Non-Erotic Stimuli: Gender, Relationship Status, and Gender-Specificity}
+\end{hangparas}
+```
+
+Data available from the Open Science Framework (OSF): <https://doi.org/10.17605/OSF.IO/3V2E7>. All analyses were planned by Milena Vásquez-Amézquita and Juan David Leongómez. This document and its underlying code were created in `R Markdown` by Juan David Leongómez using \LaTeX.
+
+------------------------------------------------------------------------
+
+```{=latex}
+\par
+\endgroup
+
+{\hypersetup{hidelinks}
+\setcounter{tocdepth}{6}
+\tableofcontents
+}
+\opensupplement
+```
+
+
+
+------------------------------------------------------------------------
+ 
+
+# Preliminaries
+
+## Load packages
+
+This file was created using `knitr` [@knitrcit], mostly using `tidyverse` [@tidyversecit] syntax. As such, data wrangling was mainly done using packages such as `dplyr` [@dplyrcit], and most figures were created or modified using `ggplot2` [@ggplotcit]. Tables were created using `knitr::kable` and `kableExtra` [@kableExtracit].
+
+Linear mixed models were fitted using `lmerTest` [@lmertestcit], assumptions were performed using `performance` [@ludecke2021], contrasts and interactions were explored using `emmeans` [@emmeanscit], and interactions were investigated using the package `interactions` [@interactionscit].
+
+All packages used in this file can be directly installed from the Comprehensive R Archive Network ([CRAN](https://cran.r-project.org/)). For a complete list of packages used to create this file, and their versions, see section \@ref(session), at the end of the document.
+
+
+``` r
+library(readxl)
+library(lme4)
+library(ordinal)
+library(lmerTest)
+library(ltm)
+library(car)
+library(tidyquant)
+library(performance)
+library(kableExtra)
+library(psych)
+library(scales)
+library(emmeans)
+library(berryFunctions)
+library(bestNormalize)
+library(rstatix)
+library(effectsize)
+library(ggpubr)
+library(interactions)
+library(tidyverse)
+# library(ggeffects)
+# library(gtsummary)
+# library(gt)
+# library(MetBrewer)
+# library(ggpmisc)
+```
+
+## Define color palettes
+
+Individual color palettes for figures by gender, stimuli sex, or relationship type.
+
+
+``` r
+# Palette to color figures by gender
+color.Gender <- c("red", "black")
+# Palette to color figures by stimuli sex
+color.StimuliSex <- c("#54278F", "#FC4E2A")
+# Palette to color figures by relationship type
+color.Relationship <- c("#2171B5", "#DD3497")
+# Palette to color figures by stimuli content
+color.Content <- c("#41AB5D", "navyblue")
+```
+
+## Custom functions
+
+### `pval.lev` and `pe2.lev`
+
+This functions take p-values and epsilon squared effect sizes and formats them in \LaTeX, highlighting significant p-values in bold and representing all in an appropriate level.
+
+
+``` r
+# Version 1 for LaTeX format
+pval.lev <- function(pvals) {
+  ifelse(pvals < 0.0001, "\\textbf{< 0.0001}",
+    ifelse(pvals < 0.001, "\\textbf{< 0.001}",
+      ifelse(pvals < 0.05, paste0("\\textbf{", round(pvals, 4), "}"),
+        round(pvals, 2)
+      )
+    )
+  )
+}
+
+
+# Version for partial epsilon squared
+pe2.lev <- function(pvals) {
+  ifelse(pvals < 0.0001, "< 0.0001",
+    ifelse(pvals < 0.001, "< 0.001",
+      ifelse(pvals < 0.05, round(pvals, 4),
+        round(pvals, 2)
+      )
+    )
+  )
+}
+```
+
+### `pval.stars`
+
+This function takes p-values and adds starts to represent significance levels.
+
+
+``` r
+pval.stars <- function(pvals) {
+  ifelse(pvals < 0.0001, "****",
+    ifelse(pvals < 0.001, "***",
+      ifelse(pvals < 0.01, "**",
+        ifelse(pvals < 0.05, "*", NA)
+      )
+    )
+  )
+}
+```
+
+### `corr.stars`
+
+This function creates a correlation matrix, and displays significance (function `corr.stars` modified from <http://myowelt.blogspot.com/2008/04/beautiful-correlation-tables-in-r.html>).
+
+
+``` r
+corr.stars <- function(x) {
+  require(Hmisc)
+  x <- as.matrix(x)
+  R <- rcorr(x)$r
+  p <- rcorr(x)$P
+  # define notions for significance levels; spacing is important.
+  mystars <- ifelse(p < .001,
+    paste0("\\textbf{", round(R, 2), "***}"),
+    ifelse(p < .01,
+      paste0("\\textbf{", round(R, 2), "**}"),
+      ifelse(p < .05,
+        paste0("\\textbf{", round(R, 2), "*}"),
+        ifelse(p < .10,
+          paste0(round(R, 2), "$^{\\dagger}$"),
+          format(round(R, 2), nsmall = 2)
+        )
+      )
+    )
+  )
+  # build a new matrix that includes the correlations with their appropriate stars
+  Rnew <- matrix(mystars,
+    ncol = ncol(x)
+  )
+  diag(Rnew) <- paste(diag(R), " ",
+    sep = ""
+  )
+  rownames(Rnew) <- colnames(x)
+  colnames(Rnew) <- paste(colnames(x), "",
+    sep = ""
+  )
+  # remove upper triangle
+  Rnew <- as.matrix(Rnew)
+  Rnew[upper.tri(Rnew, diag = TRUE)] <- ""
+  Rnew <- as.data.frame(Rnew)
+  # remove last column and return the matrix (which is now a data frame)
+  Rnew <- cbind(Rnew[1:length(Rnew) - 1])
+  return(Rnew)
+}
+```
+
+### `anova.sig.lm` and `anova.sig.lmer`
+
+Functions to bold significant *p* values from summary model tables. It highlights significant $p$ values, and formats the output in \LaTeX, ready to be used with `kable`.
+
+
+``` r
+# Version 1 for linear models (lm)
+anova.sig.lm <- function(model, custom_caption) {
+  aovTab <- bind_cols(
+    anova_summary(Anova(model, type = 3)),
+    epsilon_squared(model)
+  ) |>
+    unite(col = "df", DFn:DFd, sep = ", ") |>
+    select(Effect, df, F, p, Epsilon2_partial) |>
+    mutate(
+      p = pval.lev(p),
+      Epsilon2_partial = pe2.lev(Epsilon2_partial)
+    ) |>
+    mutate_at("Effect", str_replace_all, ":", " × ") |>
+    kable(
+      digits = 2,
+      booktabs = TRUE,
+      align = c("l", rep("c", 4)),
+      linesep = "",
+      caption = custom_caption,
+      col.names = c("Effect", "$df$", "$F$", "$p$", "$\\epsilon^2_p$"),
+      escape = FALSE
+    ) |>
+    kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+    footnote(
+      general = paste0(
+        "Sexual desire was transformed using an ordered quantile
+                              normalization
+                              (\\\\cite{petersonOrderedQuantileNormalization2020a}).
+                              Results are type III ANOVA.
+                              $R^2$ = ",
+        round(r2(model)$R2, 3),
+        ", $R^2_{adjusted}$ = ",
+        round(r2(model)$R2_adjusted, 3),
+        ". Gender = participants gender (women, men);
+                              Relationship = relationship type (stable, single).
+                              As effect size, we report partial epsilon squared
+                              ($\\\\epsilon^2_p$), which provides a less biases
+                              estimate than $\\\\eta^2$ (see
+                              \\\\cite{albersWhenPowerAnalyses2018}).
+                              Significant effects are in bold."
+      ),
+      escape = FALSE,
+      threeparttable = TRUE,
+      footnote_as_chunk = TRUE
+    )
+  return(aovTab)
+}
+
+# Version 2 for linear mixed models (lmer)
+anova.sig.lmer <- function(model, custom_caption) {
+  aovTab <- bind_cols(
+    anova(model),
+    epsilon_squared(model)
+  ) |>
+    mutate(DenDF = round(DenDF, 2)) |>
+    unite(col = "df", NumDF:DenDF, sep = ", ") |>
+    rownames_to_column(var = "Effect") |>
+    rename(
+      "F" = "F value",
+      "p" = "Pr(>F)"
+    ) |>
+    select(Effect, df, F, p, Epsilon2_partial) |>
+    mutate(
+      p = pval.lev(p),
+      Epsilon2_partial = pe2.lev(Epsilon2_partial)
+    ) |>
+    mutate(Effect = str_replace_all(Effect, "\\.", " ")) |> # Replace dots with spaces
+    mutate(Effect = str_replace_all(Effect, ":", " × ")) |> # Replace colons with ×
+    kable(
+      digits = 2,
+      booktabs = TRUE,
+      align = c("l", rep("c", 4)),
+      linesep = "",
+      caption = custom_caption,
+      col.names = c("Effect", "$df$", "$F$", "$p$", "$\\epsilon^2_p$"),
+      escape = FALSE
+    ) |>
+    kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+    footnote(
+      general = paste0(
+        "Results are type III ANOVA.
+                              $R^2_{conditional}$ = ",
+        round(r2_nakagawa(model)$R2_conditional, 3),
+        ", $R^2_{marginal}$ = ",
+        round(r2_nakagawa(model)$R2_marginal, 3),
+        ". As effect size, we report partial epsilon squared
+        ($\\\\epsilon^2_p$), which provides a less biases
+        estimate than $\\\\eta^2$ (see
+        \\\\cite{albersWhenPowerAnalyses2018}).
+        Significant effects are in bold."
+      ),
+      escape = FALSE,
+      threeparttable = TRUE,
+      footnote_as_chunk = TRUE
+    )
+  return(aovTab)
+}
+```
+
+### `emms.sig`
+
+Function to create a table of estimated marginal means and contrasts at three levels of a covariate, representing significance levels from `emmeans::emmeans` outputs. The function highlights significant $p$ values, and formats the output in \LaTeX, ready to be used with `kable`.
+
+
+``` r
+# Version 1, for interactions
+emms.sig <- function(low.i, mid.i, hi.i) {
+  emm.low <- data.frame(low.i[[1]])
+  emm.mid <- data.frame(mid.i[[1]])
+  emm.hi <- data.frame(hi.i[[1]])
+  con.low <- data.frame(low.i[[2]])
+  con.mid <- data.frame(mid.i[[2]])
+  con.hi <- data.frame(hi.i[[2]])
+
+  low.tab <- merge(emm.low, con.low, by = 0, all = TRUE)
+  mid.tab <- merge(emm.mid, con.mid, by = 0, all = TRUE)
+  hi.tab <- merge(emm.hi, con.hi, by = 0, all = TRUE)
+
+  tab <- bind_rows(low.tab, mid.tab, hi.tab) |>
+    select(-c(1, 3, 6, 10:13)) |>
+    mutate(p.value = pval.lev(p.value)) |>
+    kable(
+      digits = 2,
+      booktabs = TRUE,
+      align = c("l", rep("c", 4), "l", rep("c", 2)),
+      linesep = "",
+      caption = paste0(
+        "Estimated marginal means and contrasts for ",
+        low.i[[1]]@misc$pri.vars[1],
+        " at different levels of ",
+        low.i[[1]]@misc$by.vars
+      ),
+      col.names = c(
+        low.i[[1]]@misc$pri.vars[1],
+        "EMM", "$SE$", "$2.5\\% CI$", "$97.5\\% CI$", "Contrast", "$z$", "$p$"
+      ),
+      escape = FALSE
+    ) |>
+    pack_rows(
+      group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean - SD"),
+      start_row = 1,
+      end_row = 2,
+      bold = FALSE,
+      background = "lightgray"
+    ) |>
+    pack_rows(
+      group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean"),
+      start_row = 3,
+      end_row = 4,
+      bold = FALSE,
+      background = "lightgray"
+    ) |>
+    pack_rows(
+      group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean + SD"),
+      start_row = 5,
+      end_row = 6,
+      bold = FALSE,
+      background = "lightgray"
+    ) |>
+    add_header_above(c(" " = 5, "Contrasts" = 3)) |>
+    kable_styling(latex_options = "HOLD_position") |>
+    footnote(
+      general = paste0(
+        "EMM = estimated marginal mean.
+           Significant effects are in bold.
+           Continuous variables were centered and scaled (in this case, ",
+        low.i[[1]]@misc$by.vars, ").
+           An asymptotic method was used to avoid extreme computation
+           times (hence, no degrees of freedom are included, and
+           $z$ rather than $t$ statistics are reported).
+           For contrasts, Tukey adjustment was used."
+      ),
+      threeparttable = TRUE,
+      footnote_as_chunk = TRUE,
+      escape = FALSE
+    )
+
+  return(tab)
+}
+
+# Version 2, for triple interactions
+emms.sig2 <- function(low.i, mid.i, hi.i) {
+  emm.low <- data.frame(low.i[[1]])
+  emm.mid <- data.frame(mid.i[[1]])
+  emm.hi <- data.frame(hi.i[[1]])
+  con.low <- data.frame(low.i[[2]])
+  con.mid <- data.frame(mid.i[[2]])
+  con.hi <- data.frame(hi.i[[2]])
+
+  low.tab <- merge(emm.low, con.low, by = 0, all = TRUE)
+  mid.tab <- merge(emm.mid, con.mid, by = 0, all = TRUE)
+  hi.tab <- merge(emm.hi, con.hi, by = 0, all = TRUE)
+
+  tab <- bind_rows(low.tab, mid.tab, hi.tab) |>
+    select(-c(1, 4, 7, 11:14)) |>
+    mutate(p.value = pval.lev(p.value)) |>
+    kable(
+      digits = 2,
+      booktabs = TRUE,
+      align = c("l", "l", rep("c", 4), "l", rep("c", 2)),
+      linesep = "",
+      caption = paste0(
+        "Estimated marginal means and contrasts for ",
+        low.i[[1]]@misc$pri.vars[1], " and ",
+        low.i[[1]]@misc$pri.vars[2],
+        " at different levels of ",
+        low.i[[1]]@misc$by.vars
+      ),
+      col.names = c(
+        low.i[[1]]@misc$pri.vars[1],
+        low.i[[1]]@misc$pri.vars[2],
+        "EMM", "$SE$", "$2.5\\% CI$", "$97.5\\% CI$", "Contrast", "$z$", "$p$"
+      ),
+      escape = FALSE
+    ) |>
+    pack_rows(
+      group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean - SD"),
+      start_row = 1,
+      end_row = 6,
+      bold = FALSE,
+      background = "lightgray"
+    ) |>
+    pack_rows(
+      group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean"),
+      start_row = 7,
+      end_row = 12,
+      bold = FALSE,
+      background = "lightgray"
+    ) |>
+    pack_rows(
+      group_label = paste0(low.i[[1]]@misc$by.vars, " = Mean + SD"),
+      start_row = 13,
+      end_row = 18,
+      bold = FALSE,
+      background = "lightgray"
+    ) |>
+    add_header_above(c(" " = 6, "Contrasts" = 3)) |>
+    kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+    footnote(
+      general = paste0(
+        "EMM = estimated marginal mean.
+           Significant effects are in bold.
+           Continuous variables were centered and scaled (in this case, ",
+        low.i[[1]]@misc$by.vars, ")
+           An asymptotic method was used to avoid extreme computation
+           times (hence, no degrees of freedom are included, and
+           $z$ rather than $t$ statistics are reported).
+           For contrasts, Tukey adjustment was used."
+      ),
+      threeparttable = TRUE,
+      footnote_as_chunk = TRUE,
+      escape = FALSE
+    )
+
+  return(tab)
+}
+```
+
+### `contr.stars`
+
+Function to create a data frame of model contrasts, representing significance levels from an `emmeans::emmeans` output. These data frames are formatted to be called by the `ggpubr::stat_pvalue_manual` function used in model figures.
+
+
+``` r
+contr.stars <- function(emms) {
+  require(emmeans)
+  x <- as.data.frame(contrast(emms, interaction = "pairwise"))
+  x <- separate(x,
+    col = 1,
+    into = c("group1", "group2"),
+    sep = " - ",
+    remove = TRUE
+  )
+  x$p.signif <- ifelse(x$p.value < 0.0001, "****",
+    ifelse(x$p.value < 0.001, "***",
+      ifelse(x$p.value < 0.01, "**",
+        ifelse(x$p.value < 0.05, "*", NA)
+      )
+    )
+  )
+  x <- x |>
+    mutate_at("group1", str_replace_all, "[()]", "") |>
+    mutate_at("group2", str_replace_all, "[()]", "")
+  return(x)
+}
+```
+
+### `prob.dist.tab`
+
+Function to create a table of the probability of a model for each distribution family, using the `check_distribution` function, from the `performance` package [@ludecke2021]. Values are sorted descending, first for probabilities according to the residual distribution, and then for probabilities according to the response variable. While 18 distribution families are tested, only families with at least one probability (either residual or response variable) higher than 10% are shown in the table.
+
+
+``` r
+prob.dist.tab <- function(mod) {
+  # Calculate probabilities for each distribution family
+  tibble(check_distribution(mod)) |>
+    arrange(desc(p_Response)) |>
+    arrange(desc(p_Residuals)) |>
+    # Select only distribution families with at leat a 10% probability
+    filter(p_Residuals > 0.1 | p_Response > 0.1) |>
+    # Transform probabilities to percentages
+    mutate(p_Residuals = paste0(round(p_Residuals * 100, 2), "\\%")) |>
+    mutate(p_Response = paste0(round(p_Response * 100, 2), "\\%")) |>
+    # Capitalise first letter of each family distribution
+    mutate(Distribution = sub("(.)", "\\U\\1", Distribution, perl = TRUE)) |>
+    # Create table
+    kable(
+      booktabs = TRUE,
+      align = c("l", "c", "c"),
+      row.names = FALSE,
+      caption = "Distributional family for the model",
+      col.names = c(
+        "Family",
+        "Residuals",
+        "Response"
+      ),
+      escape = FALSE
+    ) |>
+    kable_styling(latex_options = "HOLD_position") |>
+    # Bold highest probability
+    row_spec(1, background = "#c4c4c4") |>
+    footnote(
+      general = "Only families with at least one probability higher than
+  10\\\\% are shown, but a total of 18 distribution families were tested.
+  The most likely distribution is highlighted.",
+      threeparttable = TRUE,
+      footnote_as_chunk = TRUE,
+      escape = FALSE
+    )
+}
+```
+
+## Load and wrangle data
+
+Change necessary variables to factor, sort levels, and rename variables
+
+
+``` r
+# Load data
+dat <- read.csv("Data/BD_Heterosexuales_Vertical_BIG.csv") |>
+  # Remove rows with missing values for Solitary sexual desire (SD_solitario)
+  drop_na(SD_solitario) |>
+  # Change variables to factor and sort their levels
+  mutate_at(c(
+    "Contenido_Estimulo", "Sexo", "Sexo_Estimulo", "PrefSex", "EstRel", "Escolaridad",
+    "Religion", "TiempoRP"
+  ), as.factor) |>
+  # Rename variables to English
+  rename(
+    Participant = Participante,
+    Age = EdadParticipante,
+    `Preferred sex` = PrefSex,
+    Gender = Sexo,
+    `Contraceptive uso` = Anticoncep,
+    `Last period` = UltimoPer,
+    `Period day` = Dia_ciclo,
+    Education = Escolaridad,
+    Location = Residencia,
+    `Location (other)` = Residencia_3_TEXT,
+    `Medical history` = AntMed,
+    `Sexual orientation` = OS,
+    `Relationship status` = EstRel,
+    `Relationship duration` = TiempoRP,
+    `Partner gender` = SexPareja,
+    `Relationship type` = TipoRel,
+    `Age at first intercourse` = Primera.ExpSex,
+    `Consented to first intercourse` = ConExpSex,
+    `Number of sexual partners` = Numero.Parejas,
+    `Pornography consumed last month` = Pornografia_ultimo_mes,
+    Relationship = TieneRelacion,
+    `MGH-SFQ (total)` = MGH.SFQ_Total,
+    `Dyadic sexual desire (Partner)` = SD_Diadico_pareja,
+    `Solitary sexual desire` = SD_solitario,
+    `Dyadic sexual desire (Attractive person)` = SD_Diadico_p_atractiva,
+    `MGSS sexual satisfaction (General)` = Satisfaccion.Sexual..MGSS_general.,
+    `MGSS sexual satisfaction (Partner)` = Satisfaccion.Sexual..MGSS_Pareja.,
+    `Stimuli code` = Codigo_Estimulo,
+    `Stimuli sex` = Sexo_Estimulo,
+    `Stimuli content` = Contenido_Estimulo,
+    `Subjective sexual attractiveness` = Atractivo,
+    `Subjective sexual arousal` = Excitacion
+  ) |>
+  # Recode factor levels
+  mutate(`Stimuli content` = recode_factor(`Stimuli content`,
+    Erotico = "Erotic",
+    No_erotico = "Non-erotic"
+  )) |>
+  mutate(Gender = recode_factor(Gender,
+    Femenino = "Women",
+    Masculino = "Men"
+  )) |>
+  mutate(`Stimuli sex` = recode_factor(`Stimuli sex`,
+    Femenino = "Female",
+    Masculino = "Male"
+  )) |>
+  mutate(`Preferred sex` = recode_factor(`Preferred sex`,
+    Hombre = "Male",
+    Mujer = "Female"
+  )) |>
+  mutate(Education = recode(Education,
+    "Bachillerato" = "High school",
+    "Universitario" = "University",
+    "Postgrado" = "Postgraduate"
+  )) |>
+  mutate(Religion = recode(Religion,
+    "1" = "Religious",
+    "0" = "Non-religious"
+  )) |>
+  mutate(`Pornography consumed last month` = recode(`Pornography consumed last month`,
+    "Nunca" = "None",
+    "Una o dos veces" = "1-2 times",
+    "Tres a cinco veces" = "3-5 times",
+    "Mas de 5 veces" = "5 times or more"
+  )) |>
+  # Recode relationship duration
+  # mutate(`Relationship duration` = replace_na(`Relationship duration`, "Single"))
+  mutate(
+    `Relationship duration` = recode(`Relationship duration`,
+      "Sin pareja actual" = "Single",
+      "Menor a 6 meses" = "Less that 6 months",
+      "Entre 6 meses y 2 anos" = "Between 6 months and 2 years",
+      "Entre 2 y 5 anos" = "Between 2 and 5 years",
+      "MÃ¡s de 5 anos" = "More than 5 years"
+    ),
+    `Relationship duration` = replace_na(`Relationship duration`, "Single")
+  ) |>
+  # Recode relationship type
+  mutate(Relationship = recode(`Relationship status`,
+    "Exclusiva/No viven juntos" = "Stable",
+    "Exclusiva/Matrimonio" = "Stable",
+    "No exclusiva" = "Non-stable",
+    "Soltero/sin contactos sexuales en un ano" = "Single",
+    "Soltero/contactos sexuales en un ano" = "Single"
+  )) |>
+  # Relevel factors
+  mutate(
+    Education = fct_relevel(
+      Education,
+      c("High school", "University", "Postgraduate")
+    ),
+    `Pornography consumed last month` = fct_relevel(
+      `Pornography consumed last month`,
+      c(
+        "None", "1-2 times",
+        "3-5 times", "5 times or more"
+      )
+    ),
+    `Relationship duration` = fct_relevel(
+      `Relationship duration`,
+      c(
+        "Single", "Less that 6 months",
+        "Between 6 months and 2 years",
+        "Between 2 and 5 years",
+        "More than 5 years"
+      )
+    )
+  ) |>
+  mutate(
+    `Stimuli content` = as.factor(`Stimuli content`),
+    `Stimuli sex` = as.factor(`Stimuli sex`)
+  ) |>
+  # Filter participants in non-stable relationships
+  filter(Relationship != "Non-stable") |>
+  droplevels()
+```
+
+------------------------------------------------------------------------
+
+# Descriptives
+
+### Figure \@ref(fig:sample-plot). Demographic chacarteristics of the sample
+
+Number of participants by demographic category.
+
+
+``` r
+# Get number of participant for each combination of demographic chacarteristic
+dat.demog <- dat |>
+  select(
+    Participant, Gender, Relationship, Education, Religion,
+    `Pornography consumed last month`
+  ) |>
+  group_by(Participant) |>
+  filter(row_number() == 1) |>
+  ungroup() |>
+  group_by(
+    Gender, Relationship, Education, Religion,
+    `Pornography consumed last month`
+  ) |>
+  rename(Porn = `Pornography consumed last month`) |>
+  tally() |>
+  drop_na(Religion) |>
+  ungroup()
+
+# Create separate tables by gender
+dat.demog.W <- filter(dat.demog, Gender == "Women")
+dat.demog.M <- filter(dat.demog, Gender == "Men")
+
+# Women
+samp.w <- ggballoonplot(dat.demog.W,
+  x = "Education", y = "Porn", size = "n",
+  fill = "n",
+  facet.by = c("Relationship", "Religion")
+) +
+  scale_fill_viridis_c(option = "C", limits = c(1, max(dat.demog$n))) +
+  scale_size_continuous(range = c(1, 7), limits = c(1, max(dat.demog$n))) +
+  guides(
+    fill = guide_legend(face = "italic"),
+    size = guide_legend(face = "italic")
+  ) +
+  labs(title = "Women", y = "Pornography consumed last month") +
+  geom_text(aes(label = n),
+    size = 3, nudge_x = 0.3, nudge_y = 0.1
+  ) +
+  geom_text(
+    aes(label = paste0(
+      "\n(",
+      percent(n / sum(dat.demog$n), accuracy = 0.1),
+      ")"
+    )),
+    size = 2.5, nudge_x = 0.3, nudge_y = -0.05
+  ) +
+  theme_tq() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    axis.text.y = element_text(angle = 45, vjust = 0.5)
+  )
+
+# Men
+samp.m <- ggballoonplot(dat.demog.M,
+  x = "Education", y = "Porn", size = "n",
+  fill = "n",
+  facet.by = c("Relationship", "Religion")
+) +
+  scale_fill_viridis_c(option = "C", limits = c(1, max(dat.demog$n))) +
+  scale_size_continuous(range = c(1, 7), limits = c(1, max(dat.demog$n))) +
+  guides(
+    fill = guide_legend(face = "italic"),
+    size = guide_legend(face = "italic")
+  ) +
+  labs(title = "Men", y = NULL) +
+  geom_text(aes(label = n),
+    size = 3, nudge_x = 0.3, nudge_y = 0.1
+  ) +
+  geom_text(
+    aes(label = paste0(
+      "\n(",
+      percent(n / sum(dat.demog$n), accuracy = 0.1),
+      ")"
+    )),
+    size = 2.5, nudge_x = 0.3, nudge_y = -0.05
+  ) +
+  theme_tq() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    axis.text.y = element_text(angle = 45, vjust = 0.5)
+  )
+
+# Full plot
+ggarrange(samp.w, samp.m,
+  widths = c(1.1, 1),
+  common.legend = TRUE,
+  legend = "bottom"
+)
+```
+
+![Number of participants by gender (left = women, rigth = men), Relationship (stable = top panels, single = bottom panels), Religion (non-religious = left panels by gender, religious = right panels by gender), Education (*X* axis), and pornography consumed during the last month (*Y* axis). The number of participants for each combination of these five variables is displayed as numbers (percentage in brackets), as well as by the color and size of the bubbles .](figure/sample-plot-1.png)
+
+## Descriptive statistics of the participants by gender
+
+Calculate mean values per participant for relevant, numeric variables.
+
+
+``` r
+# Summarize relevant variables by participant
+dat.desc <- dat |>
+  select(
+    Participant, Gender, Age, Relationship, `Number of sexual partners`,
+    `MGH-SFQ (total)`,
+    `MGSS sexual satisfaction (General)`, `MGSS sexual satisfaction (Partner)`,
+    `Subjective sexual attractiveness`, `Subjective sexual arousal`,
+    `Solitary sexual desire`,
+    `Dyadic sexual desire (Attractive person)`, `Dyadic sexual desire (Partner)`
+  ) |>
+  group_by(Participant, Gender, Relationship) |>
+  summarize_if(is.numeric, mean, na.rm = TRUE)
+```
+
+### Table \@ref(tab:desciptive-tab). Descriptive statistics of the participants by gender
+
+Table of descriptives by gender.
+
+
+``` r
+# Table of descriptives by gender and relationship status
+describeBy(dat.desc ~ Relationship + Gender,
+  mat = TRUE,
+  digits = 2
+) |>
+  rownames_to_column("Measured characteristic") |>
+  select(1, 3:4, 6:9, 12:13) |>
+  slice(-(1:12)) |>
+  select(1, 3, 2, 4:9) |>
+  # Remove numbers included to differentiate repeated row names (now on column 1)
+  mutate("Measured characteristic" = str_replace_all(
+    `Measured characteristic`,
+    c("1" = "", "2" = "", "3" = "", "4" = "")
+  )) |>
+  # Create table
+  kable(
+    digits = 2,
+    booktabs = TRUE,
+    align = c("l", "l", rep("c", 7)),
+    linesep = "",
+    caption = "Descriptive statistics the participants by gender
+        and relationship status",
+    col.names = c(
+      "Measured characteristic", "Gender", "Relationship status",
+      "$n$", "Mean", "$SD$", "Median", "Min", "Max"
+    ),
+    longtable = TRUE,
+    escape = FALSE
+  ) |>
+  kable_styling(
+    latex_options = c("HOLD_position"),
+    font_size = 8.2
+  ) |>
+  collapse_rows(columns = 1:3, valign = "middle") |>
+  footnote(
+    general = "Because for \\\\textit{Subjective sexual attractiveness} and
+           \\\\textit{Subjective sexual arousal} there are are multiple within-subject
+           observations, descriptives are calculated from mean values per participant.",
+    threeparttable = TRUE,
+    footnote_as_chunk = TRUE,
+    escape = FALSE
+  )
+```
+
+<table class="table" style="font-size: 8.2px; color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption style="font-size: initial !important;">Descriptive statistics the participants by gender
+        and relationship status</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Measured characteristic </th>
+   <th style="text-align:left;"> Gender </th>
+   <th style="text-align:center;"> Relationship status </th>
+   <th style="text-align:center;"> $n$ </th>
+   <th style="text-align:center;"> Mean </th>
+   <th style="text-align:center;"> $SD$ </th>
+   <th style="text-align:center;"> Median </th>
+   <th style="text-align:center;"> Min </th>
+   <th style="text-align:center;"> Max </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="4"> Age </td>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Women </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 105 </td>
+   <td style="text-align:center;"> 24.51 </td>
+   <td style="text-align:center;"> 5.58 </td>
+   <td style="text-align:center;"> 23.00 </td>
+   <td style="text-align:center;"> 18.00 </td>
+   <td style="text-align:center;"> 40.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 79 </td>
+   <td style="text-align:center;"> 22.27 </td>
+   <td style="text-align:center;"> 3.84 </td>
+   <td style="text-align:center;"> 21.00 </td>
+   <td style="text-align:center;"> 18.00 </td>
+   <td style="text-align:center;"> 36.00 </td>
+  </tr>
+  <tr>
+   
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Men </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 72 </td>
+   <td style="text-align:center;"> 26.72 </td>
+   <td style="text-align:center;"> 5.64 </td>
+   <td style="text-align:center;"> 25.00 </td>
+   <td style="text-align:center;"> 19.00 </td>
+   <td style="text-align:center;"> 40.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 67 </td>
+   <td style="text-align:center;"> 24.24 </td>
+   <td style="text-align:center;"> 4.58 </td>
+   <td style="text-align:center;"> 23.00 </td>
+   <td style="text-align:center;"> 18.00 </td>
+   <td style="text-align:center;"> 39.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="4"> Number of sexual partners </td>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Women </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 103 </td>
+   <td style="text-align:center;"> 4.41 </td>
+   <td style="text-align:center;"> 3.77 </td>
+   <td style="text-align:center;"> 3.00 </td>
+   <td style="text-align:center;"> 1.00 </td>
+   <td style="text-align:center;"> 22.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 76 </td>
+   <td style="text-align:center;"> 5.74 </td>
+   <td style="text-align:center;"> 8.85 </td>
+   <td style="text-align:center;"> 3.00 </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 63.00 </td>
+  </tr>
+  <tr>
+   
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Men </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 72 </td>
+   <td style="text-align:center;"> 8.72 </td>
+   <td style="text-align:center;"> 11.36 </td>
+   <td style="text-align:center;"> 5.00 </td>
+   <td style="text-align:center;"> 1.00 </td>
+   <td style="text-align:center;"> 70.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 66 </td>
+   <td style="text-align:center;"> 7.30 </td>
+   <td style="text-align:center;"> 8.06 </td>
+   <td style="text-align:center;"> 4.00 </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 40.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="4"> MGH-SFQ (total) </td>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Women </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 104 </td>
+   <td style="text-align:center;"> 3.31 </td>
+   <td style="text-align:center;"> 0.96 </td>
+   <td style="text-align:center;"> 3.75 </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 4.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 79 </td>
+   <td style="text-align:center;"> 2.80 </td>
+   <td style="text-align:center;"> 1.23 </td>
+   <td style="text-align:center;"> 3.50 </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 4.00 </td>
+  </tr>
+  <tr>
+   
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Men </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 72 </td>
+   <td style="text-align:center;"> 3.59 </td>
+   <td style="text-align:center;"> 0.62 </td>
+   <td style="text-align:center;"> 3.90 </td>
+   <td style="text-align:center;"> 0.60 </td>
+   <td style="text-align:center;"> 4.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 67 </td>
+   <td style="text-align:center;"> 3.38 </td>
+   <td style="text-align:center;"> 0.83 </td>
+   <td style="text-align:center;"> 3.80 </td>
+   <td style="text-align:center;"> 0.60 </td>
+   <td style="text-align:center;"> 4.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="4"> MGSS sexual satisfaction (General) </td>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Women </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 100 </td>
+   <td style="text-align:center;"> 25.88 </td>
+   <td style="text-align:center;"> 5.67 </td>
+   <td style="text-align:center;"> 28.00 </td>
+   <td style="text-align:center;"> 6.00 </td>
+   <td style="text-align:center;"> 30.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 10 </td>
+   <td style="text-align:center;"> 26.90 </td>
+   <td style="text-align:center;"> 3.11 </td>
+   <td style="text-align:center;"> 27.00 </td>
+   <td style="text-align:center;"> 22.00 </td>
+   <td style="text-align:center;"> 30.00 </td>
+  </tr>
+  <tr>
+   
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Men </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 70 </td>
+   <td style="text-align:center;"> 26.43 </td>
+   <td style="text-align:center;"> 4.54 </td>
+   <td style="text-align:center;"> 29.00 </td>
+   <td style="text-align:center;"> 12.00 </td>
+   <td style="text-align:center;"> 30.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 12 </td>
+   <td style="text-align:center;"> 23.58 </td>
+   <td style="text-align:center;"> 5.14 </td>
+   <td style="text-align:center;"> 24.50 </td>
+   <td style="text-align:center;"> 14.00 </td>
+   <td style="text-align:center;"> 29.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="4"> MGSS sexual satisfaction (Partner) </td>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Women </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 100 </td>
+   <td style="text-align:center;"> 28.13 </td>
+   <td style="text-align:center;"> 4.20 </td>
+   <td style="text-align:center;"> 30.00 </td>
+   <td style="text-align:center;"> 8.00 </td>
+   <td style="text-align:center;"> 30.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 10 </td>
+   <td style="text-align:center;"> 28.10 </td>
+   <td style="text-align:center;"> 2.13 </td>
+   <td style="text-align:center;"> 29.00 </td>
+   <td style="text-align:center;"> 25.00 </td>
+   <td style="text-align:center;"> 30.00 </td>
+  </tr>
+  <tr>
+   
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Men </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 70 </td>
+   <td style="text-align:center;"> 28.49 </td>
+   <td style="text-align:center;"> 3.48 </td>
+   <td style="text-align:center;"> 30.00 </td>
+   <td style="text-align:center;"> 6.00 </td>
+   <td style="text-align:center;"> 30.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 12 </td>
+   <td style="text-align:center;"> 26.08 </td>
+   <td style="text-align:center;"> 4.85 </td>
+   <td style="text-align:center;"> 27.50 </td>
+   <td style="text-align:center;"> 15.00 </td>
+   <td style="text-align:center;"> 30.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="4"> Subjective sexual attractiveness </td>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Women </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 105 </td>
+   <td style="text-align:center;"> 2.94 </td>
+   <td style="text-align:center;"> 1.11 </td>
+   <td style="text-align:center;"> 2.78 </td>
+   <td style="text-align:center;"> 1.00 </td>
+   <td style="text-align:center;"> 5.49 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 79 </td>
+   <td style="text-align:center;"> 3.19 </td>
+   <td style="text-align:center;"> 1.06 </td>
+   <td style="text-align:center;"> 3.11 </td>
+   <td style="text-align:center;"> 1.44 </td>
+   <td style="text-align:center;"> 6.77 </td>
+  </tr>
+  <tr>
+   
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Men </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 72 </td>
+   <td style="text-align:center;"> 3.27 </td>
+   <td style="text-align:center;"> 0.94 </td>
+   <td style="text-align:center;"> 3.24 </td>
+   <td style="text-align:center;"> 1.11 </td>
+   <td style="text-align:center;"> 6.20 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 67 </td>
+   <td style="text-align:center;"> 3.20 </td>
+   <td style="text-align:center;"> 0.90 </td>
+   <td style="text-align:center;"> 3.18 </td>
+   <td style="text-align:center;"> 1.09 </td>
+   <td style="text-align:center;"> 5.72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="4"> Subjective sexual arousal </td>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Women </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 105 </td>
+   <td style="text-align:center;"> 1.59 </td>
+   <td style="text-align:center;"> 0.68 </td>
+   <td style="text-align:center;"> 1.39 </td>
+   <td style="text-align:center;"> 1.00 </td>
+   <td style="text-align:center;"> 4.21 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 79 </td>
+   <td style="text-align:center;"> 1.75 </td>
+   <td style="text-align:center;"> 0.71 </td>
+   <td style="text-align:center;"> 1.52 </td>
+   <td style="text-align:center;"> 1.00 </td>
+   <td style="text-align:center;"> 4.39 </td>
+  </tr>
+  <tr>
+   
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Men </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 72 </td>
+   <td style="text-align:center;"> 2.24 </td>
+   <td style="text-align:center;"> 0.83 </td>
+   <td style="text-align:center;"> 2.07 </td>
+   <td style="text-align:center;"> 1.00 </td>
+   <td style="text-align:center;"> 4.57 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 67 </td>
+   <td style="text-align:center;"> 2.16 </td>
+   <td style="text-align:center;"> 0.78 </td>
+   <td style="text-align:center;"> 2.05 </td>
+   <td style="text-align:center;"> 1.00 </td>
+   <td style="text-align:center;"> 4.09 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="4"> Solitary sexual desire </td>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Women </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 105 </td>
+   <td style="text-align:center;"> 11.53 </td>
+   <td style="text-align:center;"> 8.59 </td>
+   <td style="text-align:center;"> 12.00 </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 29.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 79 </td>
+   <td style="text-align:center;"> 16.03 </td>
+   <td style="text-align:center;"> 8.35 </td>
+   <td style="text-align:center;"> 17.00 </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 31.00 </td>
+  </tr>
+  <tr>
+   
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Men </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 72 </td>
+   <td style="text-align:center;"> 17.47 </td>
+   <td style="text-align:center;"> 7.51 </td>
+   <td style="text-align:center;"> 17.50 </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 31.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 67 </td>
+   <td style="text-align:center;"> 18.25 </td>
+   <td style="text-align:center;"> 7.10 </td>
+   <td style="text-align:center;"> 19.00 </td>
+   <td style="text-align:center;"> 1.00 </td>
+   <td style="text-align:center;"> 31.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="4"> Dyadic sexual desire (Attractive person) </td>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Women </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 105 </td>
+   <td style="text-align:center;"> 10.55 </td>
+   <td style="text-align:center;"> 7.64 </td>
+   <td style="text-align:center;"> 10.00 </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 30.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 79 </td>
+   <td style="text-align:center;"> 14.06 </td>
+   <td style="text-align:center;"> 7.39 </td>
+   <td style="text-align:center;"> 15.00 </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 32.00 </td>
+  </tr>
+  <tr>
+   
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Men </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 72 </td>
+   <td style="text-align:center;"> 16.21 </td>
+   <td style="text-align:center;"> 7.44 </td>
+   <td style="text-align:center;"> 15.50 </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 32.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 67 </td>
+   <td style="text-align:center;"> 17.57 </td>
+   <td style="text-align:center;"> 6.66 </td>
+   <td style="text-align:center;"> 17.00 </td>
+   <td style="text-align:center;"> 2.00 </td>
+   <td style="text-align:center;"> 30.00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="4"> Dyadic sexual desire (Partner) </td>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Women </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 105 </td>
+   <td style="text-align:center;"> 27.53 </td>
+   <td style="text-align:center;"> 8.50 </td>
+   <td style="text-align:center;"> 30.00 </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 38.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 76 </td>
+   <td style="text-align:center;"> 21.33 </td>
+   <td style="text-align:center;"> 10.91 </td>
+   <td style="text-align:center;"> 23.00 </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 38.00 </td>
+  </tr>
+  <tr>
+   
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> Men </td>
+   <td style="text-align:center;"> Stable </td>
+   <td style="text-align:center;"> 72 </td>
+   <td style="text-align:center;"> 31.35 </td>
+   <td style="text-align:center;"> 5.33 </td>
+   <td style="text-align:center;"> 32.00 </td>
+   <td style="text-align:center;"> 15.00 </td>
+   <td style="text-align:center;"> 38.00 </td>
+  </tr>
+  <tr>
+   
+   
+   <td style="text-align:center;"> Single </td>
+   <td style="text-align:center;"> 67 </td>
+   <td style="text-align:center;"> 25.81 </td>
+   <td style="text-align:center;"> 9.40 </td>
+   <td style="text-align:center;"> 28.00 </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 38.00 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> Because for \\textit{Subjective sexual attractiveness} and
+           \\textit{Subjective sexual arousal} there are are multiple within-subject
+           observations, descriptives are calculated from mean values per participant.</td></tr></tfoot>
+</table>
+
+### Figure \@ref(fig:density-plot). Distribution of participants' measured variables by gender
+
+Kernel density distributions by gender.
+
+
+``` r
+# Convert dat.desc to long format
+datp <- dat.desc |>
+  pivot_longer(
+    cols = Age:`Dyadic sexual desire (Partner)`,
+    names_to = "Variable",
+    values_to = "Value"
+  ) |>
+  mutate(Variable = str_wrap(Variable, width = 30))
+
+# Figure created as 3 separate panels (to use a different number of panels per row)
+fs2a <- ggplot(
+  datp |>
+    filter(Variable %in% c(
+      "Age",
+      "Number of sexual partners",
+      "Subjective sexual\nattractiveness",
+      "Subjective sexual arousal"
+    )),
+  aes(Value,
+    fill = Gender,
+    colour = Gender
+  )
+) +
+  geom_density(alpha = 0.3) +
+  geom_vline(
+    data = datp |>
+      filter(Variable %in% c(
+        "Age",
+        "Number of sexual partners",
+        "Subjective sexual\nattractiveness",
+        "Subjective sexual arousal"
+      )) |>
+      group_by(Variable, Gender) |>
+      summarise(mean = mean(Value, na.rm = TRUE)),
+    size = 1,
+    aes(xintercept = mean, color = Gender, linetype = Gender)
+  ) +
+  scale_color_manual(values = color.Gender) +
+  scale_fill_manual(values = color.Gender) +
+  facet_wrap(~Variable,
+    scales = "free",
+    ncol = 4
+  ) +
+  labs(
+    y = "Density",
+    x = NULL
+  ) +
+  theme_tq()
+
+fs2b <- ggplot(
+  datp |>
+    filter(Variable %in% c(
+      "MGH-SFQ (total)",
+      "MGSS sexual satisfaction\n(General)",
+      "MGSS sexual satisfaction\n(Partner)"
+    )),
+  aes(Value,
+    fill = Gender,
+    colour = Gender
+  )
+) +
+  geom_density(alpha = 0.3) +
+  geom_vline(
+    data = datp |>
+      filter(Variable %in% c(
+        "MGH-SFQ (total)",
+        "MGSS sexual satisfaction\n(General)",
+        "MGSS sexual satisfaction\n(Partner)"
+      )) |>
+      group_by(Variable, Gender) |>
+      summarise(mean = mean(Value, na.rm = TRUE)),
+    size = 1,
+    aes(xintercept = mean, color = Gender, linetype = Gender)
+  ) +
+  scale_color_manual(values = color.Gender) +
+  scale_fill_manual(values = color.Gender) +
+  facet_wrap(~Variable,
+    scales = "free",
+    ncol = 3
+  ) +
+  labs(
+    y = "Density",
+    x = NULL
+  ) +
+  theme_tq()
+
+fs2c <- ggplot(
+  datp |>
+    filter(Variable %in% c(
+      "Solitary sexual desire",
+      "Dyadic sexual desire\n(Attractive person)",
+      "Dyadic sexual desire (Partner)"
+    )),
+  aes(Value,
+    fill = Gender,
+    colour = Gender
+  )
+) +
+  geom_density(alpha = 0.3) +
+  geom_vline(
+    data = datp |>
+      filter(Variable %in% c(
+        "Solitary sexual desire",
+        "Dyadic sexual desire\n(Attractive person)",
+        "Dyadic sexual desire (Partner)"
+      )) |>
+      group_by(Variable, Gender) |>
+      summarise(mean = mean(Value, na.rm = TRUE)),
+    size = 1,
+    aes(xintercept = mean, color = Gender, linetype = Gender)
+  ) +
+  scale_color_manual(values = color.Gender) +
+  scale_fill_manual(values = color.Gender) +
+  facet_wrap(~Variable,
+    scales = "free",
+    ncol = 3
+  ) +
+  labs(
+    y = "Density",
+    x = NULL
+  ) +
+  theme_tq()
+
+# Full plot
+ggarrange(fs2a, fs2b, fs2c,
+  common.legend = TRUE,
+  legend = "bottom",
+  nrow = 3
+)
+```
+
+![Distribution of measured variables by gender. Coloured vertical lines represent mean values by gender. Detailed descriptives are found in Table S1. Because for *Subjective sexual attractiveness* and *Subjective sexual arousal* there are are multiple within-subject observations, densities calculated from mean values per participant.](figure/density-plot-1.png)
+
+## Correlations between measured variables
+
+Correlation between numeric variables for women, men, and all participants combined, are reported in Table \@ref(tab:corr-tab).
+
+### Table \@ref(tab:corr-tab). Correlations between measured variables
+
+Correlation matrix table.
+
+
+``` r
+# Correlations for women
+dat.corr.W <- dat.desc |>
+  ungroup() |>
+  filter(Gender == "Women") |>
+  select(Age:`Dyadic sexual desire (Partner)`) |>
+  corr.stars() |>
+  rownames_to_column(var = " ")
+
+# Correlations for men
+dat.corr.M <- dat.desc |>
+  ungroup() |>
+  filter(Gender == "Men") |>
+  select(Age:`Dyadic sexual desire (Partner)`) |>
+  corr.stars() |>
+  rownames_to_column(var = " ")
+
+# Correlations for all participants combined
+dat.corr.All <- dat.desc |>
+  ungroup() |>
+  select(Age:`Dyadic sexual desire (Partner)`) |>
+  corr.stars() |>
+  rownames_to_column(var = " ")
+
+# Full formated table
+bind_rows(dat.corr.W, dat.corr.M, dat.corr.All) |>
+  kable(
+    digits = 2,
+    booktabs = TRUE,
+    align = c("l", rep("c", 9)),
+    linesep = "",
+    caption = "Correlations between measured variables",
+    escape = FALSE
+  ) |>
+  pack_rows(
+    group_label = "Women",
+    start_row = 1, end_row = 10,
+    bold = FALSE,
+    background = "lightgray"
+  ) |>
+  pack_rows(
+    group_label = "Men",
+    start_row = 11, end_row = 20,
+    bold = FALSE,
+    background = "lightgray"
+  ) |>
+  pack_rows(
+    group_label = "All participants",
+    start_row = 21, end_row = 30,
+    bold = FALSE,
+    background = "lightgray"
+  ) |>
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  column_spec(2:10, width = "2.2cm") |>
+  footnote(
+    general = paste0(
+      "Values represent Pearson correlation coefficients ($r$). ",
+      "For significance, $^{\\\\dagger}p$ < 0.1, *$p$ < 0.05, ",
+      "**$p$ < 0.01, ***$p$ < 0.001. ",
+      "Significant correlations are in bold."
+    ),
+    threeparttable = TRUE,
+    footnote_as_chunk = TRUE,
+    escape = FALSE
+  ) |>
+  landscape()
+```
+
+<table class="table" style="color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Correlations between measured variables</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">  </th>
+   <th style="text-align:center;"> Age </th>
+   <th style="text-align:center;"> Number of sexual partners </th>
+   <th style="text-align:center;"> MGH-SFQ (total) </th>
+   <th style="text-align:center;"> MGSS sexual satisfaction (General) </th>
+   <th style="text-align:center;"> MGSS sexual satisfaction (Partner) </th>
+   <th style="text-align:center;"> Subjective sexual attractiveness </th>
+   <th style="text-align:center;"> Subjective sexual arousal </th>
+   <th style="text-align:center;"> Solitary sexual desire </th>
+   <th style="text-align:center;"> Dyadic sexual desire (Attractive person) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr grouplength="10"><td colspan="10" style="border-bottom: 1px solid;background-color: lightgray !important;">Women</td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Age </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Number of sexual partners </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.24**} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> MGH-SFQ (total) </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.05 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.07 </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> MGSS sexual satisfaction (General) </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{-0.21*} </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.02 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.46***} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> MGSS sexual satisfaction (Partner) </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.16$^{\dagger}$ </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.14 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.32***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.73***} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Subjective sexual attractiveness </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.11 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.18*} </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.04 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{-0.22*} </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.18$^{\dagger}$ </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Subjective sexual arousal </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.00 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.17*} </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.13$^{\dagger}$ </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.18$^{\dagger}$ </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.16$^{\dagger}$ </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.54***} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Solitary sexual desire </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.14$^{\dagger}$ </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.28***} </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.05 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.06 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.18$^{\dagger}$ </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.31***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.33***} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Dyadic sexual desire (Attractive person) </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.06 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.32***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{-0.17*} </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.04 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.17$^{\dagger}$ </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.34***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.36***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.44***} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Dyadic sexual desire (Partner) </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.00 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.21**} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.43***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.44***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.27**} </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.13$^{\dagger}$ </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.04 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.31***} </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.13$^{\dagger}$ </td>
+  </tr>
+  <tr grouplength="10"><td colspan="10" style="border-bottom: 1px solid;background-color: lightgray !important;">Men</td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Age </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Number of sexual partners </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.23**} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> MGH-SFQ (total) </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.04 </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.02 </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> MGSS sexual satisfaction (General) </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{-0.24*} </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.08 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.36***} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> MGSS sexual satisfaction (Partner) </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.13 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.01 </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.10 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.63***} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Subjective sexual attractiveness </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.10 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.05 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.08 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.10 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.02 </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Subjective sexual arousal </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.2*} </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.07 </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.05 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.14 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.09 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.46***} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Solitary sexual desire </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.16$^{\dagger}$ </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.00 </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.09 </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.10 </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.17 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.26**} </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.11 </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Dyadic sexual desire (Attractive person) </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.12 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.29***} </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.03 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.13 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.08 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.25**} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.43***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.25**} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Dyadic sexual desire (Partner) </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.11 </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.07 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.36***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.55***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.22*} </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.14 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.24**} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.17*} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.2*} </td>
+  </tr>
+  <tr grouplength="10"><td colspan="10" style="border-bottom: 1px solid;background-color: lightgray !important;">All participants</td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Age </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Number of sexual partners </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.26***} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> MGH-SFQ (total) </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.02 </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.01 </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> MGSS sexual satisfaction (General) </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{-0.22**} </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.03 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.42***} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> MGSS sexual satisfaction (Partner) </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{-0.14*} </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.07 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.24***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.69***} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Subjective sexual attractiveness </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.12*} </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.08 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.03 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{-0.18*} </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.12 </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Subjective sexual arousal </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.15**} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.17**} </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.01 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{-0.15*} </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.12$^{\dagger}$ </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.5***} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Solitary sexual desire </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.09 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.17**} </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.11$^{\dagger}$ </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.00 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.05 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.31***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.3***} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Dyadic sexual desire (Attractive person) </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.14*} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.33***} </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.04 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.07 </td>
+   <td style="text-align:center;width: 2.2cm; "> -0.12$^{\dagger}$ </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.32***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.45***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.42***} </td>
+   <td style="text-align:center;width: 2.2cm; ">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Dyadic sexual desire (Partner) </td>
+   <td style="text-align:center;width: 2.2cm; "> 0.08 </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.16**} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.43***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.46***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.25***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.15**} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.18**} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.3***} </td>
+   <td style="text-align:center;width: 2.2cm; "> \textbf{0.21***} </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> Values represent Pearson correlation coefficients ($r$). For significance, $^{\\dagger}p$ &lt; 0.1, *$p$ &lt; 0.05, **$p$ &lt; 0.01, ***$p$ &lt; 0.001. Significant correlations are in bold.</td></tr></tfoot>
+</table>
+
+## Internal consistency
+
+Six variables were calculated from multiple items (1. MGH-SFQ, 2. Dyadic sexual desire (Partner), 3. Solitary sexual desire, 4. Dyadic sexual desire (Attractive person), 5. MGSS sexual satisfaction (General) and 6. MGSS sexual satisfaction (Partner)). 
+
+Data by item, for each participant, is included in the following data base, loaded as `dat.reli`:
+
+
+``` r
+dat.reli <- read_excel("Data/BD_ConsistenciaInterna.xlsx") |>
+  mutate(Sex = recode_factor(Sex,
+    "2" = "Women",
+    "1" = "Men"
+  )) |>
+  rename(Gender = Sex) |>
+  filter(Participante != 122)
+```
+
+Participant 122 was excluded because they did not respond the psychological scales.
+
+To measure the internal consistency of these tests, we used standardized Cronbach's alpha ($\alpha$ or Tau-equivalent reliability: $\rho_{T}$) coefficients, using the function `cronbach.alpha` from the package `ltm` [@LtmPackageLatent2006].
+
+Importantly, given that for MGH-SFQ one item was answered only by men, the internal consistency of this variable was measured independently for each gender.
+
+
+``` r
+# MGH-SFQ for men
+MGH.m <- dat.reli |>
+  filter(Gender == "Men") |>
+  select(3:7) |>
+  drop_na() |>
+  cronbach.alpha(CI = TRUE, standardized = TRUE)
+
+# MGH-SFQ for women
+MGH.w <- dat.reli |>
+  filter(Gender == "Women") |>
+  select(3:5, 7) |>
+  drop_na() |>
+  cronbach.alpha(CI = TRUE, standardized = TRUE)
+
+# Dyadic sexual desire (Partner)
+DSD.p <- dat.reli |>
+  select(9:13) |>
+  drop_na() |>
+  cronbach.alpha(CI = TRUE, standardized = TRUE)
+
+# Solitary sexual desire
+SSD.p <- dat.reli |>
+  select(15:18) |>
+  drop_na() |>
+  cronbach.alpha(CI = TRUE, standardized = TRUE)
+
+# Dyadic sexual desire (Attractive person)
+DSD.a <- dat.reli |>
+  select(20:23) |>
+  drop_na() |>
+  cronbach.alpha(CI = TRUE, standardized = TRUE)
+
+# MGSS sexual satisfaction (General)
+MGSS.g <- dat.reli |>
+  select(26:30) |>
+  drop_na() |>
+  cronbach.alpha(CI = TRUE, standardized = TRUE)
+
+# MGSS sexual satisfaction (Partner)
+MGSS.p <- dat.reli |>
+  select(32:36) |>
+  drop_na() |>
+  cronbach.alpha(CI = TRUE, standardized = TRUE)
+```
+
+### Table \@ref(tab:Cronbach-tab). Internal consistency of construct variables
+
+Table of Cronbach's $\alpha$ for construct variables.
+
+
+``` r
+# Create table
+tibble(
+  Variable = c(
+    "MGH-SFQ", "MGH-SFQ",
+    "MGSS sexual satisfaction (General)",
+    "MGSS sexual satisfaction (Partner)",
+    "Dyadic sexual desire (Partner)",
+    "Solitary sexual desire",
+    "Dyadic sexual desire (Attractive person)"
+  ),
+  Gender = c("Men", "Women", rep(" ", 5)),
+  p = c(
+    MGH.m$p,
+    MGH.w$p,
+    MGSS.g$p,
+    MGSS.p$p,
+    DSD.p$p,
+    SSD.p$p,
+    DSD.a$p
+  ),
+  n = c(
+    MGH.m$n,
+    MGH.w$n,
+    MGSS.g$n,
+    MGSS.p$n,
+    DSD.p$n,
+    SSD.p$n,
+    DSD.a$n
+  ),
+  alpha = c(
+    MGH.m$alpha,
+    MGH.w$alpha,
+    MGSS.g$alpha,
+    MGSS.p$alpha,
+    DSD.p$alpha,
+    SSD.p$alpha,
+    DSD.a$alpha
+  ),
+  ci2.5 = c(
+    MGH.m$ci[1],
+    MGH.w$ci[1],
+    MGSS.g$ci[1],
+    MGSS.p$ci[1],
+    DSD.p$ci[1],
+    SSD.p$ci[1],
+    DSD.a$ci[1]
+  ),
+  ci97.5 = c(
+    MGH.m$ci[2],
+    MGH.w$ci[2],
+    MGSS.g$ci[2],
+    MGSS.p$ci[2],
+    DSD.p$ci[2],
+    SSD.p$ci[2],
+    DSD.a$ci[2]
+  )
+) |>
+  kable(
+    digits = 2,
+    booktabs = TRUE,
+    align = c("l", "l", rep("c", 5)),
+    linesep = "",
+    caption = "Internal consistency of measured variables",
+    escape = FALSE,
+    col.names = c(
+      "Variable", "Gender",
+      "Items",
+      "$n$",
+      "$\\alpha$",
+      "$2.5\\% CI$",
+      "$97.5\\% CI$"
+    )
+  ) |>
+  collapse_rows(columns = 1, valign = "middle") |>
+  kable_styling(latex_options = "HOLD_position") |>
+  footnote(
+    general = "95\\\\% confidence intervals were calculated with 1,000 bootstrap samples.
+           Standardized Cronbach's alpha ($\\\\alpha$) coefficients were computed.
+           MGH-SFQ is reported by gender, because one item was answered only by men.",
+    threeparttable = TRUE,
+    footnote_as_chunk = TRUE,
+    escape = FALSE
+  )
+```
+
+<table class="table" style="color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Internal consistency of measured variables</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Variable </th>
+   <th style="text-align:left;"> Gender </th>
+   <th style="text-align:center;"> Items </th>
+   <th style="text-align:center;"> $n$ </th>
+   <th style="text-align:center;"> $\alpha$ </th>
+   <th style="text-align:center;"> $2.5\% CI$ </th>
+   <th style="text-align:center;"> $97.5\% CI$ </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;vertical-align: middle !important;" rowspan="2"> MGH-SFQ </td>
+   <td style="text-align:left;"> Men </td>
+   <td style="text-align:center;"> 5 </td>
+   <td style="text-align:center;"> 139 </td>
+   <td style="text-align:center;"> 0.82 </td>
+   <td style="text-align:center;"> 0.70 </td>
+   <td style="text-align:center;"> 0.89 </td>
+  </tr>
+  <tr>
+   
+   <td style="text-align:left;"> Women </td>
+   <td style="text-align:center;"> 4 </td>
+   <td style="text-align:center;"> 181 </td>
+   <td style="text-align:center;"> 0.86 </td>
+   <td style="text-align:center;"> 0.82 </td>
+   <td style="text-align:center;"> 0.90 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MGSS sexual satisfaction (General) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> 5 </td>
+   <td style="text-align:center;"> 188 </td>
+   <td style="text-align:center;"> 0.92 </td>
+   <td style="text-align:center;"> 0.89 </td>
+   <td style="text-align:center;"> 0.94 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MGSS sexual satisfaction (Partner) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> 5 </td>
+   <td style="text-align:center;"> 187 </td>
+   <td style="text-align:center;"> 0.91 </td>
+   <td style="text-align:center;"> 0.85 </td>
+   <td style="text-align:center;"> 0.95 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Dyadic sexual desire (Partner) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> 5 </td>
+   <td style="text-align:center;"> 309 </td>
+   <td style="text-align:center;"> 0.90 </td>
+   <td style="text-align:center;"> 0.88 </td>
+   <td style="text-align:center;"> 0.92 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Solitary sexual desire </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> 4 </td>
+   <td style="text-align:center;"> 314 </td>
+   <td style="text-align:center;"> 0.91 </td>
+   <td style="text-align:center;"> 0.89 </td>
+   <td style="text-align:center;"> 0.93 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Dyadic sexual desire (Attractive person) </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;"> 4 </td>
+   <td style="text-align:center;"> 320 </td>
+   <td style="text-align:center;"> 0.89 </td>
+   <td style="text-align:center;"> 0.86 </td>
+   <td style="text-align:center;"> 0.91 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> 95\\% confidence intervals were calculated with 1,000 bootstrap samples.
+           Standardized Cronbach's alpha ($\\alpha$) coefficients were computed.
+           MGH-SFQ is reported by gender, because one item was answered only by men.</td></tr></tfoot>
+</table>
+
+------------------------------------------------------------------------
+
+## Controlling for Relationship Duration and MGSS Sexual Satisfaction (Partner) in Sexual Desire Dimensions
+
+To **ensure that the three sexual desire dimensions were not influenced by Relationship Duration or MGSS sexual satisfaction (Partner)**, we applied a three-step adjustment process:
+
+1. **Estimating the effects:**  
+   - We performed separate **linear regressions** where each sexual desire dimension was predicted by **Relationship Duration** and **MGSS sexual satisfaction (Partner)**.
+   - This allowed us to quantify how much these external factors influence each dimension.
+
+2. **Evaluating statistical significance:**  
+   - We conducted **Type III ANOVA** to determine which predictors had a significant effect on each sexual desire dimension.
+   - Only **MGSS sexual satisfaction (Partner) significantly predicted Dyadic Sexual Desire (Partner)**.
+
+3. **Removing the effects:**  
+   - We adjusted **only Dyadic Sexual Desire (Partner)** by extracting the **residuals** from the regression model.
+   - These residuals represent the **variation independent of MGSS sexual satisfaction (Partner)** and were then standardized for comparability.
+
+Additionally, **MGSS sexual satisfaction (Partner) was mean-centered** before analysis.
+
+**Step 1**: Estimating the Effects of Relationship Duration & Partner Satisfaction
+
+
+``` r
+# Select only participants in stable relationships and ensure required variables are available
+dat_ctl <- dat |>
+  group_by(Participant) |>
+  slice_head() |>
+  filter(Relationship == "Stable") |>
+  ungroup()
+
+# Fit linear models predicting each dimension of sexual desire
+ctl_SSD <- lm(
+  `Solitary sexual desire` ~
+    `Relationship duration` + `MGSS sexual satisfaction (Partner)`,
+  data = dat_ctl
+)
+ctl_PD <- lm(
+  `Dyadic sexual desire (Partner)` ~
+    `Relationship duration` + `MGSS sexual satisfaction (Partner)`,
+  data = dat_ctl
+)
+ctl_APD <- lm(
+  `Dyadic sexual desire (Attractive person)` ~
+    `Relationship duration` + `MGSS sexual satisfaction (Partner)`,
+  data = dat_ctl
+)
+```
+
+**Step 2**: Displaying ANOVA Results for Each Model
+
+The table below presents Type III ANOVA results for each model. Significant effects indicate that Relationship Duration or Partner Satisfaction meaningfully predict the corresponding sexual desire dimension.
+
+
+``` r
+# Combine ANOVA results for all models
+anova_results <- bind_cols(
+  bind_cols(
+    anova_summary(Anova(ctl_SSD, type = 3)),
+    epsilon_squared(ctl_SSD)
+  ) |>
+    unite(col = "df", DFn:DFd, sep = ", "),
+  bind_cols(
+    anova_summary(Anova(ctl_PD, type = 3)),
+    epsilon_squared(ctl_PD)
+  ) |>
+    unite(col = "df", DFn:DFd, sep = ", "),
+  bind_cols(
+    anova_summary(Anova(ctl_APD, type = 3)),
+    epsilon_squared(ctl_APD)
+  ) |>
+    unite(col = "df", DFn:DFd, sep = ", ")
+) |>
+  select(-starts_with(c("p<.05", "ges...", "Parameter...", "CI"))) |> # Remove Sum of Squares columns
+  mutate(across(starts_with("p..."), pval.lev)) |> # Format p-values
+  rename(Effect = Effect...1) |>
+  select(-starts_with("Effect...")) |>
+  mutate_at("Effect", str_replace_all, "`", "")
+
+# Create a formatted table
+anova_results |>
+  kable(
+    booktabs = TRUE,
+    align = c("l", rep("c", 9)), # Align columns (left for first, center for the rest)
+    digits = 3,
+    caption = "Effects of relationship duration and MGSS sexual satisfaction (Partner) in
+                   sexual desire dimensions",
+    col.names = c("Effect", rep(c("$df$", "$F$", "$p$", "$\\epsilon^2_p$"), times = 3)),
+    escape = FALSE
+  ) |>
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  add_header_above(c(
+    " " = 1,
+    "Solitary sexual desire" = 4,
+    "Dyadic sexual desire\n(Partner)" = 4,
+    "Dyadic sexual desire\n(Attractive person)" = 4
+  )) |>
+  footnote(
+    general = "As effect size, we report partial epsilon squared
+                     ($\\\\epsilon^2_p$), which provides a less biases
+                     estimate than $\\\\eta^2$ (see
+                     \\\\cite{albersWhenPowerAnalyses2018}).
+                     Significant effects are in bold.",
+    threeparttable = TRUE,
+    footnote_as_chunk = TRUE,
+    escape = FALSE
+  )
+```
+
+<table class="table" style="color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Effects of relationship duration and MGSS sexual satisfaction (Partner) in
+                   sexual desire dimensions</caption>
+ <thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Solitary sexual desire</div></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Dyadic sexual desire<br>(Partner)</div></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Dyadic sexual desire<br>(Attractive person)</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;"> Effect </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $F$ </th>
+   <th style="text-align:center;"> $p$ </th>
+   <th style="text-align:center;"> $\epsilon^2_p$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $F$ </th>
+   <th style="text-align:center;"> $p$ </th>
+   <th style="text-align:center;"> $\epsilon^2_p$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:left;"> $F$ </th>
+   <th style="text-align:center;"> $p$ </th>
+   <th style="text-align:center;"> $\epsilon^2_p$ </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Relationship duration </td>
+   <td style="text-align:center;"> 3, 165 </td>
+   <td style="text-align:center;"> 0.482 </td>
+   <td style="text-align:center;"> 0.70 </td>
+   <td style="text-align:center;"> 0 </td>
+   <td style="text-align:center;"> 3, 165 </td>
+   <td style="text-align:center;"> 2.081 </td>
+   <td style="text-align:center;"> 0.1 </td>
+   <td style="text-align:center;"> 0.041 </td>
+   <td style="text-align:center;"> 3, 165 </td>
+   <td style="text-align:left;"> 0.095 </td>
+   <td style="text-align:center;"> 0.96 </td>
+   <td style="text-align:center;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MGSS sexual satisfaction (Partner) </td>
+   <td style="text-align:center;"> 1, 165 </td>
+   <td style="text-align:center;"> 0.029 </td>
+   <td style="text-align:center;"> 0.86 </td>
+   <td style="text-align:center;"> 0 </td>
+   <td style="text-align:center;"> 1, 165 </td>
+   <td style="text-align:center;"> 8.875 </td>
+   <td style="text-align:center;"> \textbf{0.003} </td>
+   <td style="text-align:center;"> 0.045 </td>
+   <td style="text-align:center;"> 1, 165 </td>
+   <td style="text-align:left;"> 0.884 </td>
+   <td style="text-align:center;"> 0.35 </td>
+   <td style="text-align:center;"> 0 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> As effect size, we report partial epsilon squared
+                     ($\\epsilon^2_p$), which provides a less biases
+                     estimate than $\\eta^2$ (see
+                     \\cite{albersWhenPowerAnalyses2018}).
+                     Significant effects are in bold.</td></tr></tfoot>
+</table>
+
+**Step 3**: Controlling Scores Based on ANOVA Results
+
+From the ANOVA results, only the effect of MGSS sexual satisfaction (Partner) on Dyadic sexual desire (Partner) was significant. Thus, only Dyadic Sexual Desire (Partner) scores were adjusted, while the other dimensions remained unchanged.
+
+
+``` r
+# Prepare dataset with necessary variables, removing missing values
+dat_tl_PD_fin <- dat_ctl |>
+  select(
+    Participant, `Dyadic sexual desire (Partner)`,
+    `MGSS sexual satisfaction (Partner)`
+  ) |>
+  drop_na()
+
+# Fit a model to predict Dyadic Sexual Desire (Partner) using partner satisfaction only
+ctl_PD_fin <- lm(`Dyadic sexual desire (Partner)` ~ `MGSS sexual satisfaction (Partner)`,
+  data = dat_tl_PD_fin
+)
+
+# Adjust the Dyadic Sexual Desire (Partner) scores by replacing them with their residuals
+dat_ctl <- dat_tl_PD_fin |>
+  mutate(
+    `Dyadic sexual desire (Partner)` =
+      mean(`Dyadic sexual desire (Partner)`) + resid(ctl_PD_fin)
+  )
+
+# Update the original dataset with the adjusted scores
+dat <- dat |>
+  mutate(`Dyadic sexual desire (Partner)` = as.numeric(`Dyadic sexual desire (Partner)`)) |>
+  rows_update(dat_ctl |> select(-`MGSS sexual satisfaction (Partner)`),
+    by = "Participant", unmatched = "ignore"
+  )
+```
+
+------------------------------------------------------------------------
+
+# Hypothesis tests
+
+## Hypothesis 1: All dimensions of trait sexual desire (TSD) will be higher in men than in women, and the differences will be stronger or weaker according to relationship status {#hyp1}
+
+We tested whether relationship type and gender interact as predictors of sexual desire (H1a: Solitary TSD; H1b: Dyadic TSD toward an attractive person; H1c: Dyadic TSD toward a partner). To examine this hypothesis, we modeled the effects of relationship type and gender on each of the three TSD scores.
+
+However, models using the original TSD scores did not meet the assumption of normally distributed residuals. To address this, we applied an ordered normalization transformation to each TSD variable. We then fitted and compared models predicting both the original (as a proportion, to make scores comparable) and transformed (normalized) TSD dimensions. In all three cases, models using the normalized variables provided a better fit, so all inferences are based on these models.
+
+### Data
+
+A data frame was created with one row per participant, where sexual desire variables were normalized as proportions. An ordered quantile normalization transformation [@petersonOrderedQuantileNormalization2020a] was then applied using the `orderNorm` function from the `bestNormalize` package [@bestNormalizecit], and the transformed values were added as new variables.
+
+
+``` r
+# Process the dataset and create transformed variables
+dat_m1 <- dat |>
+  # Group the data by participant
+  group_by(Participant) |>
+  # Select only the first (top) observation for each participant
+  slice_head() |>
+  # Remove the grouping structure to avoid unintended behavior in later operations
+  ungroup() |>
+  # Create new proportion variables by normalizing each sexual desire measure
+  mutate(
+    "Solitary sexual desire (proportion)" =
+      `Solitary sexual desire` / 31,
+    "Dyadic sexual desire: Attractive person (proportion)" =
+      `Dyadic sexual desire (Attractive person)` / 32,
+    "Dyadic sexual desire: Partner (proportion)" =
+      `Dyadic sexual desire (Partner)` / 38
+  )
+
+# Apply ordered normalization transformations to the proportion variables
+trs_SSD <- orderNorm(dat_m1$`Solitary sexual desire (proportion)`)
+trs_DSDat <- orderNorm(dat_m1$`Dyadic sexual desire: Attractive person (proportion)`)
+trs_DSDpt <- orderNorm(dat_m1$`Dyadic sexual desire: Partner (proportion)`)
+
+# Add the transformed variables back into the dataset
+dat_m1 <- dat_m1 |>
+  mutate(
+    "Solitary sexual desire (normalized)" =
+      predict(trs_SSD), # Transformed solitary sexual desire
+    "Dyadic sexual desire: Attractive person (normalized)" =
+      predict(trs_DSDat), # Transformed dyadic sexual desire (attractive person)
+    "Dyadic sexual desire: Partner (normalized)" =
+      predict(trs_DSDpt)
+  ) # Transformed dyadic sexual desire (partner)
+```
+
+### Hypothesis 1a: Solitary TSD {#hypothesis1a}
+
+#### Model the effects of relationship type and gender on Solitary TSD
+
+We fitted models with both the original (proportion; `m1a_prop`) and transformed (normalized; `m1a_norm`) TSD scores, and performed posterior predictive checks (PPCs). As shown elsewhere [e.g., @gabryVisualizationBayesianWorkflow2019], if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
+
+
+``` r
+m1a_prop <- lm(`Solitary sexual desire (proportion)` ~ Gender * Relationship,
+  data = dat_m1
+)
+
+m1a_norm <- lm(`Solitary sexual desire (normalized)` ~ Gender * Relationship,
+  data = dat_m1
+)
+```
+
+##### Figure \@ref(fig:ppc-m1a): Posterior predictive checks (PPCs) for Hypothesis 1a. 
+
+PPCs were performed using the `check_model` function from the `performance` package [@ludecke2021], and reported in Fig. \@ref(fig:ppc-m1a). Simulated data from the normalized Solitary TSD model (Fig. \@ref(fig:ppc-m1a)b) are more similar to the observed outcome, so this model is preferred.
+
+
+``` r
+ppc_m1a <- ggarrange(
+  plot(
+    check_model(m1a_prop,
+      panel = FALSE,
+      check = "pp_check"
+    )$PP_CHECK,
+    colors = c("red", "grey30")
+  ) +
+    labs(title = NULL, subtitle = NULL) +
+    theme_tq() +
+    facet_wrap(~1, labeller = as_labeller(c(
+      "1" = "Original (proportion) Solitary TSD"
+    ))),
+  plot(
+    check_model(m1a_norm,
+      panel = FALSE,
+      check = "pp_check"
+    )$PP_CHECK,
+    colors = c("red", "grey30")
+  ) +
+    labs(title = NULL, subtitle = NULL) +
+    theme_tq() +
+    facet_wrap(~1, labeller = as_labeller(c(
+      "1" = "Transformed (normalized) Solitary TSD"
+    ))),
+  labels = "auto",
+  common.legend = TRUE,
+  legend = "bottom"
+)
+ppc_m1a
+```
+
+![Posterior predictive check. **(a)** Original (proportion) Solitary TSD; **(b)** Transformed (normalized) Solitary TSD. In both panels, red lines represent the observed data, and thin black lines represent 50 iterations of simulated data from each model. ](figure/ppc-m1a-1.png)
+
+#### Table \@ref(tab:tab-m1a). ANOVA-type table for the interaction between `Relationship type`, and `Gender`
+
+This tables summarizes the results of the model.
+
+
+``` r
+anova.sig.lm(model = m1a_norm, custom_caption = "Effects of relationship type and gender on
+          solitary sexual desire")
+```
+
+<table class="table" style="color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Effects of relationship type and gender on
+          solitary sexual desire</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Effect </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $F$ </th>
+   <th style="text-align:center;"> $p$ </th>
+   <th style="text-align:center;"> $\epsilon^2_p$ </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Gender </td>
+   <td style="text-align:center;"> 1, 319 </td>
+   <td style="text-align:center;"> 22.42 </td>
+   <td style="text-align:center;"> \textbf{&lt; 0.0001} </td>
+   <td style="text-align:center;"> 0.06 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Relationship </td>
+   <td style="text-align:center;"> 1, 319 </td>
+   <td style="text-align:center;"> 14.07 </td>
+   <td style="text-align:center;"> \textbf{&lt; 0.001} </td>
+   <td style="text-align:center;"> 0.03 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Gender × Relationship </td>
+   <td style="text-align:center;"> 1, 319 </td>
+   <td style="text-align:center;"> 4.23 </td>
+   <td style="text-align:center;"> \textbf{0.04} </td>
+   <td style="text-align:center;"> 0.01 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> Sexual desire was transformed using an ordered quantile
+                              normalization
+                              (\\cite{petersonOrderedQuantileNormalization2020a}).
+                              Results are type III ANOVA.
+                              $R^2$ = 0.103, $R^2_{adjusted}$ = 0.095. Gender = participants gender (women, men);
+                              Relationship = relationship type (stable, single).
+                              As effect size, we report partial epsilon squared
+                              ($\\epsilon^2_p$), which provides a less biases
+                              estimate than $\\eta^2$ (see
+                              \\cite{albersWhenPowerAnalyses2018}).
+                              Significant effects are in bold.</td></tr></tfoot>
+</table>
+
+#### *Post-hoc* comparisons
+
+Because the main effects of gender, relationship type, and their interaction are significant, we explored these effects using estimated marginal means.
+
+##### Table \@ref(tab:tab-m1a-emm1). Estimated marginal means and contrasts between participants' gender.
+
+Table of estimated marginal means and contrasts between genders. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+
+``` r
+emms.m1a1 <- emmeans(m1a_norm, ~Gender)
+
+emms.m1a1.tab <- tibble(data.frame(emms.m1a1))
+
+t.m1a1 <- contr.stars(emms.m1a1) |>
+  mutate(p.value = pval.lev(p.value))
+
+merge(emms.m1a1.tab, t.m1a1, by = 0, all = TRUE) |>
+  select(-c(1, 15)) |>
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", " ") |>
+  kable(
+    digits = 2,
+    booktabs = TRUE,
+    align = c("l", rep("c", 5), "l", rep("c", 5)),
+    linesep = "",
+    caption = "Estimated marginal means and contrasts between participants' gender",
+    col.names = c(
+      "Gender",
+      "EMM",
+      "$SE$",
+      "$df$",
+      "$2.5\\% CI$",
+      "$97.5\\% CI$",
+      "Contrast",
+      "Difference",
+      "$SE$",
+      "$df$",
+      "$t$",
+      "$p$"
+    ),
+    escape = FALSE
+  ) |>
+  add_header_above(c(" " = 6, "Contrasts" = 6)) |>
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(
+    general = "Significant effects are in bold.",
+    threeparttable = TRUE,
+    footnote_as_chunk = TRUE,
+    escape = FALSE
+  )
+```
+
+<table class="table" style="color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Estimated marginal means and contrasts between participants' gender</caption>
+ <thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="6"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="6"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Contrasts</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;"> Gender </th>
+   <th style="text-align:center;"> EMM </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $2.5\% CI$ </th>
+   <th style="text-align:center;"> $97.5\% CI$ </th>
+   <th style="text-align:left;"> Contrast </th>
+   <th style="text-align:center;"> Difference </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $t$ </th>
+   <th style="text-align:center;"> $p$ </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Women </td>
+   <td style="text-align:center;"> -0.17 </td>
+   <td style="text-align:center;"> 0.07 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -0.30 </td>
+   <td style="text-align:center;"> -0.03 </td>
+   <td style="text-align:left;"> Women - Men </td>
+   <td style="text-align:center;"> -0.46 </td>
+   <td style="text-align:center;"> 0.1 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -4.36 </td>
+   <td style="text-align:center;"> \textbf{&lt; 0.0001} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Men </td>
+   <td style="text-align:center;"> 0.29 </td>
+   <td style="text-align:center;"> 0.08 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> 0.13 </td>
+   <td style="text-align:center;"> 0.44 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> Significant effects are in bold.</td></tr></tfoot>
+</table>
+
+##### Table \@ref(tab:tab-m1a-emm2). Estimated marginal means and contrasts between relationship status.
+
+Table of estimated marginal means and contrasts between relationship status. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+
+``` r
+emms.m1a2 <- emmeans(m1a_norm, ~Relationship)
+
+emms.m1a2.tab <- tibble(data.frame(emms.m1a2))
+
+t.m1a2 <- contr.stars(emms.m1a2) |>
+  mutate(p.value = pval.lev(p.value))
+
+merge(emms.m1a2.tab, t.m1a2, by = 0, all = TRUE) |>
+  select(-c(1, 15)) |>
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", " ") |>
+  kable(
+    digits = 2,
+    booktabs = TRUE,
+    align = c("l", rep("c", 5), "l", rep("c", 5)),
+    linesep = "",
+    caption = "Estimated marginal means and contrasts between relationship status",
+    col.names = c(
+      "Relationship type",
+      "EMM",
+      "$SE$",
+      "$df$",
+      "$2.5\\% CI$",
+      "$97.5\\% CI$",
+      "Contrast",
+      "Difference",
+      "$SE$",
+      "$df$",
+      "$t$",
+      "$p$"
+    ),
+    escape = FALSE
+  ) |>
+  add_header_above(c(" " = 6, "Contrasts" = 6)) |>
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(
+    general = "Significant effects are in bold.",
+    threeparttable = TRUE,
+    footnote_as_chunk = TRUE,
+    escape = FALSE
+  )
+```
+
+<table class="table" style="color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Estimated marginal means and contrasts between relationship status</caption>
+ <thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="6"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="6"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Contrasts</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;"> Relationship type </th>
+   <th style="text-align:center;"> EMM </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $2.5\% CI$ </th>
+   <th style="text-align:center;"> $97.5\% CI$ </th>
+   <th style="text-align:left;"> Contrast </th>
+   <th style="text-align:center;"> Difference </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $t$ </th>
+   <th style="text-align:center;"> $p$ </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Stable </td>
+   <td style="text-align:center;"> -0.09 </td>
+   <td style="text-align:center;"> 0.07 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -0.23 </td>
+   <td style="text-align:center;"> 0.05 </td>
+   <td style="text-align:left;"> Stable - Single </td>
+   <td style="text-align:center;"> -0.3 </td>
+   <td style="text-align:center;"> 0.1 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -2.89 </td>
+   <td style="text-align:center;"> \textbf{0.0041} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Single </td>
+   <td style="text-align:center;"> 0.21 </td>
+   <td style="text-align:center;"> 0.08 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> 0.06 </td>
+   <td style="text-align:center;"> 0.36 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> Significant effects are in bold.</td></tr></tfoot>
+</table>
+
+##### Table \@ref(tab:tab-m1a-emm3). Estimated marginal means and contrasts between gender by relationship status.
+
+Table of estimated marginal means and contrasts between gender by relationship status. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+
+``` r
+emms.m1a3 <- emmeans(m1a_norm, ~ Gender | Relationship)
+
+emms.m1a3.tab <- tibble(data.frame(emms.m1a3))
+
+t.m1a3 <- contr.stars(emms.m1a3) |>
+  mutate(p.value = pval.lev(p.value))
+
+t.m1a3.f <- t.m1a3 |>
+  insertRows(2, new = NA) |>
+  insertRows(4, new = NA)
+
+merge(emms.m1a3.tab, t.m1a3.f, by = 0, all = TRUE) |>
+  select(-c(1, 3, 11, 17)) |>
+  drop_na(Gender) |>
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", "") |>
+  kable(
+    digits = 2,
+    booktabs = TRUE,
+    align = c("l", "l", rep("c", 5), "l", rep("c", 5)),
+    linesep = "",
+    caption = "Estimated marginal means and contrasts between gender by
+                    relationship status",
+    col.names = c(
+      "Gender",
+      # "Relationship",
+      "EMM",
+      "$SE$",
+      "$df$",
+      "$2.5\\% CI$",
+      "$97.5\\% CI$",
+      "Contrast",
+      "Difference",
+      "$SE$",
+      "$df$",
+      "$t$",
+      "$p$"
+    ),
+    escape = FALSE
+  ) |>
+  pack_rows(
+    group_label = "Relationship status: Stable",
+    start_row = 1,
+    end_row = 2,
+    bold = FALSE,
+    background = "lightgray"
+  ) |>
+  pack_rows(
+    group_label = "Relationship status: Single",
+    start_row = 3,
+    end_row = 4,
+    bold = FALSE,
+    background = "lightgray"
+  ) |>
+  add_header_above(c(" " = 6, "Contrasts" = 6)) |>
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(
+    general = "Significant effects are in bold.",
+    threeparttable = TRUE,
+    footnote_as_chunk = TRUE,
+    escape = FALSE
+  )
+```
+
+<table class="table" style="color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Estimated marginal means and contrasts between gender by
+                    relationship status</caption>
+ <thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="6"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="6"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Contrasts</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;"> Gender </th>
+   <th style="text-align:left;"> EMM </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $2.5\% CI$ </th>
+   <th style="text-align:center;"> $97.5\% CI$ </th>
+   <th style="text-align:center;"> Contrast </th>
+   <th style="text-align:left;"> Difference </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $t$ </th>
+   <th style="text-align:center;"> $p$ </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr grouplength="2"><td colspan="12" style="border-bottom: 1px solid;background-color: lightgray !important;">Relationship status: Stable</td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Women </td>
+   <td style="text-align:left;"> -0.43 </td>
+   <td style="text-align:center;"> 0.09 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -0.61 </td>
+   <td style="text-align:center;"> -0.25 </td>
+   <td style="text-align:center;"> Women - Men </td>
+   <td style="text-align:left;"> -0.67 </td>
+   <td style="text-align:center;"> 0.14 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -4.74 </td>
+   <td style="text-align:center;"> \textbf{&lt; 0.0001} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Men </td>
+   <td style="text-align:left;"> 0.24 </td>
+   <td style="text-align:center;"> 0.11 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> 0.03 </td>
+   <td style="text-align:center;"> 0.46 </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr grouplength="2"><td colspan="12" style="border-bottom: 1px solid;background-color: lightgray !important;">Relationship status: Single</td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Women </td>
+   <td style="text-align:left;"> 0.09 </td>
+   <td style="text-align:center;"> 0.10 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -0.11 </td>
+   <td style="text-align:center;"> 0.30 </td>
+   <td style="text-align:center;"> Women - Men </td>
+   <td style="text-align:left;"> -0.24 </td>
+   <td style="text-align:center;"> 0.15 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -1.57 </td>
+   <td style="text-align:center;"> 0.12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Men </td>
+   <td style="text-align:left;"> 0.33 </td>
+   <td style="text-align:center;"> 0.11 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> 0.11 </td>
+   <td style="text-align:center;"> 0.55 </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> Significant effects are in bold.</td></tr></tfoot>
+</table>
+
+#### Figure \@ref(fig:fig-h1a). Effects of gender and relationship type on solitary sexual desire
+
+This figure summarizes the results of hypothesis 1a.
+
+
+``` r
+# Gender main effect
+h1a1 <- ggplot(dat_m1, aes(
+  x = Gender, y = `Solitary sexual desire (normalized)`,
+  color = Gender
+)) +
+  scale_color_manual(values = color.Gender) +
+  scale_fill_manual(values = color.Gender) +
+  geom_linerange(
+    data = emms.m1a1.tab |>
+      rename("Solitary sexual desire (normalized)" = emmean),
+    mapping = aes(ymin = lower.CL, ymax = upper.CL)
+  ) +
+  geom_point(
+    data = emms.m1a1.tab |>
+      rename("Solitary sexual desire (normalized)" = emmean),
+    position = position_dodge(0.1),
+    size = 3
+  ) +
+  stat_pvalue_manual(t.m1a1,
+    label = "p.signif",
+    y.position = 0.55,
+    tip.length = 0
+  ) +
+  guides(color = "none") +
+  theme_tq()
+
+# Relationship main effect
+h1a2 <- ggplot(dat_m1, aes(
+  x = Relationship, y = `Solitary sexual desire (normalized)`,
+  color = Relationship
+)) +
+  scale_color_manual(values = color.Relationship) +
+  scale_fill_manual(values = color.Relationship) +
+  geom_linerange(
+    data = emms.m1a2.tab |>
+      rename("Solitary sexual desire (normalized)" = emmean),
+    mapping = aes(ymin = lower.CL, ymax = upper.CL)
+  ) +
+  geom_point(
+    data = emms.m1a2.tab |>
+      rename("Solitary sexual desire (normalized)" = emmean),
+    position = position_dodge(0.1),
+    size = 3
+  ) +
+  stat_pvalue_manual(t.m1a2,
+    label = "p.signif",
+    y.position = 0.45,
+    tip.length = 0
+  ) +
+  guides(color = "none") +
+  theme_tq()
+
+# Relationship × Gender interaction
+h1a3 <- ggplot(dat_m1, aes(
+  x = Gender, y = `Solitary sexual desire (normalized)`,
+  color = Gender
+)) +
+  scale_color_manual(values = color.Gender) +
+  scale_fill_manual(values = color.Gender) +
+  facet_wrap(~Relationship) +
+  geom_linerange(
+    data = emms.m1a3.tab |>
+      rename("Solitary sexual desire (normalized)" = emmean),
+    mapping = aes(ymin = lower.CL, ymax = upper.CL)
+  ) +
+  geom_point(
+    data = emms.m1a3.tab |>
+      rename("Solitary sexual desire (normalized)" = emmean),
+    position = position_dodge(0.1),
+    size = 3
+  ) +
+  stat_pvalue_manual(t.m1a3,
+    label = "p.signif",
+    y.position = 0.7,
+    tip.length = 0
+  ) +
+  guides(color = "none") +
+  theme_tq()
+
+# Full figure for hypothesis 1 (a, b and c)
+p1a <- ggarrange(h1a1, h1a2, h1a3,
+  ncol = 3,
+  labels = "auto",
+  widths = c(1, 1, 1.5)
+)
+p1a
+```
+
+![Effects of gender and relationship type on solitary sexual desire. Solitary sexual desire was transformed using ordered quantile normalization [@petersonOrderedQuantileNormalization2020a]. **(a)** Simple comparison between sexual desire by gender (for detailed results, see Table \@ref(tab:tab-m1a-emm1)); **(b)** Simple comparison between relationship status levels (for detailed results, see Table \@ref(tab:tab-m1a-emm2)); **(c)** Interaction between relationship type and relationship status (see Table \@ref(tab:tab-m1a); for detailed results, see Table \@ref(tab:tab-m1a-emm3)). Dots and bars represent estimated marginal means and 95% CI. In all cases, significant effects are represented with lines and stars: \**p* < 0.05, \*\**p* < 0.01, \*\*\**p* < 0.001, \*\*\*\**p* < 0.0001.](figure/fig-h1a-1.png)
+
+### Hypothesis 1b: Dyadic TSD (Attractive person) {#hypothesis1b}
+
+#### Model the effects of relationship type and gender on Dyadic TSD: Attractive person
+
+We fitted models with both the original (proportion; `m1b_prop`) and transformed (normalized; `m1b_norm`) TSD scores, and performed posterior predictive checks (PPCs). As shown elsewhere [e.g., @gabryVisualizationBayesianWorkflow2019], if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
+
+
+``` r
+options(contrasts = c("contr.sum", "contr.poly"))
+m1b_prop <- lm(`Dyadic sexual desire: Attractive person (proportion)` ~ Gender * Relationship,
+  data = dat_m1
+)
+
+m1b_norm <- lm(`Dyadic sexual desire: Attractive person (normalized)` ~ Gender * Relationship,
+  data = dat_m1
+)
+```
+
+##### Figure \@ref(fig:ppc-m1b): Posterior predictive checks (PPCs) for Hypothesis 1b. 
+
+PPCs were performed using the `check_model` function from the `performance` package [@ludecke2021], and reported in Fig. \@ref(fig:ppc-m1b). Simulated data from the normalized Solitary TSD model (Fig. \@ref(fig:ppc-m1b)b) are more similar to the observed outcome, so this model is preferred.
+
+
+``` r
+ppc_m1b <- ggarrange(
+  plot(
+    check_model(m1b_prop,
+      panel = FALSE,
+      check = "pp_check"
+    )$PP_CHECK,
+    colors = c("red", "grey30")
+  ) +
+    labs(title = NULL, subtitle = NULL) +
+    theme_tq() +
+    facet_wrap(~1, labeller = as_labeller(c(
+      "1" = "Original (proportion) Dyadic TSD: Attractive person"
+    ))),
+  plot(
+    check_model(m1b_norm,
+      panel = FALSE,
+      check = "pp_check"
+    )$PP_CHECK,
+    colors = c("red", "grey30")
+  ) +
+    labs(title = NULL, subtitle = NULL) +
+    theme_tq() +
+    facet_wrap(~1, labeller = as_labeller(c(
+      "1" = "Transformed (normalized) Dyadic TSD: Attractive person"
+    ))),
+  labels = "auto",
+  common.legend = TRUE,
+  legend = "bottom"
+)
+ppc_m1b
+```
+
+![Posterior predictive check. **(a)** Original (proportion) Solitary TSD; **(b)** Transformed (normalized) Solitary TSD. In both panels, red lines represent the observed data, and thin black lines represent 50 iterations of simulated data from each model. ](figure/ppc-m1b-1.png)
+
+#### Table \@ref(tab:tab-m1b). ANOVA-type table for the interaction between `Relationship type`, and `Gender`
+
+This tables summarizes the results of the model.
+
+
+``` r
+anova.sig.lm(model = m1b_norm, custom_caption = "Effects of relationship type and gender on
+          Dyadic sexual desire: Attractive person")
+```
+
+<table class="table" style="color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Effects of relationship type and gender on
+          Dyadic sexual desire: Attractive person</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Effect </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $F$ </th>
+   <th style="text-align:center;"> $p$ </th>
+   <th style="text-align:center;"> $\epsilon^2_p$ </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Gender </td>
+   <td style="text-align:center;"> 1, 319 </td>
+   <td style="text-align:center;"> 29.85 </td>
+   <td style="text-align:center;"> \textbf{&lt; 0.0001} </td>
+   <td style="text-align:center;"> 0.09 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Relationship </td>
+   <td style="text-align:center;"> 1, 319 </td>
+   <td style="text-align:center;"> 8.20 </td>
+   <td style="text-align:center;"> \textbf{0.004} </td>
+   <td style="text-align:center;"> 0.03 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Gender × Relationship </td>
+   <td style="text-align:center;"> 1, 319 </td>
+   <td style="text-align:center;"> 1.73 </td>
+   <td style="text-align:center;"> 0.19 </td>
+   <td style="text-align:center;"> 0.00 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> Sexual desire was transformed using an ordered quantile
+                              normalization
+                              (\\cite{petersonOrderedQuantileNormalization2020a}).
+                              Results are type III ANOVA.
+                              $R^2$ = 0.122, $R^2_{adjusted}$ = 0.114. Gender = participants gender (women, men);
+                              Relationship = relationship type (stable, single).
+                              As effect size, we report partial epsilon squared
+                              ($\\epsilon^2_p$), which provides a less biases
+                              estimate than $\\eta^2$ (see
+                              \\cite{albersWhenPowerAnalyses2018}).
+                              Significant effects are in bold.</td></tr></tfoot>
+</table>
+
+#### *Post-hoc* comparisons
+
+Because the main effects of gender and relationship type, but not their interaction, are significant, we explored these effects using estimated marginal means.
+
+##### Table \@ref(tab:tab-m1b-emm1). Estimated marginal means and contrasts between participants' gender.
+
+Table of estimated marginal means and contrasts between genders. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+
+``` r
+emms.m1b1 <- emmeans(m1b_norm, ~Gender)
+
+emms.m1b1.tab <- tibble(data.frame(emms.m1b1))
+
+t.m1b1 <- contr.stars(emms.m1b1) |>
+  mutate(p.value = pval.lev(p.value))
+
+merge(emms.m1b1.tab, t.m1b1, by = 0, all = TRUE) |>
+  select(-c(1, 15)) |>
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", " ") |>
+  kable(
+    digits = 2,
+    booktabs = TRUE,
+    align = c("l", rep("c", 5), "l", rep("c", 5)),
+    linesep = "",
+    caption = "Estimated marginal means and contrasts between participants' gender",
+    col.names = c(
+      "Gender",
+      "EMM",
+      "$SE$",
+      "$df$",
+      "$2.5\\% CI$",
+      "$97.5\\% CI$",
+      "Contrast",
+      "Difference",
+      "$SE$",
+      "$df$",
+      "$t$",
+      "$p$"
+    ),
+    escape = FALSE
+  ) |>
+  add_header_above(c(" " = 6, "Contrasts" = 6)) |>
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(
+    general = "Significant effects are in bold.",
+    threeparttable = TRUE,
+    footnote_as_chunk = TRUE,
+    escape = FALSE
+  )
+```
+
+<table class="table" style="color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Estimated marginal means and contrasts between participants' gender</caption>
+ <thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="6"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="6"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Contrasts</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;"> Gender </th>
+   <th style="text-align:center;"> EMM </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $2.5\% CI$ </th>
+   <th style="text-align:center;"> $97.5\% CI$ </th>
+   <th style="text-align:left;"> Contrast </th>
+   <th style="text-align:center;"> Difference </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $t$ </th>
+   <th style="text-align:center;"> $p$ </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Women </td>
+   <td style="text-align:center;"> -0.22 </td>
+   <td style="text-align:center;"> 0.07 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -0.36 </td>
+   <td style="text-align:center;"> -0.09 </td>
+   <td style="text-align:left;"> Women - Men </td>
+   <td style="text-align:center;"> -0.57 </td>
+   <td style="text-align:center;"> 0.1 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -5.46 </td>
+   <td style="text-align:center;"> \textbf{&lt; 0.0001} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Men </td>
+   <td style="text-align:center;"> 0.35 </td>
+   <td style="text-align:center;"> 0.08 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> 0.19 </td>
+   <td style="text-align:center;"> 0.50 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> Significant effects are in bold.</td></tr></tfoot>
+</table>
+
+##### Table \@ref(tab:tab-m1b-emm2). Estimated marginal means and contrasts between relationship status.
+
+Table of estimated marginal means and contrasts between relationship status. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+
+``` r
+emms.m1b2 <- emmeans(m1b_norm, ~Relationship)
+
+emms.m1b2.tab <- tibble(data.frame(emms.m1b2))
+
+t.m1b2 <- contr.stars(emms.m1b2) |>
+  mutate(p.value = pval.lev(p.value))
+
+merge(emms.m1b2.tab, t.m1b2, by = 0, all = TRUE) |>
+  select(-c(1, 15)) |>
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", " ") |>
+  kable(
+    digits = 2,
+    booktabs = TRUE,
+    align = c("l", rep("c", 5), "l", rep("c", 5)),
+    linesep = "",
+    caption = "Estimated marginal means and contrasts between relationship status",
+    col.names = c(
+      "Relationship type",
+      "EMM",
+      "$SE$",
+      "$df$",
+      "$2.5\\% CI$",
+      "$97.5\\% CI$",
+      "Contrast",
+      "Difference",
+      "$SE$",
+      "$df$",
+      "$t$",
+      "$p$"
+    ),
+    escape = FALSE
+  ) |>
+  add_header_above(c(" " = 6, "Contrasts" = 6)) |>
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(
+    general = "Significant effects are in bold.",
+    threeparttable = TRUE,
+    footnote_as_chunk = TRUE,
+    escape = FALSE
+  )
+```
+
+<table class="table" style="color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Estimated marginal means and contrasts between relationship status</caption>
+ <thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="6"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="6"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Contrasts</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;"> Relationship type </th>
+   <th style="text-align:center;"> EMM </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $2.5\% CI$ </th>
+   <th style="text-align:center;"> $97.5\% CI$ </th>
+   <th style="text-align:left;"> Contrast </th>
+   <th style="text-align:center;"> Difference </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $t$ </th>
+   <th style="text-align:center;"> $p$ </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Stable </td>
+   <td style="text-align:center;"> -0.09 </td>
+   <td style="text-align:center;"> 0.07 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -0.22 </td>
+   <td style="text-align:center;"> 0.05 </td>
+   <td style="text-align:left;"> Stable - Single </td>
+   <td style="text-align:center;"> -0.3 </td>
+   <td style="text-align:center;"> 0.1 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -2.86 </td>
+   <td style="text-align:center;"> \textbf{0.0045} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Single </td>
+   <td style="text-align:center;"> 0.21 </td>
+   <td style="text-align:center;"> 0.08 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> 0.06 </td>
+   <td style="text-align:center;"> 0.36 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> Significant effects are in bold.</td></tr></tfoot>
+</table>
+
+##### Table \@ref(tab:tab-m1b-emm3). Estimated marginal means and contrasts between gender by relationship status.
+
+Table of estimated marginal means and contrasts between gender by relationship status. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+
+``` r
+emms.m1b3 <- emmeans(m1b_norm, ~ Gender | Relationship)
+
+emms.m1b3.tab <- tibble(data.frame(emms.m1b3))
+
+t.m1b3 <- contr.stars(emms.m1b3) |>
+  mutate(p.value = pval.lev(p.value))
+
+t.m1b3.f <- t.m1b3 |>
+  insertRows(2, new = NA) |>
+  insertRows(4, new = NA)
+
+merge(emms.m1b3.tab, t.m1b3.f, by = 0, all = TRUE) |>
+  select(-c(1, 3, 11, 17)) |>
+  drop_na(Gender) |>
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", "") |>
+  kable(
+    digits = 2,
+    booktabs = TRUE,
+    align = c("l", "l", rep("c", 5), "l", rep("c", 5)),
+    linesep = "",
+    caption = "Estimated marginal means and contrasts between gender by
+                    relationship status",
+    col.names = c(
+      "Gender",
+      # "Relationship",
+      "EMM",
+      "$SE$",
+      "$df$",
+      "$2.5\\% CI$",
+      "$97.5\\% CI$",
+      "Contrast",
+      "Difference",
+      "$SE$",
+      "$df$",
+      "$t$",
+      "$p$"
+    ),
+    escape = FALSE
+  ) |>
+  pack_rows(
+    group_label = "Relationship status: Stable",
+    start_row = 1,
+    end_row = 2,
+    bold = FALSE,
+    background = "lightgray"
+  ) |>
+  pack_rows(
+    group_label = "Relationship status: Single",
+    start_row = 3,
+    end_row = 4,
+    bold = FALSE,
+    background = "lightgray"
+  ) |>
+  add_header_above(c(" " = 6, "Contrasts" = 6)) |>
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(
+    general = "Significant effects are in bold.",
+    threeparttable = TRUE,
+    footnote_as_chunk = TRUE,
+    escape = FALSE
+  )
+```
+
+<table class="table" style="color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Estimated marginal means and contrasts between gender by
+                    relationship status</caption>
+ <thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="6"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="6"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Contrasts</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;"> Gender </th>
+   <th style="text-align:left;"> EMM </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $2.5\% CI$ </th>
+   <th style="text-align:center;"> $97.5\% CI$ </th>
+   <th style="text-align:center;"> Contrast </th>
+   <th style="text-align:left;"> Difference </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $t$ </th>
+   <th style="text-align:center;"> $p$ </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr grouplength="2"><td colspan="12" style="border-bottom: 1px solid;background-color: lightgray !important;">Relationship status: Stable</td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Women </td>
+   <td style="text-align:left;"> -0.44 </td>
+   <td style="text-align:center;"> 0.09 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -0.62 </td>
+   <td style="text-align:center;"> -0.26 </td>
+   <td style="text-align:center;"> Women - Men </td>
+   <td style="text-align:left;"> -0.71 </td>
+   <td style="text-align:center;"> 0.14 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -5.00 </td>
+   <td style="text-align:center;"> \textbf{&lt; 0.0001} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Men </td>
+   <td style="text-align:left;"> 0.27 </td>
+   <td style="text-align:center;"> 0.11 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> 0.05 </td>
+   <td style="text-align:center;"> 0.48 </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr grouplength="2"><td colspan="12" style="border-bottom: 1px solid;background-color: lightgray !important;">Relationship status: Single</td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Women </td>
+   <td style="text-align:left;"> 0.00 </td>
+   <td style="text-align:center;"> 0.10 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -0.21 </td>
+   <td style="text-align:center;"> 0.20 </td>
+   <td style="text-align:center;"> Women - Men </td>
+   <td style="text-align:left;"> -0.43 </td>
+   <td style="text-align:center;"> 0.15 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> -2.82 </td>
+   <td style="text-align:center;"> \textbf{0.0051} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Men </td>
+   <td style="text-align:left;"> 0.43 </td>
+   <td style="text-align:center;"> 0.11 </td>
+   <td style="text-align:center;"> 319 </td>
+   <td style="text-align:center;"> 0.21 </td>
+   <td style="text-align:center;"> 0.65 </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> Significant effects are in bold.</td></tr></tfoot>
+</table>
+
+#### Figure \@ref(fig:fig-h1b). Effects of gender and relationship type on Dyadic sexual desire: Attractive person
+
+This figure summarizes the results of hypothesis 1b.
+
+
+``` r
+# Gender main effect
+h1b1 <- ggplot(dat_m1, aes(
+  x = Gender, y = `Dyadic sexual desire: Attractive person (normalized)`,
+  color = Gender
+)) +
+  scale_color_manual(values = color.Gender) +
+  scale_fill_manual(values = color.Gender) +
+  geom_linerange(
+    data = emms.m1b1.tab |>
+      rename("Dyadic sexual desire: Attractive person (normalized)" = emmean),
+    mapping = aes(ymin = lower.CL, ymax = upper.CL)
+  ) +
+  geom_point(
+    data = emms.m1b1.tab |>
+      rename("Dyadic sexual desire: Attractive person (normalized)" = emmean),
+    position = position_dodge(0.1),
+    size = 3
+  ) +
+  stat_pvalue_manual(t.m1b1,
+    label = "p.signif",
+    y.position = 0.6,
+    tip.length = 0
+  ) +
+  guides(color = "none") +
+  theme_tq()
+
+# Relationship main effect
+h1b2 <- ggplot(dat_m1, aes(
+  x = Relationship, y = `Dyadic sexual desire: Attractive person (normalized)`,
+  color = Relationship
+)) +
+  scale_color_manual(values = color.Relationship) +
+  scale_fill_manual(values = color.Relationship) +
+  geom_linerange(
+    data = emms.m1b2.tab |>
+      rename("Dyadic sexual desire: Attractive person (normalized)" = emmean),
+    mapping = aes(ymin = lower.CL, ymax = upper.CL)
+  ) +
+  geom_point(
+    data = emms.m1b2.tab |>
+      rename("Dyadic sexual desire: Attractive person (normalized)" = emmean),
+    position = position_dodge(0.1),
+    size = 3
+  ) +
+  stat_pvalue_manual(t.m1b2,
+    label = "p.signif",
+    y.position = 0.45,
+    tip.length = 0
+  ) +
+  guides(color = "none") +
+  theme_tq()
+
+# Relationship × Gender interaction
+h1b3 <- ggplot(dat_m1, aes(
+  x = Gender, y = `Dyadic sexual desire: Attractive person (normalized)`,
+  color = Gender
+)) +
+  scale_color_manual(values = color.Gender) +
+  scale_fill_manual(values = color.Gender) +
+  facet_wrap(~Relationship) +
+  geom_linerange(
+    data = emms.m1b3.tab |>
+      rename("Dyadic sexual desire: Attractive person (normalized)" = emmean),
+    mapping = aes(ymin = lower.CL, ymax = upper.CL)
+  ) +
+  geom_point(
+    data = emms.m1b3.tab |>
+      rename("Dyadic sexual desire: Attractive person (normalized)" = emmean),
+    position = position_dodge(0.1),
+    size = 3
+  ) +
+  stat_pvalue_manual(t.m1b3,
+    label = "p.signif",
+    y.position = c(0.6, 0.7),
+    tip.length = 0
+  ) +
+  guides(color = "none") +
+  theme_tq()
+
+# Full figure for hypothesis 1 (a, b and c)
+p1b <- ggarrange(h1b1, h1b2, h1b3,
+  ncol = 3,
+  labels = "auto",
+  widths = c(1, 1, 1.5)
+)
+p1b
+```
+
+![Effects of gender and relationship type on Dyadic sexual desire: Attractive person. Dyadic sexual desire: Attractive person was transformed using ordered quantile normalization [@petersonOrderedQuantileNormalization2020a]. **(a)** Simple comparison between sexual desire by gender (for detailed results, see Table \@ref(tab:tab-m1b-emm1)); **(b)** Simple comparison between relationship status levels (for detailed results, see Table \@ref(tab:tab-m1b-emm2)); **(c)** Interaction between relationship type and relationship status (see Table \@ref(tab:tab-m1b); for detailed results, see Table \@ref(tab:tab-m1b-emm3)). Dots and bars represent estimated marginal means and 95% CI. In all cases, significant effects are represented with lines and stars: \**p* < 0.05, \*\**p* < 0.01, \*\*\**p* < 0.001, \*\*\*\**p* < 0.0001.](figure/fig-h1b-1.png)
+
+### Hypothesis 1c: Dyadic TSD (Partner) {#hypothesis1c}
+
+#### Model the effects of relationship type and gender on Dyadic TSD: Partner
+
+We fitted models with both the original (proportion; `m1c_prop`) and transformed (normalized; `m1c_norm`) TSD scores, and performed posterior predictive checks (PPCs). As shown elsewhere [e.g., @gabryVisualizationBayesianWorkflow2019], if simulated data from one model are more similar to the observed outcome, that model is likely to be preferred.
+
+
+``` r
+options(contrasts = c("contr.sum", "contr.poly"))
+m1c_prop <- lm(`Dyadic sexual desire: Partner (proportion)` ~ Gender * Relationship,
+  data = dat_m1
+)
+
+m1c_norm <- lm(`Dyadic sexual desire: Partner (normalized)` ~ Gender * Relationship,
+  data = dat_m1
+)
+```
+
+##### Figure \@ref(fig:ppc-m1c): Posterior predictive checks (PPCs) for Hypothesis 1c. 
+
+PPCs were performed using the `check_model` function from the `performance` package [@ludecke2021], and reported in Fig. \@ref(fig:ppc-m1c). Simulated data from the normalized Solitary TSD model (Fig. \@ref(fig:ppc-m1c)b) are more similar to the observed outcome, so this model is preferred.
+
+
+``` r
+ppc_m1c <- ggarrange(
+  plot(
+    check_model(m1c_prop,
+      panel = FALSE,
+      check = "pp_check"
+    )$PP_CHECK,
+    colors = c("red", "grey30")
+  ) +
+    labs(title = NULL, subtitle = NULL) +
+    theme_tq() +
+    facet_wrap(~1, labeller = as_labeller(c(
+      "1" = "Original (proportion) Dyadic TSD: Partner"
+    ))),
+  plot(
+    check_model(m1c_norm,
+      panel = FALSE,
+      check = "pp_check"
+    )$PP_CHECK,
+    colors = c("red", "grey30")
+  ) +
+    labs(title = NULL, subtitle = NULL) +
+    theme_tq() +
+    facet_wrap(~1, labeller = as_labeller(c(
+      "1" = "Transformed (normalized) Dyadic TSD: Partner"
+    ))),
+  labels = "auto",
+  common.legend = TRUE,
+  legend = "bottom"
+)
+ppc_m1c
+```
+
+![Posterior predictive check. **(a)** Original (proportion) Solitary TSD; **(b)** Transformed (normalized) Solitary TSD. In both panels, red lines represent the observed data, and thin black lines represent 50 iterations of simulated data from each model. ](figure/ppc-m1c-1.png)
+
+#### Table \@ref(tab:tab-m1c). ANOVA-type table for the interaction between `Relationship type`, and `Gender`
+
+This tables summarizes the results of the model.
+
+
+``` r
+anova.sig.lm(model = m1c_norm, custom_caption = "Effects of relationship type and gender on
+          Dyadic sexual desire: Partner")
+```
+
+<table class="table" style="color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Effects of relationship type and gender on
+          Dyadic sexual desire: Partner</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Effect </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $F$ </th>
+   <th style="text-align:center;"> $p$ </th>
+   <th style="text-align:center;"> $\epsilon^2_p$ </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Gender </td>
+   <td style="text-align:center;"> 1, 316 </td>
+   <td style="text-align:center;"> 15.49 </td>
+   <td style="text-align:center;"> \textbf{&lt; 0.001} </td>
+   <td style="text-align:center;"> 0.0365 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Relationship </td>
+   <td style="text-align:center;"> 1, 316 </td>
+   <td style="text-align:center;"> 31.60 </td>
+   <td style="text-align:center;"> \textbf{&lt; 0.0001} </td>
+   <td style="text-align:center;"> 0.09 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Gender × Relationship </td>
+   <td style="text-align:center;"> 1, 316 </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 0.98 </td>
+   <td style="text-align:center;"> &lt; 0.0001 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> Sexual desire was transformed using an ordered quantile
+                              normalization
+                              (\\cite{petersonOrderedQuantileNormalization2020a}).
+                              Results are type III ANOVA.
+                              $R^2$ = 0.125, $R^2_{adjusted}$ = 0.117. Gender = participants gender (women, men);
+                              Relationship = relationship type (stable, single).
+                              As effect size, we report partial epsilon squared
+                              ($\\epsilon^2_p$), which provides a less biases
+                              estimate than $\\eta^2$ (see
+                              \\cite{albersWhenPowerAnalyses2018}).
+                              Significant effects are in bold.</td></tr></tfoot>
+</table>
+
+#### *Post-hoc* comparisons
+
+Because the main effects of gender and relationship type, but not their interaction, are significant, we explored these effects using estimated marginal means.
+
+##### Table \@ref(tab:tab-m1c-emm1). Estimated marginal means and contrasts between participants' gender.
+
+Table of estimated marginal means and contrasts between genders. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+
+``` r
+emms.m1c1 <- emmeans(m1c_norm, ~Gender)
+
+emms.m1c1.tab <- tibble(data.frame(emms.m1c1))
+
+t.m1c1 <- contr.stars(emms.m1c1) |>
+  mutate(p.value = pval.lev(p.value))
+
+merge(emms.m1c1.tab, t.m1c1, by = 0, all = TRUE) |>
+  select(-c(1, 15)) |>
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", " ") |>
+  kable(
+    digits = 2,
+    booktabs = TRUE,
+    align = c("l", rep("c", 5), "l", rep("c", 5)),
+    linesep = "",
+    caption = "Estimated marginal means and contrasts between participants' gender",
+    col.names = c(
+      "Gender",
+      "EMM",
+      "$SE$",
+      "$df$",
+      "$2.5\\% CI$",
+      "$97.5\\% CI$",
+      "Contrast",
+      "Difference",
+      "$SE$",
+      "$df$",
+      "$t$",
+      "$p$"
+    ),
+    escape = FALSE
+  ) |>
+  add_header_above(c(" " = 6, "Contrasts" = 6)) |>
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(
+    general = "Significant effects are in bold.",
+    threeparttable = TRUE,
+    footnote_as_chunk = TRUE,
+    escape = FALSE
+  )
+```
+
+<table class="table" style="color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Estimated marginal means and contrasts between participants' gender</caption>
+ <thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="6"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="6"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Contrasts</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;"> Gender </th>
+   <th style="text-align:center;"> EMM </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $2.5\% CI$ </th>
+   <th style="text-align:center;"> $97.5\% CI$ </th>
+   <th style="text-align:left;"> Contrast </th>
+   <th style="text-align:center;"> Difference </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $t$ </th>
+   <th style="text-align:center;"> $p$ </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Women </td>
+   <td style="text-align:center;"> -0.21 </td>
+   <td style="text-align:center;"> 0.07 </td>
+   <td style="text-align:center;"> 316 </td>
+   <td style="text-align:center;"> -0.35 </td>
+   <td style="text-align:center;"> -0.07 </td>
+   <td style="text-align:left;"> Women - Men </td>
+   <td style="text-align:center;"> -0.42 </td>
+   <td style="text-align:center;"> 0.11 </td>
+   <td style="text-align:center;"> 316 </td>
+   <td style="text-align:center;"> -3.94 </td>
+   <td style="text-align:center;"> \textbf{&lt; 0.001} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Men </td>
+   <td style="text-align:center;"> 0.20 </td>
+   <td style="text-align:center;"> 0.08 </td>
+   <td style="text-align:center;"> 316 </td>
+   <td style="text-align:center;"> 0.05 </td>
+   <td style="text-align:center;"> 0.36 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> Significant effects are in bold.</td></tr></tfoot>
+</table>
+
+##### Table \@ref(tab:tab-m1c-emm2). Estimated marginal means and contrasts between relationship status.
+
+Table of estimated marginal means and contrasts between relationship status. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+
+``` r
+emms.m1c2 <- emmeans(m1c_norm, ~Relationship)
+
+emms.m1c2.tab <- tibble(data.frame(emms.m1c2))
+
+t.m1c2 <- contr.stars(emms.m1c2) |>
+  mutate(p.value = pval.lev(p.value))
+
+merge(emms.m1c2.tab, t.m1c2, by = 0, all = TRUE) |>
+  select(-c(1, 15)) |>
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", " ") |>
+  kable(
+    digits = 2,
+    booktabs = TRUE,
+    align = c("l", rep("c", 5), "l", rep("c", 5)),
+    linesep = "",
+    caption = "Estimated marginal means and contrasts between relationship status",
+    col.names = c(
+      "Relationship type",
+      "EMM",
+      "$SE$",
+      "$df$",
+      "$2.5\\% CI$",
+      "$97.5\\% CI$",
+      "Contrast",
+      "Difference",
+      "$SE$",
+      "$df$",
+      "$t$",
+      "$p$"
+    ),
+    escape = FALSE
+  ) |>
+  add_header_above(c(" " = 6, "Contrasts" = 6)) |>
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(
+    general = "Significant effects are in bold.",
+    threeparttable = TRUE,
+    footnote_as_chunk = TRUE,
+    escape = FALSE
+  )
+```
+
+<table class="table" style="color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Estimated marginal means and contrasts between relationship status</caption>
+ <thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="6"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="6"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Contrasts</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;"> Relationship type </th>
+   <th style="text-align:center;"> EMM </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $2.5\% CI$ </th>
+   <th style="text-align:center;"> $97.5\% CI$ </th>
+   <th style="text-align:left;"> Contrast </th>
+   <th style="text-align:center;"> Difference </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $t$ </th>
+   <th style="text-align:center;"> $p$ </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Stable </td>
+   <td style="text-align:center;"> 0.29 </td>
+   <td style="text-align:center;"> 0.07 </td>
+   <td style="text-align:center;"> 316 </td>
+   <td style="text-align:center;"> 0.15 </td>
+   <td style="text-align:center;"> 0.43 </td>
+   <td style="text-align:left;"> Stable - Single </td>
+   <td style="text-align:center;"> 0.6 </td>
+   <td style="text-align:center;"> 0.11 </td>
+   <td style="text-align:center;"> 316 </td>
+   <td style="text-align:center;"> 5.62 </td>
+   <td style="text-align:center;"> \textbf{&lt; 0.0001} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Single </td>
+   <td style="text-align:center;"> -0.30 </td>
+   <td style="text-align:center;"> 0.08 </td>
+   <td style="text-align:center;"> 316 </td>
+   <td style="text-align:center;"> -0.46 </td>
+   <td style="text-align:center;"> -0.15 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> Significant effects are in bold.</td></tr></tfoot>
+</table>
+
+##### Table \@ref(tab:tab-m1c-emm3). Estimated marginal means and contrasts between gender by relationship status.
+
+Table of estimated marginal means and contrasts between gender by relationship status. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+
+
+``` r
+emms.m1c3 <- emmeans(m1c_norm, ~ Gender | Relationship)
+
+emms.m1c3.tab <- tibble(data.frame(emms.m1c3))
+
+t.m1c3 <- contr.stars(emms.m1c3) |>
+  mutate(p.value = pval.lev(p.value))
+
+t.m1c3.f <- t.m1c3 |>
+  insertRows(2, new = NA) |>
+  insertRows(4, new = NA)
+
+merge(emms.m1c3.tab, t.m1c3.f, by = 0, all = TRUE) |>
+  select(-c(1, 3, 11, 17)) |>
+  drop_na(Gender) |>
+  unite(Contrast, group1, group2, sep = " - ") |>
+  mutate_at("Contrast", str_replace_all, "NA - NA", "") |>
+  kable(
+    digits = 2,
+    booktabs = TRUE,
+    align = c("l", "l", rep("c", 5), "l", rep("c", 5)),
+    linesep = "",
+    caption = "Estimated marginal means and contrasts between gender by
+                    relationship status",
+    col.names = c(
+      "Gender",
+      # "Relationship",
+      "EMM",
+      "$SE$",
+      "$df$",
+      "$2.5\\% CI$",
+      "$97.5\\% CI$",
+      "Contrast",
+      "Difference",
+      "$SE$",
+      "$df$",
+      "$t$",
+      "$p$"
+    ),
+    escape = FALSE
+  ) |>
+  pack_rows(
+    group_label = "Relationship status: Stable",
+    start_row = 1,
+    end_row = 2,
+    bold = FALSE,
+    background = "lightgray"
+  ) |>
+  pack_rows(
+    group_label = "Relationship status: Single",
+    start_row = 3,
+    end_row = 4,
+    bold = FALSE,
+    background = "lightgray"
+  ) |>
+  add_header_above(c(" " = 6, "Contrasts" = 6)) |>
+  kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
+  footnote(
+    general = "Significant effects are in bold.",
+    threeparttable = TRUE,
+    footnote_as_chunk = TRUE,
+    escape = FALSE
+  )
+```
+
+<table class="table" style="color: black; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>Estimated marginal means and contrasts between gender by
+                    relationship status</caption>
+ <thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="6"></th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="6"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Contrasts</div></th>
+</tr>
+  <tr>
+   <th style="text-align:left;"> Gender </th>
+   <th style="text-align:left;"> EMM </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $2.5\% CI$ </th>
+   <th style="text-align:center;"> $97.5\% CI$ </th>
+   <th style="text-align:center;"> Contrast </th>
+   <th style="text-align:left;"> Difference </th>
+   <th style="text-align:center;"> $SE$ </th>
+   <th style="text-align:center;"> $df$ </th>
+   <th style="text-align:center;"> $t$ </th>
+   <th style="text-align:center;"> $p$ </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr grouplength="2"><td colspan="12" style="border-bottom: 1px solid;background-color: lightgray !important;">Relationship status: Stable</td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Women </td>
+   <td style="text-align:left;"> 0.09 </td>
+   <td style="text-align:center;"> 0.09 </td>
+   <td style="text-align:center;"> 316 </td>
+   <td style="text-align:center;"> -0.09 </td>
+   <td style="text-align:center;"> 0.27 </td>
+   <td style="text-align:center;"> Women - Men </td>
+   <td style="text-align:left;"> -0.41 </td>
+   <td style="text-align:center;"> 0.14 </td>
+   <td style="text-align:center;"> 316 </td>
+   <td style="text-align:center;"> -2.90 </td>
+   <td style="text-align:center;"> \textbf{0.004} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Men </td>
+   <td style="text-align:left;"> 0.50 </td>
+   <td style="text-align:center;"> 0.11 </td>
+   <td style="text-align:center;"> 316 </td>
+   <td style="text-align:center;"> 0.28 </td>
+   <td style="text-align:center;"> 0.72 </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr grouplength="2"><td colspan="12" style="border-bottom: 1px solid;background-color: lightgray !important;">Relationship status: Single</td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Women </td>
+   <td style="text-align:left;"> -0.51 </td>
+   <td style="text-align:center;"> 0.11 </td>
+   <td style="text-align:center;"> 316 </td>
+   <td style="text-align:center;"> -0.72 </td>
+   <td style="text-align:center;"> -0.30 </td>
+   <td style="text-align:center;"> Women - Men </td>
+   <td style="text-align:left;"> -0.42 </td>
+   <td style="text-align:center;"> 0.16 </td>
+   <td style="text-align:center;"> 316 </td>
+   <td style="text-align:center;"> -2.68 </td>
+   <td style="text-align:center;"> \textbf{0.0077} </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Men </td>
+   <td style="text-align:left;"> -0.09 </td>
+   <td style="text-align:center;"> 0.11 </td>
+   <td style="text-align:center;"> 316 </td>
+   <td style="text-align:center;"> -0.32 </td>
+   <td style="text-align:center;"> 0.13 </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span> <sup></sup> Significant effects are in bold.</td></tr></tfoot>
+</table>
+
+#### Figure \@ref(fig:fig-h1c). Effects of gender and relationship type on Dyadic sexual desire: Partner
+
+This figure summarizes the results of hypothesis 1c.
+
+
+``` r
+# Gender main effect
+h1c1 <- ggplot(dat_m1, aes(
+  x = Gender, y = `Dyadic sexual desire: Partner (normalized)`,
+  color = Gender
+)) +
+  scale_color_manual(values = color.Gender) +
+  scale_fill_manual(values = color.Gender) +
+  geom_linerange(
+    data = emms.m1c1.tab |>
+      rename("Dyadic sexual desire: Partner (normalized)" = emmean),
+    mapping = aes(ymin = lower.CL, ymax = upper.CL)
+  ) +
+  geom_point(
+    data = emms.m1c1.tab |>
+      rename("Dyadic sexual desire: Partner (normalized)" = emmean),
+    position = position_dodge(0.1),
+    size = 3
+  ) +
+  stat_pvalue_manual(t.m1c1,
+    label = "p.signif",
+    y.position = 0.4,
+    tip.length = 0
+  ) +
+  guides(color = "none") +
+  theme_tq()
+
+# Relationship main effect
+h1c2 <- ggplot(dat_m1, aes(
+  x = Relationship, y = `Dyadic sexual desire: Partner (normalized)`,
+  color = Relationship
+)) +
+  scale_color_manual(values = color.Relationship) +
+  scale_fill_manual(values = color.Relationship) +
+  geom_linerange(
+    data = emms.m1c2.tab |>
+      rename("Dyadic sexual desire: Partner (normalized)" = emmean),
+    mapping = aes(ymin = lower.CL, ymax = upper.CL)
+  ) +
+  geom_point(
+    data = emms.m1c2.tab |>
+      rename("Dyadic sexual desire: Partner (normalized)" = emmean),
+    position = position_dodge(0.1),
+    size = 3
+  ) +
+  stat_pvalue_manual(t.m1c2,
+    label = "p.signif",
+    y.position = 0.5,
+    tip.length = 0
+  ) +
+  guides(color = "none") +
+  theme_tq()
+
+# Relationship × Gender interaction
+h1c3 <- ggplot(dat_m1, aes(
+  x = Gender, y = `Dyadic sexual desire: Partner (normalized)`,
+  color = Gender
+)) +
+  scale_color_manual(values = color.Gender) +
+  scale_fill_manual(values = color.Gender) +
+  facet_wrap(~Relationship) +
+  geom_linerange(
+    data = emms.m1c3.tab |>
+      rename("Dyadic sexual desire: Partner (normalized)" = emmean),
+    mapping = aes(ymin = lower.CL, ymax = upper.CL)
+  ) +
+  geom_point(
+    data = emms.m1c3.tab |>
+      rename("Dyadic sexual desire: Partner (normalized)" = emmean),
+    position = position_dodge(0.1),
+    size = 3
+  ) +
+  stat_pvalue_manual(t.m1c3,
+    label = "p.signif",
+    y.position = c(0.8, 0.2),
+    tip.length = 0
+  ) +
+  guides(color = "none") +
+  theme_tq()
+
+# Full figure for hypothesis 1 (a, b and c)
+p1c <- ggarrange(h1c1, h1c2, h1c3,
+  ncol = 3,
+  labels = "auto",
+  widths = c(1, 1, 1.5)
+)
+p1c
+```
+
+![Effects of gender and relationship type on Dyadic sexual desire: Partner. Dyadic sexual desire: Partner was transformed using ordered quantile normalization [@petersonOrderedQuantileNormalization2020a]. **(a)** Simple comparison between sexual desire by gender (for detailed results, see Table \@ref(tab:tab-m1c-emm1)); **(b)** Simple comparison between relationship status levels (for detailed results, see Table \@ref(tab:tab-m1c-emm2)); **(c)** Interaction between relationship type and relationship status (see Table \@ref(tab:tab-m1c); for detailed results, see Table \@ref(tab:tab-m1c-emm3)). Dots and bars represent estimated marginal means and 95% CI. In all cases, significant effects are represented with lines and stars: \**p* < 0.05, \*\**p* < 0.01, \*\*\**p* < 0.001, \*\*\*\**p* < 0.0001.](figure/fig-h1c-1.png)
+
+## Data filtering for hypotheses 2 and 3. {#datfil2and3} 
+
+To avoid over-complicating the models, first we tested whether the effects of stimuli on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic). This was, in fact, the case.
+
+### Table \@ref(tab:tab-m-stimuli-content). ANOVA-type table for the effects of stimuli content, gender and stimuli content on Subjective sexual arousal
+
+We fitted a linear mixed model with Gender, Stimuli sex, Stimuli content, and their interactions, as fixed effects for Subjective sexual arousal and including, as random effects, random intercepts per stimulus, as well as random intercepts and slopes for the effect of stimuli content.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

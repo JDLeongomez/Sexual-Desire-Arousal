@@ -2721,6 +2721,9 @@ m2a_clmm <- clmm(
   control = list(method = "nlminb") # Use 'nlminb' optimizer for better convergence
 )
 
+
+summary(emtrends(m2a_clmm, ~ Gender * Stimuli.sex, var = "Solitary.sexual.desire"), infer = TRUE)
+
 # Generalized Linear Mixed Model (GLMM) - Poisson regression for count data
 m2a_poisson <- glmer(
   Subjective.sexual.arousal ~ Solitary.sexual.desire * Gender * Stimuli.sex +
@@ -2830,11 +2833,11 @@ p_m2a_clmm <- emmeans(m2a_clmm, ~ Solitary.sexual.desire | Gender * Stimuli.sex,
   facet_wrap(~Gender, ncol = 1) + # Create separate plots for each gender
   labs(
     y = "Predicted Subjective Sexual Arousal", x = "Solitary Sexual Desire",
-    title = "CLMM",
+    title = "Trends",
     color = "Stimuli Sex", fill = "Stimuli Sex"
   ) +
   theme_tq() + # Apply custom theme
-  theme(legend.position = "top") +
+  theme(legend.position = "bottom") +
   ylim(c(0.3, 5.3)) # Set Y-axis limits
 
 # Poisson GLMM Predictions
@@ -2860,7 +2863,7 @@ p_m2a_poisson <- emmeans(m2a_poisson, ~ Solitary.sexual.desire | Gender * Stimul
     color = "Stimuli Sex", fill = "Stimuli Sex"
   ) +
   theme_tq() +
-  theme(legend.position = "top") +
+  theme(legend.position = "bottom") +
   ylim(c(0.3, 5.3))
 
 # LMM Predictions
@@ -2886,7 +2889,7 @@ p_m2a_lmer <- emmeans(m2a_lmer, ~ Solitary.sexual.desire | Gender * Stimuli.sex,
     color = "Stimuli Sex", fill = "Stimuli Sex"
   ) +
   theme_tq() +
-  theme(legend.position = "top") +
+  theme(legend.position = "bottom") +
   ylim(c(0.3, 5.3))
 
 # Arrange Plots into a Single Figure
