@@ -180,7 +180,7 @@ color.StimuliSex <- c("#54278F", "#FC4E2A")
 # Palette to color figures by relationship type
 color.Relationship <- c("#2171B5", "#DD3497")
 # Palette to color figures by stimuli content
-color.Content <- c("#41AB5D", "navyblue")
+color.Content <- c("#41AB5D", "navyblue") 
 ```
 
 ## Custom functions
