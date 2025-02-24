@@ -147,7 +147,7 @@
 \makeatother
 \subtitle{Code and analyses}
 \author{Milena Vásquez-Amézquita \orcidlink{0000-0001-7317-8430}\textsuperscript{1,2,3,4,*} \and Juan David Leongómez \orcidlink{0000-0002-0092-6298}\textsuperscript{2,4} \and Marina Begoña Martínez-González \orcidlink{0000-0002-5840-6383}\textsuperscript{1} \and Meredith L. Chivers \orcidlink{0000-0002-5495-9263}\textsuperscript{5}}
-\date{20 February, 2025}
+\date{24 February, 2025}
 
 \begin{document}
 \maketitle
@@ -348,7 +348,7 @@ This function creates a correlation matrix, and displays significance (function 
 
 \subsubsection{\texorpdfstring{\texttt{anova.sig.lm} and \texttt{anova.sig.lmer}}{anova.sig.lm and anova.sig.lmer}}\label{anova.sig.lm-and-anova.sig.lmer}
 
-Functions to bold significant \emph{p} values from summary model tables. It highlights significant \(p\) values, and formats the output in \LaTeX, ready to be used with \texttt{kable}.
+Functions to bold significant \emph{p} values from \texttt{anova} or \texttt{car:Anova} model tables. It highlights significant \(p\) values, and formats the output in \LaTeX, ready to be used with \texttt{kable}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -452,162 +452,77 @@ Functions to bold significant \emph{p} values from summary model tables. It high
 \end{Highlighting}
 \end{Shaded}
 
-\subsubsection{\texorpdfstring{\texttt{emms.sig}}{emms.sig}}\label{emms.sig}
+\subsubsection{\texorpdfstring{\texttt{anova.comp}}{anova.comp}}\label{anova.comp}
 
-Function to create a table of estimated marginal means and contrasts at three levels of a covariate, representing significance levels from \texttt{emmeans::emmeans} outputs. The function highlights significant \(p\) values, and formats the output in \LaTeX, ready to be used with \texttt{kable}.
+Function to compare ANOVA-type tables from hypotheses 2 and 3 models fitted with different techniques: \texttt{ordinal::clmm} (Cumulative Link Mixed Models, CLMM), \texttt{lme4::glmer} (Generalized Linear Mixed-Effects Models; GLMER) and \texttt{lmerTest::lmer} (Linear Mixed-Effects Models, LMER). The function bold significant \emph{p} values from \texttt{anova} or \texttt{car:Anova} tables. It highlights significant \(p\) values, and formats the output in \LaTeX, ready to be used with \texttt{kable}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Version 1, for interactions}
-\NormalTok{emms.sig }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(low.i, mid.i, hi.i) \{}
-\NormalTok{  emm.low }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(low.i[[}\DecValTok{1}\NormalTok{]])}
-\NormalTok{  emm.mid }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(mid.i[[}\DecValTok{1}\NormalTok{]])}
-\NormalTok{  emm.hi }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(hi.i[[}\DecValTok{1}\NormalTok{]])}
-\NormalTok{  con.low }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(low.i[[}\DecValTok{2}\NormalTok{]])}
-\NormalTok{  con.mid }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(mid.i[[}\DecValTok{2}\NormalTok{]])}
-\NormalTok{  con.hi }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(hi.i[[}\DecValTok{2}\NormalTok{]])}
-
-\NormalTok{  low.tab }\OtherTok{\textless{}{-}} \FunctionTok{merge}\NormalTok{(emm.low, con.low, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{)}
-\NormalTok{  mid.tab }\OtherTok{\textless{}{-}} \FunctionTok{merge}\NormalTok{(emm.mid, con.mid, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{)}
-\NormalTok{  hi.tab }\OtherTok{\textless{}{-}} \FunctionTok{merge}\NormalTok{(emm.hi, con.hi, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{)}
-
-\NormalTok{  tab }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(low.tab, mid.tab, hi.tab) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{10}\SpecialCharTok{:}\DecValTok{13}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value)) }\SpecialCharTok{|\textgreater{}}
+\NormalTok{anova.comp }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(CLMMmod, GLMERmod, LMERmod, hypothesis) \{}
+\NormalTok{  compTab }\OtherTok{\textless{}{-}} 
+    \FunctionTok{reduce}\NormalTok{(}
+      \FunctionTok{list}\NormalTok{(}
+        \CommentTok{\# ANOVA results for the Cumulative Link Mixed Model (CLMM)}
+        \FunctionTok{Anova}\NormalTok{(CLMMmod, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+          \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+          \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+          \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{),}
+        \CommentTok{\# ANOVA results for the Generalized Linear Mixed Model (GLMM, Poisson),}
+        \CommentTok{\# selecting relevant columns \& removing the intercept row}
+        \FunctionTok{Anova}\NormalTok{(GLMERmod, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+          \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+          \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+          \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+          \FunctionTok{select}\NormalTok{(Effect, Df, Chisq, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+          \FunctionTok{slice\_tail}\NormalTok{(}\AttributeTok{n =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{),}
+        \CommentTok{\# ANOVA results for the Linear Mixed Model (LMM), rounding denominator DF}
+        \CommentTok{\# and formatting the df column}
+        \FunctionTok{anova}\NormalTok{(LMERmod, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+          \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
+          \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+          \FunctionTok{mutate}\NormalTok{(}\AttributeTok{DenDF =} \FunctionTok{round}\NormalTok{(DenDF, }\DecValTok{2}\NormalTok{),}
+                 \StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+          \FunctionTok{unite}\NormalTok{(}\AttributeTok{col =} \StringTok{"df"}\NormalTok{, NumDF}\SpecialCharTok{:}\NormalTok{DenDF, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+          \FunctionTok{select}\NormalTok{(Effect, df, }\StringTok{\textasciigrave{}}\AttributeTok{F value}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{)}
+\NormalTok{      ),}
+\NormalTok{      full\_join,}
+      \AttributeTok{by =} \StringTok{"Effect"}
+\NormalTok{    ) }\SpecialCharTok{|\textgreater{}}
+    \CommentTok{\# Improve readability of effect names}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{, }\StringTok{" "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace dots with spaces}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{":"}\NormalTok{, }\StringTok{" × "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace colons with ×}
+    \CommentTok{\# Generate formatted table}
     \FunctionTok{kable}\NormalTok{(}
-      \AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
       \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
-      \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{4}\NormalTok{), }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{2}\NormalTok{)),}
+      \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{9}\NormalTok{)), }\CommentTok{\# Align first column left, others center}
+      \AttributeTok{digits =} \DecValTok{3}\NormalTok{,}
       \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
-      \AttributeTok{caption =} \FunctionTok{paste0}\NormalTok{(}
-        \StringTok{"Estimated marginal means and contrasts for "}\NormalTok{,}
-\NormalTok{        low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{pri.vars[}\DecValTok{1}\NormalTok{],}
-        \StringTok{" at different levels of "}\NormalTok{,}
-\NormalTok{        low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{by.vars}
-\NormalTok{      ),}
+      \AttributeTok{caption =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"Comparison of fixed effects across the three models for Hypothesis "}\NormalTok{, }
+\NormalTok{                       hypothesis, }\StringTok{": CLMM, GLMM (Poisson), and LMM."}\NormalTok{),}
       \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}
-\NormalTok{        low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{pri.vars[}\DecValTok{1}\NormalTok{],}
-        \StringTok{"EMM"}\NormalTok{, }\StringTok{"$SE$"}\NormalTok{, }\StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"Contrast"}\NormalTok{, }\StringTok{"$z$"}\NormalTok{, }\StringTok{"$p$"}
+        \StringTok{"Effect"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"$df$"}\NormalTok{, }\StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{chi\^{}2$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{), }\AttributeTok{times =} \DecValTok{2}\NormalTok{),}
+        \StringTok{"$df$"}\NormalTok{, }\StringTok{"$F$"}\NormalTok{, }\StringTok{"$p$"}
 \NormalTok{      ),}
       \AttributeTok{escape =} \ConstantTok{FALSE}
 \NormalTok{    ) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{pack\_rows}\NormalTok{(}
-      \AttributeTok{group\_label =} \FunctionTok{paste0}\NormalTok{(low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{by.vars, }\StringTok{" = Mean {-} SD"}\NormalTok{),}
-      \AttributeTok{start\_row =} \DecValTok{1}\NormalTok{,}
-      \AttributeTok{end\_row =} \DecValTok{2}\NormalTok{,}
-      \AttributeTok{bold =} \ConstantTok{FALSE}\NormalTok{,}
-      \AttributeTok{background =} \StringTok{"lightgray"}
-\NormalTok{    ) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{pack\_rows}\NormalTok{(}
-      \AttributeTok{group\_label =} \FunctionTok{paste0}\NormalTok{(low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{by.vars, }\StringTok{" = Mean"}\NormalTok{),}
-      \AttributeTok{start\_row =} \DecValTok{3}\NormalTok{,}
-      \AttributeTok{end\_row =} \DecValTok{4}\NormalTok{,}
-      \AttributeTok{bold =} \ConstantTok{FALSE}\NormalTok{,}
-      \AttributeTok{background =} \StringTok{"lightgray"}
-\NormalTok{    ) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{pack\_rows}\NormalTok{(}
-      \AttributeTok{group\_label =} \FunctionTok{paste0}\NormalTok{(low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{by.vars, }\StringTok{" = Mean + SD"}\NormalTok{),}
-      \AttributeTok{start\_row =} \DecValTok{5}\NormalTok{,}
-      \AttributeTok{end\_row =} \DecValTok{6}\NormalTok{,}
-      \AttributeTok{bold =} \ConstantTok{FALSE}\NormalTok{,}
-      \AttributeTok{background =} \StringTok{"lightgray"}
-\NormalTok{    ) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{5}\NormalTok{, }\StringTok{"Contrasts"} \OtherTok{=} \DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"HOLD\_position"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{footnote}\NormalTok{(}
-      \AttributeTok{general =} \FunctionTok{paste0}\NormalTok{(}
-        \StringTok{"EMM = estimated marginal mean.}
-\StringTok{           Significant effects are in bold.}
-\StringTok{           Continuous variables were centered and scaled (in this case, "}\NormalTok{,}
-\NormalTok{        low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{by.vars, }\StringTok{").}
-\StringTok{           An asymptotic method was used to avoid extreme computation}
-\StringTok{           times (hence, no degrees of freedom are included, and}
-\StringTok{           $z$ rather than $t$ statistics are reported).}
-\StringTok{           For contrasts, Tukey adjustment was used."}
-\NormalTok{      ),}
-      \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
-      \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
-      \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{    )}
-
-  \FunctionTok{return}\NormalTok{(tab)}
-\NormalTok{\}}
-
-\CommentTok{\# Version 2, for triple interactions}
-\NormalTok{emms.sig2 }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(low.i, mid.i, hi.i) \{}
-\NormalTok{  emm.low }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(low.i[[}\DecValTok{1}\NormalTok{]])}
-\NormalTok{  emm.mid }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(mid.i[[}\DecValTok{1}\NormalTok{]])}
-\NormalTok{  emm.hi }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(hi.i[[}\DecValTok{1}\NormalTok{]])}
-\NormalTok{  con.low }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(low.i[[}\DecValTok{2}\NormalTok{]])}
-\NormalTok{  con.mid }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(mid.i[[}\DecValTok{2}\NormalTok{]])}
-\NormalTok{  con.hi }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(hi.i[[}\DecValTok{2}\NormalTok{]])}
-
-\NormalTok{  low.tab }\OtherTok{\textless{}{-}} \FunctionTok{merge}\NormalTok{(emm.low, con.low, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{)}
-\NormalTok{  mid.tab }\OtherTok{\textless{}{-}} \FunctionTok{merge}\NormalTok{(emm.mid, con.mid, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{)}
-\NormalTok{  hi.tab }\OtherTok{\textless{}{-}} \FunctionTok{merge}\NormalTok{(emm.hi, con.hi, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{)}
-
-\NormalTok{  tab }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(low.tab, mid.tab, hi.tab) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{11}\SpecialCharTok{:}\DecValTok{14}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p.value =} \FunctionTok{pval.lev}\NormalTok{(p.value)) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{kable}\NormalTok{(}
-      \AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
-      \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
-      \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{4}\NormalTok{), }\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{2}\NormalTok{)),}
-      \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
-      \AttributeTok{caption =} \FunctionTok{paste0}\NormalTok{(}
-        \StringTok{"Estimated marginal means and contrasts for "}\NormalTok{,}
-\NormalTok{        low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{pri.vars[}\DecValTok{1}\NormalTok{], }\StringTok{" and "}\NormalTok{,}
-\NormalTok{        low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{pri.vars[}\DecValTok{2}\NormalTok{],}
-        \StringTok{" at different levels of "}\NormalTok{,}
-\NormalTok{        low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{by.vars}
-\NormalTok{      ),}
-      \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}
-\NormalTok{        low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{pri.vars[}\DecValTok{1}\NormalTok{],}
-\NormalTok{        low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{pri.vars[}\DecValTok{2}\NormalTok{],}
-        \StringTok{"EMM"}\NormalTok{, }\StringTok{"$SE$"}\NormalTok{, }\StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"Contrast"}\NormalTok{, }\StringTok{"$z$"}\NormalTok{, }\StringTok{"$p$"}
-\NormalTok{      ),}
-      \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{    ) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{pack\_rows}\NormalTok{(}
-      \AttributeTok{group\_label =} \FunctionTok{paste0}\NormalTok{(low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{by.vars, }\StringTok{" = Mean {-} SD"}\NormalTok{),}
-      \AttributeTok{start\_row =} \DecValTok{1}\NormalTok{,}
-      \AttributeTok{end\_row =} \DecValTok{6}\NormalTok{,}
-      \AttributeTok{bold =} \ConstantTok{FALSE}\NormalTok{,}
-      \AttributeTok{background =} \StringTok{"lightgray"}
-\NormalTok{    ) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{pack\_rows}\NormalTok{(}
-      \AttributeTok{group\_label =} \FunctionTok{paste0}\NormalTok{(low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{by.vars, }\StringTok{" = Mean"}\NormalTok{),}
-      \AttributeTok{start\_row =} \DecValTok{7}\NormalTok{,}
-      \AttributeTok{end\_row =} \DecValTok{12}\NormalTok{,}
-      \AttributeTok{bold =} \ConstantTok{FALSE}\NormalTok{,}
-      \AttributeTok{background =} \StringTok{"lightgray"}
-\NormalTok{    ) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{pack\_rows}\NormalTok{(}
-      \AttributeTok{group\_label =} \FunctionTok{paste0}\NormalTok{(low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{by.vars, }\StringTok{" = Mean + SD"}\NormalTok{),}
-      \AttributeTok{start\_row =} \DecValTok{13}\NormalTok{,}
-      \AttributeTok{end\_row =} \DecValTok{18}\NormalTok{,}
-      \AttributeTok{bold =} \ConstantTok{FALSE}\NormalTok{,}
-      \AttributeTok{background =} \StringTok{"lightgray"}
-\NormalTok{    ) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{6}\NormalTok{, }\StringTok{"Contrasts"} \OtherTok{=} \DecValTok{3}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+    \CommentTok{\# Apply LaTeX styling}
     \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+    \CommentTok{\# Add section headers for each model}
+    \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
+      \StringTok{" "} \OtherTok{=} \DecValTok{1}\NormalTok{, }\StringTok{"CLMM"} \OtherTok{=} \DecValTok{3}\NormalTok{, }\StringTok{"GLMER (Poisson)"} \OtherTok{=} \DecValTok{3}\NormalTok{, }\StringTok{"LMM"} \OtherTok{=} \DecValTok{3}
+\NormalTok{    )) }\SpecialCharTok{|\textgreater{}}
+    \CommentTok{\# Add footnote explaining statistical details}
     \FunctionTok{footnote}\NormalTok{(}
-      \AttributeTok{general =} \FunctionTok{paste0}\NormalTok{(}
-        \StringTok{"EMM = estimated marginal mean.}
-\StringTok{           Significant effects are in bold.}
-\StringTok{           Continuous variables were centered and scaled (in this case, "}\NormalTok{,}
-\NormalTok{        low.i[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{@}\NormalTok{misc}\SpecialCharTok{$}\NormalTok{by.vars, }\StringTok{")}
-\StringTok{           An asymptotic method was used to avoid extreme computation}
-\StringTok{           times (hence, no degrees of freedom are included, and}
-\StringTok{           $z$ rather than $t$ statistics are reported).}
-\StringTok{           For contrasts, Tukey adjustment was used."}
-\NormalTok{      ),}
+      \AttributeTok{general =} \StringTok{"For CLMM and GLMER (Poisson) models, results are}
+\StringTok{              Analysis of Deviance (Type III Wald chi{-}square tests),}
+\StringTok{              while for LMM, results are from an Analysis of Variance}
+\StringTok{              (Type III ANOVA with Satterthwaite\textquotesingle{}s method).}
+\StringTok{              Significant effects are in bold."}\NormalTok{,}
       \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
       \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
       \AttributeTok{escape =} \ConstantTok{FALSE}
 \NormalTok{    )}
-
-  \FunctionTok{return}\NormalTok{(tab)}
+  \FunctionTok{return}\NormalTok{(compTab)}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -638,52 +553,6 @@ Function to create a data frame of model contrasts, representing significance le
     \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"group1"}\NormalTok{, str\_replace\_all, }\StringTok{"[()]"}\NormalTok{, }\StringTok{""}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
     \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"group2"}\NormalTok{, str\_replace\_all, }\StringTok{"[()]"}\NormalTok{, }\StringTok{""}\NormalTok{)}
   \FunctionTok{return}\NormalTok{(x)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\subsubsection{\texorpdfstring{\texttt{prob.dist.tab}}{prob.dist.tab}}\label{prob.dist.tab}
-
-Function to create a table of the probability of a model for each distribution family, using the \texttt{check\_distribution} function, from the \texttt{performance} package \autocite{ludecke2021}. Values are sorted descending, first for probabilities according to the residual distribution, and then for probabilities according to the response variable. While 18 distribution families are tested, only families with at least one probability (either residual or response variable) higher than 10\% are shown in the table.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{prob.dist.tab }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(mod) \{}
-  \CommentTok{\# Calculate probabilities for each distribution family}
-  \FunctionTok{tibble}\NormalTok{(}\FunctionTok{check\_distribution}\NormalTok{(mod)) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(p\_Response)) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(p\_Residuals)) }\SpecialCharTok{|\textgreater{}}
-    \CommentTok{\# Select only distribution families with at leat a 10\% probability}
-    \FunctionTok{filter}\NormalTok{(p\_Residuals }\SpecialCharTok{\textgreater{}} \FloatTok{0.1} \SpecialCharTok{|}\NormalTok{ p\_Response }\SpecialCharTok{\textgreater{}} \FloatTok{0.1}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-    \CommentTok{\# Transform probabilities to percentages}
-    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p\_Residuals =} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{round}\NormalTok{(p\_Residuals }\SpecialCharTok{*} \DecValTok{100}\NormalTok{, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\%"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{p\_Response =} \FunctionTok{paste0}\NormalTok{(}\FunctionTok{round}\NormalTok{(p\_Response }\SpecialCharTok{*} \DecValTok{100}\NormalTok{, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\%"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-    \CommentTok{\# Capitalise first letter of each family distribution}
-    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Distribution =} \FunctionTok{sub}\NormalTok{(}\StringTok{"(.)"}\NormalTok{, }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{U}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{1"}\NormalTok{, Distribution, }\AttributeTok{perl =} \ConstantTok{TRUE}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-    \CommentTok{\# Create table}
-    \FunctionTok{kable}\NormalTok{(}
-      \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
-      \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\StringTok{"c"}\NormalTok{, }\StringTok{"c"}\NormalTok{),}
-      \AttributeTok{row.names =} \ConstantTok{FALSE}\NormalTok{,}
-      \AttributeTok{caption =} \StringTok{"Distributional family for the model"}\NormalTok{,}
-      \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}
-        \StringTok{"Family"}\NormalTok{,}
-        \StringTok{"Residuals"}\NormalTok{,}
-        \StringTok{"Response"}
-\NormalTok{      ),}
-      \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{    ) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \StringTok{"HOLD\_position"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-    \CommentTok{\# Bold highest probability}
-    \FunctionTok{row\_spec}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{background =} \StringTok{"\#c4c4c4"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-    \FunctionTok{footnote}\NormalTok{(}
-      \AttributeTok{general =} \StringTok{"Only families with at least one probability higher than}
-\StringTok{  10}\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{\% are shown, but a total of 18 distribution families were tested.}
-\StringTok{  The most likely distribution is highlighted."}\NormalTok{,}
-      \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
-      \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
-      \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{    )}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -1553,13 +1422,13 @@ Table of Cronbach's \(\alpha\) for construct variables.
 \toprule
 Variable & Gender & Items & $n$ & $\alpha$ & $2.5\% CI$ & $97.5\% CI$\\
 \midrule
- & Men & 5 & 139 & 0.82 & 0.72 & 0.89\\
+ & Men & 5 & 139 & 0.82 & 0.72 & 0.88\\
 \cmidrule{2-7}
 \multirow{-2}{*}{\raggedright\arraybackslash MGH-SFQ} & Women & 4 & 181 & 0.86 & 0.82 & 0.90\\
 \cmidrule{1-7}
-MGSS sexual satisfaction (General) &  & 5 & 188 & 0.92 & 0.89 & 0.94\\
+MGSS sexual satisfaction (General) &  & 5 & 188 & 0.92 & 0.88 & 0.94\\
 \cmidrule{1-7}
-MGSS sexual satisfaction (Partner) &  & 5 & 187 & 0.91 & 0.86 & 0.95\\
+MGSS sexual satisfaction (Partner) &  & 5 & 187 & 0.91 & 0.84 & 0.95\\
 \cmidrule{1-7}
 Dyadic sexual desire (Partner) &  & 5 & 309 & 0.90 & 0.88 & 0.92\\
 \cmidrule{1-7}
@@ -1713,7 +1582,7 @@ The table below presents Type III ANOVA results for each model. Significant effe
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:unnamed-chunk-15}Effects of relationship duration and MGSS sexual satisfaction (Partner) in
+\caption{\label{tab:unnamed-chunk-14}Effects of relationship duration and MGSS sexual satisfaction (Partner) in
                    sexual desire dimensions}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
@@ -3244,22 +3113,25 @@ We fitted a linear mixed model with Gender, Stimuli sex, Stimuli content, and th
 Effect & $df$ & $F$ & $p$ & $\epsilon^2_p$\\
 \midrule
 Gender & 1, 321 & 42.47 & \textbf{< 0.0001} & 0.11\\
-`Stimuli sex` & 1, 447 & 96.15 & \textbf{< 0.0001} & 0.18\\
-`Stimuli content` & 1, 363.12 & 86.50 & \textbf{< 0.0001} & 0.19\\
-Gender × `Stimuli sex` & 1, 321 & 471.68 & \textbf{< 0.0001} & 0.59\\
-Gender × `Stimuli content` & 1, 321 & 5.02 & \textbf{0.0257} & 0.01\\
-`Stimuli sex` × `Stimuli content` & 1, 286.22 & 21.51 & \textbf{< 0.0001} & 0.07\\
-Gender × `Stimuli sex` × `Stimuli content` & 1, 321 & 116.42 & \textbf{< 0.0001} & 0.26\\
+Stimuli sex & 1, 447 & 96.15 & \textbf{< 0.0001} & 0.18\\
+Stimuli content & 1, 363.12 & 86.50 & \textbf{< 0.0001} & 0.19\\
+Gender × Stimuli sex & 1, 321 & 471.68 & \textbf{< 0.0001} & 0.59\\
+Gender × Stimuli content & 1, 321 & 5.02 & \textbf{0.0257} & 0.01\\
+Stimuli sex × Stimuli content & 1, 286.22 & 21.51 & \textbf{< 0.0001} & 0.07\\
+Gender × Stimuli sex × Stimuli content & 1, 321 & 116.42 & \textbf{< 0.0001} & 0.26\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
 \item \textit{Note: } 
 \item Results are type III ANOVA.
-                              $R^2_{conditional}$ = 0.734, $R^2_{marginal}$ = 0.314. As effect size, we report partial epsilon squared
-        ($\epsilon^2_p$), which provides a less biases
-        estimate than $\eta^2$ (see
-        \cite{albersWhenPowerAnalyses2018}).
-        Significant effects are in bold.
+                              $R^2_{conditional}$ = 0.734, $R^2_{marginal}$ = 0.314. Gender = participants gender (women, men);
+                              Stimuli sex = sex of each stimulus (male, female);
+                              Stimuli content = content of each stimulus (erotic, non-erotic).
+                              As effect size, we report partial epsilon squared
+                              ($\epsilon^2_p$), which provides a less biases
+                              estimate than $\eta^2$ (see
+                              \cite{albersWhenPowerAnalyses2018}).
+                              Significant effects are in bold.
 \end{tablenotes}
 \end{threeparttable}}
 \end{table}
@@ -3618,76 +3490,13 @@ As shown in the table below, the pattern of significant effects remains consiste
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Create ANOVA{-}style table summarizing model results}
-\FunctionTok{reduce}\NormalTok{(}
-  \FunctionTok{list}\NormalTok{(}
-    \CommentTok{\# ANOVA results for the Cumulative Link Mixed Model (CLMM)}
-    \FunctionTok{Anova}\NormalTok{(m2a\_clmm, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{),}
-    \CommentTok{\# ANOVA results for the Generalized Linear Mixed Model (GLMM, Poisson),}
-    \CommentTok{\# selecting relevant columns \& removing the intercept row}
-    \FunctionTok{Anova}\NormalTok{(m2a\_poisson, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{select}\NormalTok{(Effect, Df, Chisq, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{slice\_tail}\NormalTok{(}\AttributeTok{n =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{),}
-    \CommentTok{\# ANOVA results for the Linear Mixed Model (LMM), rounding denominator DF}
-    \CommentTok{\# and formatting the df column}
-    \FunctionTok{anova}\NormalTok{(m2a\_lmer, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\AttributeTok{DenDF =} \FunctionTok{round}\NormalTok{(DenDF, }\DecValTok{2}\NormalTok{),}
-             \StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{unite}\NormalTok{(}\AttributeTok{col =} \StringTok{"df"}\NormalTok{, NumDF}\SpecialCharTok{:}\NormalTok{DenDF, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{select}\NormalTok{(Effect, df, }\StringTok{\textasciigrave{}}\AttributeTok{F value}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{)}
-\NormalTok{    ),}
-\NormalTok{  full\_join,}
-  \AttributeTok{by =} \StringTok{"Effect"}
-\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Improve readability of effect names}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{, }\StringTok{" "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace dots with spaces}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{":"}\NormalTok{, }\StringTok{" × "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace colons with ×}
-  \CommentTok{\# Generate formatted table}
-  \FunctionTok{kable}\NormalTok{(}
-    \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{9}\NormalTok{)), }\CommentTok{\# Align first column left, others center}
-    \AttributeTok{digits =} \DecValTok{3}\NormalTok{,}
-    \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
-    \AttributeTok{caption =} \StringTok{"Comparison of fixed effects across the three models for Hypothesis 2a:}
-\StringTok{               CLMM, GLMM (Poisson), and LMM."}\NormalTok{,}
-    \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}
-      \StringTok{"Effect"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"$df$"}\NormalTok{, }\StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{chi\^{}2$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{), }\AttributeTok{times =} \DecValTok{2}\NormalTok{),}
-      \StringTok{"$df$"}\NormalTok{, }\StringTok{"$F$"}\NormalTok{, }\StringTok{"$p$"}
-\NormalTok{    ),}
-    \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Apply LaTeX styling}
-  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Add section headers for each model}
-  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
-    \StringTok{" "} \OtherTok{=} \DecValTok{1}\NormalTok{, }\StringTok{"CLMM"} \OtherTok{=} \DecValTok{3}\NormalTok{, }\StringTok{"GLMER (Poisson)"} \OtherTok{=} \DecValTok{3}\NormalTok{, }\StringTok{"LMM"} \OtherTok{=} \DecValTok{3}
-\NormalTok{  )) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Add footnote explaining statistical details}
-  \FunctionTok{footnote}\NormalTok{(}
-    \AttributeTok{general =} \StringTok{"For CLMM and GLMER (Poisson) models, results are}
-\StringTok{              Analysis of Deviance (Type III Wald chi{-}square tests),}
-\StringTok{              while for LMM, results are from an Analysis of Variance}
-\StringTok{              (Type III ANOVA with Satterthwaite\textquotesingle{}s method).}
-\StringTok{              Significant effects are in bold."}\NormalTok{,}
-    \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{  )}
+\FunctionTok{anova.comp}\NormalTok{(}\AttributeTok{CLMMmod =}\NormalTok{ m2a\_clmm, }\AttributeTok{GLMERmod =}\NormalTok{ m2a\_poisson, }\AttributeTok{LMERmod =}\NormalTok{ m2a\_lmer, }\AttributeTok{hypothesis =} \StringTok{"2a"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-robu-m2a}Comparison of fixed effects across the three models for Hypothesis 2a:
-               CLMM, GLMM (Poisson), and LMM.}
+\caption{\label{tab:tab-robu-m2a}Comparison of fixed effects across the three models for Hypothesis 2a: CLMM, GLMM (Poisson), and LMM.}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -3936,7 +3745,7 @@ Slope for solitary TSD on SSA by stimuli sex and participant gender
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:unnamed-chunk-23}Slope for Solitary TSD on 
+\caption{\label{tab:unnamed-chunk-22}Slope for Solitary TSD on 
         Subjective sexual arousal by stimuli sex and gender}
 \centering
 \begin{threeparttable}
@@ -4054,76 +3863,13 @@ As shown in the table below, the pattern of significant effects remains consiste
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Create ANOVA{-}style table summarizing model results}
-\FunctionTok{reduce}\NormalTok{(}
-  \FunctionTok{list}\NormalTok{(}
-    \CommentTok{\# ANOVA results for the Cumulative Link Mixed Model (CLMM)}
-    \FunctionTok{Anova}\NormalTok{(m2b\_clmm, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{),}
-    \CommentTok{\# ANOVA results for the Generalized Linear Mixed Model (GLMM, Poisson),}
-    \CommentTok{\# selecting relevant columns \& removing the intercept row}
-    \FunctionTok{Anova}\NormalTok{(m2b\_poisson, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{select}\NormalTok{(Effect, Df, Chisq, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{slice\_tail}\NormalTok{(}\AttributeTok{n =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{),}
-    \CommentTok{\# ANOVA results for the Linear Mixed Model (LMM), rounding denominator DF}
-    \CommentTok{\# and formatting the df column}
-    \FunctionTok{anova}\NormalTok{(m2b\_lmer, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\AttributeTok{DenDF =} \FunctionTok{round}\NormalTok{(DenDF, }\DecValTok{2}\NormalTok{),}
-             \StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{unite}\NormalTok{(}\AttributeTok{col =} \StringTok{"df"}\NormalTok{, NumDF}\SpecialCharTok{:}\NormalTok{DenDF, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{select}\NormalTok{(Effect, df, }\StringTok{\textasciigrave{}}\AttributeTok{F value}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{)}
-\NormalTok{  ),}
-\NormalTok{  full\_join,}
-  \AttributeTok{by =} \StringTok{"Effect"}
-\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Improve readability of effect names}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{, }\StringTok{" "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace dots with spaces}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{":"}\NormalTok{, }\StringTok{" × "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace colons with ×}
-  \CommentTok{\# Generate formatted table}
-  \FunctionTok{kable}\NormalTok{(}
-    \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{9}\NormalTok{)), }\CommentTok{\# Align first column left, others center}
-    \AttributeTok{digits =} \DecValTok{3}\NormalTok{,}
-    \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
-    \AttributeTok{caption =} \StringTok{"Comparison of fixed effects across the three models for Hypothesis 2b:}
-\StringTok{               CLMM, GLMM (Poisson), and LMM."}\NormalTok{,}
-    \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}
-      \StringTok{"Effect"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"$df$"}\NormalTok{, }\StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{chi\^{}2$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{), }\AttributeTok{times =} \DecValTok{2}\NormalTok{),}
-      \StringTok{"$df$"}\NormalTok{, }\StringTok{"$F$"}\NormalTok{, }\StringTok{"$p$"}
-\NormalTok{    ),}
-    \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Apply LaTeX styling}
-  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Add section headers for each model}
-  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
-    \StringTok{" "} \OtherTok{=} \DecValTok{1}\NormalTok{, }\StringTok{"CLMM"} \OtherTok{=} \DecValTok{3}\NormalTok{, }\StringTok{"GLMER (Poisson)"} \OtherTok{=} \DecValTok{3}\NormalTok{, }\StringTok{"LMM"} \OtherTok{=} \DecValTok{3}
-\NormalTok{  )) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Add footnote explaining statistical details}
-  \FunctionTok{footnote}\NormalTok{(}
-    \AttributeTok{general =} \StringTok{"For CLMM and GLMER (Poisson) models, results are}
-\StringTok{              Analysis of Deviance (Type III Wald chi{-}square tests),}
-\StringTok{              while for LMM, results are from an Analysis of Variance}
-\StringTok{              (Type III ANOVA with Satterthwaite\textquotesingle{}s method).}
-\StringTok{              Significant effects are in bold."}\NormalTok{,}
-    \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{  )}
+\FunctionTok{anova.comp}\NormalTok{(}\AttributeTok{CLMMmod =}\NormalTok{ m2b\_clmm, }\AttributeTok{GLMERmod =}\NormalTok{ m2b\_poisson, }\AttributeTok{LMERmod =}\NormalTok{ m2b\_lmer, }\AttributeTok{hypothesis =} \StringTok{"2b"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-robu-m2b}Comparison of fixed effects across the three models for Hypothesis 2b:
-               CLMM, GLMM (Poisson), and LMM.}
+\caption{\label{tab:tab-robu-m2b}Comparison of fixed effects across the three models for Hypothesis 2b: CLMM, GLMM (Poisson), and LMM.}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -4372,7 +4118,7 @@ Slope for attractive person TSD on SSA by stimuli sex and participant gender
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:unnamed-chunk-25}Slope for Attractive person TSD on 
+\caption{\label{tab:unnamed-chunk-24}Slope for Attractive person TSD on 
         Subjective sexual arousal by stimuli sex and gender}
 \centering
 \begin{threeparttable}
@@ -4490,76 +4236,13 @@ As shown in the table below, the pattern of significant effects remains consiste
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Create ANOVA{-}style table summarizing model results}
-\FunctionTok{reduce}\NormalTok{(}
-  \FunctionTok{list}\NormalTok{(}
-    \CommentTok{\# ANOVA results for the Cumulative Link Mixed Model (CLMM)}
-    \FunctionTok{Anova}\NormalTok{(m2c\_clmm, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{),}
-    \CommentTok{\# ANOVA results for the Generalized Linear Mixed Model (GLMM, Poisson),}
-    \CommentTok{\# selecting relevant columns \& removing the intercept row}
-    \FunctionTok{Anova}\NormalTok{(m2c\_poisson, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{select}\NormalTok{(Effect, Df, Chisq, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{slice\_tail}\NormalTok{(}\AttributeTok{n =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{),}
-    \CommentTok{\# ANOVA results for the Linear Mixed Model (LMM), rounding denominator DF}
-    \CommentTok{\# and formatting the df column}
-    \FunctionTok{anova}\NormalTok{(m2c\_lmer, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\AttributeTok{DenDF =} \FunctionTok{round}\NormalTok{(DenDF, }\DecValTok{2}\NormalTok{),}
-             \StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{unite}\NormalTok{(}\AttributeTok{col =} \StringTok{"df"}\NormalTok{, NumDF}\SpecialCharTok{:}\NormalTok{DenDF, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{select}\NormalTok{(Effect, df, }\StringTok{\textasciigrave{}}\AttributeTok{F value}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{)}
-\NormalTok{  ),}
-\NormalTok{  full\_join,}
-  \AttributeTok{by =} \StringTok{"Effect"}
-\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Improve readability of effect names}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{, }\StringTok{" "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace dots with spaces}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{":"}\NormalTok{, }\StringTok{" × "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace colons with ×}
-  \CommentTok{\# Generate formatted table}
-  \FunctionTok{kable}\NormalTok{(}
-    \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{9}\NormalTok{)), }\CommentTok{\# Align first column left, others center}
-    \AttributeTok{digits =} \DecValTok{3}\NormalTok{,}
-    \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
-    \AttributeTok{caption =} \StringTok{"Comparison of fixed effects across the three models for Hypothesis 2c:}
-\StringTok{               CLMM, GLMM (Poisson), and LMM."}\NormalTok{,}
-    \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}
-      \StringTok{"Effect"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"$df$"}\NormalTok{, }\StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{chi\^{}2$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{), }\AttributeTok{times =} \DecValTok{2}\NormalTok{),}
-      \StringTok{"$df$"}\NormalTok{, }\StringTok{"$F$"}\NormalTok{, }\StringTok{"$p$"}
-\NormalTok{    ),}
-    \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Apply LaTeX styling}
-  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Add section headers for each model}
-  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
-    \StringTok{" "} \OtherTok{=} \DecValTok{1}\NormalTok{, }\StringTok{"CLMM"} \OtherTok{=} \DecValTok{3}\NormalTok{, }\StringTok{"GLMER (Poisson)"} \OtherTok{=} \DecValTok{3}\NormalTok{, }\StringTok{"LMM"} \OtherTok{=} \DecValTok{3}
-\NormalTok{  )) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Add footnote explaining statistical details}
-  \FunctionTok{footnote}\NormalTok{(}
-    \AttributeTok{general =} \StringTok{"For CLMM and GLMER (Poisson) models, results are}
-\StringTok{              Analysis of Deviance (Type III Wald chi{-}square tests),}
-\StringTok{              while for LMM, results are from an Analysis of Variance}
-\StringTok{              (Type III ANOVA with Satterthwaite\textquotesingle{}s method).}
-\StringTok{              Significant effects are in bold."}\NormalTok{,}
-    \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{  )}
+\FunctionTok{anova.comp}\NormalTok{(}\AttributeTok{CLMMmod =}\NormalTok{ m2c\_clmm, }\AttributeTok{GLMERmod =}\NormalTok{ m2c\_poisson, }\AttributeTok{LMERmod =}\NormalTok{ m2c\_lmer, }\AttributeTok{hypothesis =} \StringTok{"2c"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-robu-m2c}Comparison of fixed effects across the three models for Hypothesis 2c:
-               CLMM, GLMM (Poisson), and LMM.}
+\caption{\label{tab:tab-robu-m2c}Comparison of fixed effects across the three models for Hypothesis 2c: CLMM, GLMM (Poisson), and LMM.}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -4808,7 +4491,7 @@ Slope for partner TSD on SSA by stimuli sex and participant gender
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:unnamed-chunk-27}Slope for Partner TSD on 
+\caption{\label{tab:unnamed-chunk-26}Slope for Partner TSD on 
         Subjective sexual arousal by stimuli sex and gender}
 \centering
 \begin{threeparttable}
@@ -4978,76 +4661,13 @@ As shown in the table below, the pattern of significant effects remains consiste
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Create ANOVA{-}style table summarizing model results}
-\FunctionTok{reduce}\NormalTok{(}
-  \FunctionTok{list}\NormalTok{(}
-    \CommentTok{\# ANOVA results for the Cumulative Link Mixed Model (CLMM)}
-    \FunctionTok{Anova}\NormalTok{(m3a\_clmm, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{),}
-    \CommentTok{\# ANOVA results for the Generalized Linear Mixed Model (GLMM, Poisson),}
-    \CommentTok{\# selecting relevant columns \& removing the intercept row}
-    \FunctionTok{Anova}\NormalTok{(m3a\_poisson, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{select}\NormalTok{(Effect, Df, Chisq, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{slice\_tail}\NormalTok{(}\AttributeTok{n =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{),}
-    \CommentTok{\# ANOVA results for the Linear Mixed Model (LMM), rounding denominator DF}
-    \CommentTok{\# and formatting the df column}
-    \FunctionTok{anova}\NormalTok{(m3a\_lmer, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\AttributeTok{DenDF =} \FunctionTok{round}\NormalTok{(DenDF, }\DecValTok{2}\NormalTok{),}
-             \StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{unite}\NormalTok{(}\AttributeTok{col =} \StringTok{"df"}\NormalTok{, NumDF}\SpecialCharTok{:}\NormalTok{DenDF, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{select}\NormalTok{(Effect, df, }\StringTok{\textasciigrave{}}\AttributeTok{F value}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{)}
-\NormalTok{    ),}
-\NormalTok{  full\_join,}
-  \AttributeTok{by =} \StringTok{"Effect"}
-\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Improve readability of effect names}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{, }\StringTok{" "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace dots with spaces}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{":"}\NormalTok{, }\StringTok{" × "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace colons with ×}
-  \CommentTok{\# Generate formatted table}
-  \FunctionTok{kable}\NormalTok{(}
-    \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{9}\NormalTok{)), }\CommentTok{\# Align first column left, others center}
-    \AttributeTok{digits =} \DecValTok{3}\NormalTok{,}
-    \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
-    \AttributeTok{caption =} \StringTok{"Comparison of fixed effects across the three models for Hypothesis 3a:}
-\StringTok{               CLMM, GLMM (Poisson), and LMM."}\NormalTok{,}
-    \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}
-      \StringTok{"Effect"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"$df$"}\NormalTok{, }\StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{chi\^{}2$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{), }\AttributeTok{times =} \DecValTok{2}\NormalTok{),}
-      \StringTok{"$df$"}\NormalTok{, }\StringTok{"$F$"}\NormalTok{, }\StringTok{"$p$"}
-\NormalTok{    ),}
-    \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Apply LaTeX styling}
-  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Add section headers for each model}
-  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
-    \StringTok{" "} \OtherTok{=} \DecValTok{1}\NormalTok{, }\StringTok{"CLMM"} \OtherTok{=} \DecValTok{3}\NormalTok{, }\StringTok{"GLMER (Poisson)"} \OtherTok{=} \DecValTok{3}\NormalTok{, }\StringTok{"LMM"} \OtherTok{=} \DecValTok{3}
-\NormalTok{  )) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Add footnote explaining statistical details}
-  \FunctionTok{footnote}\NormalTok{(}
-    \AttributeTok{general =} \StringTok{"For CLMM and GLMER (Poisson) models, results are}
-\StringTok{              Analysis of Deviance (Type III Wald chi{-}square tests),}
-\StringTok{              while for LMM, results are from an Analysis of Variance}
-\StringTok{              (Type III ANOVA with Satterthwaite\textquotesingle{}s method).}
-\StringTok{              Significant effects are in bold."}\NormalTok{,}
-    \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{  )}
+\FunctionTok{anova.comp}\NormalTok{(}\AttributeTok{CLMMmod =}\NormalTok{ m3a\_clmm, }\AttributeTok{GLMERmod =}\NormalTok{ m3a\_poisson, }\AttributeTok{LMERmod =}\NormalTok{ m3a\_lmer, }\AttributeTok{hypothesis =} \StringTok{"3a"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-robu-m3a}Comparison of fixed effects across the three models for Hypothesis 3a:
-               CLMM, GLMM (Poisson), and LMM.}
+\caption{\label{tab:tab-robu-m3a}Comparison of fixed effects across the three models for Hypothesis 3a: CLMM, GLMM (Poisson), and LMM.}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -5296,7 +4916,7 @@ Slope for solitary TSD on SSA by stimuli sex and participant gender
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:unnamed-chunk-30}Slope for Solitary TSD on 
+\caption{\label{tab:unnamed-chunk-29}Slope for Solitary TSD on 
         Subjective sexual arousal by stimuli sex and gender}
 \centering
 \begin{threeparttable}
@@ -5414,76 +5034,13 @@ As shown in the table below, the pattern of significant effects remains consiste
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Create ANOVA{-}style table summarizing model results}
-\FunctionTok{reduce}\NormalTok{(}
-  \FunctionTok{list}\NormalTok{(}
-    \CommentTok{\# ANOVA results for the Cumulative Link Mixed Model (CLMM)}
-    \FunctionTok{Anova}\NormalTok{(m3b\_clmm, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{),}
-    \CommentTok{\# ANOVA results for the Generalized Linear Mixed Model (GLMM, Poisson),}
-    \CommentTok{\# selecting relevant columns \& removing the intercept row}
-    \FunctionTok{Anova}\NormalTok{(m3b\_poisson, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{select}\NormalTok{(Effect, Df, Chisq, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{slice\_tail}\NormalTok{(}\AttributeTok{n =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{),}
-    \CommentTok{\# ANOVA results for the Linear Mixed Model (LMM), rounding denominator DF}
-    \CommentTok{\# and formatting the df column}
-    \FunctionTok{anova}\NormalTok{(m3b\_lmer, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\AttributeTok{DenDF =} \FunctionTok{round}\NormalTok{(DenDF, }\DecValTok{2}\NormalTok{),}
-             \StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{unite}\NormalTok{(}\AttributeTok{col =} \StringTok{"df"}\NormalTok{, NumDF}\SpecialCharTok{:}\NormalTok{DenDF, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{select}\NormalTok{(Effect, df, }\StringTok{\textasciigrave{}}\AttributeTok{F value}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{)}
-\NormalTok{    ),}
-\NormalTok{  full\_join,}
-  \AttributeTok{by =} \StringTok{"Effect"}
-\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Improve readability of effect names}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{, }\StringTok{" "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace dots with spaces}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{":"}\NormalTok{, }\StringTok{" × "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace colons with ×}
-  \CommentTok{\# Generate formatted table}
-  \FunctionTok{kable}\NormalTok{(}
-    \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{9}\NormalTok{)), }\CommentTok{\# Align first column left, others center}
-    \AttributeTok{digits =} \DecValTok{3}\NormalTok{,}
-    \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
-    \AttributeTok{caption =} \StringTok{"Comparison of fixed effects across the three models for Hypothesis 3b:}
-\StringTok{               CLMM, GLMM (Poisson), and LMM."}\NormalTok{,}
-    \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}
-      \StringTok{"Effect"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"$df$"}\NormalTok{, }\StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{chi\^{}2$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{), }\AttributeTok{times =} \DecValTok{2}\NormalTok{),}
-      \StringTok{"$df$"}\NormalTok{, }\StringTok{"$F$"}\NormalTok{, }\StringTok{"$p$"}
-\NormalTok{    ),}
-    \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Apply LaTeX styling}
-  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Add section headers for each model}
-  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
-    \StringTok{" "} \OtherTok{=} \DecValTok{1}\NormalTok{, }\StringTok{"CLMM"} \OtherTok{=} \DecValTok{3}\NormalTok{, }\StringTok{"GLMER (Poisson)"} \OtherTok{=} \DecValTok{3}\NormalTok{, }\StringTok{"LMM"} \OtherTok{=} \DecValTok{3}
-\NormalTok{  )) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Add footnote explaining statistical details}
-  \FunctionTok{footnote}\NormalTok{(}
-    \AttributeTok{general =} \StringTok{"For CLMM and GLMER (Poisson) models, results are}
-\StringTok{              Analysis of Deviance (Type III Wald chi{-}square tests),}
-\StringTok{              while for LMM, results are from an Analysis of Variance}
-\StringTok{              (Type III ANOVA with Satterthwaite\textquotesingle{}s method).}
-\StringTok{              Significant effects are in bold."}\NormalTok{,}
-    \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{  )}
+\FunctionTok{anova.comp}\NormalTok{(}\AttributeTok{CLMMmod =}\NormalTok{ m3b\_clmm, }\AttributeTok{GLMERmod =}\NormalTok{ m3b\_poisson, }\AttributeTok{LMERmod =}\NormalTok{ m3b\_lmer, }\AttributeTok{hypothesis =} \StringTok{"3b"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-robu-m3b}Comparison of fixed effects across the three models for Hypothesis 3b:
-               CLMM, GLMM (Poisson), and LMM.}
+\caption{\label{tab:tab-robu-m3b}Comparison of fixed effects across the three models for Hypothesis 3b: CLMM, GLMM (Poisson), and LMM.}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -5732,7 +5289,7 @@ Slope for attractive person TSD on SSA by stimuli sex and participant gender
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:unnamed-chunk-32}Slope for Attractive person TSD on 
+\caption{\label{tab:unnamed-chunk-31}Slope for Attractive person TSD on 
         Subjective sexual arousal by stimuli sex and gender}
 \centering
 \begin{threeparttable}
@@ -5850,76 +5407,13 @@ As shown in the table below, the pattern of significant effects remains consiste
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Create ANOVA{-}style table summarizing model results}
-\FunctionTok{reduce}\NormalTok{(}
-  \FunctionTok{list}\NormalTok{(}
-    \CommentTok{\# ANOVA results for the Cumulative Link Mixed Model (CLMM)}
-    \FunctionTok{Anova}\NormalTok{(m3c\_clmm, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{),}
-    \CommentTok{\# ANOVA results for the Generalized Linear Mixed Model (GLMM, Poisson),}
-    \CommentTok{\# selecting relevant columns \& removing the intercept row}
-    \FunctionTok{Anova}\NormalTok{(m3c\_poisson, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{select}\NormalTok{(Effect, Df, Chisq, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}Chisq)}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{slice\_tail}\NormalTok{(}\AttributeTok{n =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{),}
-    \CommentTok{\# ANOVA results for the Linear Mixed Model (LMM), rounding denominator DF}
-    \CommentTok{\# and formatting the df column}
-    \FunctionTok{anova}\NormalTok{(m3c\_lmer, }\AttributeTok{type =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{rownames\_to\_column}\NormalTok{(}\StringTok{"Effect"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{mutate}\NormalTok{(}\AttributeTok{DenDF =} \FunctionTok{round}\NormalTok{(DenDF, }\DecValTok{2}\NormalTok{),}
-             \StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{pval.lev}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{unite}\NormalTok{(}\AttributeTok{col =} \StringTok{"df"}\NormalTok{, NumDF}\SpecialCharTok{:}\NormalTok{DenDF, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-      \FunctionTok{select}\NormalTok{(Effect, df, }\StringTok{\textasciigrave{}}\AttributeTok{F value}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Pr(\textgreater{}F)}\StringTok{\textasciigrave{}}\NormalTok{)}
-\NormalTok{    ),}
-\NormalTok{  full\_join,}
-  \AttributeTok{by =} \StringTok{"Effect"}
-\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Improve readability of effect names}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{, }\StringTok{" "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace dots with spaces}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{":"}\NormalTok{, }\StringTok{" × "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace colons with ×}
-  \CommentTok{\# Generate formatted table}
-  \FunctionTok{kable}\NormalTok{(}
-    \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{9}\NormalTok{)), }\CommentTok{\# Align first column left, others center}
-    \AttributeTok{digits =} \DecValTok{3}\NormalTok{,}
-    \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
-    \AttributeTok{caption =} \StringTok{"Comparison of fixed effects across the three models for Hypothesis 3c:}
-\StringTok{               CLMM, GLMM (Poisson), and LMM."}\NormalTok{,}
-    \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}
-      \StringTok{"Effect"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"$df$"}\NormalTok{, }\StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{chi\^{}2$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{), }\AttributeTok{times =} \DecValTok{2}\NormalTok{),}
-      \StringTok{"$df$"}\NormalTok{, }\StringTok{"$F$"}\NormalTok{, }\StringTok{"$p$"}
-\NormalTok{    ),}
-    \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Apply LaTeX styling}
-  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Add section headers for each model}
-  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
-    \StringTok{" "} \OtherTok{=} \DecValTok{1}\NormalTok{, }\StringTok{"CLMM"} \OtherTok{=} \DecValTok{3}\NormalTok{, }\StringTok{"GLMER (Poisson)"} \OtherTok{=} \DecValTok{3}\NormalTok{, }\StringTok{"LMM"} \OtherTok{=} \DecValTok{3}
-\NormalTok{  )) }\SpecialCharTok{|\textgreater{}}
-  \CommentTok{\# Add footnote explaining statistical details}
-  \FunctionTok{footnote}\NormalTok{(}
-    \AttributeTok{general =} \StringTok{"For CLMM and GLMER (Poisson) models, results are}
-\StringTok{              Analysis of Deviance (Type III Wald chi{-}square tests),}
-\StringTok{              while for LMM, results are from an Analysis of Variance}
-\StringTok{              (Type III ANOVA with Satterthwaite\textquotesingle{}s method).}
-\StringTok{              Significant effects are in bold."}\NormalTok{,}
-    \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}\NormalTok{,}
-    \AttributeTok{escape =} \ConstantTok{FALSE}
-\NormalTok{  )}
+\FunctionTok{anova.comp}\NormalTok{(}\AttributeTok{CLMMmod =}\NormalTok{ m3c\_clmm, }\AttributeTok{GLMERmod =}\NormalTok{ m3c\_poisson, }\AttributeTok{LMERmod =}\NormalTok{ m3c\_lmer, }\AttributeTok{hypothesis =} \StringTok{"3c"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-robu-m3c}Comparison of fixed effects across the three models for Hypothesis 3c:
-               CLMM, GLMM (Poisson), and LMM.}
+\caption{\label{tab:tab-robu-m3c}Comparison of fixed effects across the three models for Hypothesis 3c: CLMM, GLMM (Poisson), and LMM.}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -6168,7 +5662,7 @@ Slope for Partner TSD on SSA by stimuli sex and participant gender
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:unnamed-chunk-34}Slope for Partner TSD on 
+\caption{\label{tab:unnamed-chunk-33}Slope for Partner TSD on 
         Subjective sexual arousal by stimuli sex and gender}
 \centering
 \begin{threeparttable}
@@ -6233,6 +5727,146 @@ This figure summarizes the results of hypothesis 3c.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
+\closesupplement
+
+\section{Final figures and tables}\label{final-figures-and-tables}
+
+Figures and tables included in the main document.
+
+\subsection{Table \ref{tab:tab-m1-fin}. Hypothesis 1}\label{table-reftabtab-m1-fin.-hypothesis-1}
+
+ANOVA-type table for the interaction between \texttt{Relationship\ type}, and \texttt{Gender} for the three final models for hypothesis 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{reduce}\NormalTok{(}
+  \FunctionTok{list}\NormalTok{(}
+    \FunctionTok{bind\_cols}\NormalTok{(}
+      \FunctionTok{anova\_summary}\NormalTok{(}\FunctionTok{Anova}\NormalTok{(m1a\_norm, }\AttributeTok{type =} \DecValTok{3}\NormalTok{)),}
+      \FunctionTok{epsilon\_squared}\NormalTok{(m1a\_norm)}
+\NormalTok{    ) }\SpecialCharTok{|\textgreater{}}
+      \FunctionTok{unite}\NormalTok{(}\AttributeTok{col =} \StringTok{"df"}\NormalTok{, DFn}\SpecialCharTok{:}\NormalTok{DFd, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+      \FunctionTok{select}\NormalTok{(Effect, df, F, p, Epsilon2\_partial) }\SpecialCharTok{|\textgreater{}}
+      \FunctionTok{mutate}\NormalTok{(}
+        \AttributeTok{p =} \FunctionTok{pval.lev}\NormalTok{(p),}
+        \AttributeTok{Epsilon2\_partial =} \FunctionTok{pe2.lev}\NormalTok{(Epsilon2\_partial)}
+\NormalTok{      ),}
+    \FunctionTok{bind\_cols}\NormalTok{(}
+      \FunctionTok{anova\_summary}\NormalTok{(}\FunctionTok{Anova}\NormalTok{(m1b\_norm, }\AttributeTok{type =} \DecValTok{3}\NormalTok{)),}
+      \FunctionTok{epsilon\_squared}\NormalTok{(m1b\_norm)}
+\NormalTok{    ) }\SpecialCharTok{|\textgreater{}}
+      \FunctionTok{unite}\NormalTok{(}\AttributeTok{col =} \StringTok{"df"}\NormalTok{, DFn}\SpecialCharTok{:}\NormalTok{DFd, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+      \FunctionTok{select}\NormalTok{(Effect, df, F, p, Epsilon2\_partial) }\SpecialCharTok{|\textgreater{}}
+      \FunctionTok{mutate}\NormalTok{(}
+        \AttributeTok{p =} \FunctionTok{pval.lev}\NormalTok{(p),}
+        \AttributeTok{Epsilon2\_partial =} \FunctionTok{pe2.lev}\NormalTok{(Epsilon2\_partial)}
+\NormalTok{      ),}
+    \FunctionTok{bind\_cols}\NormalTok{(}
+      \FunctionTok{anova\_summary}\NormalTok{(}\FunctionTok{Anova}\NormalTok{(m1b\_norm, }\AttributeTok{type =} \DecValTok{3}\NormalTok{)),}
+      \FunctionTok{epsilon\_squared}\NormalTok{(m1b\_norm)}
+\NormalTok{    ) }\SpecialCharTok{|\textgreater{}}
+      \FunctionTok{unite}\NormalTok{(}\AttributeTok{col =} \StringTok{"df"}\NormalTok{, DFn}\SpecialCharTok{:}\NormalTok{DFd, }\AttributeTok{sep =} \StringTok{", "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+      \FunctionTok{select}\NormalTok{(Effect, df, F, p, Epsilon2\_partial) }\SpecialCharTok{|\textgreater{}}
+      \FunctionTok{mutate}\NormalTok{(}
+        \AttributeTok{p =} \FunctionTok{pval.lev}\NormalTok{(p),}
+        \AttributeTok{Epsilon2\_partial =} \FunctionTok{pe2.lev}\NormalTok{(Epsilon2\_partial)}
+\NormalTok{      )}
+\NormalTok{  ),}
+\NormalTok{  full\_join,}
+  \AttributeTok{by =} \StringTok{"Effect"}
+\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"Effect"}\NormalTok{, str\_replace\_all, }\StringTok{":"}\NormalTok{, }\StringTok{" × "}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{kable}\NormalTok{(}
+    \AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
+    \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
+    \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{12}\NormalTok{)),}
+    \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Effects of relationship type and gender on TSD dimensions"}\NormalTok{,}
+    \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Effect"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"$df$"}\NormalTok{, }\StringTok{"$F$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{, }\StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{epsilon\^{}2\_p$"}\NormalTok{), }\DecValTok{3}\NormalTok{)),}
+    \AttributeTok{escape =} \ConstantTok{FALSE}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
+      \StringTok{" "} \OtherTok{=} \DecValTok{1}\NormalTok{, }
+      \StringTok{"Solitary TSD"} \OtherTok{=} \DecValTok{4}\NormalTok{, }
+      \StringTok{"Dyadic TSD Attractive Person"} \OtherTok{=} \DecValTok{4}\NormalTok{, }
+      \StringTok{"Dyadic TSD Partner"} \OtherTok{=} \DecValTok{4}
+\NormalTok{    )) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{footnote}\NormalTok{(}
+    \AttributeTok{general =} \FunctionTok{paste0}\NormalTok{(}
+      \StringTok{"Sexual desire was transformed using an ordered quantile normalization}
+\StringTok{      (}\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{cite\{petersonOrderedQuantileNormalization2020a\}). Results are type III ANOVA.}
+\StringTok{      Solitary TSD: $R\^{}2$ = "}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{r2}\NormalTok{(m1a\_norm)}\SpecialCharTok{$}\NormalTok{R2, }\DecValTok{3}\NormalTok{),}
+      \StringTok{", $R\^{}2\_\{adjusted\}$ = "}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{r2}\NormalTok{(m1a\_norm)}\SpecialCharTok{$}\NormalTok{R2\_adjusted, }\DecValTok{3}\NormalTok{),}
+      \StringTok{"; Dyadic TSD {-} Attractive Person: $R\^{}2$ = "}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{r2}\NormalTok{(m1b\_norm)}\SpecialCharTok{$}\NormalTok{R2, }\DecValTok{3}\NormalTok{),}
+      \StringTok{", $R\^{}2\_\{adjusted\}$ = "}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{r2}\NormalTok{(m1b\_norm)}\SpecialCharTok{$}\NormalTok{R2\_adjusted, }\DecValTok{3}\NormalTok{),}
+      \StringTok{"; Dyadic TSD {-} Partner: $R\^{}2$ = "}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{r2}\NormalTok{(m1c\_norm)}\SpecialCharTok{$}\NormalTok{R2, }\DecValTok{3}\NormalTok{),}
+      \StringTok{", $R\^{}2\_\{adjusted\}$ = "}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{r2}\NormalTok{(m1c\_norm)}\SpecialCharTok{$}\NormalTok{R2\_adjusted, }\DecValTok{3}\NormalTok{),}
+      \StringTok{". Gender = participants gender (women, men);}
+\StringTok{      Relationship = relationship type (stable, single).}
+\StringTok{      As effect size, we report partial epsilon squared ($}\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{epsilon\^{}2\_p$), which provides a }
+\StringTok{      less biases estimate than $}\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{eta\^{}2$ (see }\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{cite\{albersWhenPowerAnalyses2018\}).}
+\StringTok{      Significant effects are in bold."}
+\NormalTok{    ),}
+    \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{,}
+    \AttributeTok{threeparttable =} \ConstantTok{TRUE}\NormalTok{,}
+    \AttributeTok{footnote\_as\_chunk =} \ConstantTok{TRUE}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:tab-m1-fin}Effects of relationship type and gender on TSD dimensions}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{threeparttable}
+\begin{tabular}[t]{lcccccccccccc}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{4}{c}{Solitary TSD} & \multicolumn{4}{c}{Dyadic TSD Attractive Person} & \multicolumn{4}{c}{Dyadic TSD Partner} \\
+\cmidrule(l{3pt}r{3pt}){2-5} \cmidrule(l{3pt}r{3pt}){6-9} \cmidrule(l{3pt}r{3pt}){10-13}
+Effect & $df$ & $F$ & $p$ & $\epsilon^2_p$ & $df$ & $F$ & $p$ & $\epsilon^2_p$ & $df$ & $F$ & $p$ & $\epsilon^2_p$\\
+\midrule
+Gender & 1, 319 & 22.42 & \textbf{< 0.0001} & 0.06 & 1, 319 & 29.85 & \textbf{< 0.0001} & 0.09 & 1, 319 & 29.85 & \textbf{< 0.0001} & 0.09\\
+Relationship & 1, 319 & 14.07 & \textbf{< 0.001} & 0.03 & 1, 319 & 8.20 & \textbf{0.004} & 0.03 & 1, 319 & 8.20 & \textbf{0.004} & 0.03\\
+Gender × Relationship & 1, 319 & 4.23 & \textbf{0.04} & 0.01 & 1, 319 & 1.73 & 0.19 & 0.00 & 1, 319 & 1.73 & 0.19 & 0.00\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[para]
+\item \textit{Note: } 
+\item Sexual desire was transformed using an ordered quantile normalization
+      (\cite{petersonOrderedQuantileNormalization2020a}). Results are type III ANOVA.
+      Solitary TSD: $R^2$ = 0.103, $R^2_{adjusted}$ = 0.095; Dyadic TSD - Attractive Person: $R^2$ = 0.122, $R^2_{adjusted}$ = 0.114; Dyadic TSD - Partner: $R^2$ = 0.125, $R^2_{adjusted}$ = 0.117. Gender = participants gender (women, men);
+      Relationship = relationship type (stable, single).
+      As effect size, we report partial epsilon squared ($\epsilon^2_p$), which provides a 
+      less biases estimate than $\eta^2$ (see \cite{albersWhenPowerAnalyses2018}).
+      Significant effects are in bold.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+\subsection{Figure \ref{fig:fig-m1-fin}. Hypothesis 1}\label{figure-reffigfig-m1-fin.-hypothesis-1}
+
+estimated marginal means for the interaction between \texttt{Relationship\ type}, and \texttt{Gender} for the three final models for hypothesis 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggarrange}\NormalTok{(h1a3, h1b3, h1c3,}
+          \AttributeTok{common.legend =} \ConstantTok{TRUE}\NormalTok{,}
+          \AttributeTok{legend =} \StringTok{"bottom"}\NormalTok{,}
+          \AttributeTok{labels =} \StringTok{"auto"}\NormalTok{,}
+          \AttributeTok{nrow =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{Sexual_Desire_Arousal_V2_files/figure-latex/fig-m1-fin-1.pdf}
+\caption{\label{fig:fig-m1-fin}Effects of gender and relationship type on dimensions of sexual desire. Solitary sexual desire was transformed using ordered quantile normalization \autocite{petersonOrderedQuantileNormalization2020a}. \textbf{(a)} Solitary trait sexual desire; \textbf{(b)} Dyadic trait sexual desire (Attractive person); \textbf{(c)} Dyadic trait sexual desire (Partner). Dots and bars represent estimated marginal means and 95\% CI. In all cases, significant effects are represented with lines and stars: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
+\end{figure}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
 \section{Session info (for reproducibility)}\label{session}
 
 \begin{Shaded}
@@ -6250,10 +5884,10 @@ This figure summarizes the results of hypothesis 3c.
 \emph{stats}, \emph{graphics}, \emph{grDevices}, \emph{utils}, \emph{datasets}, \emph{methods} and \emph{base}
 
 \textbf{other attached packages:}
-\emph{pander(v.0.6.5)}, \emph{Hmisc(v.5.2-2)}, \emph{lubridate(v.1.9.4)}, \emph{forcats(v.1.0.0)}, \emph{stringr(v.1.5.1)}, \emph{dplyr(v.1.1.4)}, \emph{purrr(v.1.0.4)}, \emph{readr(v.2.1.5)}, \emph{tidyr(v.1.3.1)}, \emph{tibble(v.3.2.1)}, \emph{tidyverse(v.2.0.0)}, \emph{interactions(v.1.2.0)}, \emph{ggpubr(v.0.6.0)}, \emph{ggplot2(v.3.5.1)}, \emph{effectsize(v.1.0.0)}, \emph{rstatix(v.0.7.2)}, \emph{bestNormalize(v.1.9.1)}, \emph{berryFunctions(v.1.22.5)}, \emph{emmeans(v.1.10.7)}, \emph{scales(v.1.3.0)}, \emph{psych(v.2.4.12)}, \emph{kableExtra(v.1.4.0)}, \emph{performance(v.0.13.0)}, \emph{PerformanceAnalytics(v.2.0.8)}, \emph{quantmod(v.0.4.26)}, \emph{TTR(v.0.24.4)}, \emph{xts(v.0.14.1)}, \emph{zoo(v.1.8-12)}, \emph{tidyquant(v.1.0.10)}, \emph{car(v.3.1-3)}, \emph{carData(v.3.0-5)}, \emph{ltm(v.1.2-0)}, \emph{polycor(v.0.8-1)}, \emph{msm(v.1.8.2)}, \emph{MASS(v.7.3-64)}, \emph{lmerTest(v.3.1-3)}, \emph{ordinal(v.2023.12-4.1)}, \emph{lme4(v.1.1-36)}, \emph{Matrix(v.1.7-2)}, \emph{readxl(v.1.4.3)} and \emph{knitr(v.1.49)}
+\emph{pander(v.0.6.5)}, \emph{Hmisc(v.5.2-2)}, \emph{lubridate(v.1.9.4)}, \emph{forcats(v.1.0.0)}, \emph{stringr(v.1.5.1)}, \emph{dplyr(v.1.1.4)}, \emph{purrr(v.1.0.4)}, \emph{readr(v.2.1.5)}, \emph{tidyr(v.1.3.1)}, \emph{tibble(v.3.2.1)}, \emph{tidyverse(v.2.0.0)}, \emph{interactions(v.1.2.0)}, \emph{ggpubr(v.0.6.0)}, \emph{ggplot2(v.3.5.1)}, \emph{effectsize(v.1.0.0)}, \emph{rstatix(v.0.7.2)}, \emph{bestNormalize(v.1.9.1)}, \emph{berryFunctions(v.1.22.5)}, \emph{emmeans(v.1.10.7)}, \emph{scales(v.1.3.0)}, \emph{psych(v.2.4.12)}, \emph{kableExtra(v.1.4.0)}, \emph{performance(v.0.13.0)}, \emph{PerformanceAnalytics(v.2.0.8)}, \emph{quantmod(v.0.4.26)}, \emph{TTR(v.0.24.4)}, \emph{xts(v.0.14.1)}, \emph{zoo(v.1.8-12)}, \emph{tidyquant(v.1.0.11)}, \emph{car(v.3.1-3)}, \emph{carData(v.3.0-5)}, \emph{ltm(v.1.2-0)}, \emph{polycor(v.0.8-1)}, \emph{msm(v.1.8.2)}, \emph{MASS(v.7.3-64)}, \emph{lmerTest(v.3.1-3)}, \emph{ordinal(v.2023.12-4.1)}, \emph{lme4(v.1.1-36)}, \emph{Matrix(v.1.7-2)}, \emph{readxl(v.1.4.3)} and \emph{knitr(v.1.49)}
 
 \textbf{loaded via a namespace (and not attached):}
-\emph{rstudioapi(v.0.17.1)}, \emph{datawizard(v.1.0.0)}, \emph{magrittr(v.2.0.3)}, \emph{TH.data(v.1.1-3)}, \emph{estimability(v.1.5.1)}, \emph{farver(v.2.1.2)}, \emph{nloptr(v.2.1.1)}, \emph{rmarkdown(v.2.29)}, \emph{vctrs(v.0.6.5)}, \emph{minqa(v.1.2.8)}, \emph{base64enc(v.0.1-3)}, \emph{butcher(v.0.3.4)}, \emph{htmltools(v.0.5.8.1)}, \emph{curl(v.6.2.0)}, \emph{broom(v.1.0.7)}, \emph{cellranger(v.1.1.0)}, \emph{Formula(v.1.2-5)}, \emph{parallelly(v.1.41.0)}, \emph{htmlwidgets(v.1.6.4)}, \emph{sandwich(v.3.1-1)}, \emph{admisc(v.0.37)}, \emph{lifecycle(v.1.0.4)}, \emph{iterators(v.1.0.14)}, \emph{pkgconfig(v.2.0.3)}, \emph{R6(v.2.5.1)}, \emph{fastmap(v.1.2.0)}, \emph{rbibutils(v.2.3)}, \emph{future(v.1.34.0)}, \emph{digest(v.0.6.37)}, \emph{numDeriv(v.2016.8-1.1)}, \emph{colorspace(v.2.1-1)}, \emph{furrr(v.0.3.1)}, \emph{labeling(v.0.4.3)}, \emph{timechange(v.0.3.0)}, \emph{abind(v.1.4-8)}, \emph{compiler(v.4.4.2)}, \emph{rngtools(v.1.5.2)}, \emph{withr(v.3.0.2)}, \emph{doParallel(v.1.0.17)}, \emph{htmlTable(v.2.4.3)}, \emph{backports(v.1.5.0)}, \emph{broom.mixed(v.0.2.9.6)}, \emph{ggsignif(v.0.6.4)}, \emph{lava(v.1.8.1)}, \emph{ucminf(v.1.2.2)}, \emph{tools(v.4.4.2)}, \emph{foreign(v.0.8-88)}, \emph{RobStatTM(v.1.0.11)}, \emph{future.apply(v.1.11.3)}, \emph{nnet(v.7.3-20)}, \emph{glue(v.1.8.0)}, \emph{quadprog(v.1.5-8)}, \emph{nlme(v.3.1-167)}, \emph{grid(v.4.4.2)}, \emph{checkmate(v.2.3.2)}, \emph{cluster(v.2.1.8)}, \emph{see(v.0.10.0)}, \emph{generics(v.0.1.3)}, \emph{recipes(v.1.1.0)}, \emph{gtable(v.0.3.6)}, \emph{nortest(v.1.0-4)}, \emph{tzdb(v.0.4.0)}, \emph{class(v.7.3-23)}, \emph{hms(v.1.1.3)}, \emph{data.table(v.1.16.4)}, \emph{xml2(v.1.3.6)}, \emph{foreach(v.1.5.2)}, \emph{pillar(v.1.10.1)}, \emph{splines(v.4.4.2)}, \emph{lattice(v.0.22-6)}, \emph{survival(v.3.8-3)}, \emph{tidyselect(v.1.2.1)}, \emph{gridExtra(v.2.3)}, \emph{reformulas(v.0.4.0)}, \emph{bookdown(v.0.42)}, \emph{svglite(v.2.1.3)}, \emph{xfun(v.0.50)}, \emph{expm(v.1.0-0)}, \emph{hardhat(v.1.4.0)}, \emph{timeDate(v.4041.110)}, \emph{stringi(v.1.8.4)}, \emph{yaml(v.2.3.10)}, \emph{boot(v.1.3-31)}, \emph{evaluate(v.1.0.3)}, \emph{codetools(v.0.2-20)}, \emph{cli(v.3.6.3)}, \emph{rpart(v.4.1.24)}, \emph{xtable(v.1.8-4)}, \emph{parameters(v.0.24.1)}, \emph{systemfonts(v.1.2.1)}, \emph{Rdpack(v.2.6.2)}, \emph{munsell(v.0.5.1)}, \emph{Rcpp(v.1.0.14)}, \emph{globals(v.0.16.3)}, \emph{coda(v.0.19-4.1)}, \emph{parallel(v.4.4.2)}, \emph{gower(v.1.0.2)}, \emph{bayestestR(v.0.15.1)}, \emph{doRNG(v.1.8.6.1)}, \emph{listenv(v.0.9.1)}, \emph{viridisLite(v.0.4.2)}, \emph{mvtnorm(v.1.3-3)}, \emph{ipred(v.0.9-15)}, \emph{prodlim(v.2024.06.25)}, \emph{insight(v.1.0.1)}, \emph{rlang(v.1.1.5)}, \emph{cowplot(v.1.1.3)}, \emph{multcomp(v.1.4-28)}, \emph{mnormt(v.2.1.1)} and \emph{jtools(v.2.3.0)}
+\emph{rstudioapi(v.0.17.1)}, \emph{datawizard(v.1.0.0)}, \emph{magrittr(v.2.0.3)}, \emph{TH.data(v.1.1-3)}, \emph{estimability(v.1.5.1)}, \emph{farver(v.2.1.2)}, \emph{nloptr(v.2.1.1)}, \emph{rmarkdown(v.2.29)}, \emph{vctrs(v.0.6.5)}, \emph{minqa(v.1.2.8)}, \emph{base64enc(v.0.1-3)}, \emph{butcher(v.0.3.4)}, \emph{htmltools(v.0.5.8.1)}, \emph{curl(v.6.2.1)}, \emph{broom(v.1.0.7)}, \emph{cellranger(v.1.1.0)}, \emph{Formula(v.1.2-5)}, \emph{parallelly(v.1.42.0)}, \emph{htmlwidgets(v.1.6.4)}, \emph{sandwich(v.3.1-1)}, \emph{admisc(v.0.37)}, \emph{lifecycle(v.1.0.4)}, \emph{iterators(v.1.0.14)}, \emph{pkgconfig(v.2.0.3)}, \emph{R6(v.2.6.1)}, \emph{fastmap(v.1.2.0)}, \emph{rbibutils(v.2.3)}, \emph{future(v.1.34.0)}, \emph{digest(v.0.6.37)}, \emph{numDeriv(v.2016.8-1.1)}, \emph{colorspace(v.2.1-1)}, \emph{furrr(v.0.3.1)}, \emph{labeling(v.0.4.3)}, \emph{timechange(v.0.3.0)}, \emph{abind(v.1.4-8)}, \emph{compiler(v.4.4.2)}, \emph{rngtools(v.1.5.2)}, \emph{withr(v.3.0.2)}, \emph{doParallel(v.1.0.17)}, \emph{htmlTable(v.2.4.3)}, \emph{backports(v.1.5.0)}, \emph{broom.mixed(v.0.2.9.6)}, \emph{ggsignif(v.0.6.4)}, \emph{lava(v.1.8.1)}, \emph{ucminf(v.1.2.2)}, \emph{tools(v.4.4.2)}, \emph{foreign(v.0.8-88)}, \emph{RobStatTM(v.1.0.11)}, \emph{future.apply(v.1.11.3)}, \emph{nnet(v.7.3-20)}, \emph{glue(v.1.8.0)}, \emph{quadprog(v.1.5-8)}, \emph{nlme(v.3.1-167)}, \emph{grid(v.4.4.2)}, \emph{checkmate(v.2.3.2)}, \emph{cluster(v.2.1.8)}, \emph{see(v.0.10.0)}, \emph{generics(v.0.1.3)}, \emph{recipes(v.1.1.1)}, \emph{gtable(v.0.3.6)}, \emph{nortest(v.1.0-4)}, \emph{tzdb(v.0.4.0)}, \emph{class(v.7.3-23)}, \emph{hms(v.1.1.3)}, \emph{data.table(v.1.16.4)}, \emph{xml2(v.1.3.6)}, \emph{foreach(v.1.5.2)}, \emph{pillar(v.1.10.1)}, \emph{splines(v.4.4.2)}, \emph{lattice(v.0.22-6)}, \emph{survival(v.3.8-3)}, \emph{tidyselect(v.1.2.1)}, \emph{gridExtra(v.2.3)}, \emph{reformulas(v.0.4.0)}, \emph{bookdown(v.0.42)}, \emph{svglite(v.2.1.3)}, \emph{xfun(v.0.50)}, \emph{expm(v.1.0-0)}, \emph{hardhat(v.1.4.1)}, \emph{timeDate(v.4041.110)}, \emph{stringi(v.1.8.4)}, \emph{yaml(v.2.3.10)}, \emph{boot(v.1.3-31)}, \emph{evaluate(v.1.0.3)}, \emph{codetools(v.0.2-20)}, \emph{cli(v.3.6.4)}, \emph{rpart(v.4.1.24)}, \emph{xtable(v.1.8-4)}, \emph{parameters(v.0.24.1)}, \emph{systemfonts(v.1.2.1)}, \emph{Rdpack(v.2.6.2)}, \emph{munsell(v.0.5.1)}, \emph{Rcpp(v.1.0.14)}, \emph{globals(v.0.16.3)}, \emph{coda(v.0.19-4.1)}, \emph{parallel(v.4.4.2)}, \emph{gower(v.1.0.2)}, \emph{bayestestR(v.0.15.2)}, \emph{doRNG(v.1.8.6.1)}, \emph{listenv(v.0.9.1)}, \emph{viridisLite(v.0.4.2)}, \emph{mvtnorm(v.1.3-3)}, \emph{ipred(v.0.9-15)}, \emph{prodlim(v.2024.06.25)}, \emph{insight(v.1.0.2)}, \emph{rlang(v.1.1.5)}, \emph{cowplot(v.1.1.3)}, \emph{multcomp(v.1.4-28)}, \emph{mnormt(v.2.1.1)} and \emph{jtools(v.2.3.0)}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
