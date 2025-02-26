@@ -4141,8 +4141,8 @@ bind_rows(
       "$R^2_{conditional}$ = ", round(r2_nakagawa(m2c_lmer)$R2_conditional, 3),
       ", $R^2_{marginal}$ = ", round(r2_nakagawa(m2c_lmer)$R2_marginal, 3),
       ". Gender = participant gender (women, men); Stimuli sex = sex of stimuli (male, female).
-      Partial epsilon squared ($\\epsilon^2_p$) is used as an effect size, as it provides
-      a less biased estimate than $\\eta^2$ (see \\cite{albersWhenPowerAnalyses2018}).
+      Partial epsilon squared ($\\\\epsilon^2_p$) is used as an effect size, as it provides
+      a less biased estimate than $\\\\eta^2$ (see \\\\cite{albersWhenPowerAnalyses2018}).
       Significant effects are in bold."
     ),
     escape = FALSE, # Allow LaTeX formatting
