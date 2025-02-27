@@ -129,7 +129,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  pdftitle={Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic and Non-Erotic Stimuli: Gender, Relationship Status, and Gender-Specificity},
+  pdftitle={Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic Stimuli: Gender and Relationship Status in Cisgender Heterosexuals},
   pdfauthor={Milena Vásquez-Amézquita 1,2,3,4,; Juan David Leongómez 2,4; Marina Begoña Martínez-González 1; Meredith L. Chivers 5},
   colorlinks=true,
   linkcolor={gray},
@@ -138,7 +138,7 @@
   urlcolor={blue},
   pdfcreator={LaTeX via pandoc}}
 
-\title{Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic and Non-Erotic Stimuli: Gender, Relationship Status, and Gender-Specificity}
+\title{Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic Stimuli: Gender and Relationship Status in Cisgender Heterosexuals}
 \usepackage{etoolbox}
 \makeatletter
 \providecommand{\subtitle}[1]{% add subtitle to \maketitle
@@ -174,7 +174,7 @@
 This document contains all code, and step by step explanations for all analyses, figures and tables (including supplementary figures and tables) for:
 
 \begin{hangparas}{.25in}{1}
-Vásquez-Amézquita, M., Leongómez, J. D., Martínez-González, M. B., \& Chivers, M. L. (in prep). \textit{Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic and Non-Erotic Stimuli: Gender, Relationship Status, and Gender-Specificity}
+Vásquez-Amézquita, M., Leongómez, J. D., Martínez-González, M. B., \& Chivers, M. L. (in prep). \textit{Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic Stimuli: Gender and Relationship Status in Cisgender Heterosexuals}
 \end{hangparas}
 
 Data are available on the Open Science Framework (OSF): \url{https://doi.org/10.17605/OSF.IO/3V2E7}. The analyses were designed by Milena Vásquez-Amézquita and Juan David Leongómez. This document and its underlying code were created in R Markdown by Juan David Leongómez using \LaTeX.
@@ -419,6 +419,7 @@ Functions to bold significant \emph{p} values from \texttt{anova} or \texttt{car
 \NormalTok{    ) }\SpecialCharTok{|\textgreater{}}
     \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{, }\StringTok{" "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace dots with spaces}
     \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_replace\_all}\NormalTok{(Effect, }\StringTok{":"}\NormalTok{, }\StringTok{" × "}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace ":" with "×" for LaTeX}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Effect =} \FunctionTok{str\_remove\_all}\NormalTok{(Effect, }\StringTok{"\textasciigrave{}"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Remove "\textasciigrave{}"}
     \FunctionTok{kable}\NormalTok{(}
       \AttributeTok{digits =} \DecValTok{2}\NormalTok{, }\AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{4}\NormalTok{)), }
       \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
@@ -1302,7 +1303,7 @@ Table of Cronbach's \(\alpha\) for construct variables.
 \toprule
 Variable & Gender & Items & $n$ & $\alpha$ & $2.5\% CI$ & $97.5\% CI$\\
 \midrule
- & Men & 5 & 139 & 0.82 & 0.71 & 0.88\\
+ & Men & 5 & 139 & 0.82 & 0.72 & 0.88\\
 \cmidrule{2-7}
 \multirow{-2}{*}{\raggedright\arraybackslash MGH-SFQ} & Women & 4 & 181 & 0.86 & 0.82 & 0.90\\
 \cmidrule{1-7}
@@ -2798,7 +2799,7 @@ This figure summarizes the results of hypothesis 1c.
 
 To avoid over-complicating the models, first we tested whether the effects of stimuli on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic). This was, in fact, the case.
 
-\subsubsection{Table \ref{tab:tab-m-stimuli-content}. ANOVA-type table for the effects of stimuli content, gender and stimuli content on Subjective sexual arousal}\label{table-reftabtab-m-stimuli-content.-anova-type-table-for-the-effects-of-stimuli-content-gender-and-stimuli-content-on-subjective-sexual-arousal}
+\subsubsection{Table \ref{tab:tab-m-stimuli-content}. ANOVA-type table for the effects of stimuli content, gender and stimuli sex on Subjective sexual arousal}\label{table-reftabtab-m-stimuli-content.-anova-type-table-for-the-effects-of-stimuli-content-gender-and-stimuli-sex-on-subjective-sexual-arousal}
 
 We fitted a linear mixed model with Gender, Stimuli sex, Stimuli content, and their interactions, as fixed effects for Subjective sexual arousal and including, as random effects, random intercepts per stimulus, as well as random intercepts and slopes for the effect of stimuli content.
 
@@ -2818,14 +2819,14 @@ We fitted a linear mixed model with Gender, Stimuli sex, Stimuli content, and th
 \CommentTok{\# Generate ANOVA table summarizing the model results}
 \FunctionTok{anova.sig.lmer}\NormalTok{(}
   \AttributeTok{model =}\NormalTok{ m\_stim\_cont,}
-  \AttributeTok{custom\_caption =} \StringTok{"Effects of relationship type and gender on Dyadic TSD Partner"}
+  \AttributeTok{custom\_caption =} \StringTok{"Effects of relationship type, gender and stimuli sex on Dyadic TSD Partner"}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-m-stimuli-content}Effects of relationship type and gender on Dyadic TSD Partner}
+\caption{\label{tab:tab-m-stimuli-content}Effects of relationship type, gender and stimuli sex on Dyadic TSD Partner}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -2834,12 +2835,12 @@ We fitted a linear mixed model with Gender, Stimuli sex, Stimuli content, and th
 Effect & $df$ & $F$ & $p$ & $\epsilon^2_p$\\
 \midrule
 Gender & 1, 321 & 42.47 & \textbf{< 0.0001} & 0.11\\
-`Stimuli sex` & 1, 447 & 96.15 & \textbf{< 0.0001} & 0.18\\
-`Stimuli content` & 1, 363.12 & 86.50 & \textbf{< 0.0001} & 0.19\\
-Gender × `Stimuli sex` & 1, 321 & 471.68 & \textbf{< 0.0001} & 0.59\\
-Gender × `Stimuli content` & 1, 321 & 5.02 & \textbf{0.0257} & 0.01\\
-`Stimuli sex` × `Stimuli content` & 1, 286.22 & 21.51 & \textbf{< 0.0001} & 0.07\\
-Gender × `Stimuli sex` × `Stimuli content` & 1, 321 & 116.42 & \textbf{< 0.0001} & 0.26\\
+Stimuli sex & 1, 447 & 96.15 & \textbf{< 0.0001} & 0.18\\
+Stimuli content & 1, 363.12 & 86.50 & \textbf{< 0.0001} & 0.19\\
+Gender × Stimuli sex & 1, 321 & 471.68 & \textbf{< 0.0001} & 0.59\\
+Gender × Stimuli content & 1, 321 & 5.02 & \textbf{0.0257} & 0.01\\
+Stimuli sex × Stimuli content & 1, 286.22 & 21.51 & \textbf{< 0.0001} & 0.07\\
+Gender × Stimuli sex × Stimuli content & 1, 321 & 116.42 & \textbf{< 0.0001} & 0.26\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
@@ -5635,7 +5636,7 @@ Estimated marginal means for the interaction between \texttt{Relationship\ type}
 \begin{figure}
 \centering
 \includegraphics{Sexual_Desire_Arousal_files/figure-latex/fig-m1-fin-1.pdf}
-\caption{\label{fig:fig-m1-fin}Effects of gender and relationship type on dimensions of sexual desire. All dimensions of sexual desire were transformed using ordered quantile normalization \autocite{petersonOrderedQuantileNormalization2020a}. \textbf{(a)} Solitary TSD; \textbf{(b)} Dyadic TSD Attractive Person; \textbf{(c)} Dyadic TSD Partner. Dots and bars represent estimated marginal means and 95\% CI. In all cases, significant effects are represented with lines and stars: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
+\caption{\label{fig:fig-m1-fin}Effects of gender and relationship type on dimensions of Trait Sexual Desire (TSD). All dimensions of TSD were transformed using ordered quantile normalization \autocite{petersonOrderedQuantileNormalization2020a}. \textbf{(a)} Solitary TSD; \textbf{(b)} Dyadic TSD Attractive Person; \textbf{(c)} Dyadic TSD Partner. Dots and bars represent estimated marginal means and 95\% CI. In all cases, significant effects are represented with lines and stars: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
 \end{figure}
 
 \subsection{Table \ref{tab:tab-m2-fin}. Hypothesis 2}\label{table-reftabtab-m2-fin.-hypothesis-2}
@@ -5691,7 +5692,7 @@ ANOVA-type table for the interaction between \texttt{Relationship\ type}, and \t
     \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{, }\CommentTok{\# Use LaTeX booktabs for better formatting}
     \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{4}\NormalTok{)), }\CommentTok{\# Align columns}
     \AttributeTok{linesep =} \StringTok{""}\NormalTok{, }\CommentTok{\# No extra lines}
-    \AttributeTok{caption =} \StringTok{"Effects of relationship type and gender on TSD dimensions"}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Effects of TSD dimensions on SSA Across Gender and Stimuli Sex"}\NormalTok{,}
     \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Effect"}\NormalTok{, }\StringTok{"$df$"}\NormalTok{, }\StringTok{"$F$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{, }\StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{epsilon\^{}2\_p$"}\NormalTok{), }\CommentTok{\# Column headers}
     \AttributeTok{escape =} \ConstantTok{FALSE} \CommentTok{\# Allow LaTeX formatting}
 \NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
@@ -5729,7 +5730,7 @@ ANOVA-type table for the interaction between \texttt{Relationship\ type}, and \t
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-m2-fin}Effects of relationship type and gender on TSD dimensions}
+\caption{\label{tab:tab-m2-fin}Effects of TSD dimensions on SSA Across Gender and Stimuli Sex}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -5800,7 +5801,7 @@ Simple slopes for the interaction between dimensions of sexual desire and \textt
 \begin{figure}
 \centering
 \includegraphics{Sexual_Desire_Arousal_files/figure-latex/fig-m2-fin-1.pdf}
-\caption{\label{fig:fig-m2-fin}Slopes of sexual desire dimensionson sexual arousal, by gender and stimuli sex. \textbf{(a)} Solitary TSD; \textbf{(b)} Dyadic TSD Attractive Person; \textbf{(c)} Dyadic TSD Partner. Lines represent simple slopes and 95\% CI. Significant effects are represented with stars alongside slope details: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
+\caption{\label{fig:fig-m2-fin}Slopes of Trait Sexual Desire (TSD) dimensions on sexual arousal, by gender and stimuli sex. \textbf{(a)} Solitary TSD; \textbf{(b)} Dyadic TSD Attractive Person; \textbf{(c)} Dyadic TSD Partner. Lines represent simple slopes and 95\% CI. Significant effects are represented with stars alongside slope details: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
 \end{figure}
 
 \subsection{Table \ref{tab:tab-m3-fin}. Hypothesis 3}\label{table-reftabtab-m3-fin.-hypothesis-3}
@@ -5842,7 +5843,8 @@ ANOVA-type table for the interaction between \texttt{Relationship\ type}, and \t
   \CommentTok{\# Format table output}
   \FunctionTok{kable}\NormalTok{(}
     \AttributeTok{digits =} \DecValTok{2}\NormalTok{, }\AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{4}\NormalTok{)),}
-    \AttributeTok{linesep =} \StringTok{""}\NormalTok{, }\AttributeTok{caption =} \StringTok{"Effects of relationship type and gender on TSD dimensions"}\NormalTok{,}
+    \AttributeTok{linesep =} \StringTok{""}\NormalTok{, }\AttributeTok{caption =} \StringTok{"Effects of TSD dimensions on SSA across Gender and }
+\StringTok{    Relationship Status"}\NormalTok{,}
     \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Effect"}\NormalTok{, }\StringTok{"$df$"}\NormalTok{, }\StringTok{"$F$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{, }\StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{epsilon\^{}2\_p$"}\NormalTok{), }\AttributeTok{escape =} \ConstantTok{FALSE}
 \NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{, }\StringTok{"scale\_down"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
@@ -5877,7 +5879,8 @@ ANOVA-type table for the interaction between \texttt{Relationship\ type}, and \t
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-m3-fin}Effects of relationship type and gender on TSD dimensions}
+\caption{\label{tab:tab-m3-fin}Effects of TSD dimensions on SSA across Gender and 
+    Relationship Status}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -5946,7 +5949,7 @@ Simple slopes for the interaction between dimensions of sexual desire and \textt
 \begin{figure}
 \centering
 \includegraphics{Sexual_Desire_Arousal_files/figure-latex/fig-m3-fin-1.pdf}
-\caption{\label{fig:fig-m3-fin}Slopes of sexual desire dimensionson sexual arousal, by gender and relationship status. \textbf{(a)} Solitary TSD; \textbf{(b)} Dyadic TSD Attractive Person; \textbf{(c)} Dyadic TSD Partner. Lines represent simple slopes and 95\% CI. Significant effects are represented with stars alongside slope details: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
+\caption{\label{fig:fig-m3-fin}Slopes of Trait Sexual Desire (TSD) dimensions on sexual arousal, by gender and relationship status. \textbf{(a)} Solitary TSD; \textbf{(b)} Dyadic TSD Attractive Person; \textbf{(c)} Dyadic TSD Partner. Lines represent simple slopes and 95\% CI. Significant effects are represented with stars alongside slope details: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
 \end{figure}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}

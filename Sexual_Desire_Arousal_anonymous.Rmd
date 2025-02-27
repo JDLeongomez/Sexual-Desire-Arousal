@@ -1,5 +1,5 @@
 ---
-title: 'Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic and Non-Erotic Stimuli: Gender, Relationship Status, and Gender-Specificity'
+title: 'Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic Stimuli: Gender and Relationship Status in Cisgender Heterosexuals'
 subtitle: Code and analyses
 author:
   - name: '[Name masked for peer review]'
@@ -102,7 +102,7 @@ This document contains all code, and step by step explanations for all analyses,
 
 ```{=latex}
 \begin{hangparas}{.25in}{1}
-[Names masked for peer review] (in prep). \textit{Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic and Non-Erotic Stimuli: Gender, Relationship Status, and Gender-Specificity}
+[Names masked for peer review] (in prep). \textit{Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic Stimuli: Gender and Relationship Status in Cisgender Heterosexuals}
 \end{hangparas}
 ```
 
@@ -341,6 +341,7 @@ anova.sig.lmer <- function(model, custom_caption) {
     ) |>
     mutate(Effect = str_replace_all(Effect, "\\.", " ")) |> # Replace dots with spaces
     mutate(Effect = str_replace_all(Effect, ":", " × ")) |> # Replace ":" with "×" for LaTeX
+    mutate(Effect = str_remove_all(Effect, "`")) |> # Remove "`"
     kable(
       digits = 2, booktabs = TRUE, align = c("l", rep("c", 4)), 
       linesep = "",
@@ -2069,7 +2070,7 @@ p1c
 
 To avoid over-complicating the models, first we tested whether the effects of stimuli on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic). This was, in fact, the case.
 
-### Table \@ref(tab:tab-m-stimuli-content). ANOVA-type table for the effects of stimuli content, gender and stimuli content on Subjective sexual arousal
+### Table \@ref(tab:tab-m-stimuli-content). ANOVA-type table for the effects of stimuli content, gender and stimuli sex on Subjective sexual arousal
 
 We fitted a linear mixed model with Gender, Stimuli sex, Stimuli content, and their interactions, as fixed effects for Subjective sexual arousal and including, as random effects, random intercepts per stimulus, as well as random intercepts and slopes for the effect of stimuli content.
 
@@ -2088,7 +2089,7 @@ m_stim_cont <- lmer(
 # Generate ANOVA table summarizing the model results
 anova.sig.lmer(
   model = m_stim_cont,
-  custom_caption = "Effects of relationship type and gender on Dyadic TSD Partner"
+  custom_caption = "Effects of relationship type, gender and stimuli sex on Dyadic TSD Partner"
 )
 ```
 
@@ -4050,7 +4051,7 @@ reduce(
 
 Estimated marginal means for the interaction between `Relationship type`, and `Gender` for the three final models for hypothesis 1.
 
-```{r fig-m1-fin, results = "hold", fig.height = 4.5, fig.cap = "Effects of gender and relationship type on dimensions of sexual desire. All dimensions of sexual desire were transformed using ordered quantile normalization [@petersonOrderedQuantileNormalization2020a]. **(a)**  Solitary TSD; **(b)** Dyadic TSD Attractive Person; **(c)** Dyadic TSD Partner. Dots and bars represent estimated marginal means and 95% CI. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
+```{r fig-m1-fin, results = "hold", fig.height = 4.5, fig.cap = "Effects of gender and relationship type on dimensions of Trait Sexual Desire (TSD). All dimensions of TSD were transformed using ordered quantile normalization [@petersonOrderedQuantileNormalization2020a]. **(a)**  Solitary TSD; **(b)** Dyadic TSD Attractive Person; **(c)** Dyadic TSD Partner. Dots and bars represent estimated marginal means and 95% CI. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
 # Create a combined figure for Hypothesis 1
 # Estimated marginal means for the interaction between Relationship type and Gender
 # across the three final models for sexual desire dimensions
@@ -4116,7 +4117,7 @@ bind_rows(
     booktabs = TRUE, # Use LaTeX booktabs for better formatting
     align = c("l", rep("c", 4)), # Align columns
     linesep = "", # No extra lines
-    caption = "Effects of relationship type and gender on TSD dimensions",
+    caption = "Effects of TSD dimensions on SSA Across Gender and Stimuli Sex",
     col.names = c("Effect", "$df$", "$F$", "$p$", "$\\epsilon^2_p$"), # Column headers
     escape = FALSE # Allow LaTeX formatting
   ) |>
@@ -4155,7 +4156,7 @@ bind_rows(
 
 Simple slopes for the interaction between dimensions of sexual desire and `Stimuli Sex`, by gender, for the three final models for hypothesis 2.
 
-```{r fig-m2-fin, results = "hold", fig.height = 11,fig.cap = "Slopes of sexual desire dimensionson sexual arousal, by gender and stimuli sex. **(a)**  Solitary TSD; **(b)** Dyadic TSD Attractive Person; **(c)** Dyadic TSD Partner. Lines represent simple slopes and 95% CI. Significant effects are represented with stars alongside slope details: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
+```{r fig-m2-fin, results = "hold", fig.height = 11,fig.cap = "Slopes of Trait Sexual Desire (TSD) dimensions on sexual arousal, by gender and stimuli sex. **(a)**  Solitary TSD; **(b)** Dyadic TSD Attractive Person; **(c)** Dyadic TSD Partner. Lines represent simple slopes and 95% CI. Significant effects are represented with stars alongside slope details: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
 # Generate a combined figure showing the interaction between sexual desire dimensions
 # and stimuli sex, grouped by gender, for the final models in Hypothesis 2
 ggarrange(
@@ -4208,7 +4209,8 @@ bind_rows(
   # Format table output
   kable(
     digits = 2, booktabs = TRUE, align = c("l", rep("c", 4)),
-    linesep = "", caption = "Effects of relationship type and gender on TSD dimensions",
+    linesep = "", caption = "Effects of TSD dimensions on SSA across Gender and 
+    Relationship Status",
     col.names = c("Effect", "$df$", "$F$", "$p$", "$\\epsilon^2_p$"), escape = FALSE
   ) |>
   kable_styling(latex_options = c("HOLD_position", "scale_down")) |>
@@ -4244,7 +4246,7 @@ bind_rows(
 
 Simple slopes for the interaction between dimensions of sexual desire and `Stimuli Sex`, by gender, for the three final models for hypothesis 3.
 
-```{r fig-m3-fin, results = "hold", fig.height = 11,fig.cap = "Slopes of sexual desire dimensionson sexual arousal, by gender and relationship status. **(a)**  Solitary TSD; **(b)** Dyadic TSD Attractive Person; **(c)** Dyadic TSD Partner. Lines represent simple slopes and 95% CI. Significant effects are represented with stars alongside slope details: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
+```{r fig-m3-fin, results = "hold", fig.height = 11,fig.cap = "Slopes of Trait Sexual Desire (TSD) dimensions on sexual arousal, by gender and relationship status. **(a)**  Solitary TSD; **(b)** Dyadic TSD Attractive Person; **(c)** Dyadic TSD Partner. Lines represent simple slopes and 95% CI. Significant effects are represented with stars alongside slope details: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
 # Generate a combined figure for Hypothesis 3
 # This figure shows simple slopes for sexual desire dimensions on sexual arousal
 ggarrange(
