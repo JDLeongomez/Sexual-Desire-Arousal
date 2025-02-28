@@ -1,5 +1,5 @@
 ---
-title: 'Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic Stimuli: Gender and Relationship Status in Cisgender Heterosexuals'
+title: 'Does Trait Sexual Desire Predict Subjective Sexual Response to Erotic Stimuli? Effects Of Participant and Stimulus Gender, and Relationship Status among Cisgender Heterosexual Women and Men'
 subtitle: Code and analyses
 author:
   - name: Milena Vásquez-Amézquita \orcidlink{0000-0001-7317-8430}
@@ -102,11 +102,11 @@ This document contains all code, and step by step explanations for all analyses,
 
 ```{=latex}
 \begin{hangparas}{.25in}{1}
-Vásquez-Amézquita, M., Leongómez, J. D., Martínez-González, M. B., \& Chivers, M. L. (in prep). \textit{Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic Stimuli: Gender and Relationship Status in Cisgender Heterosexuals}
+Vásquez-Amézquita, M., Leongómez, J. D., Martínez-González, M. B., \& Chivers, M. L. (in prep). \textit{Does Trait Sexual Desire Predict Subjective Sexual Response to Erotic Stimuli? Effects Of Participant and Stimulus Gender, and Relationship Status among Cisgender Heterosexual Women and Men}
 \end{hangparas}
 ```
 
-Data are available on the Open Science Framework (OSF): https://doi.org/10.17605/OSF.IO/3V2E7. The analyses were designed by Milena Vásquez-Amézquita and Juan David Leongómez. This document and its underlying code were created in R Markdown by Juan David Leongómez using \LaTeX.
+Data are available on the Open Science Framework (OSF): <https://doi.org/10.17605/OSF.IO/3V2E7>. The analyses were designed by Milena Vásquez-Amézquita and Juan David Leongómez. This document and its underlying code were created in R Markdown by Juan David Leongómez using R and \LaTeX, ensuring full reproducibility. Code comments were refined with the assistance of R Wizard, a customized R-focused version of ChatGPT by OpenAI. More information at: <https://exploregpt.ai/gpt/r-wizard-gpt>.
 
 ------------------------------------------------------------------------
 
@@ -146,7 +146,7 @@ To test the relationships between TSD dimensions and SSA, as well as their inter
 2. Generalized Linear Mixed Models (GLMM) with a Poisson family, treating SSA as count data.
 3. Linear Mixed Models (LMM) approximating SSA as a continuous variable.
 
-Key predictors included gender, relationship status, stimuli sex, and TSD dimensions, with interactions tested where applicable. Random effects were specified for stimuli and participants to account for within-subject dependencies. *Post-hoc* simple slope analyses were conducted to explore significant interactions, and effect sizes were estimated using partial epsilon squared.
+Key predictors included gender, relationship status, stimuli gender, and TSD dimensions, with interactions tested where applicable. Random effects were specified for stimuli and participants to account for within-subject dependencies. *Post-hoc* simple slope analyses were conducted to explore significant interactions, and effect sizes were estimated using partial epsilon squared.
 
 ------------------------------------------------------------------------
 
@@ -184,12 +184,12 @@ library(tidyverse) # Data manipulation and visualization packages (e.g., dplyr, 
 
 ## Define color palettes
 
-Individual color palettes for figures by gender, stimuli sex, or relationship type.
+Individual color palettes for figures by gender, stimuli gender, or relationship type.
 
 ```{r}
 # Palette to color figures by gender
 color.Gender <- c("red", "black")
-# Palette to color figures by stimuli sex
+# Palette to color figures by stimuli gender
 color.StimuliSex <- c("#54278F", "#FC4E2A")
 # Palette to color figures by relationship type
 color.Relationship <- c("#2171B5", "#DD3497")
@@ -488,7 +488,7 @@ dat <- read.csv("data/BD_Heterosexuales_Vertical_BIG.csv") |>
   rename(
     Participant = Participante,
     Age = EdadParticipante,
-    `Preferred sex` = PrefSex,
+    `Preferred gender` = PrefSex,
     Gender = Sexo,
     `Contraceptive uso` = Anticoncep,
     `Last period` = UltimoPer,
@@ -514,7 +514,7 @@ dat <- read.csv("data/BD_Heterosexuales_Vertical_BIG.csv") |>
     `MGSS sexual satisfaction (General)` = Satisfaccion.Sexual..MGSS_general.,
     `MGSS sexual satisfaction (Partner)` = Satisfaccion.Sexual..MGSS_Pareja.,
     `Stimuli code` = Codigo_Estimulo,
-    `Stimuli sex` = Sexo_Estimulo,
+    `Stimuli gender` = Sexo_Estimulo,
     `Stimuli content` = Contenido_Estimulo,
     `Subjective sexual attractiveness` = Atractivo,
     `Subjective sexual arousal` = Excitacion
@@ -528,11 +528,11 @@ dat <- read.csv("data/BD_Heterosexuales_Vertical_BIG.csv") |>
     Femenino = "Women",
     Masculino = "Men"
   )) |>
-  mutate(`Stimuli sex` = recode_factor(`Stimuli sex`,
+  mutate(`Stimuli gender` = recode_factor(`Stimuli gender`,
     Femenino = "Female",
     Masculino = "Male"
   )) |>
-  mutate(`Preferred sex` = recode_factor(`Preferred sex`,
+  mutate(`Preferred gender` = recode_factor(`Preferred gender`,
     Hombre = "Male",
     Mujer = "Female"
   )) |>
@@ -596,7 +596,7 @@ dat <- read.csv("data/BD_Heterosexuales_Vertical_BIG.csv") |>
   ) |>
   mutate(
     `Stimuli content` = as.factor(`Stimuli content`),
-    `Stimuli sex` = as.factor(`Stimuli sex`)
+    `Stimuli gender` = as.factor(`Stimuli gender`)
   ) |>
   # Filter participants in non-stable relationships
   filter(Relationship != "Non-stable") |>
@@ -2070,18 +2070,18 @@ p1c
 
 To avoid over-complicating the models, first we tested whether the effects of stimuli on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic). This was, in fact, the case.
 
-### Table \@ref(tab:tab-m-stimuli-content). ANOVA-type table for the effects of stimuli content, gender and stimuli sex on Subjective sexual arousal
+### Table \@ref(tab:tab-m-stimuli-content). ANOVA-type table for the effects of stimuli content, gender and stimuli gender on Subjective sexual arousal
 
-We fitted a linear mixed model with Gender, Stimuli sex, Stimuli content, and their interactions, as fixed effects for Subjective sexual arousal and including, as random effects, random intercepts per stimulus, as well as random intercepts and slopes for the effect of stimuli content.
+We fitted a linear mixed model with Gender, Stimuli gender, Stimuli content, and their interactions, as fixed effects for Subjective sexual arousal and including, as random effects, random intercepts per stimulus, as well as random intercepts and slopes for the effect of stimuli content.
 
 ```{r tab-m-stimuli-content, message = FALSE, warning = FALSE, cache = TRUE}
 # Fit a linear mixed model predicting Subjective Sexual Arousal
-# Fixed effects: Gender, Stimuli sex, Stimuli content, and their interactions
+# Fixed effects: Gender, Stimuli gender, Stimuli content, and their interactions
 # Random effects: Intercepts per stimulus; intercepts & slopes for stimuli per participant
 m_stim_cont <- lmer(
-  `Subjective sexual arousal` ~ Gender * `Stimuli sex` * `Stimuli content` +
+  `Subjective sexual arousal` ~ Gender * `Stimuli gender` * `Stimuli content` +
     (1 | `Stimuli code`) +
-    (1 + `Stimuli content` * `Stimuli sex` | Participant),
+    (1 + `Stimuli content` * `Stimuli gender` | Participant),
   data = dat,
   control = lmerControl(optimizer = "bobyqa") # Use "bobyqa" optimizer for better convergence
 )
@@ -2089,19 +2089,19 @@ m_stim_cont <- lmer(
 # Generate ANOVA table summarizing the model results
 anova.sig.lmer(
   model = m_stim_cont,
-  custom_caption = "Effects of relationship type, gender and stimuli sex on Dyadic TSD Partner"
+  custom_caption = "Effects of relationship type, gender and stimuli gender on Dyadic TSD Partner"
 )
 ```
 
-The effects of stimuli on sexual arousal were stronger for erotic compared to non-erotic stimuli; to illustrate this, we compared the (within-subject) difference in reported sexual arousal between stimuli sexes, for women and men. This difference was larger when viewing erotic than non-erotic stimuli in both women (erotic: 0.77, non-erotic: 0.57) but especially in men (erotic: 2.75, non-erotic: 1.60; see Table \@ref(tab:tab-stim-cont-emms) and Fig. \@ref(fig:fig-m-stimuli-content)). Considering this, we tested all predictions of hypotheses 2 and 3 only on responses to erotic stimuli.
+The effects of stimuli on sexual arousal were stronger for erotic compared to non-erotic stimuli; to illustrate this, we compared the (within-subject) difference in reported sexual arousal between stimuli genderes, for women and men. This difference was larger when viewing erotic than non-erotic stimuli in both women (erotic: 0.77, non-erotic: 0.57) but especially in men (erotic: 2.75, non-erotic: 1.60; see Table \@ref(tab:tab-stim-cont-emms) and Fig. \@ref(fig:fig-m-stimuli-content)). Considering this, we tested all predictions of hypotheses 2 and 3 only on responses to erotic stimuli.
 
-### Table \@ref(tab:tab-stim-cont-emms). Estimated marginal means and contrasts between subjective sexual arousal depending on stimuli sex, by stimuli content and participant gender.
+### Table \@ref(tab:tab-stim-cont-emms). Estimated marginal means and contrasts between subjective sexual arousal depending on stimuli gender, by stimuli content and participant gender.
 
-Table of estimated marginal means and contrasts between between subjective sexual arousal depending on stimuli sex, by stimuli content and participant gender. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
+Table of estimated marginal means and contrasts between between subjective sexual arousal depending on stimuli gender, by stimuli content and participant gender. All estimated marginal means and contrasts were calculated using the `emmeans` function from the `emmeans` package [@emmeanscit].
 
 ```{r tab-stim-cont-emms, message = FALSE, warning = FALSE, cache = TRUE}
-# Compute estimated marginal means (EMMs) for Stimuli Sex by Stimuli Content & Gender
-emms.stim_cont <- emmeans(m_stim_cont, pairwise ~ `Stimuli sex` | `Stimuli content` + Gender,
+# Compute estimated marginal means (EMMs) for Stimuli Gender by Stimuli Content & Gender
+emms.stim_cont <- emmeans(m_stim_cont, pairwise ~ `Stimuli gender` | `Stimuli content` + Gender,
   adjust = "bonferroni", # Apply Bonferroni correction for multiple comparisons
   lmer.df = "satterthwaite" # Use Satterthwaite approximation for degrees of freedom
 )
@@ -2111,7 +2111,7 @@ emms.stim_cont.tab <- tibble(data.frame(emms.stim_cont$emmeans)) |>
   rename(
     "Subjective sexual arousal" = emmean,
     "Stimuli content" = Stimuli.content,
-    "Stimuli sex" = Stimuli.sex
+    "Stimuli gender" = Stimuli.gender
   )
 
 # Compute post-hoc contrasts and format p-values
@@ -2128,7 +2128,7 @@ t.stim_cont.f <- t.stim_cont |>
 # Merge EMM and contrast results, clean column names, and format output
 merge(emms.stim_cont.tab, t.stim_cont.f, by = 0, all = TRUE) |>
   select(-c(1, 3, 4, 12, 13, 19)) |> # Remove unnecessary columns
-  drop_na("Stimuli sex") |> # Ensure Stimuli sex column is complete
+  drop_na("Stimuli gender") |> # Ensure Stimuli gender column is complete
   unite(Contrast, group1, group2, sep = " - ") |> # Create contrast labels
   mutate_at("Contrast", str_replace_all, "NA - NA", " ") |> # Replace missing contrasts
   mutate(across(c(df.x, df.y), as.character)) |> # Convert df columns to character
@@ -2142,7 +2142,7 @@ merge(emms.stim_cont.tab, t.stim_cont.f, by = 0, all = TRUE) |>
     desire by relationship status",
     escape = FALSE,
     col.names = c(
-      "Stimuli sex", "EMM", "$SE$", "$df$", "$2.5\\% CI$", "$97.5\\% CI$",
+      "Stimuli gender", "EMM", "$SE$", "$df$", "$2.5\\% CI$", "$97.5\\% CI$",
       "Contrast", "Difference", "$SE$", "$df$", "$z$", "$p$"
     )
   ) |>
@@ -2183,8 +2183,8 @@ This figure summarizes the results of the model to determine whether the effects
 ```{r fig-m-stimuli-content, results = "hold", fig.height = 4, fig.width = 8, fig.cap = "Effects of stimuli content (erotic, non-erotic) on subjective sexual arousal for women's (left panel) and men's (right panel) scores of male and female stimuli (see Table \\@ref(tab:tab-m-stimuli-content); for detailed results, see Table \\@ref(tab:tab-stim-cont-emms)). Dots and bars represent estimated marginal means and 95% CI. Vertical lines with arrow heads represent the (absolute) difference in reported subjective sexual arousal for male and femnale stimuli, by stimuli content and gender. In all cases, significant effects are represented with lines and stars: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
 # Prepare data for vertical comparison lines between Male and Female
 diff_data <- emms.stim_cont.tab |>
-  select(`Stimuli sex`, Gender, `Stimuli content`, `Subjective sexual arousal`) |>
-  pivot_wider(names_from = `Stimuli sex`, values_from = `Subjective sexual arousal`) |>
+  select(`Stimuli gender`, Gender, `Stimuli content`, `Subjective sexual arousal`) |>
+  pivot_wider(names_from = `Stimuli gender`, values_from = `Subjective sexual arousal`) |>
   mutate(
     ymin = Male, # Start of line at Male's mean arousal
     ymax = Female # End of line at Female's mean arousal
@@ -2199,7 +2199,7 @@ diff_data <- emms.stim_cont.tab |>
 
 # Create the plot
 ggplot(emms.stim_cont.tab, aes(
-  x = `Stimuli sex`, y = `Subjective sexual arousal`,
+  x = `Stimuli gender`, y = `Subjective sexual arousal`,
   color = `Stimuli content`
 )) +
   # Separate plots for each Gender
@@ -2274,7 +2274,7 @@ We tested whether the relationship between SSA and TSD varies across the three d
 * **H2b**: A significant association between dyadic TSD toward an attractive person and SSA toward erotic stimuli.
 * **H2c**: No significant association between dyadic TSD toward a partner and SSA toward erotic stimuli.
 
-To examine this hypothesis, we modeled the effects of each of the three TSD dimension scores, gender, stimulus sex, and their interactions, on SSA. We included random intercepts for each stimulus, as well as random intercepts and slopes between stimuli sex for each participant. 
+To examine this hypothesis, we modeled the effects of each of the three TSD dimension scores, gender, stimulus gender, and their interactions, on SSA. We included random intercepts for each stimulus, as well as random intercepts and slopes between stimuli gender for each participant. 
 
 ### Modeling Approach
 
@@ -2288,7 +2288,7 @@ The results across these models were largely consistent, indicating robustness i
 
 ### Data
 
-We created a new dataset by selecting only responses to erotic stimuli, renaming key variables to remove spaces for compatibility with certain functions, and converting relevant variables to factors. Specifically, the Gender and Stimuli sex variables are transformed into factors, and a factor version of Subjective sexual arousal is created for use in the CLMM model. 
+We created a new dataset by selecting only responses to erotic stimuli, renaming key variables to remove spaces for compatibility with certain functions, and converting relevant variables to factors. Specifically, the Gender and Stimuli gender variables are transformed into factors, and a factor version of Subjective sexual arousal is created for use in the CLMM model. 
 
 ```{r message = FALSE, warning = FALSE}
 # Filter dataset to include only responses to erotic stimuli
@@ -2300,13 +2300,13 @@ dat_m2 <- dat |>
     Solitary.TSD = `Solitary sexual desire`,
     Dyadic.TSD.Attractive.Person = `Dyadic sexual desire (Attractive person)`,
     Dyadic.TSD.Partner = `Dyadic sexual desire (Partner)`,
-    Stimuli.sex = `Stimuli sex`,
+    Stimuli.gender = `Stimuli gender`,
     Stimuli.code = `Stimuli code`
   ) |>
   # Convert categorical variables to factors
   mutate(
     Gender = as.factor(Gender), # Convert Gender to factor
-    Stimuli.sex = as.factor(Stimuli.sex), # Convert Stimuli sex to factor
+    Stimuli.gender = as.factor(Stimuli.gender), # Convert Stimuli gender to factor
     # Create a factor version of SSA for use in the CLMM model
     Subjective.sexual.arousal.factor = as.factor(Subjective.sexual.arousal)
   )
@@ -2314,9 +2314,9 @@ dat_m2 <- dat |>
 
 ### Hypothesis 2a: Solitary TSD {#hyp2a}
 
-#### Model Robustness: Examining the Effects of Solitary TSD on SSA Across Gender and Stimuli Sex
+#### Model Robustness: Examining the Effects of Solitary TSD on SSA Across Gender and Stimuli Gender
 
-To assess the robustness of our findings, we fitted three different models examining how Solitary TSD predicts SSA, considering variations by gender and stimuli sex:
+To assess the robustness of our findings, we fitted three different models examining how Solitary TSD predicts SSA, considering variations by gender and stimuli gender:
 
 1. Cumulative Link Mixed Model (CLMM) – `m2a_clmm` (for ordinal outcomes, using a probit link).
 2. Generalized Linear Mixed Model (GLMM) with Poisson family – `m2a_poisson` (treating SSA as a count variable).
@@ -2324,13 +2324,13 @@ To assess the robustness of our findings, we fitted three different models exami
 
 ```{r cache = TRUE, message = FALSE, warning = FALSE}
 # Fit three different models to examine how Dyadic TSD Partner predicts SSA
-# Each model considers variations by Gender and Stimuli Sex
+# Each model considers variations by Gender and Stimuli Gender
 
 # (1) Cumulative Link Mixed Model (CLMM) - Ordinal outcome with probit link
 m2a_clmm <- clmm(
-  Subjective.sexual.arousal.factor ~ Solitary.TSD * Gender * Stimuli.sex +
+  Subjective.sexual.arousal.factor ~ Solitary.TSD * Gender * Stimuli.gender +
     (1 | Stimuli.code) + # Random intercept for Stimuli
-    (1 + Stimuli.sex | Participant), # Random intercept & slope for Stimuli sex
+    (1 + Stimuli.gender | Participant), # Random intercept & slope for Stimuli gender
   data = dat_m2,
   link = "probit", # Use probit link function for ordinal regression
   control = list(method = "nlminb") # Use 'nlminb' optimizer for better convergence
@@ -2338,18 +2338,18 @@ m2a_clmm <- clmm(
 
 # (2) Generalized Linear Mixed Model (GLMM) - Poisson regression for count data
 m2a_poisson <- glmer(
-  Subjective.sexual.arousal ~ Solitary.TSD * Gender * Stimuli.sex +
+  Subjective.sexual.arousal ~ Solitary.TSD * Gender * Stimuli.gender +
     (1 | Stimuli.code) + # Random intercept for Stimuli
-    (1 + Stimuli.sex | Participant), # Random intercept & slope for Stimuli sex
+    (1 + Stimuli.gender | Participant), # Random intercept & slope for Stimuli gender
   data = dat_m2,
   family = poisson # Poisson distribution for count data
 )
 
 # (3) Linear Mixed Model (LMM) - Continuous approximation
 m2a_lmer <- lmer(
-  Subjective.sexual.arousal ~ Solitary.TSD * Gender * Stimuli.sex +
+  Subjective.sexual.arousal ~ Solitary.TSD * Gender * Stimuli.gender +
     (1 | Stimuli.code) + # Random intercept for Stimuli
-    (1 + Stimuli.sex | Participant), # Random intercept & slope for Stimuli sex
+    (1 + Stimuli.gender | Participant), # Random intercept & slope for Stimuli gender
   data = dat_m2,
   control = lmerControl(optimizer = "bobyqa") # Use 'bobyqa' optimizer for stability
 )
@@ -2374,21 +2374,21 @@ anova.comp(
 
 ##### Figure \@ref(fig:preds-m2a): Model-based predictions for Hypothesis 2a.
 
-This figure presents model-based predictions of subjective sexual arousal as a function of  Solitary TSD, across different stimulus sexes and participant genders. The three subplots correspond to the three statistical models used for analysis: (a) Cumulative Link Mixed Model (CLMM), (b) Generalized Linear Mixed Model (GLMM, Poisson), and (c) Linear Mixed Model (LMM). Shaded areas represent 95% confidence intervals.
+This figure presents model-based predictions of subjective sexual arousal as a function of  Solitary TSD, across different stimulus genderes and participant genders. The three subplots correspond to the three statistical models used for analysis: (a) Cumulative Link Mixed Model (CLMM), (b) Generalized Linear Mixed Model (GLMM, Poisson), and (c) Linear Mixed Model (LMM). Shaded areas represent 95% confidence intervals.
 
-```{r preds-m2a, cache = TRUE, message = FALSE, fig.height = 6, fig.cap = "Predicted subjective sexual arousal as a function of  Solitary TSD, modeled using three statistical approaches: **(a)** Cumulative Link Mixed Model (CLMM); **(b)** Generalized Linear Mixed Model (GLMM) with a Poisson family; **(c)** Linear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95% confidence intervals. The models include participant gender and stimulus sex as key factors."}
-# CLMM Predictions: Subjective Sexual Arousal ~ Solitary TSD | Gender * Stimuli Sex
-p_m2a_clmm <- emmeans(m2a_clmm, ~ Solitary.TSD | Gender * Stimuli.sex,
+```{r preds-m2a, cache = TRUE, message = FALSE, fig.height = 6, fig.cap = "Predicted subjective sexual arousal as a function of  Solitary TSD, modeled using three statistical approaches: **(a)** Cumulative Link Mixed Model (CLMM); **(b)** Generalized Linear Mixed Model (GLMM) with a Poisson family; **(c)** Linear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95% confidence intervals. The models include participant gender and stimulus gender as key factors."}
+# CLMM Predictions: Subjective Sexual Arousal ~ Solitary TSD | Gender * Stimuli Gender
+p_m2a_clmm <- emmeans(m2a_clmm, ~ Solitary.TSD | Gender * Stimuli.gender,
   at = list(Solitary.TSD = seq(0, 31, length.out = 100)), # Predict over range of TSD
   mode = "mean.class" # Compute predicted mean response categories
 ) |>
   as.data.frame() |> # Convert predictions to dataframe
   ggplot(aes(
     x = Solitary.TSD, y = mean.class,
-    color = Stimuli.sex, fill = Stimuli.sex
+    color = Stimuli.gender, fill = Stimuli.gender
   )) +
   geom_line(size = 1) + # Add prediction lines
-  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, fill = Stimuli.sex),
+  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, fill = Stimuli.gender),
     alpha = 0.2, color = NA
   ) + # Add confidence interval shading
   scale_color_manual(values = color.StimuliSex) +
@@ -2396,24 +2396,24 @@ p_m2a_clmm <- emmeans(m2a_clmm, ~ Solitary.TSD | Gender * Stimuli.sex,
   facet_wrap(~Gender, ncol = 1) + # Separate plots by Gender
   labs(
     y = "Predicted SSA", x = "Solitary TSD", title = "CLMM",
-    color = "Stimuli Sex", fill = "Stimuli Sex"
+    color = "Stimuli Gender", fill = "Stimuli Gender"
   ) +
   theme_tq() +
   theme(legend.position = "bottom") +
   ylim(c(0.3, 5.3)) # Set Y-axis limits
 
 # Poisson GLMM Predictions
-p_m2a_poisson <- emmeans(m2a_poisson, ~ Solitary.TSD | Gender * Stimuli.sex,
+p_m2a_poisson <- emmeans(m2a_poisson, ~ Solitary.TSD | Gender * Stimuli.gender,
   at = list(Solitary.TSD = seq(0, 31, length.out = 100)),
   type = "response" # Compute response-scale predictions
 ) |>
   as.data.frame() |>
   ggplot(aes(
     x = Solitary.TSD, y = rate,
-    color = Stimuli.sex, fill = Stimuli.sex
+    color = Stimuli.gender, fill = Stimuli.gender
   )) +
   geom_line(size = 1) +
-  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, fill = Stimuli.sex),
+  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, fill = Stimuli.gender),
     alpha = 0.2, color = NA
   ) +
   scale_color_manual(values = color.StimuliSex) +
@@ -2421,24 +2421,24 @@ p_m2a_poisson <- emmeans(m2a_poisson, ~ Solitary.TSD | Gender * Stimuli.sex,
   facet_wrap(~Gender, ncol = 1) +
   labs(
     y = "", x = "Solitary TSD", title = "GLMER (Poisson)",
-    color = "Stimuli Sex", fill = "Stimuli Sex"
+    color = "Stimuli Gender", fill = "Stimuli Gender"
   ) +
   theme_tq() +
   theme(legend.position = "bottom") +
   ylim(c(0.3, 5.3))
 
 # LMM Predictions
-p_m2a_lmer <- emmeans(m2a_lmer, ~ Solitary.TSD | Gender * Stimuli.sex,
+p_m2a_lmer <- emmeans(m2a_lmer, ~ Solitary.TSD | Gender * Stimuli.gender,
   at = list(Solitary.TSD = seq(0, 31, length.out = 100)),
   type = "response"
 ) |>
   as.data.frame() |>
   ggplot(aes(
     x = Solitary.TSD, y = emmean,
-    color = Stimuli.sex, fill = Stimuli.sex
+    color = Stimuli.gender, fill = Stimuli.gender
   )) +
   geom_line(size = 1) +
-  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, fill = Stimuli.sex),
+  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, fill = Stimuli.gender),
     alpha = 0.2, color = NA
   ) +
   scale_color_manual(values = color.StimuliSex) +
@@ -2446,7 +2446,7 @@ p_m2a_lmer <- emmeans(m2a_lmer, ~ Solitary.TSD | Gender * Stimuli.sex,
   facet_wrap(~Gender, ncol = 1) +
   labs(
     y = "", x = "Solitary TSD", title = "LMM",
-    color = "Stimuli Sex", fill = "Stimuli Sex"
+    color = "Stimuli Gender", fill = "Stimuli Gender"
   ) +
   theme_tq() +
   theme(legend.position = "bottom") +
@@ -2464,7 +2464,7 @@ p_robu_m2a <- ggarrange(p_m2a_clmm, p_m2a_poisson, p_m2a_lmer,
 p_robu_m2a
 ```
 
-#### Final Model: Effects of Solitary TSD on SSA Across Gender and Stimuli Sex
+#### Final Model: Effects of Solitary TSD on SSA Across Gender and Stimuli Gender
 
 Given the apparent robustness of most results across models (CLMM, GLMER and LMM; Table \@ref(tab:tab-robu-m2a), Fig. \@ref(fig:preds-m2a)), we test the predictions of the hypothesis from the LMM (`m2a_lmer`).
 
@@ -2474,23 +2474,23 @@ This tables summarizes the results of the model.
 
 ```{r tab-m2a}
 # Generate ANOVA-type table for the final LMM model
-# This summarizes the effects of Solitary TSD on SSA across Gender and Stimuli Sex
+# This summarizes the effects of Solitary TSD on SSA across Gender and Stimuli Gender
 anova.sig.lmer(
   model = m2a_lmer, # Use LMM as the final model
-  custom_caption = "Effects of Solitary TSD on SSA Across Gender and Stimuli Sex"
+  custom_caption = "Effects of Solitary TSD on SSA Across Gender and Stimuli Gender"
 )
 ```
 
 ##### *Post-hoc* tests
 
-To test the hypothesis, which predicted that there would be different relationship between SSA and solitary TSD, and that this association differ between men and women depending on the sex of stimuli, we used simple slope analysis.
+To test the hypothesis, which predicted that there would be different relationship between SSA and solitary TSD, and that this association differ between men and women depending on the gender of stimuli, we used simple slope analysis.
 
 ```{r cache = TRUE, warning = FALSE, message = FALSE}
 # Perform simple slopes analysis for Solitary TSD on SSA
-# Moderators: Stimuli Sex & Gender
+# Moderators: Stimuli Gender & Gender
 slop.m2a_lmer <- sim_slopes(m2a_lmer,
   pred = Solitary.TSD, # Predictor: Solitary TSD
-  modx = Stimuli.sex, # First moderator: Stimuli sex
+  modx = Stimuli.gender, # First moderator: Stimuli gender
   mod2 = Gender, # Second moderator: Gender
   confint = TRUE # Compute confidence intervals
 )
@@ -2507,7 +2507,7 @@ slop.m2a_lmer.tab <- bind_rows(
   mutate(across(3:7, as.numeric)) |>
   mutate(across(3:6, round, 2)) |> # Round confidence intervals
   mutate(sig = pval.stars(p)) |> # Convert p-values to significance stars
-  rename("Stimuli.sex" = "Value of Stimuli.sex") |>
+  rename("Stimuli.gender" = "Value of Stimuli.gender") |>
   rename(Coefficient = Est.)
 
 # Format the table output
@@ -2516,8 +2516,8 @@ slop.m2a_lmer.tab[, -c(1, 8)] |>
   kable(
     booktabs = TRUE, align = c("l", rep("c", 5)), 
     linesep = "",
-    caption = "Slope for Solitary TSD on Subjective Sexual Arousal by Stimuli Sex and Gender",
-    col.names = c("Stimuli sex", "$B$", "$2.5\\% CI$", "$97.5\\% CI$", "$t$", "$p$"),
+    caption = "Slope for Solitary TSD on Subjective Sexual Arousal by Stimuli Gender and Gender",
+    col.names = c("Stimuli gender", "$B$", "$2.5\\% CI$", "$97.5\\% CI$", "$t$", "$p$"),
     escape = FALSE
   ) |>
   kable_styling(latex_options = c("HOLD_position")) |>
@@ -2539,7 +2539,7 @@ slop.m2a_lmer.tab[, -c(1, 8)] |>
 
 This figure summarizes the results of hypothesis 2a. 
 
-```{r fig-h2a, results = "hold", fig.height = 6, fig.cap = "Predicted subjective sexual arousal as a function of Solitary TSD, modeled using aLinear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95% confidence intervals. The model include participant gender and stimuli sex as key factors.", warning = FALSE, message = FALSE}
+```{r fig-h2a, results = "hold", fig.height = 6, fig.cap = "Predicted subjective sexual arousal as a function of Solitary TSD, modeled using aLinear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95% confidence intervals. The model include participant gender and stimuli gender as key factors.", warning = FALSE, message = FALSE}
 # Modify LMM plot to visualize main effects & interactions
 p_m2a.fin <- p_m2a_lmer +
   labs(
@@ -2561,7 +2561,7 @@ p_m2a.fin <- p_m2a_lmer +
         ),
         ifelse(is.na(sig), "", sig)
       ),
-      vjust = 2 + as.numeric(as.factor(Stimuli.sex)) * 2 # Stack labels
+      vjust = 2 + as.numeric(as.factor(Stimuli.gender)) * 2 # Stack labels
     ),
     hjust = -0.1, # Align text to the left
     show.legend = FALSE
@@ -2574,9 +2574,9 @@ p_m2a.fin
 
 ### Hypothesis 2b: Dyadic TSD Attractive Person {#hyp2b}
 
-#### Model Robustness: Examining the Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Sex
+#### Model Robustness: Examining the Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Gender
 
-To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Attractive Person predicts SSA, considering variations by gender and stimuli sex:
+To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Attractive Person predicts SSA, considering variations by gender and stimuli gender:
 
 1. Cumulative Link Mixed Model (CLMM) – `m2b_clmm` (for ordinal outcomes, using a probit link).
 2. Generalized Linear Mixed Model (GLMM) with Poisson family – `m2b_poisson` (treating SSA as a count variable).
@@ -2584,13 +2584,13 @@ To assess the robustness of our findings, we fitted three different models exami
 
 ```{r cache = TRUE, message = FALSE, warning = FALSE}
 # Fit three different models to examine how Dyadic TSD Partner predicts SSA
-# Each model considers variations by Gender and Stimuli Sex
+# Each model considers variations by Gender and Stimuli Gender
 
 # (1) Cumulative Link Mixed Model (CLMM) - Ordinal outcome with probit link
 m2b_clmm <- clmm(
-  Subjective.sexual.arousal.factor ~ Dyadic.TSD.Attractive.Person * Gender * Stimuli.sex +
+  Subjective.sexual.arousal.factor ~ Dyadic.TSD.Attractive.Person * Gender * Stimuli.gender +
     (1 | Stimuli.code) + # Random intercept for Stimuli
-    (1 + Stimuli.sex | Participant), # Random intercept & slope for Stimuli sex
+    (1 + Stimuli.gender | Participant), # Random intercept & slope for Stimuli gender
   data = dat_m2,
   link = "probit", # Use probit link function
   control = list(method = "nlminb") # Use 'nlminb' optimizer for better convergence
@@ -2598,18 +2598,18 @@ m2b_clmm <- clmm(
 
 # (2) Generalized Linear Mixed Model (GLMM) - Poisson regression for count data
 m2b_poisson <- glmer(
-  Subjective.sexual.arousal ~ Dyadic.TSD.Attractive.Person * Gender * Stimuli.sex +
+  Subjective.sexual.arousal ~ Dyadic.TSD.Attractive.Person * Gender * Stimuli.gender +
     (1 | Stimuli.code) + # Random intercept for Stimuli
-    (1 + Stimuli.sex | Participant), # Random intercept & slope for Stimuli sex
+    (1 + Stimuli.gender | Participant), # Random intercept & slope for Stimuli gender
   data = dat_m2,
   family = poisson # Use Poisson distribution for count data
 )
 
 # (3) Linear Mixed Model (LMM) - Continuous approximation
 m2b_lmer <- lmer(
-  Subjective.sexual.arousal ~ Dyadic.TSD.Attractive.Person * Gender * Stimuli.sex +
+  Subjective.sexual.arousal ~ Dyadic.TSD.Attractive.Person * Gender * Stimuli.gender +
     (1 | Stimuli.code) + # Random intercept for Stimuli
-    (1 + Stimuli.sex | Participant), # Random intercept & slope for Stimuli sex
+    (1 + Stimuli.gender | Participant), # Random intercept & slope for Stimuli gender
   data = dat_m2,
   control = lmerControl(optimizer = "bobyqa") # Use 'bobyqa' optimizer for stability
 )
@@ -2634,21 +2634,21 @@ anova.comp(
 
 ##### Figure \@ref(fig:preds-m2b): Model-based predictions for Hypothesis 2b.
 
-This figure presents model-based predictions of subjective sexual arousal as a function of Dyadic TSD Attractive Person, across different stimulus sexes and participant genders. The three subplots correspond to the three statistical models used for analysis: (a) Cumulative Link Mixed Model (CLMM), (b) Generalized Linear Mixed Model (GLMM, Poisson), and (c) Linear Mixed Model (LMM). Shaded areas represent 95% confidence intervals.
+This figure presents model-based predictions of subjective sexual arousal as a function of Dyadic TSD Attractive Person, across different stimulus genderes and participant genders. The three subplots correspond to the three statistical models used for analysis: (a) Cumulative Link Mixed Model (CLMM), (b) Generalized Linear Mixed Model (GLMM, Poisson), and (c) Linear Mixed Model (LMM). Shaded areas represent 95% confidence intervals.
 
-```{r preds-m2b, cache = TRUE, message = FALSE, fig.height = 6, fig.cap = "Predicted subjective sexual arousal as a function of Dyadic TSD Attractive Person, modeled using three statistical approaches: **(a)** Cumulative Link Mixed Model (CLMM); **(b)** Generalized Linear Mixed Model (GLMM) with a Poisson family; **(c)** Linear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95% confidence intervals. The models include participant gender and stimulus sex as key factors."}
+```{r preds-m2b, cache = TRUE, message = FALSE, fig.height = 6, fig.cap = "Predicted subjective sexual arousal as a function of Dyadic TSD Attractive Person, modeled using three statistical approaches: **(a)** Cumulative Link Mixed Model (CLMM); **(b)** Generalized Linear Mixed Model (GLMM) with a Poisson family; **(c)** Linear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95% confidence intervals. The models include participant gender and stimulus gender as key factors."}
 # CLMM Predictions
-p_m2b_clmm <- emmeans(m2b_clmm, ~ Dyadic.TSD.Attractive.Person | Gender * Stimuli.sex,
+p_m2b_clmm <- emmeans(m2b_clmm, ~ Dyadic.TSD.Attractive.Person | Gender * Stimuli.gender,
   at = list(Dyadic.TSD.Attractive.Person = seq(0, 31, length.out = 100)),
   mode = "mean.class" # Compute predicted mean response categories
 ) |>
   as.data.frame() |> # Convert to dataframe for ggplot
   ggplot(aes(
     x = Dyadic.TSD.Attractive.Person, y = mean.class,
-    color = Stimuli.sex, fill = Stimuli.sex
+    color = Stimuli.gender, fill = Stimuli.gender
   )) +
   geom_line(size = 1) + # Add predicted response line
-  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, fill = Stimuli.sex),
+  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, fill = Stimuli.gender),
     alpha = 0.2, color = NA
   ) + # Add confidence interval as shaded ribbon
   scale_color_manual(values = color.StimuliSex) +
@@ -2657,24 +2657,24 @@ p_m2b_clmm <- emmeans(m2b_clmm, ~ Dyadic.TSD.Attractive.Person | Gender * Stimul
   labs(
     y = "Predicted Subjective Sexual Arousal",
     x = "Dyadic TSD Attractive Person",
-    title = "CLMM", color = "Stimuli Sex", fill = "Stimuli Sex"
+    title = "CLMM", color = "Stimuli Gender", fill = "Stimuli Gender"
   ) +
   theme_tq() +
   theme(legend.position = "bottom") +
   ylim(c(0.3, 6.5)) # Set Y-axis limits
 
 # Poisson GLMM Predictions
-p_m2b_poisson <- emmeans(m2b_poisson, ~ Dyadic.TSD.Attractive.Person | Gender * Stimuli.sex,
+p_m2b_poisson <- emmeans(m2b_poisson, ~ Dyadic.TSD.Attractive.Person | Gender * Stimuli.gender,
   at = list(Dyadic.TSD.Attractive.Person = seq(0, 31, length.out = 100)),
   type = "response" # Compute response-scale predictions
 ) |>
   as.data.frame() |>
   ggplot(aes(
     x = Dyadic.TSD.Attractive.Person, y = rate,
-    color = Stimuli.sex, fill = Stimuli.sex
+    color = Stimuli.gender, fill = Stimuli.gender
   )) +
   geom_line(size = 1) +
-  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, fill = Stimuli.sex),
+  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, fill = Stimuli.gender),
     alpha = 0.2, color = NA
   ) +
   scale_color_manual(values = color.StimuliSex) +
@@ -2682,24 +2682,24 @@ p_m2b_poisson <- emmeans(m2b_poisson, ~ Dyadic.TSD.Attractive.Person | Gender * 
   facet_wrap(~Gender, ncol = 1) +
   labs(
     y = "", x = "Dyadic TSD Attractive Person",
-    title = "GLMER (Poisson)", color = "Stimuli Sex", fill = "Stimuli Sex"
+    title = "GLMER (Poisson)", color = "Stimuli Gender", fill = "Stimuli Gender"
   ) +
   theme_tq() +
   theme(legend.position = "bottom") +
   ylim(c(0.3, 6.5))
 
 # LMM Predictions
-p_m2b_lmer <- emmeans(m2b_lmer, ~ Dyadic.TSD.Attractive.Person | Gender * Stimuli.sex,
+p_m2b_lmer <- emmeans(m2b_lmer, ~ Dyadic.TSD.Attractive.Person | Gender * Stimuli.gender,
   at = list(Dyadic.TSD.Attractive.Person = seq(0, 31, length.out = 100)),
   type = "response"
 ) |>
   as.data.frame() |>
   ggplot(aes(
     x = Dyadic.TSD.Attractive.Person, y = emmean,
-    color = Stimuli.sex, fill = Stimuli.sex
+    color = Stimuli.gender, fill = Stimuli.gender
   )) +
   geom_line(size = 1) +
-  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, fill = Stimuli.sex),
+  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, fill = Stimuli.gender),
     alpha = 0.2, color = NA
   ) +
   scale_color_manual(values = color.StimuliSex) +
@@ -2707,7 +2707,7 @@ p_m2b_lmer <- emmeans(m2b_lmer, ~ Dyadic.TSD.Attractive.Person | Gender * Stimul
   facet_wrap(~Gender, ncol = 1) +
   labs(
     y = "", x = "Dyadic TSD Attractive Person",
-    title = "LMM", color = "Stimuli Sex", fill = "Stimuli Sex"
+    title = "LMM", color = "Stimuli Gender", fill = "Stimuli Gender"
   ) +
   theme_tq() +
   theme(legend.position = "bottom") +
@@ -2726,7 +2726,7 @@ p_robu_m2b <- ggarrange(
 p_robu_m2b
 ```
 
-#### Final Model: Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Sex
+#### Final Model: Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Gender
 
 Given the apparent robustness of most results across models (CLMM, GLMER and LMM; Table \@ref(tab:tab-robu-m2b), Fig. \@ref(fig:preds-m2b)), we test the predictions of the hypothesis from the LMM (`m2b_lmer`).
 
@@ -2736,25 +2736,25 @@ This tables summarizes the results of the model.
 
 ```{r tab-m2b}
 # Generate ANOVA-type table for the final LMM model
-# Summarizes the effects of Dyadic TSD Attractive Person on SSA across Gender and Stimuli Sex
+# Summarizes the effects of Dyadic TSD Attractive Person on SSA across Gender and Stimuli Gender
 anova.sig.lmer(
   model = m2b_lmer, # Use LMM as the final model
   custom_caption = "Effects of Dyadic TSD Attractive Person on SSA 
-  Across Gender and Stimuli Sex"
+  Across Gender and Stimuli Gender"
 )
 ```
 
 ##### *Post-hoc* tests
 
-To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Attractive Person, and that this association differ between men and women depending on the sex of stimuli, we used simple slope analysis.
+To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Attractive Person, and that this association differ between men and women depending on the gender of stimuli, we used simple slope analysis.
 
 ```{r cache = TRUE, warning = FALSE, message = FALSE}
 # Perform simple slope analysis for Dyadic TSD Attractive Person on SSA
-# This examines differences by stimuli sex and participant gender
+# This examines differences by stimuli gender and participant gender
 slop.m2b_lmer <- sim_slopes(
   m2b_lmer,
   pred = Dyadic.TSD.Attractive.Person, # Predictor: Dyadic TSD Attractive Person
-  modx = Stimuli.sex, # Moderator: Stimuli sex
+  modx = Stimuli.gender, # Moderator: Stimuli gender
   mod2 = Gender, # Second moderator: Gender
   confint = TRUE # Compute confidence intervals
 )
@@ -2769,7 +2769,7 @@ slop.m2b_lmer.tab <- bind_rows(
   mutate(across(3:7, as.numeric)) |>
   mutate(across(3:6, round, 2)) |>
   mutate(sig = pval.stars(p)) |>
-  rename("Stimuli.sex" = "Value of Stimuli.sex", Coefficient = Est.)
+  rename("Stimuli.gender" = "Value of Stimuli.gender", Coefficient = Est.)
 
 # Generate formatted table for slopes of Dyadic TSD Attractive Person on SSA
 slop.m2b_lmer.tab[, -c(1, 8)] |>
@@ -2777,9 +2777,9 @@ slop.m2b_lmer.tab[, -c(1, 8)] |>
   kable(
     booktabs = TRUE,
     align = c("l", rep("c", 5)),
-    caption = "Slope for Dyadic TSD Attractive Person on SSA by stimuli sex and gender",
+    caption = "Slope for Dyadic TSD Attractive Person on SSA by stimuli gender and gender",
     linesep = "",
-    col.names = c("Stimuli sex", "$B$", "$2.5\\% CI$", "$97.5\\% CI$", "$t$", "$p$"),
+    col.names = c("Stimuli gender", "$B$", "$2.5\\% CI$", "$97.5\\% CI$", "$t$", "$p$"),
     escape = FALSE
   ) |>
   kable_styling(latex_options = c("HOLD_position")) |>
@@ -2804,9 +2804,9 @@ slop.m2b_lmer.tab[, -c(1, 8)] |>
 
 This figure summarizes the results of hypothesis 2b. 
 
-```{r fig-h2b, results = "hold", fig.height = 6, fig.cap = "Predicted subjective sexual arousal as a function of Dyadic TSD Partner, modeled using aLinear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95% confidence intervals. The model include participant gender and stimuli sex as key factors.", warning = FALSE, message = FALSE}
+```{r fig-h2b, results = "hold", fig.height = 6, fig.cap = "Predicted subjective sexual arousal as a function of Dyadic TSD Partner, modeled using aLinear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95% confidence intervals. The model include participant gender and stimuli gender as key factors.", warning = FALSE, message = FALSE}
 # Generate the final figure for Hypothesis 2b
-# Visualizes the effects of Dyadic TSD Attractive Person on SSA across Gender and Stimuli Sex
+# Visualizes the effects of Dyadic TSD Attractive Person on SSA across Gender and Stimuli Gender
 p_m2b.fin <- p_m2b_lmer +
   labs(
     title = "",
@@ -2823,7 +2823,7 @@ p_m2b.fin <- p_m2b_lmer +
         ifelse(grepl("<", pe2.lev(p)), pe2.lev(p), paste0(" = ", pe2.lev(p))),
         ifelse(is.na(sig), "", sig)
       ),
-      vjust = 2 + as.numeric(as.factor(Stimuli.sex)) * 2 # Adjust vertical positioning
+      vjust = 2 + as.numeric(as.factor(Stimuli.gender)) * 2 # Adjust vertical positioning
     ),
     hjust = -0.1, # Align text to the left
     show.legend = FALSE # Remove legends from text annotations
@@ -2836,9 +2836,9 @@ p_m2b.fin
 
 ### Hypothesis 2c: Dyadic TSD Partner {#hyp2c}
 
-#### Model Robustness: Examining the Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Sex
+#### Model Robustness: Examining the Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Gender
 
-To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Partner predicts SSA, considering variations by gender and stimuli sex:
+To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Partner predicts SSA, considering variations by gender and stimuli gender:
 
 1. Cumulative Link Mixed Model (CLMM) – `m2c_clmm` (for ordinal outcomes, using a probit link).
 2. Generalized Linear Mixed Model (GLMM) with Poisson family – `m2c_poisson` (treating SSA as a count variable).
@@ -2846,13 +2846,13 @@ To assess the robustness of our findings, we fitted three different models exami
 
 ```{r cache = TRUE, message = FALSE, warning = FALSE}
 # Fit three different models to examine how Dyadic TSD Partner predicts SSA
-# Each model considers variations by Gender and Stimuli Sex
+# Each model considers variations by Gender and Stimuli Gender
 
 # (1) Cumulative Link Mixed Model (CLMM) - Ordinal outcome with probit link
 m2c_clmm <- clmm(
-  Subjective.sexual.arousal.factor ~ Dyadic.TSD.Partner * Gender * Stimuli.sex +
+  Subjective.sexual.arousal.factor ~ Dyadic.TSD.Partner * Gender * Stimuli.gender +
     (1 | Stimuli.code) + # Random intercept for Stimuli
-    (1 + Stimuli.sex | Participant), # Random intercept & slope for Stimuli sex
+    (1 + Stimuli.gender | Participant), # Random intercept & slope for Stimuli gender
   data = dat_m2,
   link = "probit",
   control = list(method = "nlminb") # Use 'nlminb' optimizer for better convergence
@@ -2860,18 +2860,18 @@ m2c_clmm <- clmm(
 
 # (2) Generalized Linear Mixed Model (GLMM) - Poisson regression for count data
 m2c_poisson <- glmer(
-  Subjective.sexual.arousal ~ Dyadic.TSD.Partner * Gender * Stimuli.sex +
+  Subjective.sexual.arousal ~ Dyadic.TSD.Partner * Gender * Stimuli.gender +
     (1 | Stimuli.code) + # Random intercept for Stimuli
-    (1 + Stimuli.sex | Participant), # Random intercept & slope for Stimuli sex
+    (1 + Stimuli.gender | Participant), # Random intercept & slope for Stimuli gender
   data = dat_m2,
   family = poisson # Poisson distribution for count data
 )
 
 # (3) Linear Mixed Model (LMM) - Continuous approximation
 m2c_lmer <- lmer(
-  Subjective.sexual.arousal ~ Dyadic.TSD.Partner * Gender * Stimuli.sex +
+  Subjective.sexual.arousal ~ Dyadic.TSD.Partner * Gender * Stimuli.gender +
     (1 | Stimuli.code) + # Random intercept for Stimuli
-    (1 + Stimuli.sex | Participant), # Random intercept & slope for Stimuli sex
+    (1 + Stimuli.gender | Participant), # Random intercept & slope for Stimuli gender
   data = dat_m2,
   control = lmerControl(optimizer = "bobyqa") # Use 'bobyqa' optimizer for stability
 )
@@ -2894,21 +2894,21 @@ anova.comp(
 
 ##### Figure \@ref(fig:preds-m2c): Model-based predictions for Hypothesis 2c.
 
-This figure presents model-based predictions of subjective sexual arousal as a function of Dyadic TSD Partner, across different stimulus sexes and participant genders. The three subplots correspond to the three statistical models used for analysis: (a) Cumulative Link Mixed Model (CLMM), (b) Generalized Linear Mixed Model (GLMM, Poisson), and (c) Linear Mixed Model (LMM). Shaded areas represent 95% confidence intervals.
+This figure presents model-based predictions of subjective sexual arousal as a function of Dyadic TSD Partner, across different stimulus genderes and participant genders. The three subplots correspond to the three statistical models used for analysis: (a) Cumulative Link Mixed Model (CLMM), (b) Generalized Linear Mixed Model (GLMM, Poisson), and (c) Linear Mixed Model (LMM). Shaded areas represent 95% confidence intervals.
 
-```{r preds-m2c, cache = TRUE, message = FALSE, fig.height = 6, fig.cap = "Predicted subjective sexual arousal as a function of Dyadic TSD Partner, modeled using three statistical approaches: **(a)** Cumulative Link Mixed Model (CLMM); **(b)** Generalized Linear Mixed Model (GLMM) with a Poisson family; **(c)** Linear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95% confidence intervals. The models include participant gender and stimulus sex as key factors."}
+```{r preds-m2c, cache = TRUE, message = FALSE, fig.height = 6, fig.cap = "Predicted subjective sexual arousal as a function of Dyadic TSD Partner, modeled using three statistical approaches: **(a)** Cumulative Link Mixed Model (CLMM); **(b)** Generalized Linear Mixed Model (GLMM) with a Poisson family; **(c)** Linear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95% confidence intervals. The models include participant gender and stimulus gender as key factors."}
 # Generate model-based predictions for Dyadic TSD Partner on SSA
 # across different statistical models (CLMM, GLMER, LMM)
 
 # CLMM Predictions
-p_m2c_clmm <- emmeans(m2c_clmm, ~ Dyadic.TSD.Partner | Gender * Stimuli.sex,
+p_m2c_clmm <- emmeans(m2c_clmm, ~ Dyadic.TSD.Partner | Gender * Stimuli.gender,
   at = list(Dyadic.TSD.Partner = seq(0, 31, length.out = 100)),
   mode = "mean.class"
 ) |>
   as.data.frame() |>
   ggplot(aes(
     x = Dyadic.TSD.Partner, y = mean.class,
-    color = Stimuli.sex, fill = Stimuli.sex
+    color = Stimuli.gender, fill = Stimuli.gender
   )) +
   geom_line(size = 1) +
   geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL), alpha = 0.2, color = NA) +
@@ -2919,21 +2919,21 @@ p_m2c_clmm <- emmeans(m2c_clmm, ~ Dyadic.TSD.Partner | Gender * Stimuli.sex,
     y = "Predicted Subjective Sexual Arousal",
     x = "Dyadic TSD Partner",
     title = "CLMM",
-    color = "Stimuli Sex", fill = "Stimuli Sex"
+    color = "Stimuli Gender", fill = "Stimuli Gender"
   ) +
   theme_tq() +
   theme(legend.position = "bottom") +
   ylim(c(0.3, 5.3))
 
 # Poisson GLMM Predictions
-p_m2c_poisson <- emmeans(m2c_poisson, ~ Dyadic.TSD.Partner | Gender * Stimuli.sex,
+p_m2c_poisson <- emmeans(m2c_poisson, ~ Dyadic.TSD.Partner | Gender * Stimuli.gender,
   at = list(Dyadic.TSD.Partner = seq(0, 31, length.out = 100)),
   type = "response"
 ) |>
   as.data.frame() |>
   ggplot(aes(
     x = Dyadic.TSD.Partner, y = rate,
-    color = Stimuli.sex, fill = Stimuli.sex
+    color = Stimuli.gender, fill = Stimuli.gender
   )) +
   geom_line(size = 1) +
   geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL), alpha = 0.2, color = NA) +
@@ -2943,21 +2943,21 @@ p_m2c_poisson <- emmeans(m2c_poisson, ~ Dyadic.TSD.Partner | Gender * Stimuli.se
   labs(
     y = "", x = "Dyadic TSD Partner",
     title = "GLMER (Poisson)",
-    color = "Stimuli Sex", fill = "Stimuli Sex"
+    color = "Stimuli Gender", fill = "Stimuli Gender"
   ) +
   theme_tq() +
   theme(legend.position = "bottom") +
   ylim(c(0.3, 5.3))
 
 # LMM Predictions
-p_m2c_lmer <- emmeans(m2c_lmer, ~ Dyadic.TSD.Partner | Gender * Stimuli.sex,
+p_m2c_lmer <- emmeans(m2c_lmer, ~ Dyadic.TSD.Partner | Gender * Stimuli.gender,
   at = list(Dyadic.TSD.Partner = seq(0, 31, length.out = 100)),
   type = "response"
 ) |>
   as.data.frame() |>
   ggplot(aes(
     x = Dyadic.TSD.Partner, y = emmean,
-    color = Stimuli.sex, fill = Stimuli.sex
+    color = Stimuli.gender, fill = Stimuli.gender
   )) +
   geom_line(size = 1) +
   geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL), alpha = 0.2, color = NA) +
@@ -2967,7 +2967,7 @@ p_m2c_lmer <- emmeans(m2c_lmer, ~ Dyadic.TSD.Partner | Gender * Stimuli.sex,
   labs(
     y = "", x = "Dyadic TSD Partner",
     title = "LMM",
-    color = "Stimuli Sex", fill = "Stimuli Sex"
+    color = "Stimuli Gender", fill = "Stimuli Gender"
   ) +
   theme_tq() +
   theme(legend.position = "bottom") +
@@ -2982,7 +2982,7 @@ p_robu_m2c <- ggarrange(p_m2c_clmm, p_m2c_poisson, p_m2c_lmer,
 p_robu_m2c
 ```
 
-#### Final Model: Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Sex
+#### Final Model: Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Gender
 
 Given the apparent robustness of most results across models (CLMM, GLMER and LMM; Table \@ref(tab:tab-robu-m2c), Fig. \@ref(fig:preds-m2c)), we test the predictions of the hypothesis from the LMM (`m2c_lmer`).
 
@@ -2992,23 +2992,23 @@ This tables summarizes the results of the model.
 
 ```{r tab-m2c}
 # Generate ANOVA-type table for the final LMM model
-# This summarizes the effects of Dyadic TSD Partner on SSA across Gender and Stimuli Sex
+# This summarizes the effects of Dyadic TSD Partner on SSA across Gender and Stimuli Gender
 anova.sig.lmer(
   model = m2c_lmer, # Use LMM as the final model
-  custom_caption = "Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Sex"
+  custom_caption = "Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Gender"
 )
 ```
 
 ##### *Post-hoc* tests
 
-To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Partner, and that this association differ between men and women depending on the sex of stimuli, we used simple slope analysis.
+To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Partner, and that this association differ between men and women depending on the gender of stimuli, we used simple slope analysis.
 
 ```{r cache = TRUE, warning = FALSE, message = FALSE}
 # Perform simple slopes analysis for Dyadic TSD Partner on SSA
 slop.m2c_lmer <- sim_slopes(
   m2c_lmer,
   pred = Dyadic.TSD.Partner,
-  modx = Stimuli.sex,
+  modx = Stimuli.gender,
   mod2 = Gender,
   confint = TRUE
 )
@@ -3021,14 +3021,14 @@ slop.m2c_lmer.tab <- bind_rows(
   mutate(
     Gender = recode_factor(Gender, Femenino = "Women", Masculino = "Men")
   ) |>
-  select(Gender, `Value of Stimuli.sex`, Est., `2.5%`, `97.5%`, `t val.`, p) |>
+  select(Gender, `Value of Stimuli.gender`, Est., `2.5%`, `97.5%`, `t val.`, p) |>
   mutate(
     across(c(Est., `2.5%`, `97.5%`, `t val.`, p), as.numeric),
     across(c(Est., `2.5%`, `97.5%`, `t val.`), round, 2),
     sig = pval.stars(p)
   ) |>
   rename(
-    "Stimuli.sex" = `Value of Stimuli.sex`,
+    "Stimuli.gender" = `Value of Stimuli.gender`,
     "Coefficient" = Est.
   )
 
@@ -3039,10 +3039,10 @@ slop.m2c_lmer.tab[, -c(1, 8)] |>
     booktabs = TRUE,
     align = c("l", rep("c", 5)),
     caption = "Slope for Dyadic TSD Partner on Subjective sexual arousal by
-    stimuli sex and gender",
+    stimuli gender and gender",
     linesep = "",
     col.names = c(
-      "Stimuli sex", "$B$", "$2.5\\% CI$", "$97.5\\% CI$", "$t$", "$p$"
+      "Stimuli gender", "$B$", "$2.5\\% CI$", "$97.5\\% CI$", "$t$", "$p$"
     ),
     escape = FALSE
   ) |>
@@ -3070,7 +3070,7 @@ slop.m2c_lmer.tab[, -c(1, 8)] |>
 
 This figure summarizes the results of hypothesis 2c. 
 
-```{r fig-h2c, results = "hold", fig.height = 6, fig.cap = "Predicted subjective sexual arousal as a function of Dyadic TSD Partner, modeled using aLinear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95% confidence intervals. The model include participant gender and stimuli sex as key factors.", warning = FALSE, message = FALSE}
+```{r fig-h2c, results = "hold", fig.height = 6, fig.cap = "Predicted subjective sexual arousal as a function of Dyadic TSD Partner, modeled using aLinear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95% confidence intervals. The model include participant gender and stimuli gender as key factors.", warning = FALSE, message = FALSE}
 # Create the final plot for Dyadic TSD Partner on SSA
 p_m2c.fin <- p_m2c_lmer +
   labs(
@@ -3089,7 +3089,7 @@ p_m2c.fin <- p_m2c_lmer +
         "], p", ifelse(grepl("<", pe2.lev(p)), pe2.lev(p), paste0(" = ", pe2.lev(p))),
         ifelse(is.na(sig), "", sig)
       ),
-      vjust = 2 + as.numeric(as.factor(Stimuli.sex)) * 2 # Stacks labels properly
+      vjust = 2 + as.numeric(as.factor(Stimuli.gender)) * 2 # Stacks labels properly
     ),
     hjust = -0.1, # Align text to the left
     show.legend = FALSE
@@ -3102,13 +3102,13 @@ p_m2c.fin
 
 ## Hypothesis 3: The associations between TSD dimensions and SSA toward stimuli of self-reported preferred gender will be moderated by gender and relationship status. {#hyp3}
 
-We tested whether the relationship between SSA and TSD varies across the three dimensions of TSD and whether these associations differ between men and women depending on whether they were single or not, but only in responses toward stimuli of the preferred sex. This is a fully exploratory hypothesis, for which no directional predictions were made, beyond an interaction between the TSD dimension, gender, and relationship status. As with the case of Hypothesys 2 (section \@ref(hyp2)), fitted separate models for each TSD dimension:
+We tested whether the relationship between SSA and TSD varies across the three dimensions of TSD and whether these associations differ between men and women depending on whether they were single or not, but only in responses toward stimuli of the preferred gender. This is a fully exploratory hypothesis, for which no directional predictions were made, beyond an interaction between the TSD dimension, gender, and relationship status. As with the case of Hypothesys 2 (section \@ref(hyp2)), fitted separate models for each TSD dimension:
 
 * **H3a**: Solitary TSD and SSA
 * **H3b**: Dyadic TSD toward an attractive person
 * **H3c**: Dyadic TSD toward a partner
 
-To examine this hypothesis, we modeled the effects of each of the three TSD dimension scores, gender, relationship status, and their interactions, on SSA towars stimuli of the self-reported preferred sex. We included random intercepts for each stimulus, as well as random intercepts for each participant. 
+To examine this hypothesis, we modeled the effects of each of the three TSD dimension scores, gender, relationship status, and their interactions, on SSA towars stimuli of the self-reported preferred gender. We included random intercepts for each stimulus, as well as random intercepts for each participant. 
 
 ### Modeling Approach
 
@@ -3122,13 +3122,13 @@ The results across these models were largely consistent, indicating robustness i
 
 ### Data
 
-We created a new dataset by selecting, once again, only responses to erotic stimuli but this time also filtering only responses to stimuli of the peferred sex. We also renamed key variables to remove spaces for compatibility with certain functions, and created a factor version of Subjective sexual arousal for use in the CLMM model. 
+We created a new dataset by selecting, once again, only responses to erotic stimuli but this time also filtering only responses to stimuli of the preferred gender. We also renamed key variables to remove spaces for compatibility with certain functions, and created a factor version of Subjective sexual arousal for use in the CLMM model. 
 
 ```{r message = FALSE, warning = FALSE}
 # Filter dataset to include only responses to erotic stimuli
 dat_m3 <- dat |>
   filter(`Stimuli content` == "Erotic" &
-    `Stimuli sex` == `Preferred sex`) |>
+    `Stimuli gender` == `Preferred gender`) |>
   rename(
     Subjective.sexual.arousal = `Subjective sexual arousal`,
     Solitary.TSD = `Solitary sexual desire`,
@@ -3141,9 +3141,9 @@ dat_m3 <- dat |>
 
 ### Hypothesis 3a: Solitary TSD {#hyp3a}
 
-#### Model Robustness: Examining the Effects of Solitary TSD on SSA Across Gender and Stimuli Sex
+#### Model Robustness: Examining the Effects of Solitary TSD on SSA Across Gender and Stimuli Gender
 
-To assess the robustness of our findings, we fitted three different models examining how Solitary TSD predicts SSA, considering variations by gender and stimuli sex:
+To assess the robustness of our findings, we fitted three different models examining how Solitary TSD predicts SSA, considering variations by gender and stimuli gender:
 
 1. Cumulative Link Mixed Model (CLMM) – `m3a_clmm` (for ordinal outcomes, using a probit link).
 2. Generalized Linear Mixed Model (GLMM) with Poisson family – `m3a_poisson` (treating SSA as a count variable).
@@ -3267,7 +3267,7 @@ p_robu_m3a <- ggarrange(
 p_robu_m3a
 ```
 
-#### Final Model: Effects of Solitary TSD on SSA Across Gender and Stimuli Sex
+#### Final Model: Effects of Solitary TSD on SSA Across Gender and Stimuli Gender
 
 Given the apparent robustness of most results across models (CLMM, GLMER and LMM; Table \@ref(tab:tab-robu-m3a), Fig. \@ref(fig:preds-m3a)), we test the predictions of the hypothesis from the LMM (`m3a_lmer`).
 
@@ -3286,7 +3286,7 @@ anova.sig.lmer(
 
 ##### *Post-hoc* tests
 
-To test the hypothesis, which predicted that there would be different relationship between SSA and solitary TSD, and that this association differ between men and women depending on the sex of stimuli, we used simple slope analysis.
+To test the hypothesis, which predicted that there would be different relationship between SSA and solitary TSD, and that this association differ between men and women depending on the gender of stimuli, we used simple slope analysis.
 
 ```{r cache = TRUE, warning = FALSE, message = FALSE}
 # Compute simple slopes for Solitary TSD on SSA, moderated by Gender and Relationship
@@ -3403,9 +3403,9 @@ p_m3a.fin
 
 ### Hypothesis 3b: Dyadic TSD Attractive Person {#hyp3b}
 
-#### Model Robustness: Examining the Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Sex
+#### Model Robustness: Examining the Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Gender
 
-To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Attractive Person predicts SSA, considering variations by gender and stimuli sex:
+To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Attractive Person predicts SSA, considering variations by gender and stimuli gender:
 
 1. Cumulative Link Mixed Model (CLMM) – `m3b_clmm` (for ordinal outcomes, using a probit link).
 2. Generalized Linear Mixed Model (GLMM) with Poisson family – `m3b_poisson` (treating SSA as a count variable).
@@ -3553,7 +3553,7 @@ p_robu_m3b <- ggarrange(p_m3b_clmm, p_m3b_poisson, p_m3b_lmer, # Combine plots s
 p_robu_m3b
 ```
 
-#### Final Model: Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Sex
+#### Final Model: Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Gender
 
 Given the apparent robustness of most results across models (CLMM, GLMER and LMM; Table \@ref(tab:tab-robu-m3b), Fig. \@ref(fig:preds-m3b)), we test the predictions of the hypothesis from the LMM (`m3b_lmer`).
 
@@ -3568,13 +3568,13 @@ This tables summarizes the results of the model.
 anova.sig.lmer(
   model = m3b_lmer, # Use LMM as the final model
   custom_caption = "Effects of Dyadic TSD Attractive Person on SSA 
-  Across Gender and Stimuli Sex"
+  Across Gender and Stimuli Gender"
 )
 ```
 
 ##### *Post-hoc* tests
 
-To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Attractive Person, and that this association differ between men and women depending on the sex of stimuli, we used simple slope analysis.
+To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Attractive Person, and that this association differ between men and women depending on the gender of stimuli, we used simple slope analysis.
 
 ```{r cache = TRUE, warning = FALSE, message = FALSE}
 # Perform simple slopes analysis to examine the effect of Dyadic TSD Attractive Person
@@ -3616,7 +3616,7 @@ slop.m3b_lmer.tab[, -c(1, 8)] |>
     booktabs = TRUE,
     align = c("l", rep("c", 5)),
     caption = "Slope for Dyadic TSD Attractive Person on
-        Subjective sexual arousal by stimuli sex and gender",
+        Subjective sexual arousal by stimuli gender and gender",
     linesep = "",
     col.names = c(
       "Relationship status", "$B$", "$2.5\\% CI$",
@@ -3698,9 +3698,9 @@ p_m3b.fin
 
 ### Hypothesis 3c: Dyadic TSD Partner {#hyp3c}
 
-#### Model Robustness: Examining the Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Sex
+#### Model Robustness: Examining the Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Gender
 
-To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Partner predicts SSA, considering variations by gender and stimuli sex:
+To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Partner predicts SSA, considering variations by gender and stimuli gender:
 
 1. Cumulative Link Mixed Model (CLMM) – `m3c_clmm` (for ordinal outcomes, using a probit link).
 2. Generalized Linear Mixed Model (GLMM) with Poisson family – `m3c_poisson` (treating SSA as a count variable).
@@ -3836,7 +3836,7 @@ p_robu_m3c <- ggarrange(p_m3c_clmm, p_m3c_poisson, p_m3c_lmer, # Combine plots s
 p_robu_m3c
 ```
 
-#### Final Model: Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Sex
+#### Final Model: Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Gender
 
 Given the apparent robustness of most results across models (CLMM, GLMER and LMM; Table \@ref(tab:tab-robu-m3c), Fig. \@ref(fig:preds-m3c)), we test the predictions of the hypothesis from the LMM (`m3c_lmer`).
 
@@ -3846,16 +3846,16 @@ This tables summarizes the results of the model.
 
 ```{r tab-m3c}
 # Generate ANOVA-type table for the final LMM model
-# This summarizes the effects of Dyadic TSD Partner on SSA across Gender and Stimuli Sex
+# This summarizes the effects of Dyadic TSD Partner on SSA across Gender and Stimuli Gender
 anova.sig.lmer(
   model = m3c_lmer, # Use LMM as the final model
-  custom_caption = "Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Sex"
+  custom_caption = "Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Gender"
 )
 ```
 
 ##### *Post-hoc* tests
 
-To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Partner, and that this association differ between men and women depending on the sex of stimuli, we used simple slope analysis.
+To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Partner, and that this association differ between men and women depending on the gender of stimuli, we used simple slope analysis.
 
 ```{r cache = TRUE, warning = FALSE, message = FALSE}
 # Perform simple slope analysis to examine how Dyadic TSD Partner predicts SSA
@@ -3894,7 +3894,7 @@ slop.m3c_lmer.tab[, -c(1, 8)] |> # Exclude unnecessary columns
     booktabs = TRUE,
     align = c("l", rep("c", 5)), # Align columns
     caption = "Slope for Dyadic TSD Partner on Subjective sexual arousal
-               by stimuli sex and gender",
+               by stimuli gender and gender",
     linesep = "",
     col.names = c("Relationship status", "$B$", "$2.5\\% CI$", "$97.5\\% CI$", "$t$", "$p$"),
     escape = FALSE
@@ -4117,7 +4117,7 @@ bind_rows(
     booktabs = TRUE, # Use LaTeX booktabs for better formatting
     align = c("l", rep("c", 4)), # Align columns
     linesep = "", # No extra lines
-    caption = "Effects of TSD dimensions on SSA Across Gender and Stimuli Sex",
+    caption = "Effects of TSD dimensions on SSA Across Gender and Stimuli Gender",
     col.names = c("Effect", "$df$", "$F$", "$p$", "$\\epsilon^2_p$"), # Column headers
     escape = FALSE # Allow LaTeX formatting
   ) |>
@@ -4141,7 +4141,7 @@ bind_rows(
       "; Dyadic TSD Partner: ",
       "$R^2_{conditional}$ = ", round(r2_nakagawa(m2c_lmer)$R2_conditional, 3),
       ", $R^2_{marginal}$ = ", round(r2_nakagawa(m2c_lmer)$R2_marginal, 3),
-      ". Gender = participant gender (women, men); Stimuli sex = sex of stimuli (male, female).
+      ". Gender = participant gender (women, men); Stimuli gender = gender of stimuli (male, female).
       Partial epsilon squared ($\\\\epsilon^2_p$) is used as an effect size, as it provides
       a less biased estimate than $\\\\eta^2$ (see \\\\cite{albersWhenPowerAnalyses2018}).
       Significant effects are in bold."
@@ -4154,11 +4154,11 @@ bind_rows(
 
 ## Figure \@ref(fig:fig-m2-fin). Hypothesis 2
 
-Simple slopes for the interaction between dimensions of sexual desire and `Stimuli Sex`, by gender, for the three final models for hypothesis 2.
+Simple slopes for the interaction between dimensions of sexual desire and `Stimuli Gender`, by gender, for the three final models for hypothesis 2.
 
-```{r fig-m2-fin, results = "hold", fig.height = 11,fig.cap = "Slopes of Trait Sexual Desire (TSD) dimensions on sexual arousal, by gender and stimuli sex. **(a)**  Solitary TSD; **(b)** Dyadic TSD Attractive Person; **(c)** Dyadic TSD Partner. Lines represent simple slopes and 95% CI. Significant effects are represented with stars alongside slope details: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
+```{r fig-m2-fin, results = "hold", fig.height = 11,fig.cap = "Slopes of Trait Sexual Desire (TSD) dimensions on sexual arousal, by gender and stimuli gender. **(a)**  Solitary TSD; **(b)** Dyadic TSD Attractive Person; **(c)** Dyadic TSD Partner. Lines represent simple slopes and 95% CI. Significant effects are represented with stars alongside slope details: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
 # Generate a combined figure showing the interaction between sexual desire dimensions
-# and stimuli sex, grouped by gender, for the final models in Hypothesis 2
+# and stimuli gender, grouped by gender, for the final models in Hypothesis 2
 ggarrange(
   p_m2a.fin, # Solitary TSD simple slopes plot
   p_m2b.fin, # Dyadic TSD Attractive Person simple slopes plot
@@ -4244,7 +4244,7 @@ bind_rows(
 
 ## Figure \@ref(fig:fig-m3-fin). Hypothesis 3
 
-Simple slopes for the interaction between dimensions of sexual desire and `Stimuli Sex`, by gender, for the three final models for hypothesis 3.
+Simple slopes for the interaction between dimensions of sexual desire and `Stimuli Gender`, by gender, for the three final models for hypothesis 3.
 
 ```{r fig-m3-fin, results = "hold", fig.height = 11,fig.cap = "Slopes of Trait Sexual Desire (TSD) dimensions on sexual arousal, by gender and relationship status. **(a)**  Solitary TSD; **(b)** Dyadic TSD Attractive Person; **(c)** Dyadic TSD Partner. Lines represent simple slopes and 95% CI. Significant effects are represented with stars alongside slope details: \\**p* < 0.05, \\*\\**p* < 0.01, \\*\\*\\**p* < 0.001, \\*\\*\\*\\**p* < 0.0001.", warning = FALSE, message = FALSE}
 # Generate a combined figure for Hypothesis 3

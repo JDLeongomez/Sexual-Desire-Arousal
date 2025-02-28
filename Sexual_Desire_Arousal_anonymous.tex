@@ -129,7 +129,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  pdftitle={Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic Stimuli: Gender and Relationship Status in Cisgender Heterosexuals},
+  pdftitle={Does Trait Sexual Desire Predict Subjective Sexual Response to Erotic Stimuli? Effects Of Participant and Stimulus Gender, and Relationship Status among Cisgender Heterosexual Women and Men},
   pdfauthor={{[}Name masked for peer review{]}1,2,3,4,; {[}Name masked for peer review{]}2,4; {[}Name masked for peer review{]}1; {[}Name masked for peer review{]}5},
   colorlinks=true,
   linkcolor={gray},
@@ -138,7 +138,7 @@
   urlcolor={blue},
   pdfcreator={LaTeX via pandoc}}
 
-\title{Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic Stimuli: Gender and Relationship Status in Cisgender Heterosexuals}
+\title{Does Trait Sexual Desire Predict Subjective Sexual Response to Erotic Stimuli? Effects Of Participant and Stimulus Gender, and Relationship Status among Cisgender Heterosexual Women and Men}
 \usepackage{etoolbox}
 \makeatletter
 \providecommand{\subtitle}[1]{% add subtitle to \maketitle
@@ -147,7 +147,7 @@
 \makeatother
 \subtitle{Code and analyses}
 \author{{[}Name masked for peer review{]}\textsuperscript{1,2,3,4,*} \and {[}Name masked for peer review{]}\textsuperscript{2,4} \and {[}Name masked for peer review{]}\textsuperscript{1} \and {[}Name masked for peer review{]}\textsuperscript{5}}
-\date{26 February, 2025}
+\date{28 February, 2025}
 
 \begin{document}
 \maketitle
@@ -174,10 +174,10 @@
 This document contains all code, and step by step explanations for all analyses, figures and tables (including supplementary figures and tables) for:
 
 \begin{hangparas}{.25in}{1}
-[Names masked for peer review] (in prep). \textit{Trait Sexual Desire-Linked Subjective Sexual Arousal to Erotic Stimuli: Gender and Relationship Status in Cisgender Heterosexuals}
+[Names masked for peer review] (in prep). \textit{Does Trait Sexual Desire Predict Subjective Sexual Response to Erotic Stimuli? Effects Of Participant and Stimulus Gender, and Relationship Status among Cisgender Heterosexual Women and Men}
 \end{hangparas}
 
-Data available from the Open Science Framework (OSF): \url{https://osf.io/b2acu/?view_only=7a79dd2d9072486d8c3f13a6bfe9c816}. All analyses were planned by {[}Name masked for peer review{]} and {[}Name masked for peer review{]}. This document and its underlying code were created in \texttt{R\ Markdown} by {[}Name masked for peer review{]} using \LaTeX.
+Data available from the Open Science Framework (OSF): \url{https://osf.io/b2acu/?view_only=7a79dd2d9072486d8c3f13a6bfe9c816}. All analyses were planned by {[}Name masked for peer review{]} and {[}Name masked for peer review{]}. This document and its underlying code were created in \texttt{R\ Markdown} by {[}Name masked for peer review{]} using R and \LaTeX, ensuring full reproducibility. Code comments were refined with the assistance of R Wizard, a customized R-focused version of ChatGPT by OpenAI. More information at: \url{https://exploregpt.ai/gpt/r-wizard-gpt}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -215,7 +215,7 @@ To test the relationships between TSD dimensions and SSA, as well as their inter
   Linear Mixed Models (LMM) approximating SSA as a continuous variable.
 \end{enumerate}
 
-Key predictors included gender, relationship status, stimuli sex, and TSD dimensions, with interactions tested where applicable. Random effects were specified for stimuli and participants to account for within-subject dependencies. \emph{Post-hoc} simple slope analyses were conducted to explore significant interactions, and effect sizes were estimated using partial epsilon squared.
+Key predictors included gender, relationship status, stimuli gender, and TSD dimensions, with interactions tested where applicable. Random effects were specified for stimuli and participants to account for within-subject dependencies. \emph{Post-hoc} simple slope analyses were conducted to explore significant interactions, and effect sizes were estimated using partial epsilon squared.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -255,13 +255,13 @@ All packages used in this file can be directly installed from the Comprehensive 
 
 \subsection{Define color palettes}\label{define-color-palettes}
 
-Individual color palettes for figures by gender, stimuli sex, or relationship type.
+Individual color palettes for figures by gender, stimuli gender, or relationship type.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Palette to color figures by gender}
 \NormalTok{color.Gender }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"black"}\NormalTok{)}
-\CommentTok{\# Palette to color figures by stimuli sex}
+\CommentTok{\# Palette to color figures by stimuli gender}
 \NormalTok{color.StimuliSex }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"\#54278F"}\NormalTok{, }\StringTok{"\#FC4E2A"}\NormalTok{)}
 \CommentTok{\# Palette to color figures by relationship type}
 \NormalTok{color.Relationship }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"\#2171B5"}\NormalTok{, }\StringTok{"\#DD3497"}\NormalTok{)}
@@ -572,7 +572,7 @@ Change necessary variables to factor, sort levels, and rename variables
   \FunctionTok{rename}\NormalTok{(}
     \AttributeTok{Participant =}\NormalTok{ Participante,}
     \AttributeTok{Age =}\NormalTok{ EdadParticipante,}
-    \StringTok{\textasciigrave{}}\AttributeTok{Preferred sex}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ PrefSex,}
+    \StringTok{\textasciigrave{}}\AttributeTok{Preferred gender}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ PrefSex,}
     \AttributeTok{Gender =}\NormalTok{ Sexo,}
     \StringTok{\textasciigrave{}}\AttributeTok{Contraceptive uso}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Anticoncep,}
     \StringTok{\textasciigrave{}}\AttributeTok{Last period}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ UltimoPer,}
@@ -598,7 +598,7 @@ Change necessary variables to factor, sort levels, and rename variables
     \StringTok{\textasciigrave{}}\AttributeTok{MGSS sexual satisfaction (General)}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Satisfaccion.Sexual..MGSS\_general.,}
     \StringTok{\textasciigrave{}}\AttributeTok{MGSS sexual satisfaction (Partner)}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Satisfaccion.Sexual..MGSS\_Pareja.,}
     \StringTok{\textasciigrave{}}\AttributeTok{Stimuli code}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Codigo\_Estimulo,}
-    \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Sexo\_Estimulo,}
+    \StringTok{\textasciigrave{}}\AttributeTok{Stimuli gender}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Sexo\_Estimulo,}
     \StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Contenido\_Estimulo,}
     \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual attractiveness}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Atractivo,}
     \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ Excitacion}
@@ -612,11 +612,11 @@ Change necessary variables to factor, sort levels, and rename variables
     \AttributeTok{Femenino =} \StringTok{"Women"}\NormalTok{,}
     \AttributeTok{Masculino =} \StringTok{"Men"}
 \NormalTok{  )) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{recode\_factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{,}
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli gender}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{recode\_factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli gender}\StringTok{\textasciigrave{}}\NormalTok{,}
     \AttributeTok{Femenino =} \StringTok{"Female"}\NormalTok{,}
     \AttributeTok{Masculino =} \StringTok{"Male"}
 \NormalTok{  )) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Preferred sex}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{recode\_factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Preferred sex}\StringTok{\textasciigrave{}}\NormalTok{,}
+  \FunctionTok{mutate}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Preferred gender}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{recode\_factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Preferred gender}\StringTok{\textasciigrave{}}\NormalTok{,}
     \AttributeTok{Hombre =} \StringTok{"Male"}\NormalTok{,}
     \AttributeTok{Mujer =} \StringTok{"Female"}
 \NormalTok{  )) }\SpecialCharTok{|\textgreater{}}
@@ -680,7 +680,7 @@ Change necessary variables to factor, sort levels, and rename variables
 \NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}
     \StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{as.factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}}\NormalTok{),}
-    \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{as.factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{)}
+    \StringTok{\textasciigrave{}}\AttributeTok{Stimuli gender}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{as.factor}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli gender}\StringTok{\textasciigrave{}}\NormalTok{)}
 \NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
   \CommentTok{\# Filter participants in non{-}stable relationships}
   \FunctionTok{filter}\NormalTok{(Relationship }\SpecialCharTok{!=} \StringTok{"Non{-}stable"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
@@ -1303,11 +1303,11 @@ Table of Cronbach's \(\alpha\) for construct variables.
 \toprule
 Variable & Gender & Items & $n$ & $\alpha$ & $2.5\% CI$ & $97.5\% CI$\\
 \midrule
- & Men & 5 & 139 & 0.82 & 0.71 & 0.88\\
+ & Men & 5 & 139 & 0.82 & 0.72 & 0.88\\
 \cmidrule{2-7}
 \multirow{-2}{*}{\raggedright\arraybackslash MGH-SFQ} & Women & 4 & 181 & 0.86 & 0.82 & 0.90\\
 \cmidrule{1-7}
-MGSS sexual satisfaction (General) &  & 5 & 188 & 0.92 & 0.89 & 0.94\\
+MGSS sexual satisfaction (General) &  & 5 & 188 & 0.92 & 0.88 & 0.94\\
 \cmidrule{1-7}
 MGSS sexual satisfaction (Partner) &  & 5 & 187 & 0.91 & 0.85 & 0.95\\
 \cmidrule{1-7}
@@ -1315,7 +1315,7 @@ Dyadic TSD Partner &  & 5 & 309 & 0.90 & 0.88 & 0.92\\
 \cmidrule{1-7}
 Solitary TSD &  & 4 & 314 & 0.91 & 0.89 & 0.93\\
 \cmidrule{1-7}
-Dyadic TSD Attractive Person &  & 4 & 320 & 0.89 & 0.86 & 0.91\\
+Dyadic TSD Attractive Person &  & 4 & 320 & 0.89 & 0.87 & 0.91\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
@@ -2799,19 +2799,19 @@ This figure summarizes the results of hypothesis 1c.
 
 To avoid over-complicating the models, first we tested whether the effects of stimuli on sexual arousal were stronger depending on the content of the stimuli (erotic versus non-erotic). This was, in fact, the case.
 
-\subsubsection{Table \ref{tab:tab-m-stimuli-content}. ANOVA-type table for the effects of stimuli content, gender and stimuli sex on Subjective sexual arousal}\label{table-reftabtab-m-stimuli-content.-anova-type-table-for-the-effects-of-stimuli-content-gender-and-stimuli-sex-on-subjective-sexual-arousal}
+\subsubsection{Table \ref{tab:tab-m-stimuli-content}. ANOVA-type table for the effects of stimuli content, gender and stimuli gender on Subjective sexual arousal}\label{table-reftabtab-m-stimuli-content.-anova-type-table-for-the-effects-of-stimuli-content-gender-and-stimuli-gender-on-subjective-sexual-arousal}
 
-We fitted a linear mixed model with Gender, Stimuli sex, Stimuli content, and their interactions, as fixed effects for Subjective sexual arousal and including, as random effects, random intercepts per stimulus, as well as random intercepts and slopes for the effect of stimuli content.
+We fitted a linear mixed model with Gender, Stimuli gender, Stimuli content, and their interactions, as fixed effects for Subjective sexual arousal and including, as random effects, random intercepts per stimulus, as well as random intercepts and slopes for the effect of stimuli content.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Fit a linear mixed model predicting Subjective Sexual Arousal}
-\CommentTok{\# Fixed effects: Gender, Stimuli sex, Stimuli content, and their interactions}
+\CommentTok{\# Fixed effects: Gender, Stimuli gender, Stimuli content, and their interactions}
 \CommentTok{\# Random effects: Intercepts per stimulus; intercepts \& slopes for stimuli content per participant}
 \NormalTok{m\_stim\_cont }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}
-  \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender }\SpecialCharTok{*} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{*} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}} \SpecialCharTok{+}
+  \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Gender }\SpecialCharTok{*} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli gender}\StringTok{\textasciigrave{}} \SpecialCharTok{*} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}} \SpecialCharTok{+}
 \NormalTok{    (}\DecValTok{1} \SpecialCharTok{|} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli code}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{+}
-\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}} \SpecialCharTok{*} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{|}\NormalTok{ Participant),}
+\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}} \SpecialCharTok{*} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli gender}\StringTok{\textasciigrave{}} \SpecialCharTok{|}\NormalTok{ Participant),}
   \AttributeTok{data =}\NormalTok{ dat,}
   \AttributeTok{control =} \FunctionTok{lmerControl}\NormalTok{(}\AttributeTok{optimizer =} \StringTok{"bobyqa"}\NormalTok{) }\CommentTok{\# Use "bobyqa" optimizer for better convergence}
 \NormalTok{)}
@@ -2819,14 +2819,14 @@ We fitted a linear mixed model with Gender, Stimuli sex, Stimuli content, and th
 \CommentTok{\# Generate ANOVA table summarizing the model results}
 \FunctionTok{anova.sig.lmer}\NormalTok{(}
   \AttributeTok{model =}\NormalTok{ m\_stim\_cont,}
-  \AttributeTok{custom\_caption =} \StringTok{"Effects of relationship type, gender and stimuli sex on Dyadic TSD Partner"}
+  \AttributeTok{custom\_caption =} \StringTok{"Effects of relationship type, gender and stimuli gender on Dyadic TSD Partner"}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-m-stimuli-content}Effects of relationship type, gender and stimuli sex on Dyadic TSD Partner}
+\caption{\label{tab:tab-m-stimuli-content}Effects of relationship type, gender and stimuli gender on Dyadic TSD Partner}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -2835,12 +2835,12 @@ We fitted a linear mixed model with Gender, Stimuli sex, Stimuli content, and th
 Effect & $df$ & $F$ & $p$ & $\epsilon^2_p$\\
 \midrule
 Gender & 1, 321 & 42.47 & \textbf{< 0.0001} & 0.11\\
-Stimuli sex & 1, 447 & 96.15 & \textbf{< 0.0001} & 0.18\\
+Stimuli gender & 1, 447 & 96.15 & \textbf{< 0.0001} & 0.18\\
 Stimuli content & 1, 363.12 & 86.50 & \textbf{< 0.0001} & 0.19\\
-Gender × Stimuli sex & 1, 321 & 471.68 & \textbf{< 0.0001} & 0.59\\
+Gender × Stimuli gender & 1, 321 & 471.68 & \textbf{< 0.0001} & 0.59\\
 Gender × Stimuli content & 1, 321 & 5.02 & \textbf{0.0257} & 0.01\\
-Stimuli sex × Stimuli content & 1, 286.22 & 21.51 & \textbf{< 0.0001} & 0.07\\
-Gender × Stimuli sex × Stimuli content & 1, 321 & 116.42 & \textbf{< 0.0001} & 0.26\\
+Stimuli gender × Stimuli content & 1, 286.22 & 21.51 & \textbf{< 0.0001} & 0.07\\
+Gender × Stimuli gender × Stimuli content & 1, 321 & 116.42 & \textbf{< 0.0001} & 0.26\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
@@ -2850,16 +2850,16 @@ Gender × Stimuli sex × Stimuli content & 1, 321 & 116.42 & \textbf{< 0.0001} &
 \end{threeparttable}}
 \end{table}
 
-The effects of stimuli on sexual arousal were stronger for erotic compared to non-erotic stimuli; to illustrate this, we compared the (within-subject) difference in reported sexual arousal between stimuli sexes, for women and men. This difference was larger when viewing erotic than non-erotic stimuli in both women (erotic: 0.77, non-erotic: 0.57) but especially in men (erotic: 2.75, non-erotic: 1.60; see Table \ref{tab:tab-stim-cont-emms} and Fig. \ref{fig:fig-m-stimuli-content}). Considering this, we tested all predictions of hypotheses 2 and 3 only on responses to erotic stimuli.
+The effects of stimuli on sexual arousal were stronger for erotic compared to non-erotic stimuli; to illustrate this, we compared the (within-subject) difference in reported sexual arousal between stimuli genderes, for women and men. This difference was larger when viewing erotic than non-erotic stimuli in both women (erotic: 0.77, non-erotic: 0.57) but especially in men (erotic: 2.75, non-erotic: 1.60; see Table \ref{tab:tab-stim-cont-emms} and Fig. \ref{fig:fig-m-stimuli-content}). Considering this, we tested all predictions of hypotheses 2 and 3 only on responses to erotic stimuli.
 
-\subsubsection{Table \ref{tab:tab-stim-cont-emms}. Estimated marginal means and contrasts between subjective sexual arousal depending on stimuli sex, by stimuli content and participant gender.}\label{table-reftabtab-stim-cont-emms.-estimated-marginal-means-and-contrasts-between-subjective-sexual-arousal-depending-on-stimuli-sex-by-stimuli-content-and-participant-gender.}
+\subsubsection{Table \ref{tab:tab-stim-cont-emms}. Estimated marginal means and contrasts between subjective sexual arousal depending on stimuli gender, by stimuli content and participant gender.}\label{table-reftabtab-stim-cont-emms.-estimated-marginal-means-and-contrasts-between-subjective-sexual-arousal-depending-on-stimuli-gender-by-stimuli-content-and-participant-gender.}
 
-Table of estimated marginal means and contrasts between between subjective sexual arousal depending on stimuli sex, by stimuli content and participant gender. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package \autocite{emmeanscit}.
+Table of estimated marginal means and contrasts between between subjective sexual arousal depending on stimuli gender, by stimuli content and participant gender. All estimated marginal means and contrasts were calculated using the \texttt{emmeans} function from the \texttt{emmeans} package \autocite{emmeanscit}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Compute estimated marginal means (EMMs) for Stimuli Sex by Stimuli Content \& Gender}
-\NormalTok{emms.stim\_cont }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m\_stim\_cont, pairwise }\SpecialCharTok{\textasciitilde{}} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{|} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}} \SpecialCharTok{+}\NormalTok{ Gender,}
+\CommentTok{\# Compute estimated marginal means (EMMs) for Stimuli Gender by Stimuli Content \& Gender}
+\NormalTok{emms.stim\_cont }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m\_stim\_cont, pairwise }\SpecialCharTok{\textasciitilde{}} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli gender}\StringTok{\textasciigrave{}} \SpecialCharTok{|} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}} \SpecialCharTok{+}\NormalTok{ Gender,}
   \AttributeTok{adjust =} \StringTok{"bonferroni"}\NormalTok{, }\CommentTok{\# Apply Bonferroni correction for multiple comparisons}
   \AttributeTok{lmer.df =} \StringTok{"satterthwaite"} \CommentTok{\# Use Satterthwaite approximation for degrees of freedom}
 \NormalTok{)}
@@ -2869,7 +2869,7 @@ Table of estimated marginal means and contrasts between between subjective sexua
   \FunctionTok{rename}\NormalTok{(}
     \StringTok{"Subjective sexual arousal"} \OtherTok{=}\NormalTok{ emmean,}
     \StringTok{"Stimuli content"} \OtherTok{=}\NormalTok{ Stimuli.content,}
-    \StringTok{"Stimuli sex"} \OtherTok{=}\NormalTok{ Stimuli.sex}
+    \StringTok{"Stimuli gender"} \OtherTok{=}\NormalTok{ Stimuli.gender}
 \NormalTok{  )}
 
 \CommentTok{\# Compute post{-}hoc contrasts and format p{-}values}
@@ -2886,7 +2886,7 @@ Table of estimated marginal means and contrasts between between subjective sexua
 \CommentTok{\# Merge EMM and contrast results, clean column names, and format output}
 \FunctionTok{merge}\NormalTok{(emms.stim\_cont.tab, t.stim\_cont.f, }\AttributeTok{by =} \DecValTok{0}\NormalTok{, }\AttributeTok{all =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{12}\NormalTok{, }\DecValTok{13}\NormalTok{, }\DecValTok{19}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Remove unnecessary columns}
-  \FunctionTok{drop\_na}\NormalTok{(}\StringTok{"Stimuli sex"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Ensure Stimuli sex column is complete}
+  \FunctionTok{drop\_na}\NormalTok{(}\StringTok{"Stimuli gender"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Ensure Stimuli gender column is complete}
   \FunctionTok{unite}\NormalTok{(Contrast, group1, group2, }\AttributeTok{sep =} \StringTok{" {-} "}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Create contrast labels}
   \FunctionTok{mutate\_at}\NormalTok{(}\StringTok{"Contrast"}\NormalTok{, str\_replace\_all, }\StringTok{"NA {-} NA"}\NormalTok{, }\StringTok{" "}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Replace missing contrasts}
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{c}\NormalTok{(df.x, df.y), as.character)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Convert df columns to character}
@@ -2900,7 +2900,7 @@ Table of estimated marginal means and contrasts between between subjective sexua
 \StringTok{    desire by relationship status"}\NormalTok{,}
     \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{,}
     \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}
-      \StringTok{"Stimuli sex"}\NormalTok{, }\StringTok{"EMM"}\NormalTok{, }\StringTok{"$SE$"}\NormalTok{, }\StringTok{"$df$"}\NormalTok{, }\StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
+      \StringTok{"Stimuli gender"}\NormalTok{, }\StringTok{"EMM"}\NormalTok{, }\StringTok{"$SE$"}\NormalTok{, }\StringTok{"$df$"}\NormalTok{, }\StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
       \StringTok{"Contrast"}\NormalTok{, }\StringTok{"Difference"}\NormalTok{, }\StringTok{"$SE$"}\NormalTok{, }\StringTok{"$df$"}\NormalTok{, }\StringTok{"$z$"}\NormalTok{, }\StringTok{"$p$"}
 \NormalTok{    )}
 \NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
@@ -2946,7 +2946,7 @@ Table of estimated marginal means and contrasts between between subjective sexua
 \toprule
 \multicolumn{6}{c}{ } & \multicolumn{6}{c}{Contrasts} \\
 \cmidrule(l{3pt}r{3pt}){7-12}
-Stimuli sex & EMM & $SE$ & $df$ & $2.5\% CI$ & $97.5\% CI$ & Contrast & Difference & $SE$ & $df$ & $z$ & $p$\\
+Stimuli gender & EMM & $SE$ & $df$ & $2.5\% CI$ & $97.5\% CI$ & Contrast & Difference & $SE$ & $df$ & $z$ & $p$\\
 \midrule
 \addlinespace[0.3em]
 \multicolumn{12}{l}{\cellcolor{lightgray}{Gender: Women - Stimuli content: Erotic}}\\
@@ -2983,8 +2983,8 @@ This figure summarizes the results of the model to determine whether the effects
 \begin{Highlighting}[]
 \CommentTok{\# Prepare data for vertical comparison lines between Male and Female}
 \NormalTok{diff\_data }\OtherTok{\textless{}{-}}\NormalTok{ emms.stim\_cont.tab }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{select}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, Gender, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{names\_from =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{values\_from =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli gender}\StringTok{\textasciigrave{}}\NormalTok{, Gender, }\StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{names\_from =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli gender}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{values\_from =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}
     \AttributeTok{ymin =}\NormalTok{ Male, }\CommentTok{\# Start of line at Male\textquotesingle{}s mean arousal}
     \AttributeTok{ymax =}\NormalTok{ Female }\CommentTok{\# End of line at Female\textquotesingle{}s mean arousal}
@@ -2999,7 +2999,7 @@ This figure summarizes the results of the model to determine whether the effects
 
 \CommentTok{\# Create the plot}
 \FunctionTok{ggplot}\NormalTok{(emms.stim\_cont.tab, }\FunctionTok{aes}\NormalTok{(}
-  \AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}}\NormalTok{,}
+  \AttributeTok{x =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli gender}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{y =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}}\NormalTok{,}
   \AttributeTok{color =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}}
 \NormalTok{)) }\SpecialCharTok{+}
   \CommentTok{\# Separate plots for each Gender}
@@ -3087,7 +3087,7 @@ We tested whether the relationship between SSA and TSD varies across the three d
   \textbf{H2c}: No significant association between dyadic TSD toward a partner and SSA toward erotic stimuli.
 \end{itemize}
 
-To examine this hypothesis, we modeled the effects of each of the three TSD dimension scores, gender, stimulus sex, and their interactions, on SSA. We included random intercepts for each stimulus, as well as random intercepts and slopes between stimuli sex for each participant.
+To examine this hypothesis, we modeled the effects of each of the three TSD dimension scores, gender, stimulus gender, and their interactions, on SSA. We included random intercepts for each stimulus, as well as random intercepts and slopes between stimuli gender for each participant.
 
 \subsubsection{Modeling Approach}\label{modeling-approach}
 
@@ -3108,7 +3108,7 @@ The results across these models were largely consistent, indicating robustness i
 
 \subsubsection{Data}\label{data-1}
 
-We created a new dataset by selecting only responses to erotic stimuli, renaming key variables to remove spaces for compatibility with certain functions, and converting relevant variables to factors. Specifically, the Gender and Stimuli sex variables are transformed into factors, and a factor version of Subjective sexual arousal is created for use in the CLMM model.
+We created a new dataset by selecting only responses to erotic stimuli, renaming key variables to remove spaces for compatibility with certain functions, and converting relevant variables to factors. Specifically, the Gender and Stimuli gender variables are transformed into factors, and a factor version of Subjective sexual arousal is created for use in the CLMM model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3121,13 +3121,13 @@ We created a new dataset by selecting only responses to erotic stimuli, renaming
     \AttributeTok{Solitary.TSD =} \StringTok{\textasciigrave{}}\AttributeTok{Solitary sexual desire}\StringTok{\textasciigrave{}}\NormalTok{,}
     \AttributeTok{Dyadic.TSD.Attractive.Person =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Attractive person)}\StringTok{\textasciigrave{}}\NormalTok{,}
     \AttributeTok{Dyadic.TSD.Partner =} \StringTok{\textasciigrave{}}\AttributeTok{Dyadic sexual desire (Partner)}\StringTok{\textasciigrave{}}\NormalTok{,}
-    \AttributeTok{Stimuli.sex =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}}\NormalTok{,}
+    \AttributeTok{Stimuli.gender =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli gender}\StringTok{\textasciigrave{}}\NormalTok{,}
     \AttributeTok{Stimuli.code =} \StringTok{\textasciigrave{}}\AttributeTok{Stimuli code}\StringTok{\textasciigrave{}}
 \NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
   \CommentTok{\# Convert categorical variables to factors}
   \FunctionTok{mutate}\NormalTok{(}
     \AttributeTok{Gender =} \FunctionTok{as.factor}\NormalTok{(Gender), }\CommentTok{\# Convert Gender to factor}
-    \AttributeTok{Stimuli.sex =} \FunctionTok{as.factor}\NormalTok{(Stimuli.sex), }\CommentTok{\# Convert Stimuli sex to factor}
+    \AttributeTok{Stimuli.gender =} \FunctionTok{as.factor}\NormalTok{(Stimuli.gender), }\CommentTok{\# Convert Stimuli gender to factor}
     \CommentTok{\# Create a factor version of SSA for use in the CLMM model}
     \AttributeTok{Subjective.sexual.arousal.factor =} \FunctionTok{as.factor}\NormalTok{(Subjective.sexual.arousal)}
 \NormalTok{  )}
@@ -3136,9 +3136,9 @@ We created a new dataset by selecting only responses to erotic stimuli, renaming
 
 \subsubsection{Hypothesis 2a: Solitary TSD}\label{hyp2a}
 
-\paragraph{Model Robustness: Examining the Effects of Solitary TSD on SSA Across Gender and Stimuli Sex}\label{model-robustness-examining-the-effects-of-solitary-tsd-on-ssa-across-gender-and-stimuli-sex}
+\paragraph{Model Robustness: Examining the Effects of Solitary TSD on SSA Across Gender and Stimuli Gender}\label{model-robustness-examining-the-effects-of-solitary-tsd-on-ssa-across-gender-and-stimuli-gender}
 
-To assess the robustness of our findings, we fitted three different models examining how Solitary TSD predicts SSA, considering variations by gender and stimuli sex:
+To assess the robustness of our findings, we fitted three different models examining how Solitary TSD predicts SSA, considering variations by gender and stimuli gender:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3154,13 +3154,13 @@ To assess the robustness of our findings, we fitted three different models exami
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Fit three different models to examine how Dyadic TSD Partner predicts SSA}
-\CommentTok{\# Each model considers variations by Gender and Stimuli Sex}
+\CommentTok{\# Each model considers variations by Gender and Stimuli Gender}
 
 \CommentTok{\# (1) Cumulative Link Mixed Model (CLMM) {-} Ordinal outcome with probit link}
 \NormalTok{m2a\_clmm }\OtherTok{\textless{}{-}} \FunctionTok{clmm}\NormalTok{(}
-\NormalTok{  Subjective.sexual.arousal.factor }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Solitary.TSD }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex }\SpecialCharTok{+}
+\NormalTok{  Subjective.sexual.arousal.factor }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Solitary.TSD }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender }\SpecialCharTok{+}
 \NormalTok{    (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stimuli.code) }\SpecialCharTok{+} \CommentTok{\# Random intercept for Stimuli}
-\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.sex }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli sex}
+\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.gender }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli gender}
   \AttributeTok{data =}\NormalTok{ dat\_m2,}
   \AttributeTok{link =} \StringTok{"probit"}\NormalTok{, }\CommentTok{\# Use probit link function for ordinal regression}
   \AttributeTok{control =} \FunctionTok{list}\NormalTok{(}\AttributeTok{method =} \StringTok{"nlminb"}\NormalTok{) }\CommentTok{\# Use \textquotesingle{}nlminb\textquotesingle{} optimizer for better convergence}
@@ -3168,18 +3168,18 @@ To assess the robustness of our findings, we fitted three different models exami
 
 \CommentTok{\# (2) Generalized Linear Mixed Model (GLMM) {-} Poisson regression for count data}
 \NormalTok{m2a\_poisson }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(}
-\NormalTok{  Subjective.sexual.arousal }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Solitary.TSD }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex }\SpecialCharTok{+}
+\NormalTok{  Subjective.sexual.arousal }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Solitary.TSD }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender }\SpecialCharTok{+}
 \NormalTok{    (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stimuli.code) }\SpecialCharTok{+} \CommentTok{\# Random intercept for Stimuli}
-\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.sex }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli sex}
+\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.gender }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli gender}
   \AttributeTok{data =}\NormalTok{ dat\_m2,}
   \AttributeTok{family =}\NormalTok{ poisson }\CommentTok{\# Poisson distribution for count data}
 \NormalTok{)}
 
 \CommentTok{\# (3) Linear Mixed Model (LMM) {-} Continuous approximation}
 \NormalTok{m2a\_lmer }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}
-\NormalTok{  Subjective.sexual.arousal }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Solitary.TSD }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex }\SpecialCharTok{+}
+\NormalTok{  Subjective.sexual.arousal }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Solitary.TSD }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender }\SpecialCharTok{+}
 \NormalTok{    (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stimuli.code) }\SpecialCharTok{+} \CommentTok{\# Random intercept for Stimuli}
-\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.sex }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli sex}
+\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.gender }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli gender}
   \AttributeTok{data =}\NormalTok{ dat\_m2,}
   \AttributeTok{control =} \FunctionTok{lmerControl}\NormalTok{(}\AttributeTok{optimizer =} \StringTok{"bobyqa"}\NormalTok{) }\CommentTok{\# Use \textquotesingle{}bobyqa\textquotesingle{} optimizer for stability}
 \NormalTok{)}
@@ -3219,11 +3219,11 @@ Effect & $df$ & $\chi^2$ & $p$ & $df$ & $\chi^2$ & $p$ & $df$ & $F$ & $p$\\
 \midrule
 Solitary TSD & 1 & 27.377 & \textbf{< 0.0001} & 1 & 24.430 & \textbf{< 0.0001} & 1, 319 & 17.464 & \textbf{< 0.0001}\\
 Gender & 1 & 0.015 & 0.9 & 1 & 7.086 & \textbf{0.0078} & 1, 319 & 8.838 & \textbf{0.0032}\\
-Stimuli sex & 1 & 43.812 & \textbf{< 0.0001} & 1 & 31.553 & \textbf{< 0.0001} & 1, 369.21 & 24.715 & \textbf{< 0.0001}\\
+Stimuli gender & 1 & 43.812 & \textbf{< 0.0001} & 1 & 31.553 & \textbf{< 0.0001} & 1, 369.21 & 24.715 & \textbf{< 0.0001}\\
 Solitary TSD × Gender & 1 & 2.409 & 0.12 & 1 & 2.795 & 0.09 & 1, 319 & 0.852 & 0.36\\
-Solitary TSD × Stimuli sex & 1 & 0.137 & 0.71 & 1 & 0.321 & 0.57 & 1, 319 & 0.024 & 0.88\\
-Gender × Stimuli sex & 1 & 181.478 & \textbf{< 0.0001} & 1 & 127.568 & \textbf{< 0.0001} & 1, 319 & 74.790 & \textbf{< 0.0001}\\
-Solitary TSD × Gender × Stimuli sex & 1 & 2.959 & 0.09 & 1 & 0.605 & 0.44 & 1, 319 & 1.778 & 0.18\\
+Solitary TSD × Stimuli gender & 1 & 0.137 & 0.71 & 1 & 0.321 & 0.57 & 1, 319 & 0.024 & 0.88\\
+Gender × Stimuli gender & 1 & 181.478 & \textbf{< 0.0001} & 1 & 127.568 & \textbf{< 0.0001} & 1, 319 & 74.790 & \textbf{< 0.0001}\\
+Solitary TSD × Gender × Stimuli gender & 1 & 2.959 & 0.09 & 1 & 0.605 & 0.44 & 1, 319 & 1.778 & 0.18\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
@@ -3239,22 +3239,22 @@ Solitary TSD × Gender × Stimuli sex & 1 & 2.959 & 0.09 & 1 & 0.605 & 0.44 & 1,
 
 \subparagraph{Figure \ref{fig:preds-m2a}: Model-based predictions for Hypothesis 2a.}\label{figure-reffigpreds-m2a-model-based-predictions-for-hypothesis-2a.}
 
-This figure presents model-based predictions of subjective sexual arousal as a function of Solitary TSD, across different stimulus sexes and participant genders. The three subplots correspond to the three statistical models used for analysis: (a) Cumulative Link Mixed Model (CLMM), (b) Generalized Linear Mixed Model (GLMM, Poisson), and (c) Linear Mixed Model (LMM). Shaded areas represent 95\% confidence intervals.
+This figure presents model-based predictions of subjective sexual arousal as a function of Solitary TSD, across different stimulus genderes and participant genders. The three subplots correspond to the three statistical models used for analysis: (a) Cumulative Link Mixed Model (CLMM), (b) Generalized Linear Mixed Model (GLMM, Poisson), and (c) Linear Mixed Model (LMM). Shaded areas represent 95\% confidence intervals.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# CLMM Predictions: Subjective Sexual Arousal \textasciitilde{} Solitary TSD | Gender * Stimuli Sex}
-\NormalTok{p\_m2a\_clmm }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2a\_clmm, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Solitary.TSD }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex,}
+\CommentTok{\# CLMM Predictions: Subjective Sexual Arousal \textasciitilde{} Solitary TSD | Gender * Stimuli Gender}
+\NormalTok{p\_m2a\_clmm }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2a\_clmm, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Solitary.TSD }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender,}
   \AttributeTok{at =} \FunctionTok{list}\NormalTok{(}\AttributeTok{Solitary.TSD =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{31}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)), }\CommentTok{\# Predict over range of TSD}
   \AttributeTok{mode =} \StringTok{"mean.class"} \CommentTok{\# Compute predicted mean response categories}
 \NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Convert predictions to dataframe}
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}
     \AttributeTok{x =}\NormalTok{ Solitary.TSD, }\AttributeTok{y =}\NormalTok{ mean.class,}
-    \AttributeTok{color =}\NormalTok{ Stimuli.sex, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex}
+    \AttributeTok{color =}\NormalTok{ Stimuli.gender, }\AttributeTok{fill =}\NormalTok{ Stimuli.gender}
 \NormalTok{  )) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\# Add prediction lines}
-  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex),}
+  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL, }\AttributeTok{fill =}\NormalTok{ Stimuli.gender),}
     \AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{color =} \ConstantTok{NA}
 \NormalTok{  ) }\SpecialCharTok{+} \CommentTok{\# Add confidence interval shading}
   \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
@@ -3262,24 +3262,24 @@ This figure presents model-based predictions of subjective sexual arousal as a f
   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Gender, }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\# Separate plots by Gender}
   \FunctionTok{labs}\NormalTok{(}
     \AttributeTok{y =} \StringTok{"Predicted SSA"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Solitary TSD"}\NormalTok{, }\AttributeTok{title =} \StringTok{"CLMM"}\NormalTok{,}
-    \AttributeTok{color =} \StringTok{"Stimuli Sex"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Sex"}
+    \AttributeTok{color =} \StringTok{"Stimuli Gender"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Gender"}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.3}\NormalTok{, }\FloatTok{5.3}\NormalTok{)) }\CommentTok{\# Set Y{-}axis limits}
 
 \CommentTok{\# Poisson GLMM Predictions}
-\NormalTok{p\_m2a\_poisson }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2a\_poisson, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Solitary.TSD }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex,}
+\NormalTok{p\_m2a\_poisson }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2a\_poisson, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Solitary.TSD }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender,}
   \AttributeTok{at =} \FunctionTok{list}\NormalTok{(}\AttributeTok{Solitary.TSD =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{31}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)),}
   \AttributeTok{type =} \StringTok{"response"} \CommentTok{\# Compute response{-}scale predictions}
 \NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}
     \AttributeTok{x =}\NormalTok{ Solitary.TSD, }\AttributeTok{y =}\NormalTok{ rate,}
-    \AttributeTok{color =}\NormalTok{ Stimuli.sex, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex}
+    \AttributeTok{color =}\NormalTok{ Stimuli.gender, }\AttributeTok{fill =}\NormalTok{ Stimuli.gender}
 \NormalTok{  )) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex),}
+  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL, }\AttributeTok{fill =}\NormalTok{ Stimuli.gender),}
     \AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{color =} \ConstantTok{NA}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
@@ -3287,24 +3287,24 @@ This figure presents model-based predictions of subjective sexual arousal as a f
   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Gender, }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
     \AttributeTok{y =} \StringTok{""}\NormalTok{, }\AttributeTok{x =} \StringTok{"Solitary TSD"}\NormalTok{, }\AttributeTok{title =} \StringTok{"GLMER (Poisson)"}\NormalTok{,}
-    \AttributeTok{color =} \StringTok{"Stimuli Sex"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Sex"}
+    \AttributeTok{color =} \StringTok{"Stimuli Gender"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Gender"}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.3}\NormalTok{, }\FloatTok{5.3}\NormalTok{))}
 
 \CommentTok{\# LMM Predictions}
-\NormalTok{p\_m2a\_lmer }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2a\_lmer, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Solitary.TSD }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex,}
+\NormalTok{p\_m2a\_lmer }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2a\_lmer, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Solitary.TSD }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender,}
   \AttributeTok{at =} \FunctionTok{list}\NormalTok{(}\AttributeTok{Solitary.TSD =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{31}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)),}
   \AttributeTok{type =} \StringTok{"response"}
 \NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}
     \AttributeTok{x =}\NormalTok{ Solitary.TSD, }\AttributeTok{y =}\NormalTok{ emmean,}
-    \AttributeTok{color =}\NormalTok{ Stimuli.sex, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex}
+    \AttributeTok{color =}\NormalTok{ Stimuli.gender, }\AttributeTok{fill =}\NormalTok{ Stimuli.gender}
 \NormalTok{  )) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex),}
+  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL, }\AttributeTok{fill =}\NormalTok{ Stimuli.gender),}
     \AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{color =} \ConstantTok{NA}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
@@ -3312,7 +3312,7 @@ This figure presents model-based predictions of subjective sexual arousal as a f
   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Gender, }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
     \AttributeTok{y =} \StringTok{""}\NormalTok{, }\AttributeTok{x =} \StringTok{"Solitary TSD"}\NormalTok{, }\AttributeTok{title =} \StringTok{"LMM"}\NormalTok{,}
-    \AttributeTok{color =} \StringTok{"Stimuli Sex"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Sex"}
+    \AttributeTok{color =} \StringTok{"Stimuli Gender"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Gender"}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{) }\SpecialCharTok{+}
@@ -3334,10 +3334,10 @@ This figure presents model-based predictions of subjective sexual arousal as a f
 \begin{figure}
 \centering
 \includegraphics{Sexual_Desire_Arousal_anonymous_files/figure-latex/preds-m2a-1.pdf}
-\caption{\label{fig:preds-m2a}Predicted subjective sexual arousal as a function of Solitary TSD, modeled using three statistical approaches: \textbf{(a)} Cumulative Link Mixed Model (CLMM); \textbf{(b)} Generalized Linear Mixed Model (GLMM) with a Poisson family; \textbf{(c)} Linear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95\% confidence intervals. The models include participant gender and stimulus sex as key factors.}
+\caption{\label{fig:preds-m2a}Predicted subjective sexual arousal as a function of Solitary TSD, modeled using three statistical approaches: \textbf{(a)} Cumulative Link Mixed Model (CLMM); \textbf{(b)} Generalized Linear Mixed Model (GLMM) with a Poisson family; \textbf{(c)} Linear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95\% confidence intervals. The models include participant gender and stimulus gender as key factors.}
 \end{figure}
 
-\paragraph{Final Model: Effects of Solitary TSD on SSA Across Gender and Stimuli Sex}\label{final-model-effects-of-solitary-tsd-on-ssa-across-gender-and-stimuli-sex}
+\paragraph{Final Model: Effects of Solitary TSD on SSA Across Gender and Stimuli Gender}\label{final-model-effects-of-solitary-tsd-on-ssa-across-gender-and-stimuli-gender}
 
 Given the apparent robustness of most results across models (CLMM, GLMER and LMM; Table \ref{tab:tab-robu-m2a}, Fig. \ref{fig:preds-m2a}), we test the predictions of the hypothesis from the LMM (\texttt{m2a\_lmer}).
 
@@ -3348,17 +3348,17 @@ This tables summarizes the results of the model.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Generate ANOVA{-}type table for the final LMM model}
-\CommentTok{\# This summarizes the effects of Solitary TSD on SSA across Gender and Stimuli Sex}
+\CommentTok{\# This summarizes the effects of Solitary TSD on SSA across Gender and Stimuli Gender}
 \FunctionTok{anova.sig.lmer}\NormalTok{(}
   \AttributeTok{model =}\NormalTok{ m2a\_lmer, }\CommentTok{\# Use LMM as the final model}
-  \AttributeTok{custom\_caption =} \StringTok{"Effects of Solitary TSD on SSA Across Gender and Stimuli Sex"}
+  \AttributeTok{custom\_caption =} \StringTok{"Effects of Solitary TSD on SSA Across Gender and Stimuli Gender"}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-m2a}Effects of Solitary TSD on SSA Across Gender and Stimuli Sex}
+\caption{\label{tab:tab-m2a}Effects of Solitary TSD on SSA Across Gender and Stimuli Gender}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -3368,11 +3368,11 @@ Effect & $df$ & $F$ & $p$ & $\epsilon^2_p$\\
 \midrule
 Solitary TSD & 1, 319 & 17.46 & \textbf{< 0.0001} & 0.0489\\
 Gender & 1, 319 & 8.84 & \textbf{0.0032} & 0.0239\\
-Stimuli sex & 1, 369.21 & 24.71 & \textbf{< 0.0001} & 0.06\\
+Stimuli gender & 1, 369.21 & 24.71 & \textbf{< 0.0001} & 0.06\\
 Solitary TSD × Gender & 1, 319 & 0.85 & 0.36 & < 0.0001\\
-Solitary TSD × Stimuli sex & 1, 319 & 0.02 & 0.88 & < 0.0001\\
-Gender × Stimuli sex & 1, 319 & 74.79 & \textbf{< 0.0001} & 0.19\\
-Solitary TSD × Gender × Stimuli sex & 1, 319 & 1.78 & 0.18 & 0.0024\\
+Solitary TSD × Stimuli gender & 1, 319 & 0.02 & 0.88 & < 0.0001\\
+Gender × Stimuli gender & 1, 319 & 74.79 & \textbf{< 0.0001} & 0.19\\
+Solitary TSD × Gender × Stimuli gender & 1, 319 & 1.78 & 0.18 & 0.0024\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
@@ -3384,15 +3384,15 @@ Solitary TSD × Gender × Stimuli sex & 1, 319 & 1.78 & 0.18 & 0.0024\\
 
 \subparagraph{\texorpdfstring{\emph{Post-hoc} tests}{Post-hoc tests}}\label{post-hoc-tests}
 
-To test the hypothesis, which predicted that there would be different relationship between SSA and solitary TSD, and that this association differ between men and women depending on the sex of stimuli, we used simple slope analysis.
+To test the hypothesis, which predicted that there would be different relationship between SSA and solitary TSD, and that this association differ between men and women depending on the gender of stimuli, we used simple slope analysis.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Perform simple slopes analysis for Solitary TSD on SSA}
-\CommentTok{\# Moderators: Stimuli Sex \& Gender}
+\CommentTok{\# Moderators: Stimuli Gender \& Gender}
 \NormalTok{slop.m2a\_lmer }\OtherTok{\textless{}{-}} \FunctionTok{sim\_slopes}\NormalTok{(m2a\_lmer,}
   \AttributeTok{pred =}\NormalTok{ Solitary.TSD, }\CommentTok{\# Predictor: Solitary TSD}
-  \AttributeTok{modx =}\NormalTok{ Stimuli.sex, }\CommentTok{\# First moderator: Stimuli sex}
+  \AttributeTok{modx =}\NormalTok{ Stimuli.gender, }\CommentTok{\# First moderator: Stimuli gender}
   \AttributeTok{mod2 =}\NormalTok{ Gender, }\CommentTok{\# Second moderator: Gender}
   \AttributeTok{confint =} \ConstantTok{TRUE} \CommentTok{\# Compute confidence intervals}
 \NormalTok{)}
@@ -3409,7 +3409,7 @@ To test the hypothesis, which predicted that there would be different relationsh
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{3}\SpecialCharTok{:}\DecValTok{7}\NormalTok{, as.numeric)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{3}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, round, }\DecValTok{2}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Round confidence intervals}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{sig =} \FunctionTok{pval.stars}\NormalTok{(p)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Convert p{-}values to significance stars}
-  \FunctionTok{rename}\NormalTok{(}\StringTok{"Stimuli.sex"} \OtherTok{=} \StringTok{"Value of Stimuli.sex"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\StringTok{"Stimuli.gender"} \OtherTok{=} \StringTok{"Value of Stimuli.gender"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{rename}\NormalTok{(}\AttributeTok{Coefficient =}\NormalTok{ Est.)}
 
 \CommentTok{\# Format the table output}
@@ -3418,8 +3418,8 @@ To test the hypothesis, which predicted that there would be different relationsh
   \FunctionTok{kable}\NormalTok{(}
     \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)), }
     \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
-    \AttributeTok{caption =} \StringTok{"Slope for Solitary TSD on Subjective Sexual Arousal by Stimuli Sex and Gender"}\NormalTok{,}
-    \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Stimuli sex"}\NormalTok{, }\StringTok{"$B$"}\NormalTok{, }\StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$t$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{),}
+    \AttributeTok{caption =} \StringTok{"Slope for Solitary TSD on Subjective Sexual Arousal by Stimuli Gender and Gender"}\NormalTok{,}
+    \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Stimuli gender"}\NormalTok{, }\StringTok{"$B$"}\NormalTok{, }\StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$t$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{),}
     \AttributeTok{escape =} \ConstantTok{FALSE}
 \NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
@@ -3440,12 +3440,12 @@ To test the hypothesis, which predicted that there would be different relationsh
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:unnamed-chunk-21}Slope for Solitary TSD on Subjective Sexual Arousal by Stimuli Sex and Gender}
+\caption{\label{tab:unnamed-chunk-21}Slope for Solitary TSD on Subjective Sexual Arousal by Stimuli Gender and Gender}
 \centering
 \begin{threeparttable}
 \begin{tabular}[t]{lccccc}
 \toprule
-Stimuli sex & $B$ & $2.5\% CI$ & $97.5\% CI$ & $t$ & $p$\\
+Stimuli gender & $B$ & $2.5\% CI$ & $97.5\% CI$ & $t$ & $p$\\
 \midrule
 \addlinespace[0.3em]
 \multicolumn{6}{l}{\cellcolor{lightgray}{Gender: Women}}\\
@@ -3493,7 +3493,7 @@ This figure summarizes the results of hypothesis 2a.
 \NormalTok{        ),}
         \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(sig), }\StringTok{""}\NormalTok{, sig)}
 \NormalTok{      ),}
-      \AttributeTok{vjust =} \DecValTok{2} \SpecialCharTok{+} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(Stimuli.sex)) }\SpecialCharTok{*} \DecValTok{2} \CommentTok{\# Stack labels}
+      \AttributeTok{vjust =} \DecValTok{2} \SpecialCharTok{+} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(Stimuli.gender)) }\SpecialCharTok{*} \DecValTok{2} \CommentTok{\# Stack labels}
 \NormalTok{    ),}
     \AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.1}\NormalTok{, }\CommentTok{\# Align text to the left}
     \AttributeTok{show.legend =} \ConstantTok{FALSE}
@@ -3508,14 +3508,14 @@ This figure summarizes the results of hypothesis 2a.
 \begin{figure}
 \centering
 \includegraphics{Sexual_Desire_Arousal_anonymous_files/figure-latex/fig-h2a-1.pdf}
-\caption{\label{fig:fig-h2a}Predicted subjective sexual arousal as a function of Solitary TSD, modeled using aLinear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95\% confidence intervals. The model include participant gender and stimuli sex as key factors.}
+\caption{\label{fig:fig-h2a}Predicted subjective sexual arousal as a function of Solitary TSD, modeled using aLinear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95\% confidence intervals. The model include participant gender and stimuli gender as key factors.}
 \end{figure}
 
 \subsubsection{Hypothesis 2b: Dyadic TSD Attractive Person}\label{hyp2b}
 
-\paragraph{Model Robustness: Examining the Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Sex}\label{model-robustness-examining-the-effects-of-dyadic-tsd-attractive-person-on-ssa-across-gender-and-stimuli-sex}
+\paragraph{Model Robustness: Examining the Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Gender}\label{model-robustness-examining-the-effects-of-dyadic-tsd-attractive-person-on-ssa-across-gender-and-stimuli-gender}
 
-To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Attractive Person predicts SSA, considering variations by gender and stimuli sex:
+To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Attractive Person predicts SSA, considering variations by gender and stimuli gender:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3531,13 +3531,13 @@ To assess the robustness of our findings, we fitted three different models exami
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Fit three different models to examine how Dyadic TSD Partner predicts SSA}
-\CommentTok{\# Each model considers variations by Gender and Stimuli Sex}
+\CommentTok{\# Each model considers variations by Gender and Stimuli Gender}
 
 \CommentTok{\# (1) Cumulative Link Mixed Model (CLMM) {-} Ordinal outcome with probit link}
 \NormalTok{m2b\_clmm }\OtherTok{\textless{}{-}} \FunctionTok{clmm}\NormalTok{(}
-\NormalTok{  Subjective.sexual.arousal.factor }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Attractive.Person }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex }\SpecialCharTok{+}
+\NormalTok{  Subjective.sexual.arousal.factor }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Attractive.Person }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender }\SpecialCharTok{+}
 \NormalTok{    (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stimuli.code) }\SpecialCharTok{+} \CommentTok{\# Random intercept for Stimuli}
-\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.sex }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli sex}
+\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.gender }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli gender}
   \AttributeTok{data =}\NormalTok{ dat\_m2,}
   \AttributeTok{link =} \StringTok{"probit"}\NormalTok{, }\CommentTok{\# Use probit link function}
   \AttributeTok{control =} \FunctionTok{list}\NormalTok{(}\AttributeTok{method =} \StringTok{"nlminb"}\NormalTok{) }\CommentTok{\# Use \textquotesingle{}nlminb\textquotesingle{} optimizer for better convergence}
@@ -3545,18 +3545,18 @@ To assess the robustness of our findings, we fitted three different models exami
 
 \CommentTok{\# (2) Generalized Linear Mixed Model (GLMM) {-} Poisson regression for count data}
 \NormalTok{m2b\_poisson }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(}
-\NormalTok{  Subjective.sexual.arousal }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Attractive.Person }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex }\SpecialCharTok{+}
+\NormalTok{  Subjective.sexual.arousal }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Attractive.Person }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender }\SpecialCharTok{+}
 \NormalTok{    (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stimuli.code) }\SpecialCharTok{+} \CommentTok{\# Random intercept for Stimuli}
-\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.sex }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli sex}
+\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.gender }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli gender}
   \AttributeTok{data =}\NormalTok{ dat\_m2,}
   \AttributeTok{family =}\NormalTok{ poisson }\CommentTok{\# Use Poisson distribution for count data}
 \NormalTok{)}
 
 \CommentTok{\# (3) Linear Mixed Model (LMM) {-} Continuous approximation}
 \NormalTok{m2b\_lmer }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}
-\NormalTok{  Subjective.sexual.arousal }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Attractive.Person }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex }\SpecialCharTok{+}
+\NormalTok{  Subjective.sexual.arousal }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Attractive.Person }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender }\SpecialCharTok{+}
 \NormalTok{    (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stimuli.code) }\SpecialCharTok{+} \CommentTok{\# Random intercept for Stimuli}
-\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.sex }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli sex}
+\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.gender }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli gender}
   \AttributeTok{data =}\NormalTok{ dat\_m2,}
   \AttributeTok{control =} \FunctionTok{lmerControl}\NormalTok{(}\AttributeTok{optimizer =} \StringTok{"bobyqa"}\NormalTok{) }\CommentTok{\# Use \textquotesingle{}bobyqa\textquotesingle{} optimizer for stability}
 \NormalTok{)}
@@ -3596,11 +3596,11 @@ Effect & $df$ & $\chi^2$ & $p$ & $df$ & $\chi^2$ & $p$ & $df$ & $F$ & $p$\\
 \midrule
 Dyadic TSD Attractive Person & 1 & 36.545 & \textbf{< 0.0001} & 1 & 45.711 & \textbf{< 0.0001} & 1, 319 & 48.490 & \textbf{< 0.0001}\\
 Gender & 1 & 0.031 & 0.86 & 1 & 3.059 & 0.08 & 1, 319 & 1.446 & 0.23\\
-Stimuli sex & 1 & 18.293 & \textbf{< 0.0001} & 1 & 7.365 & \textbf{0.0067} & 1, 373.93 & 2.689 & 0.1\\
+Stimuli gender & 1 & 18.293 & \textbf{< 0.0001} & 1 & 7.365 & \textbf{0.0067} & 1, 373.93 & 2.689 & 0.1\\
 Dyadic TSD Attractive Person × Gender & 1 & 3.774 & 0.05 & 1 & 0.940 & 0.33 & 1, 319 & 0.530 & 0.47\\
-Dyadic TSD Attractive Person × Stimuli sex & 1 & 7.654 & \textbf{0.0057} & 1 & 7.507 & \textbf{0.0061} & 1, 319 & 15.428 & \textbf{< 0.001}\\
-Gender × Stimuli sex & 1 & 124.186 & \textbf{< 0.0001} & 1 & 67.054 & \textbf{< 0.0001} & 1, 319 & 27.444 & \textbf{< 0.0001}\\
-Dyadic TSD Attractive Person × Gender × Stimuli sex & 1 & 3.833 & 0.05 & 1 & 20.127 & \textbf{< 0.0001} & 1, 319 & 29.689 & \textbf{< 0.0001}\\
+Dyadic TSD Attractive Person × Stimuli gender & 1 & 7.654 & \textbf{0.0057} & 1 & 7.507 & \textbf{0.0061} & 1, 319 & 15.428 & \textbf{< 0.001}\\
+Gender × Stimuli gender & 1 & 124.186 & \textbf{< 0.0001} & 1 & 67.054 & \textbf{< 0.0001} & 1, 319 & 27.444 & \textbf{< 0.0001}\\
+Dyadic TSD Attractive Person × Gender × Stimuli gender & 1 & 3.833 & 0.05 & 1 & 20.127 & \textbf{< 0.0001} & 1, 319 & 29.689 & \textbf{< 0.0001}\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
@@ -3616,22 +3616,22 @@ Dyadic TSD Attractive Person × Gender × Stimuli sex & 1 & 3.833 & 0.05 & 1 & 2
 
 \subparagraph{Figure \ref{fig:preds-m2b}: Model-based predictions for Hypothesis 2b.}\label{figure-reffigpreds-m2b-model-based-predictions-for-hypothesis-2b.}
 
-This figure presents model-based predictions of subjective sexual arousal as a function of Dyadic TSD Attractive Person, across different stimulus sexes and participant genders. The three subplots correspond to the three statistical models used for analysis: (a) Cumulative Link Mixed Model (CLMM), (b) Generalized Linear Mixed Model (GLMM, Poisson), and (c) Linear Mixed Model (LMM). Shaded areas represent 95\% confidence intervals.
+This figure presents model-based predictions of subjective sexual arousal as a function of Dyadic TSD Attractive Person, across different stimulus genderes and participant genders. The three subplots correspond to the three statistical models used for analysis: (a) Cumulative Link Mixed Model (CLMM), (b) Generalized Linear Mixed Model (GLMM, Poisson), and (c) Linear Mixed Model (LMM). Shaded areas represent 95\% confidence intervals.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# CLMM Predictions}
-\NormalTok{p\_m2b\_clmm }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2b\_clmm, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Attractive.Person }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex,}
+\NormalTok{p\_m2b\_clmm }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2b\_clmm, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Attractive.Person }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender,}
   \AttributeTok{at =} \FunctionTok{list}\NormalTok{(}\AttributeTok{Dyadic.TSD.Attractive.Person =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{31}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)),}
   \AttributeTok{mode =} \StringTok{"mean.class"} \CommentTok{\# Compute predicted mean response categories}
 \NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Convert to dataframe for ggplot}
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}
     \AttributeTok{x =}\NormalTok{ Dyadic.TSD.Attractive.Person, }\AttributeTok{y =}\NormalTok{ mean.class,}
-    \AttributeTok{color =}\NormalTok{ Stimuli.sex, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex}
+    \AttributeTok{color =}\NormalTok{ Stimuli.gender, }\AttributeTok{fill =}\NormalTok{ Stimuli.gender}
 \NormalTok{  )) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\# Add predicted response line}
-  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex),}
+  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL, }\AttributeTok{fill =}\NormalTok{ Stimuli.gender),}
     \AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{color =} \ConstantTok{NA}
 \NormalTok{  ) }\SpecialCharTok{+} \CommentTok{\# Add confidence interval as shaded ribbon}
   \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
@@ -3640,24 +3640,24 @@ This figure presents model-based predictions of subjective sexual arousal as a f
   \FunctionTok{labs}\NormalTok{(}
     \AttributeTok{y =} \StringTok{"Predicted Subjective Sexual Arousal"}\NormalTok{,}
     \AttributeTok{x =} \StringTok{"Dyadic TSD Attractive Person"}\NormalTok{,}
-    \AttributeTok{title =} \StringTok{"CLMM"}\NormalTok{, }\AttributeTok{color =} \StringTok{"Stimuli Sex"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Sex"}
+    \AttributeTok{title =} \StringTok{"CLMM"}\NormalTok{, }\AttributeTok{color =} \StringTok{"Stimuli Gender"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Gender"}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.3}\NormalTok{, }\FloatTok{6.5}\NormalTok{)) }\CommentTok{\# Set Y{-}axis limits}
 
 \CommentTok{\# Poisson GLMM Predictions}
-\NormalTok{p\_m2b\_poisson }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2b\_poisson, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Attractive.Person }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex,}
+\NormalTok{p\_m2b\_poisson }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2b\_poisson, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Attractive.Person }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender,}
   \AttributeTok{at =} \FunctionTok{list}\NormalTok{(}\AttributeTok{Dyadic.TSD.Attractive.Person =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{31}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)),}
   \AttributeTok{type =} \StringTok{"response"} \CommentTok{\# Compute response{-}scale predictions}
 \NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}
     \AttributeTok{x =}\NormalTok{ Dyadic.TSD.Attractive.Person, }\AttributeTok{y =}\NormalTok{ rate,}
-    \AttributeTok{color =}\NormalTok{ Stimuli.sex, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex}
+    \AttributeTok{color =}\NormalTok{ Stimuli.gender, }\AttributeTok{fill =}\NormalTok{ Stimuli.gender}
 \NormalTok{  )) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex),}
+  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL, }\AttributeTok{fill =}\NormalTok{ Stimuli.gender),}
     \AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{color =} \ConstantTok{NA}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
@@ -3665,24 +3665,24 @@ This figure presents model-based predictions of subjective sexual arousal as a f
   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Gender, }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
     \AttributeTok{y =} \StringTok{""}\NormalTok{, }\AttributeTok{x =} \StringTok{"Dyadic TSD Attractive Person"}\NormalTok{,}
-    \AttributeTok{title =} \StringTok{"GLMER (Poisson)"}\NormalTok{, }\AttributeTok{color =} \StringTok{"Stimuli Sex"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Sex"}
+    \AttributeTok{title =} \StringTok{"GLMER (Poisson)"}\NormalTok{, }\AttributeTok{color =} \StringTok{"Stimuli Gender"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Gender"}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.3}\NormalTok{, }\FloatTok{6.5}\NormalTok{))}
 
 \CommentTok{\# LMM Predictions}
-\NormalTok{p\_m2b\_lmer }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2b\_lmer, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Attractive.Person }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex,}
+\NormalTok{p\_m2b\_lmer }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2b\_lmer, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Attractive.Person }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender,}
   \AttributeTok{at =} \FunctionTok{list}\NormalTok{(}\AttributeTok{Dyadic.TSD.Attractive.Person =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{31}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)),}
   \AttributeTok{type =} \StringTok{"response"}
 \NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}
     \AttributeTok{x =}\NormalTok{ Dyadic.TSD.Attractive.Person, }\AttributeTok{y =}\NormalTok{ emmean,}
-    \AttributeTok{color =}\NormalTok{ Stimuli.sex, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex}
+    \AttributeTok{color =}\NormalTok{ Stimuli.gender, }\AttributeTok{fill =}\NormalTok{ Stimuli.gender}
 \NormalTok{  )) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex),}
+  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL, }\AttributeTok{fill =}\NormalTok{ Stimuli.gender),}
     \AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{color =} \ConstantTok{NA}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =}\NormalTok{ color.StimuliSex) }\SpecialCharTok{+}
@@ -3690,7 +3690,7 @@ This figure presents model-based predictions of subjective sexual arousal as a f
   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{Gender, }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
     \AttributeTok{y =} \StringTok{""}\NormalTok{, }\AttributeTok{x =} \StringTok{"Dyadic TSD Attractive Person"}\NormalTok{,}
-    \AttributeTok{title =} \StringTok{"LMM"}\NormalTok{, }\AttributeTok{color =} \StringTok{"Stimuli Sex"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Sex"}
+    \AttributeTok{title =} \StringTok{"LMM"}\NormalTok{, }\AttributeTok{color =} \StringTok{"Stimuli Gender"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Gender"}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{) }\SpecialCharTok{+}
@@ -3713,10 +3713,10 @@ This figure presents model-based predictions of subjective sexual arousal as a f
 \begin{figure}
 \centering
 \includegraphics{Sexual_Desire_Arousal_anonymous_files/figure-latex/preds-m2b-1.pdf}
-\caption{\label{fig:preds-m2b}Predicted subjective sexual arousal as a function of Dyadic TSD Attractive Person, modeled using three statistical approaches: \textbf{(a)} Cumulative Link Mixed Model (CLMM); \textbf{(b)} Generalized Linear Mixed Model (GLMM) with a Poisson family; \textbf{(c)} Linear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95\% confidence intervals. The models include participant gender and stimulus sex as key factors.}
+\caption{\label{fig:preds-m2b}Predicted subjective sexual arousal as a function of Dyadic TSD Attractive Person, modeled using three statistical approaches: \textbf{(a)} Cumulative Link Mixed Model (CLMM); \textbf{(b)} Generalized Linear Mixed Model (GLMM) with a Poisson family; \textbf{(c)} Linear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95\% confidence intervals. The models include participant gender and stimulus gender as key factors.}
 \end{figure}
 
-\paragraph{Final Model: Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Sex}\label{final-model-effects-of-dyadic-tsd-attractive-person-on-ssa-across-gender-and-stimuli-sex}
+\paragraph{Final Model: Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Gender}\label{final-model-effects-of-dyadic-tsd-attractive-person-on-ssa-across-gender-and-stimuli-gender}
 
 Given the apparent robustness of most results across models (CLMM, GLMER and LMM; Table \ref{tab:tab-robu-m2b}, Fig. \ref{fig:preds-m2b}), we test the predictions of the hypothesis from the LMM (\texttt{m2b\_lmer}).
 
@@ -3727,11 +3727,11 @@ This tables summarizes the results of the model.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Generate ANOVA{-}type table for the final LMM model}
-\CommentTok{\# Summarizes the effects of Dyadic TSD Attractive Person on SSA across Gender and Stimuli Sex}
+\CommentTok{\# Summarizes the effects of Dyadic TSD Attractive Person on SSA across Gender and Stimuli Gender}
 \FunctionTok{anova.sig.lmer}\NormalTok{(}
   \AttributeTok{model =}\NormalTok{ m2b\_lmer, }\CommentTok{\# Use LMM as the final model}
   \AttributeTok{custom\_caption =} \StringTok{"Effects of Dyadic TSD Attractive Person on SSA }
-\StringTok{  Across Gender and Stimuli Sex"}
+\StringTok{  Across Gender and Stimuli Gender"}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -3739,7 +3739,7 @@ This tables summarizes the results of the model.
 \begin{table}[H]
 \centering
 \caption{\label{tab:tab-m2b}Effects of Dyadic TSD Attractive Person on SSA 
-  Across Gender and Stimuli Sex}
+  Across Gender and Stimuli Gender}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -3749,11 +3749,11 @@ Effect & $df$ & $F$ & $p$ & $\epsilon^2_p$\\
 \midrule
 Dyadic TSD Attractive Person & 1, 319 & 48.49 & \textbf{< 0.0001} & 0.13\\
 Gender & 1, 319 & 1.45 & 0.23 & 0.0014\\
-Stimuli sex & 1, 373.93 & 2.69 & 0.1 & 0.0045\\
+Stimuli gender & 1, 373.93 & 2.69 & 0.1 & 0.0045\\
 Dyadic TSD Attractive Person × Gender & 1, 319 & 0.53 & 0.47 & < 0.0001\\
-Dyadic TSD Attractive Person × Stimuli sex & 1, 319 & 15.43 & \textbf{< 0.001} & 0.0431\\
-Gender × Stimuli sex & 1, 319 & 27.44 & \textbf{< 0.0001} & 0.08\\
-Dyadic TSD Attractive Person × Gender × Stimuli sex & 1, 319 & 29.69 & \textbf{< 0.0001} & 0.08\\
+Dyadic TSD Attractive Person × Stimuli gender & 1, 319 & 15.43 & \textbf{< 0.001} & 0.0431\\
+Gender × Stimuli gender & 1, 319 & 27.44 & \textbf{< 0.0001} & 0.08\\
+Dyadic TSD Attractive Person × Gender × Stimuli gender & 1, 319 & 29.69 & \textbf{< 0.0001} & 0.08\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
@@ -3765,16 +3765,16 @@ Dyadic TSD Attractive Person × Gender × Stimuli sex & 1, 319 & 29.69 & \textbf
 
 \subparagraph{\texorpdfstring{\emph{Post-hoc} tests}{Post-hoc tests}}\label{post-hoc-tests-1}
 
-To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Attractive Person, and that this association differ between men and women depending on the sex of stimuli, we used simple slope analysis.
+To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Attractive Person, and that this association differ between men and women depending on the gender of stimuli, we used simple slope analysis.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Perform simple slope analysis for Dyadic TSD Attractive Person on SSA}
-\CommentTok{\# This examines differences by stimuli sex and participant gender}
+\CommentTok{\# This examines differences by stimuli gender and participant gender}
 \NormalTok{slop.m2b\_lmer }\OtherTok{\textless{}{-}} \FunctionTok{sim\_slopes}\NormalTok{(}
 \NormalTok{  m2b\_lmer,}
   \AttributeTok{pred =}\NormalTok{ Dyadic.TSD.Attractive.Person, }\CommentTok{\# Predictor: Dyadic TSD Attractive Person}
-  \AttributeTok{modx =}\NormalTok{ Stimuli.sex, }\CommentTok{\# Moderator: Stimuli sex}
+  \AttributeTok{modx =}\NormalTok{ Stimuli.gender, }\CommentTok{\# Moderator: Stimuli gender}
   \AttributeTok{mod2 =}\NormalTok{ Gender, }\CommentTok{\# Second moderator: Gender}
   \AttributeTok{confint =} \ConstantTok{TRUE} \CommentTok{\# Compute confidence intervals}
 \NormalTok{)}
@@ -3789,7 +3789,7 @@ To test the hypothesis, which predicted that there would be different relationsh
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{3}\SpecialCharTok{:}\DecValTok{7}\NormalTok{, as.numeric)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\DecValTok{3}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, round, }\DecValTok{2}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{sig =} \FunctionTok{pval.stars}\NormalTok{(p)) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{rename}\NormalTok{(}\StringTok{"Stimuli.sex"} \OtherTok{=} \StringTok{"Value of Stimuli.sex"}\NormalTok{, }\AttributeTok{Coefficient =}\NormalTok{ Est.)}
+  \FunctionTok{rename}\NormalTok{(}\StringTok{"Stimuli.gender"} \OtherTok{=} \StringTok{"Value of Stimuli.gender"}\NormalTok{, }\AttributeTok{Coefficient =}\NormalTok{ Est.)}
 
 \CommentTok{\# Generate formatted table for slopes of Dyadic TSD Attractive Person on SSA}
 \NormalTok{slop.m2b\_lmer.tab[, }\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{8}\NormalTok{)] }\SpecialCharTok{|\textgreater{}}
@@ -3797,9 +3797,9 @@ To test the hypothesis, which predicted that there would be different relationsh
   \FunctionTok{kable}\NormalTok{(}
     \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
     \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
-    \AttributeTok{caption =} \StringTok{"Slope for Dyadic TSD Attractive Person on SSA by stimuli sex and gender"}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Slope for Dyadic TSD Attractive Person on SSA by stimuli gender and gender"}\NormalTok{,}
     \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
-    \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Stimuli sex"}\NormalTok{, }\StringTok{"$B$"}\NormalTok{, }\StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$t$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{),}
+    \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Stimuli gender"}\NormalTok{, }\StringTok{"$B$"}\NormalTok{, }\StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$t$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{),}
     \AttributeTok{escape =} \ConstantTok{FALSE}
 \NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{latex\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"HOLD\_position"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
@@ -3823,12 +3823,12 @@ To test the hypothesis, which predicted that there would be different relationsh
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:unnamed-chunk-23}Slope for Dyadic TSD Attractive Person on SSA by stimuli sex and gender}
+\caption{\label{tab:unnamed-chunk-23}Slope for Dyadic TSD Attractive Person on SSA by stimuli gender and gender}
 \centering
 \begin{threeparttable}
 \begin{tabular}[t]{lccccc}
 \toprule
-Stimuli sex & $B$ & $2.5\% CI$ & $97.5\% CI$ & $t$ & $p$\\
+Stimuli gender & $B$ & $2.5\% CI$ & $97.5\% CI$ & $t$ & $p$\\
 \midrule
 \addlinespace[0.3em]
 \multicolumn{6}{l}{\cellcolor{lightgray}{Gender: Women}}\\
@@ -3855,7 +3855,7 @@ This figure summarizes the results of hypothesis 2b.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Generate the final figure for Hypothesis 2b}
-\CommentTok{\# Visualizes the effects of Dyadic TSD Attractive Person on SSA across Gender and Stimuli Sex}
+\CommentTok{\# Visualizes the effects of Dyadic TSD Attractive Person on SSA across Gender and Stimuli Gender}
 \NormalTok{p\_m2b.fin }\OtherTok{\textless{}{-}}\NormalTok{ p\_m2b\_lmer }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
     \AttributeTok{title =} \StringTok{""}\NormalTok{,}
@@ -3872,7 +3872,7 @@ This figure summarizes the results of hypothesis 2b.
         \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{grepl}\NormalTok{(}\StringTok{"\textless{}"}\NormalTok{, }\FunctionTok{pe2.lev}\NormalTok{(p)), }\FunctionTok{pe2.lev}\NormalTok{(p), }\FunctionTok{paste0}\NormalTok{(}\StringTok{" = "}\NormalTok{, }\FunctionTok{pe2.lev}\NormalTok{(p))),}
         \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(sig), }\StringTok{""}\NormalTok{, sig)}
 \NormalTok{      ),}
-      \AttributeTok{vjust =} \DecValTok{2} \SpecialCharTok{+} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(Stimuli.sex)) }\SpecialCharTok{*} \DecValTok{2} \CommentTok{\# Adjust vertical positioning}
+      \AttributeTok{vjust =} \DecValTok{2} \SpecialCharTok{+} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(Stimuli.gender)) }\SpecialCharTok{*} \DecValTok{2} \CommentTok{\# Adjust vertical positioning}
 \NormalTok{    ),}
     \AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.1}\NormalTok{, }\CommentTok{\# Align text to the left}
     \AttributeTok{show.legend =} \ConstantTok{FALSE} \CommentTok{\# Remove legends from text annotations}
@@ -3887,14 +3887,14 @@ This figure summarizes the results of hypothesis 2b.
 \begin{figure}
 \centering
 \includegraphics{Sexual_Desire_Arousal_anonymous_files/figure-latex/fig-h2b-1.pdf}
-\caption{\label{fig:fig-h2b}Predicted subjective sexual arousal as a function of Dyadic TSD Partner, modeled using aLinear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95\% confidence intervals. The model include participant gender and stimuli sex as key factors.}
+\caption{\label{fig:fig-h2b}Predicted subjective sexual arousal as a function of Dyadic TSD Partner, modeled using aLinear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95\% confidence intervals. The model include participant gender and stimuli gender as key factors.}
 \end{figure}
 
 \subsubsection{Hypothesis 2c: Dyadic TSD Partner}\label{hyp2c}
 
-\paragraph{Model Robustness: Examining the Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Sex}\label{model-robustness-examining-the-effects-of-dyadic-tsd-partner-on-ssa-across-gender-and-stimuli-sex}
+\paragraph{Model Robustness: Examining the Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Gender}\label{model-robustness-examining-the-effects-of-dyadic-tsd-partner-on-ssa-across-gender-and-stimuli-gender}
 
-To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Partner predicts SSA, considering variations by gender and stimuli sex:
+To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Partner predicts SSA, considering variations by gender and stimuli gender:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3910,13 +3910,13 @@ To assess the robustness of our findings, we fitted three different models exami
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Fit three different models to examine how Dyadic TSD Partner predicts SSA}
-\CommentTok{\# Each model considers variations by Gender and Stimuli Sex}
+\CommentTok{\# Each model considers variations by Gender and Stimuli Gender}
 
 \CommentTok{\# (1) Cumulative Link Mixed Model (CLMM) {-} Ordinal outcome with probit link}
 \NormalTok{m2c\_clmm }\OtherTok{\textless{}{-}} \FunctionTok{clmm}\NormalTok{(}
-\NormalTok{  Subjective.sexual.arousal.factor }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Partner }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex }\SpecialCharTok{+}
+\NormalTok{  Subjective.sexual.arousal.factor }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Partner }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender }\SpecialCharTok{+}
 \NormalTok{    (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stimuli.code) }\SpecialCharTok{+} \CommentTok{\# Random intercept for Stimuli}
-\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.sex }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli sex}
+\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.gender }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli gender}
   \AttributeTok{data =}\NormalTok{ dat\_m2,}
   \AttributeTok{link =} \StringTok{"probit"}\NormalTok{,}
   \AttributeTok{control =} \FunctionTok{list}\NormalTok{(}\AttributeTok{method =} \StringTok{"nlminb"}\NormalTok{) }\CommentTok{\# Use \textquotesingle{}nlminb\textquotesingle{} optimizer for better convergence}
@@ -3924,18 +3924,18 @@ To assess the robustness of our findings, we fitted three different models exami
 
 \CommentTok{\# (2) Generalized Linear Mixed Model (GLMM) {-} Poisson regression for count data}
 \NormalTok{m2c\_poisson }\OtherTok{\textless{}{-}} \FunctionTok{glmer}\NormalTok{(}
-\NormalTok{  Subjective.sexual.arousal }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Partner }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex }\SpecialCharTok{+}
+\NormalTok{  Subjective.sexual.arousal }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Partner }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender }\SpecialCharTok{+}
 \NormalTok{    (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stimuli.code) }\SpecialCharTok{+} \CommentTok{\# Random intercept for Stimuli}
-\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.sex }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli sex}
+\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.gender }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli gender}
   \AttributeTok{data =}\NormalTok{ dat\_m2,}
   \AttributeTok{family =}\NormalTok{ poisson }\CommentTok{\# Poisson distribution for count data}
 \NormalTok{)}
 
 \CommentTok{\# (3) Linear Mixed Model (LMM) {-} Continuous approximation}
 \NormalTok{m2c\_lmer }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(}
-\NormalTok{  Subjective.sexual.arousal }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Partner }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex }\SpecialCharTok{+}
+\NormalTok{  Subjective.sexual.arousal }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Partner }\SpecialCharTok{*}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender }\SpecialCharTok{+}
 \NormalTok{    (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Stimuli.code) }\SpecialCharTok{+} \CommentTok{\# Random intercept for Stimuli}
-\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.sex }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli sex}
+\NormalTok{    (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ Stimuli.gender }\SpecialCharTok{|}\NormalTok{ Participant), }\CommentTok{\# Random intercept \& slope for Stimuli gender}
   \AttributeTok{data =}\NormalTok{ dat\_m2,}
   \AttributeTok{control =} \FunctionTok{lmerControl}\NormalTok{(}\AttributeTok{optimizer =} \StringTok{"bobyqa"}\NormalTok{) }\CommentTok{\# Use \textquotesingle{}bobyqa\textquotesingle{} optimizer for stability}
 \NormalTok{)}
@@ -3973,11 +3973,11 @@ Effect & $df$ & $\chi^2$ & $p$ & $df$ & $\chi^2$ & $p$ & $df$ & $F$ & $p$\\
 \midrule
 Dyadic TSD Partner & 1 & 0.642 & 0.42 & 1 & 5.150 & \textbf{0.0232} & 1, 316 & 6.589 & \textbf{0.0107}\\
 Gender & 1 & 0.743 & 0.39 & 1 & 0.078 & 0.78 & 1, 316 & 0.034 & 0.85\\
-Stimuli sex & 1 & 10.881 & \textbf{< 0.001} & 1 & 2.688 & 0.1 & 1, 344.42 & 0.991 & 0.32\\
+Stimuli gender & 1 & 10.881 & \textbf{< 0.001} & 1 & 2.688 & 0.1 & 1, 344.42 & 0.991 & 0.32\\
 Dyadic TSD Partner × Gender & 1 & 0.310 & 0.58 & 1 & 2.111 & 0.15 & 1, 316 & 3.967 & \textbf{0.0472}\\
-Dyadic TSD Partner × Stimuli sex & 1 & 2.366 & 0.12 & 1 & 5.423 & \textbf{0.0199} & 1, 316 & 8.458 & \textbf{0.0039}\\
-Gender × Stimuli sex & 1 & 61.739 & \textbf{< 0.0001} & 1 & 45.783 & \textbf{< 0.0001} & 1, 316 & 20.549 & \textbf{< 0.0001}\\
-Dyadic TSD Partner × Gender × Stimuli sex & 1 & 1.254 & 0.26 & 1 & 2.461 & 0.12 & 1, 316 & 5.700 & \textbf{0.0176}\\
+Dyadic TSD Partner × Stimuli gender & 1 & 2.366 & 0.12 & 1 & 5.423 & \textbf{0.0199} & 1, 316 & 8.458 & \textbf{0.0039}\\
+Gender × Stimuli gender & 1 & 61.739 & \textbf{< 0.0001} & 1 & 45.783 & \textbf{< 0.0001} & 1, 316 & 20.549 & \textbf{< 0.0001}\\
+Dyadic TSD Partner × Gender × Stimuli gender & 1 & 1.254 & 0.26 & 1 & 2.461 & 0.12 & 1, 316 & 5.700 & \textbf{0.0176}\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
@@ -3993,7 +3993,7 @@ Dyadic TSD Partner × Gender × Stimuli sex & 1 & 1.254 & 0.26 & 1 & 2.461 & 0.1
 
 \subparagraph{Figure \ref{fig:preds-m2c}: Model-based predictions for Hypothesis 2c.}\label{figure-reffigpreds-m2c-model-based-predictions-for-hypothesis-2c.}
 
-This figure presents model-based predictions of subjective sexual arousal as a function of Dyadic TSD Partner, across different stimulus sexes and participant genders. The three subplots correspond to the three statistical models used for analysis: (a) Cumulative Link Mixed Model (CLMM), (b) Generalized Linear Mixed Model (GLMM, Poisson), and (c) Linear Mixed Model (LMM). Shaded areas represent 95\% confidence intervals.
+This figure presents model-based predictions of subjective sexual arousal as a function of Dyadic TSD Partner, across different stimulus genderes and participant genders. The three subplots correspond to the three statistical models used for analysis: (a) Cumulative Link Mixed Model (CLMM), (b) Generalized Linear Mixed Model (GLMM, Poisson), and (c) Linear Mixed Model (LMM). Shaded areas represent 95\% confidence intervals.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4001,14 +4001,14 @@ This figure presents model-based predictions of subjective sexual arousal as a f
 \CommentTok{\# across different statistical models (CLMM, GLMER, LMM)}
 
 \CommentTok{\# CLMM Predictions}
-\NormalTok{p\_m2c\_clmm }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2c\_clmm, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Partner }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex,}
+\NormalTok{p\_m2c\_clmm }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2c\_clmm, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Partner }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender,}
   \AttributeTok{at =} \FunctionTok{list}\NormalTok{(}\AttributeTok{Dyadic.TSD.Partner =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{31}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)),}
   \AttributeTok{mode =} \StringTok{"mean.class"}
 \NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}
     \AttributeTok{x =}\NormalTok{ Dyadic.TSD.Partner, }\AttributeTok{y =}\NormalTok{ mean.class,}
-    \AttributeTok{color =}\NormalTok{ Stimuli.sex, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex}
+    \AttributeTok{color =}\NormalTok{ Stimuli.gender, }\AttributeTok{fill =}\NormalTok{ Stimuli.gender}
 \NormalTok{  )) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL), }\AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{color =} \ConstantTok{NA}\NormalTok{) }\SpecialCharTok{+}
@@ -4019,21 +4019,21 @@ This figure presents model-based predictions of subjective sexual arousal as a f
     \AttributeTok{y =} \StringTok{"Predicted Subjective Sexual Arousal"}\NormalTok{,}
     \AttributeTok{x =} \StringTok{"Dyadic TSD Partner"}\NormalTok{,}
     \AttributeTok{title =} \StringTok{"CLMM"}\NormalTok{,}
-    \AttributeTok{color =} \StringTok{"Stimuli Sex"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Sex"}
+    \AttributeTok{color =} \StringTok{"Stimuli Gender"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Gender"}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.3}\NormalTok{, }\FloatTok{5.3}\NormalTok{))}
 
 \CommentTok{\# Poisson GLMM Predictions}
-\NormalTok{p\_m2c\_poisson }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2c\_poisson, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Partner }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex,}
+\NormalTok{p\_m2c\_poisson }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2c\_poisson, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Partner }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender,}
   \AttributeTok{at =} \FunctionTok{list}\NormalTok{(}\AttributeTok{Dyadic.TSD.Partner =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{31}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)),}
   \AttributeTok{type =} \StringTok{"response"}
 \NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}
     \AttributeTok{x =}\NormalTok{ Dyadic.TSD.Partner, }\AttributeTok{y =}\NormalTok{ rate,}
-    \AttributeTok{color =}\NormalTok{ Stimuli.sex, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex}
+    \AttributeTok{color =}\NormalTok{ Stimuli.gender, }\AttributeTok{fill =}\NormalTok{ Stimuli.gender}
 \NormalTok{  )) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL), }\AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{color =} \ConstantTok{NA}\NormalTok{) }\SpecialCharTok{+}
@@ -4043,21 +4043,21 @@ This figure presents model-based predictions of subjective sexual arousal as a f
   \FunctionTok{labs}\NormalTok{(}
     \AttributeTok{y =} \StringTok{""}\NormalTok{, }\AttributeTok{x =} \StringTok{"Dyadic TSD Partner"}\NormalTok{,}
     \AttributeTok{title =} \StringTok{"GLMER (Poisson)"}\NormalTok{,}
-    \AttributeTok{color =} \StringTok{"Stimuli Sex"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Sex"}
+    \AttributeTok{color =} \StringTok{"Stimuli Gender"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Gender"}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.3}\NormalTok{, }\FloatTok{5.3}\NormalTok{))}
 
 \CommentTok{\# LMM Predictions}
-\NormalTok{p\_m2c\_lmer }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2c\_lmer, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Partner }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.sex,}
+\NormalTok{p\_m2c\_lmer }\OtherTok{\textless{}{-}} \FunctionTok{emmeans}\NormalTok{(m2c\_lmer, }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Dyadic.TSD.Partner }\SpecialCharTok{|}\NormalTok{ Gender }\SpecialCharTok{*}\NormalTok{ Stimuli.gender,}
   \AttributeTok{at =} \FunctionTok{list}\NormalTok{(}\AttributeTok{Dyadic.TSD.Partner =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{31}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)),}
   \AttributeTok{type =} \StringTok{"response"}
 \NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{as.data.frame}\NormalTok{() }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}
     \AttributeTok{x =}\NormalTok{ Dyadic.TSD.Partner, }\AttributeTok{y =}\NormalTok{ emmean,}
-    \AttributeTok{color =}\NormalTok{ Stimuli.sex, }\AttributeTok{fill =}\NormalTok{ Stimuli.sex}
+    \AttributeTok{color =}\NormalTok{ Stimuli.gender, }\AttributeTok{fill =}\NormalTok{ Stimuli.gender}
 \NormalTok{  )) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ asymp.LCL, }\AttributeTok{ymax =}\NormalTok{ asymp.UCL), }\AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{color =} \ConstantTok{NA}\NormalTok{) }\SpecialCharTok{+}
@@ -4067,7 +4067,7 @@ This figure presents model-based predictions of subjective sexual arousal as a f
   \FunctionTok{labs}\NormalTok{(}
     \AttributeTok{y =} \StringTok{""}\NormalTok{, }\AttributeTok{x =} \StringTok{"Dyadic TSD Partner"}\NormalTok{,}
     \AttributeTok{title =} \StringTok{"LMM"}\NormalTok{,}
-    \AttributeTok{color =} \StringTok{"Stimuli Sex"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Sex"}
+    \AttributeTok{color =} \StringTok{"Stimuli Gender"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Stimuli Gender"}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{theme\_tq}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{) }\SpecialCharTok{+}
@@ -4086,10 +4086,10 @@ This figure presents model-based predictions of subjective sexual arousal as a f
 \begin{figure}
 \centering
 \includegraphics{Sexual_Desire_Arousal_anonymous_files/figure-latex/preds-m2c-1.pdf}
-\caption{\label{fig:preds-m2c}Predicted subjective sexual arousal as a function of Dyadic TSD Partner, modeled using three statistical approaches: \textbf{(a)} Cumulative Link Mixed Model (CLMM); \textbf{(b)} Generalized Linear Mixed Model (GLMM) with a Poisson family; \textbf{(c)} Linear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95\% confidence intervals. The models include participant gender and stimulus sex as key factors.}
+\caption{\label{fig:preds-m2c}Predicted subjective sexual arousal as a function of Dyadic TSD Partner, modeled using three statistical approaches: \textbf{(a)} Cumulative Link Mixed Model (CLMM); \textbf{(b)} Generalized Linear Mixed Model (GLMM) with a Poisson family; \textbf{(c)} Linear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95\% confidence intervals. The models include participant gender and stimulus gender as key factors.}
 \end{figure}
 
-\paragraph{Final Model: Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Sex}\label{final-model-effects-of-dyadic-tsd-partner-on-ssa-across-gender-and-stimuli-sex}
+\paragraph{Final Model: Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Gender}\label{final-model-effects-of-dyadic-tsd-partner-on-ssa-across-gender-and-stimuli-gender}
 
 Given the apparent robustness of most results across models (CLMM, GLMER and LMM; Table \ref{tab:tab-robu-m2c}, Fig. \ref{fig:preds-m2c}), we test the predictions of the hypothesis from the LMM (\texttt{m2c\_lmer}).
 
@@ -4100,17 +4100,17 @@ This tables summarizes the results of the model.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Generate ANOVA{-}type table for the final LMM model}
-\CommentTok{\# This summarizes the effects of Dyadic TSD Partner on SSA across Gender and Stimuli Sex}
+\CommentTok{\# This summarizes the effects of Dyadic TSD Partner on SSA across Gender and Stimuli Gender}
 \FunctionTok{anova.sig.lmer}\NormalTok{(}
   \AttributeTok{model =}\NormalTok{ m2c\_lmer, }\CommentTok{\# Use LMM as the final model}
-  \AttributeTok{custom\_caption =} \StringTok{"Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Sex"}
+  \AttributeTok{custom\_caption =} \StringTok{"Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Gender"}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-m2c}Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Sex}
+\caption{\label{tab:tab-m2c}Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Gender}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -4120,11 +4120,11 @@ Effect & $df$ & $F$ & $p$ & $\epsilon^2_p$\\
 \midrule
 Dyadic TSD Partner & 1, 316 & 6.59 & \textbf{0.0107} & 0.0173\\
 Gender & 1, 316 & 0.03 & 0.85 & < 0.0001\\
-Stimuli sex & 1, 344.42 & 0.99 & 0.32 & < 0.0001\\
+Stimuli gender & 1, 344.42 & 0.99 & 0.32 & < 0.0001\\
 Dyadic TSD Partner × Gender & 1, 316 & 3.97 & \textbf{0.0472} & 0.0093\\
-Dyadic TSD Partner × Stimuli sex & 1, 316 & 8.46 & \textbf{0.0039} & 0.023\\
-Gender × Stimuli sex & 1, 316 & 20.55 & \textbf{< 0.0001} & 0.06\\
-Dyadic TSD Partner × Gender × Stimuli sex & 1, 316 & 5.70 & \textbf{0.0176} & 0.0146\\
+Dyadic TSD Partner × Stimuli gender & 1, 316 & 8.46 & \textbf{0.0039} & 0.023\\
+Gender × Stimuli gender & 1, 316 & 20.55 & \textbf{< 0.0001} & 0.06\\
+Dyadic TSD Partner × Gender × Stimuli gender & 1, 316 & 5.70 & \textbf{0.0176} & 0.0146\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
@@ -4136,7 +4136,7 @@ Dyadic TSD Partner × Gender × Stimuli sex & 1, 316 & 5.70 & \textbf{0.0176} & 
 
 \subparagraph{\texorpdfstring{\emph{Post-hoc} tests}{Post-hoc tests}}\label{post-hoc-tests-2}
 
-To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Partner, and that this association differ between men and women depending on the sex of stimuli, we used simple slope analysis.
+To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Partner, and that this association differ between men and women depending on the gender of stimuli, we used simple slope analysis.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4144,7 +4144,7 @@ To test the hypothesis, which predicted that there would be different relationsh
 \NormalTok{slop.m2c\_lmer }\OtherTok{\textless{}{-}} \FunctionTok{sim\_slopes}\NormalTok{(}
 \NormalTok{  m2c\_lmer,}
   \AttributeTok{pred =}\NormalTok{ Dyadic.TSD.Partner,}
-  \AttributeTok{modx =}\NormalTok{ Stimuli.sex,}
+  \AttributeTok{modx =}\NormalTok{ Stimuli.gender,}
   \AttributeTok{mod2 =}\NormalTok{ Gender,}
   \AttributeTok{confint =} \ConstantTok{TRUE}
 \NormalTok{)}
@@ -4157,14 +4157,14 @@ To test the hypothesis, which predicted that there would be different relationsh
   \FunctionTok{mutate}\NormalTok{(}
     \AttributeTok{Gender =} \FunctionTok{recode\_factor}\NormalTok{(Gender, }\AttributeTok{Femenino =} \StringTok{"Women"}\NormalTok{, }\AttributeTok{Masculino =} \StringTok{"Men"}\NormalTok{)}
 \NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{select}\NormalTok{(Gender, }\StringTok{\textasciigrave{}}\AttributeTok{Value of Stimuli.sex}\StringTok{\textasciigrave{}}\NormalTok{, Est., }\StringTok{\textasciigrave{}}\AttributeTok{2.5\%}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{97.5\%}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{t val.}\StringTok{\textasciigrave{}}\NormalTok{, p) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{select}\NormalTok{(Gender, }\StringTok{\textasciigrave{}}\AttributeTok{Value of Stimuli.gender}\StringTok{\textasciigrave{}}\NormalTok{, Est., }\StringTok{\textasciigrave{}}\AttributeTok{2.5\%}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{97.5\%}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{t val.}\StringTok{\textasciigrave{}}\NormalTok{, p) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{mutate}\NormalTok{(}
     \FunctionTok{across}\NormalTok{(}\FunctionTok{c}\NormalTok{(Est., }\StringTok{\textasciigrave{}}\AttributeTok{2.5\%}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{97.5\%}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{t val.}\StringTok{\textasciigrave{}}\NormalTok{, p), as.numeric),}
     \FunctionTok{across}\NormalTok{(}\FunctionTok{c}\NormalTok{(Est., }\StringTok{\textasciigrave{}}\AttributeTok{2.5\%}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{97.5\%}\StringTok{\textasciigrave{}}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{t val.}\StringTok{\textasciigrave{}}\NormalTok{), round, }\DecValTok{2}\NormalTok{),}
     \AttributeTok{sig =} \FunctionTok{pval.stars}\NormalTok{(p)}
 \NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{rename}\NormalTok{(}
-    \StringTok{"Stimuli.sex"} \OtherTok{=} \StringTok{\textasciigrave{}}\AttributeTok{Value of Stimuli.sex}\StringTok{\textasciigrave{}}\NormalTok{,}
+    \StringTok{"Stimuli.gender"} \OtherTok{=} \StringTok{\textasciigrave{}}\AttributeTok{Value of Stimuli.gender}\StringTok{\textasciigrave{}}\NormalTok{,}
     \StringTok{"Coefficient"} \OtherTok{=}\NormalTok{ Est.}
 \NormalTok{  )}
 
@@ -4175,10 +4175,10 @@ To test the hypothesis, which predicted that there would be different relationsh
     \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
     \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
     \AttributeTok{caption =} \StringTok{"Slope for Dyadic TSD Partner on Subjective sexual arousal by}
-\StringTok{    stimuli sex and gender"}\NormalTok{,}
+\StringTok{    stimuli gender and gender"}\NormalTok{,}
     \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
     \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}
-      \StringTok{"Stimuli sex"}\NormalTok{, }\StringTok{"$B$"}\NormalTok{, }\StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$t$"}\NormalTok{, }\StringTok{"$p$"}
+      \StringTok{"Stimuli gender"}\NormalTok{, }\StringTok{"$B$"}\NormalTok{, }\StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$t$"}\NormalTok{, }\StringTok{"$p$"}
 \NormalTok{    ),}
     \AttributeTok{escape =} \ConstantTok{FALSE}
 \NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
@@ -4206,12 +4206,12 @@ To test the hypothesis, which predicted that there would be different relationsh
 \begin{table}[H]
 \centering
 \caption{\label{tab:unnamed-chunk-25}Slope for Dyadic TSD Partner on Subjective sexual arousal by
-    stimuli sex and gender}
+    stimuli gender and gender}
 \centering
 \begin{threeparttable}
 \begin{tabular}[t]{lccccc}
 \toprule
-Stimuli sex & $B$ & $2.5\% CI$ & $97.5\% CI$ & $t$ & $p$\\
+Stimuli gender & $B$ & $2.5\% CI$ & $97.5\% CI$ & $t$ & $p$\\
 \midrule
 \addlinespace[0.3em]
 \multicolumn{6}{l}{\cellcolor{lightgray}{Gender: Women}}\\
@@ -4255,7 +4255,7 @@ This figure summarizes the results of hypothesis 2c.
         \StringTok{"], p"}\NormalTok{, }\FunctionTok{ifelse}\NormalTok{(}\FunctionTok{grepl}\NormalTok{(}\StringTok{"\textless{}"}\NormalTok{, }\FunctionTok{pe2.lev}\NormalTok{(p)), }\FunctionTok{pe2.lev}\NormalTok{(p), }\FunctionTok{paste0}\NormalTok{(}\StringTok{" = "}\NormalTok{, }\FunctionTok{pe2.lev}\NormalTok{(p))),}
         \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(sig), }\StringTok{""}\NormalTok{, sig)}
 \NormalTok{      ),}
-      \AttributeTok{vjust =} \DecValTok{2} \SpecialCharTok{+} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(Stimuli.sex)) }\SpecialCharTok{*} \DecValTok{2} \CommentTok{\# Stacks labels properly}
+      \AttributeTok{vjust =} \DecValTok{2} \SpecialCharTok{+} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(Stimuli.gender)) }\SpecialCharTok{*} \DecValTok{2} \CommentTok{\# Stacks labels properly}
 \NormalTok{    ),}
     \AttributeTok{hjust =} \SpecialCharTok{{-}}\FloatTok{0.1}\NormalTok{, }\CommentTok{\# Align text to the left}
     \AttributeTok{show.legend =} \ConstantTok{FALSE}
@@ -4270,12 +4270,12 @@ This figure summarizes the results of hypothesis 2c.
 \begin{figure}
 \centering
 \includegraphics{Sexual_Desire_Arousal_anonymous_files/figure-latex/fig-h2c-1.pdf}
-\caption{\label{fig:fig-h2c}Predicted subjective sexual arousal as a function of Dyadic TSD Partner, modeled using aLinear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95\% confidence intervals. The model include participant gender and stimuli sex as key factors.}
+\caption{\label{fig:fig-h2c}Predicted subjective sexual arousal as a function of Dyadic TSD Partner, modeled using aLinear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95\% confidence intervals. The model include participant gender and stimuli gender as key factors.}
 \end{figure}
 
 \subsection{Hypothesis 3: The associations between TSD dimensions and SSA toward stimuli of self-reported preferred gender will be moderated by gender and relationship status.}\label{hyp3}
 
-We tested whether the relationship between SSA and TSD varies across the three dimensions of TSD and whether these associations differ between men and women depending on whether they were single or not, but only in responses toward stimuli of the preferred sex. This is a fully exploratory hypothesis, for which no directional predictions were made, beyond an interaction between the TSD dimension, gender, and relationship status. As with the case of Hypothesys 2 (section \ref{hyp2}), fitted separate models for each TSD dimension:
+We tested whether the relationship between SSA and TSD varies across the three dimensions of TSD and whether these associations differ between men and women depending on whether they were single or not, but only in responses toward stimuli of the preferred gender. This is a fully exploratory hypothesis, for which no directional predictions were made, beyond an interaction between the TSD dimension, gender, and relationship status. As with the case of Hypothesys 2 (section \ref{hyp2}), fitted separate models for each TSD dimension:
 
 \begin{itemize}
 \tightlist
@@ -4287,7 +4287,7 @@ We tested whether the relationship between SSA and TSD varies across the three d
   \textbf{H3c}: Dyadic TSD toward a partner
 \end{itemize}
 
-To examine this hypothesis, we modeled the effects of each of the three TSD dimension scores, gender, relationship status, and their interactions, on SSA towars stimuli of the self-reported preferred sex. We included random intercepts for each stimulus, as well as random intercepts for each participant.
+To examine this hypothesis, we modeled the effects of each of the three TSD dimension scores, gender, relationship status, and their interactions, on SSA towars stimuli of the self-reported preferred gender. We included random intercepts for each stimulus, as well as random intercepts for each participant.
 
 \subsubsection{Modeling Approach}\label{modeling-approach-1}
 
@@ -4308,14 +4308,14 @@ The results across these models were largely consistent, indicating robustness i
 
 \subsubsection{Data}\label{data-2}
 
-We created a new dataset by selecting, once again, only responses to erotic stimuli but this time also filtering only responses to stimuli of the peferred sex. We also renamed key variables to remove spaces for compatibility with certain functions, and created a factor version of Subjective sexual arousal for use in the CLMM model.
+We created a new dataset by selecting, once again, only responses to erotic stimuli but this time also filtering only responses to stimuli of the preferred gender. We also renamed key variables to remove spaces for compatibility with certain functions, and created a factor version of Subjective sexual arousal for use in the CLMM model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Filter dataset to include only responses to erotic stimuli}
 \NormalTok{dat\_m3 }\OtherTok{\textless{}{-}}\NormalTok{ dat }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{filter}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Stimuli content}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{"Erotic"} \SpecialCharTok{\&}
-    \StringTok{\textasciigrave{}}\AttributeTok{Stimuli sex}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{\textasciigrave{}}\AttributeTok{Preferred sex}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+    \StringTok{\textasciigrave{}}\AttributeTok{Stimuli gender}\StringTok{\textasciigrave{}} \SpecialCharTok{==} \StringTok{\textasciigrave{}}\AttributeTok{Preferred gender}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{rename}\NormalTok{(}
     \AttributeTok{Subjective.sexual.arousal =} \StringTok{\textasciigrave{}}\AttributeTok{Subjective sexual arousal}\StringTok{\textasciigrave{}}\NormalTok{,}
     \AttributeTok{Solitary.TSD =} \StringTok{\textasciigrave{}}\AttributeTok{Solitary sexual desire}\StringTok{\textasciigrave{}}\NormalTok{,}
@@ -4329,9 +4329,9 @@ We created a new dataset by selecting, once again, only responses to erotic stim
 
 \subsubsection{Hypothesis 3a: Solitary TSD}\label{hyp3a}
 
-\paragraph{Model Robustness: Examining the Effects of Solitary TSD on SSA Across Gender and Stimuli Sex}\label{model-robustness-examining-the-effects-of-solitary-tsd-on-ssa-across-gender-and-stimuli-sex-1}
+\paragraph{Model Robustness: Examining the Effects of Solitary TSD on SSA Across Gender and Stimuli Gender}\label{model-robustness-examining-the-effects-of-solitary-tsd-on-ssa-across-gender-and-stimuli-gender-1}
 
-To assess the robustness of our findings, we fitted three different models examining how Solitary TSD predicts SSA, considering variations by gender and stimuli sex:
+To assess the robustness of our findings, we fitted three different models examining how Solitary TSD predicts SSA, considering variations by gender and stimuli gender:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4506,7 +4506,7 @@ This figure presents model-based predictions of subjective sexual arousal as a f
 \caption{\label{fig:preds-m3a}Predicted subjective sexual arousal as a function of Solitary TSD, modeled using three statistical approaches: \textbf{(a)} Cumulative Link Mixed Model (CLMM); \textbf{(b)} Generalized Linear Mixed Model (GLMM) with a Poisson family; \textbf{(c)} Linear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95\% confidence intervals. The models include participant gender and relationship status as key factors.}
 \end{figure}
 
-\paragraph{Final Model: Effects of Solitary TSD on SSA Across Gender and Stimuli Sex}\label{final-model-effects-of-solitary-tsd-on-ssa-across-gender-and-stimuli-sex-1}
+\paragraph{Final Model: Effects of Solitary TSD on SSA Across Gender and Stimuli Gender}\label{final-model-effects-of-solitary-tsd-on-ssa-across-gender-and-stimuli-gender-1}
 
 Given the apparent robustness of most results across models (CLMM, GLMER and LMM; Table \ref{tab:tab-robu-m3a}, Fig. \ref{fig:preds-m3a}), we test the predictions of the hypothesis from the LMM (\texttt{m3a\_lmer}).
 
@@ -4553,7 +4553,7 @@ Solitary TSD × Gender × Relationship & 1, 315.08 & 2.02 & 0.16 & 0.0032\\
 
 \subparagraph{\texorpdfstring{\emph{Post-hoc} tests}{Post-hoc tests}}\label{post-hoc-tests-3}
 
-To test the hypothesis, which predicted that there would be different relationship between SSA and solitary TSD, and that this association differ between men and women depending on the sex of stimuli, we used simple slope analysis.
+To test the hypothesis, which predicted that there would be different relationship between SSA and solitary TSD, and that this association differ between men and women depending on the gender of stimuli, we used simple slope analysis.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4709,9 +4709,9 @@ This figure summarizes the results of hypothesis 3a.
 
 \subsubsection{Hypothesis 3b: Dyadic TSD Attractive Person}\label{hyp3b}
 
-\paragraph{Model Robustness: Examining the Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Sex}\label{model-robustness-examining-the-effects-of-dyadic-tsd-attractive-person-on-ssa-across-gender-and-stimuli-sex-1}
+\paragraph{Model Robustness: Examining the Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Gender}\label{model-robustness-examining-the-effects-of-dyadic-tsd-attractive-person-on-ssa-across-gender-and-stimuli-gender-1}
 
-To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Attractive Person predicts SSA, considering variations by gender and stimuli sex:
+To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Attractive Person predicts SSA, considering variations by gender and stimuli gender:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4910,7 +4910,7 @@ This figure presents model-based predictions of subjective sexual arousal as a f
 \caption{\label{fig:preds-m3b}Predicted subjective sexual arousal as a function of Dyadic TSD Attractive Person, modeled using three statistical approaches: \textbf{(a)} Cumulative Link Mixed Model (CLMM); \textbf{(b)} Generalized Linear Mixed Model (GLMM) with a Poisson family; \textbf{(c)} Linear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95\% confidence intervals. The models include participant gender and relationship status as key factors.}
 \end{figure}
 
-\paragraph{Final Model: Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Sex}\label{final-model-effects-of-dyadic-tsd-attractive-person-on-ssa-across-gender-and-stimuli-sex-1}
+\paragraph{Final Model: Effects of Dyadic TSD Attractive Person on SSA Across Gender and Stimuli Gender}\label{final-model-effects-of-dyadic-tsd-attractive-person-on-ssa-across-gender-and-stimuli-gender-1}
 
 Given the apparent robustness of most results across models (CLMM, GLMER and LMM; Table \ref{tab:tab-robu-m3b}, Fig. \ref{fig:preds-m3b}), we test the predictions of the hypothesis from the LMM (\texttt{m3b\_lmer}).
 
@@ -4926,7 +4926,7 @@ This tables summarizes the results of the model.
 \FunctionTok{anova.sig.lmer}\NormalTok{(}
   \AttributeTok{model =}\NormalTok{ m3b\_lmer, }\CommentTok{\# Use LMM as the final model}
   \AttributeTok{custom\_caption =} \StringTok{"Effects of Dyadic TSD Attractive Person on SSA }
-\StringTok{  Across Gender and Stimuli Sex"}
+\StringTok{  Across Gender and Stimuli Gender"}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -4934,7 +4934,7 @@ This tables summarizes the results of the model.
 \begin{table}[H]
 \centering
 \caption{\label{tab:tab-m3b}Effects of Dyadic TSD Attractive Person on SSA 
-  Across Gender and Stimuli Sex}
+  Across Gender and Stimuli Gender}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -4960,7 +4960,7 @@ Dyadic TSD Attractive Person × Gender × Relationship & 1, 314.97 & 0.34 & 0.56
 
 \subparagraph{\texorpdfstring{\emph{Post-hoc} tests}{Post-hoc tests}}\label{post-hoc-tests-4}
 
-To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Attractive Person, and that this association differ between men and women depending on the sex of stimuli, we used simple slope analysis.
+To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Attractive Person, and that this association differ between men and women depending on the gender of stimuli, we used simple slope analysis.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5003,7 +5003,7 @@ To test the hypothesis, which predicted that there would be different relationsh
     \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
     \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)),}
     \AttributeTok{caption =} \StringTok{"Slope for Dyadic TSD Attractive Person on}
-\StringTok{        Subjective sexual arousal by stimuli sex and gender"}\NormalTok{,}
+\StringTok{        Subjective sexual arousal by stimuli gender and gender"}\NormalTok{,}
     \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
     \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}
       \StringTok{"Relationship status"}\NormalTok{, }\StringTok{"$B$"}\NormalTok{, }\StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{,}
@@ -5043,7 +5043,7 @@ To test the hypothesis, which predicted that there would be different relationsh
 \begin{table}[H]
 \centering
 \caption{\label{tab:unnamed-chunk-30}Slope for Dyadic TSD Attractive Person on
-        Subjective sexual arousal by stimuli sex and gender}
+        Subjective sexual arousal by stimuli gender and gender}
 \centering
 \begin{threeparttable}
 \begin{tabular}[t]{lccccc}
@@ -5123,9 +5123,9 @@ This figure summarizes the results of hypothesis 3b.
 
 \subsubsection{Hypothesis 3c: Dyadic TSD Partner}\label{hyp3c}
 
-\paragraph{Model Robustness: Examining the Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Sex}\label{model-robustness-examining-the-effects-of-dyadic-tsd-partner-on-ssa-across-gender-and-stimuli-sex-1}
+\paragraph{Model Robustness: Examining the Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Gender}\label{model-robustness-examining-the-effects-of-dyadic-tsd-partner-on-ssa-across-gender-and-stimuli-gender-1}
 
-To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Partner predicts SSA, considering variations by gender and stimuli sex:
+To assess the robustness of our findings, we fitted three different models examining how Dyadic TSD Partner predicts SSA, considering variations by gender and stimuli gender:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -5312,7 +5312,7 @@ This figure presents model-based predictions of subjective sexual arousal as a f
 \caption{\label{fig:preds-m3c}Predicted subjective sexual arousal as a function of Dyadic TSD Partner, modeled using three statistical approaches: \textbf{(a)} Cumulative Link Mixed Model (CLMM); \textbf{(b)} Generalized Linear Mixed Model (GLMM) with a Poisson family; \textbf{(c)} Linear Mixed Model (LMM). Lines represent predicted values, and shaded areas indicate 95\% confidence intervals. The models include participant gender and relationship status as key factors.}
 \end{figure}
 
-\paragraph{Final Model: Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Sex}\label{final-model-effects-of-dyadic-tsd-partner-on-ssa-across-gender-and-stimuli-sex-1}
+\paragraph{Final Model: Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Gender}\label{final-model-effects-of-dyadic-tsd-partner-on-ssa-across-gender-and-stimuli-gender-1}
 
 Given the apparent robustness of most results across models (CLMM, GLMER and LMM; Table \ref{tab:tab-robu-m3c}, Fig. \ref{fig:preds-m3c}), we test the predictions of the hypothesis from the LMM (\texttt{m3c\_lmer}).
 
@@ -5323,17 +5323,17 @@ This tables summarizes the results of the model.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Generate ANOVA{-}type table for the final LMM model}
-\CommentTok{\# This summarizes the effects of Dyadic TSD Partner on SSA across Gender and Stimuli Sex}
+\CommentTok{\# This summarizes the effects of Dyadic TSD Partner on SSA across Gender and Stimuli Gender}
 \FunctionTok{anova.sig.lmer}\NormalTok{(}
   \AttributeTok{model =}\NormalTok{ m3c\_lmer, }\CommentTok{\# Use LMM as the final model}
-  \AttributeTok{custom\_caption =} \StringTok{"Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Sex"}
+  \AttributeTok{custom\_caption =} \StringTok{"Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Gender"}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-m3c}Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Sex}
+\caption{\label{tab:tab-m3c}Effects of Dyadic TSD Partner on SSA Across Gender and Stimuli Gender}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -5359,7 +5359,7 @@ Dyadic TSD Partner × Gender × Relationship & 1, 311.94 & 8.31 & \textbf{0.0042
 
 \subparagraph{\texorpdfstring{\emph{Post-hoc} tests}{Post-hoc tests}}\label{post-hoc-tests-5}
 
-To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Partner, and that this association differ between men and women depending on the sex of stimuli, we used simple slope analysis.
+To test the hypothesis, which predicted that there would be different relationship between SSA and Dyadic TSD Partner, and that this association differ between men and women depending on the gender of stimuli, we used simple slope analysis.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5399,7 +5399,7 @@ To test the hypothesis, which predicted that there would be different relationsh
     \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{,}
     \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{5}\NormalTok{)), }\CommentTok{\# Align columns}
     \AttributeTok{caption =} \StringTok{"Slope for Dyadic TSD Partner on Subjective sexual arousal}
-\StringTok{               by stimuli sex and gender"}\NormalTok{,}
+\StringTok{               by stimuli gender and gender"}\NormalTok{,}
     \AttributeTok{linesep =} \StringTok{""}\NormalTok{,}
     \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Relationship status"}\NormalTok{, }\StringTok{"$B$"}\NormalTok{, }\StringTok{"$2.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$97.5}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\% CI$"}\NormalTok{, }\StringTok{"$t$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{),}
     \AttributeTok{escape =} \ConstantTok{FALSE}
@@ -5425,7 +5425,7 @@ To test the hypothesis, which predicted that there would be different relationsh
 \begin{table}[H]
 \centering
 \caption{\label{tab:unnamed-chunk-32}Slope for Dyadic TSD Partner on Subjective sexual arousal
-               by stimuli sex and gender}
+               by stimuli gender and gender}
 \centering
 \begin{threeparttable}
 \begin{tabular}[t]{lccccc}
@@ -5692,7 +5692,7 @@ ANOVA-type table for the interaction between \texttt{Relationship\ type}, and \t
     \AttributeTok{booktabs =} \ConstantTok{TRUE}\NormalTok{, }\CommentTok{\# Use LaTeX booktabs for better formatting}
     \AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"l"}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\StringTok{"c"}\NormalTok{, }\DecValTok{4}\NormalTok{)), }\CommentTok{\# Align columns}
     \AttributeTok{linesep =} \StringTok{""}\NormalTok{, }\CommentTok{\# No extra lines}
-    \AttributeTok{caption =} \StringTok{"Effects of TSD dimensions on SSA Across Gender and Stimuli Sex"}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Effects of TSD dimensions on SSA Across Gender and Stimuli Gender"}\NormalTok{,}
     \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Effect"}\NormalTok{, }\StringTok{"$df$"}\NormalTok{, }\StringTok{"$F$"}\NormalTok{, }\StringTok{"$p$"}\NormalTok{, }\StringTok{"$}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{epsilon\^{}2\_p$"}\NormalTok{), }\CommentTok{\# Column headers}
     \AttributeTok{escape =} \ConstantTok{FALSE} \CommentTok{\# Allow LaTeX formatting}
 \NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
@@ -5716,7 +5716,7 @@ ANOVA-type table for the interaction between \texttt{Relationship\ type}, and \t
       \StringTok{"; Dyadic TSD Partner: "}\NormalTok{,}
       \StringTok{"$R\^{}2\_\{conditional\}$ = "}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{r2\_nakagawa}\NormalTok{(m2c\_lmer)}\SpecialCharTok{$}\NormalTok{R2\_conditional, }\DecValTok{3}\NormalTok{),}
       \StringTok{", $R\^{}2\_\{marginal\}$ = "}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{r2\_nakagawa}\NormalTok{(m2c\_lmer)}\SpecialCharTok{$}\NormalTok{R2\_marginal, }\DecValTok{3}\NormalTok{),}
-      \StringTok{". Gender = participant gender (women, men); Stimuli sex = sex of stimuli (male, female).}
+      \StringTok{". Gender = participant gender (women, men); Stimuli gender = gender of stimuli (male, female).}
 \StringTok{      Partial epsilon squared ($}\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{epsilon\^{}2\_p$) is used as an effect size, as it provides}
 \StringTok{      a less biased estimate than $}\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{eta\^{}2$ (see }\SpecialCharTok{\textbackslash{}\textbackslash{}\textbackslash{}\textbackslash{}}\StringTok{cite\{albersWhenPowerAnalyses2018\}).}
 \StringTok{      Significant effects are in bold."}
@@ -5730,7 +5730,7 @@ ANOVA-type table for the interaction between \texttt{Relationship\ type}, and \t
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:tab-m2-fin}Effects of TSD dimensions on SSA Across Gender and Stimuli Sex}
+\caption{\label{tab:tab-m2-fin}Effects of TSD dimensions on SSA Across Gender and Stimuli Gender}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
@@ -5742,34 +5742,34 @@ Effect & $df$ & $F$ & $p$ & $\epsilon^2_p$\\
 \multicolumn{5}{l}{\cellcolor{lightgray}{Solitary TSD}}\\
 \hspace{1em}Solitary TSD & 1, 319 & 17.46 & \textbf{< 0.0001} & 0.0489\\
 \hspace{1em}Gender & 1, 319 & 8.84 & \textbf{0.0032} & 0.0239\\
-\hspace{1em}Stimuli sex & 1, 369.21 & 24.71 & \textbf{< 0.0001} & 0.06\\
+\hspace{1em}Stimuli gender & 1, 369.21 & 24.71 & \textbf{< 0.0001} & 0.06\\
 \hspace{1em}Solitary TSD × Gender & 1, 319 & 0.85 & 0.36 & < 0.0001\\
-\hspace{1em}Solitary TSD × Stimuli sex & 1, 319 & 0.02 & 0.88 & < 0.0001\\
-\hspace{1em}Gender × Stimuli sex & 1, 319 & 74.79 & \textbf{< 0.0001} & 0.19\\
-\hspace{1em}Solitary TSD × Gender × Stimuli sex & 1, 319 & 1.78 & 0.18 & 0.0024\\
+\hspace{1em}Solitary TSD × Stimuli gender & 1, 319 & 0.02 & 0.88 & < 0.0001\\
+\hspace{1em}Gender × Stimuli gender & 1, 319 & 74.79 & \textbf{< 0.0001} & 0.19\\
+\hspace{1em}Solitary TSD × Gender × Stimuli gender & 1, 319 & 1.78 & 0.18 & 0.0024\\
 \addlinespace[0.3em]
 \multicolumn{5}{l}{\cellcolor{lightgray}{Dyadic TSD Attractive Person}}\\
 \hspace{1em}Dyadic TSD Attractive Person & 1, 319 & 48.49 & \textbf{< 0.0001} & 0.13\\
 \hspace{1em}Gender & 1, 319 & 1.45 & 0.23 & 0.0014\\
-\hspace{1em}Stimuli sex & 1, 373.93 & 2.69 & 0.1 & 0.0045\\
+\hspace{1em}Stimuli gender & 1, 373.93 & 2.69 & 0.1 & 0.0045\\
 \hspace{1em}Dyadic TSD Attractive Person × Gender & 1, 319 & 0.53 & 0.47 & < 0.0001\\
-\hspace{1em}Dyadic TSD Attractive Person × Stimuli sex & 1, 319 & 15.43 & \textbf{< 0.001} & 0.0431\\
-\hspace{1em}Gender × Stimuli sex & 1, 319 & 27.44 & \textbf{< 0.0001} & 0.08\\
-\hspace{1em}Dyadic TSD Attractive Person × Gender × Stimuli sex & 1, 319 & 29.69 & \textbf{< 0.0001} & 0.08\\
+\hspace{1em}Dyadic TSD Attractive Person × Stimuli gender & 1, 319 & 15.43 & \textbf{< 0.001} & 0.0431\\
+\hspace{1em}Gender × Stimuli gender & 1, 319 & 27.44 & \textbf{< 0.0001} & 0.08\\
+\hspace{1em}Dyadic TSD Attractive Person × Gender × Stimuli gender & 1, 319 & 29.69 & \textbf{< 0.0001} & 0.08\\
 \addlinespace[0.3em]
 \multicolumn{5}{l}{\cellcolor{lightgray}{Dyadic TSD Partner}}\\
 \hspace{1em}Dyadic TSD Partner & 1, 316 & 6.59 & \textbf{0.0107} & 0.0173\\
 \hspace{1em}Gender & 1, 316 & 0.03 & 0.85 & < 0.0001\\
-\hspace{1em}Stimuli sex & 1, 344.42 & 0.99 & 0.32 & < 0.0001\\
+\hspace{1em}Stimuli gender & 1, 344.42 & 0.99 & 0.32 & < 0.0001\\
 \hspace{1em}Dyadic TSD Partner × Gender & 1, 316 & 3.97 & \textbf{0.0472} & 0.0093\\
-\hspace{1em}Dyadic TSD Partner × Stimuli sex & 1, 316 & 8.46 & \textbf{0.0039} & 0.023\\
-\hspace{1em}Gender × Stimuli sex & 1, 316 & 20.55 & \textbf{< 0.0001} & 0.06\\
-\hspace{1em}Dyadic TSD Partner × Gender × Stimuli sex & 1, 316 & 5.70 & \textbf{0.0176} & 0.0146\\
+\hspace{1em}Dyadic TSD Partner × Stimuli gender & 1, 316 & 8.46 & \textbf{0.0039} & 0.023\\
+\hspace{1em}Gender × Stimuli gender & 1, 316 & 20.55 & \textbf{< 0.0001} & 0.06\\
+\hspace{1em}Dyadic TSD Partner × Gender × Stimuli gender & 1, 316 & 5.70 & \textbf{0.0176} & 0.0146\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[para]
 \item \textit{Note: } 
-\item Results are type III ANOVA. Solitary TSD: $R^2_{conditional}$ = 0.745, $R^2_{marginal}$ = 0.335; Dyadic TSD Attractive Person: $R^2_{conditional}$ = 0.745, $R^2_{marginal}$ = 0.367; Dyadic TSD Partner: $R^2_{conditional}$ = 0.745, $R^2_{marginal}$ = 0.329. Gender = participant gender (women, men); Stimuli sex = sex of stimuli (male, female).
+\item Results are type III ANOVA. Solitary TSD: $R^2_{conditional}$ = 0.745, $R^2_{marginal}$ = 0.335; Dyadic TSD Attractive Person: $R^2_{conditional}$ = 0.745, $R^2_{marginal}$ = 0.367; Dyadic TSD Partner: $R^2_{conditional}$ = 0.745, $R^2_{marginal}$ = 0.329. Gender = participant gender (women, men); Stimuli gender = gender of stimuli (male, female).
       Partial epsilon squared ($\epsilon^2_p$) is used as an effect size, as it provides
       a less biased estimate than $\eta^2$ (see \cite{albersWhenPowerAnalyses2018}).
       Significant effects are in bold.
@@ -5779,12 +5779,12 @@ Effect & $df$ & $F$ & $p$ & $\epsilon^2_p$\\
 
 \subsection{Figure \ref{fig:fig-m2-fin}. Hypothesis 2}\label{figure-reffigfig-m2-fin.-hypothesis-2}
 
-Simple slopes for the interaction between dimensions of sexual desire and \texttt{Stimuli\ Sex}, by gender, for the three final models for hypothesis 2.
+Simple slopes for the interaction between dimensions of sexual desire and \texttt{Stimuli\ Gender}, by gender, for the three final models for hypothesis 2.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Generate a combined figure showing the interaction between sexual desire dimensions}
-\CommentTok{\# and stimuli sex, grouped by gender, for the final models in Hypothesis 2}
+\CommentTok{\# and stimuli gender, grouped by gender, for the final models in Hypothesis 2}
 \FunctionTok{ggarrange}\NormalTok{(}
 \NormalTok{  p\_m2a.fin, }\CommentTok{\# Solitary TSD simple slopes plot}
 \NormalTok{  p\_m2b.fin, }\CommentTok{\# Dyadic TSD Attractive Person simple slopes plot}
@@ -5801,7 +5801,7 @@ Simple slopes for the interaction between dimensions of sexual desire and \textt
 \begin{figure}
 \centering
 \includegraphics{Sexual_Desire_Arousal_anonymous_files/figure-latex/fig-m2-fin-1.pdf}
-\caption{\label{fig:fig-m2-fin}Slopes of Trait Sexual Desire (TSD) dimensions on sexual arousal, by gender and stimuli sex. \textbf{(a)} Solitary TSD; \textbf{(b)} Dyadic TSD Attractive Person; \textbf{(c)} Dyadic TSD Partner. Lines represent simple slopes and 95\% CI. Significant effects are represented with stars alongside slope details: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
+\caption{\label{fig:fig-m2-fin}Slopes of Trait Sexual Desire (TSD) dimensions on sexual arousal, by gender and stimuli gender. \textbf{(a)} Solitary TSD; \textbf{(b)} Dyadic TSD Attractive Person; \textbf{(c)} Dyadic TSD Partner. Lines represent simple slopes and 95\% CI. Significant effects are represented with stars alongside slope details: *\emph{p} \textless{} 0.05, **\emph{p} \textless{} 0.01, ***\emph{p} \textless{} 0.001, ****\emph{p} \textless{} 0.0001.}
 \end{figure}
 
 \subsection{Table \ref{tab:tab-m3-fin}. Hypothesis 3}\label{table-reftabtab-m3-fin.-hypothesis-3}
@@ -5929,7 +5929,7 @@ Effect & $df$ & $F$ & $p$ & $\epsilon^2_p$\\
 
 \subsection{Figure \ref{fig:fig-m3-fin}. Hypothesis 3}\label{figure-reffigfig-m3-fin.-hypothesis-3}
 
-Simple slopes for the interaction between dimensions of sexual desire and \texttt{Stimuli\ Sex}, by gender, for the three final models for hypothesis 3.
+Simple slopes for the interaction between dimensions of sexual desire and \texttt{Stimuli\ Gender}, by gender, for the three final models for hypothesis 3.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5974,10 +5974,10 @@ Simple slopes for the interaction between dimensions of sexual desire and \textt
 \emph{stats}, \emph{graphics}, \emph{grDevices}, \emph{utils}, \emph{datasets}, \emph{methods} and \emph{base}
 
 \textbf{other attached packages:}
-\emph{pander(v.0.6.5)}, \emph{Hmisc(v.5.2-2)}, \emph{lubridate(v.1.9.4)}, \emph{forcats(v.1.0.0)}, \emph{stringr(v.1.5.1)}, \emph{dplyr(v.1.1.4)}, \emph{purrr(v.1.0.4)}, \emph{readr(v.2.1.5)}, \emph{tidyr(v.1.3.1)}, \emph{tibble(v.3.2.1)}, \emph{tidyverse(v.2.0.0)}, \emph{interactions(v.1.2.0)}, \emph{ggpubr(v.0.6.0)}, \emph{ggplot2(v.3.5.1)}, \emph{effectsize(v.1.0.0)}, \emph{rstatix(v.0.7.2)}, \emph{bestNormalize(v.1.9.1)}, \emph{berryFunctions(v.1.22.5)}, \emph{emmeans(v.1.10.7)}, \emph{scales(v.1.3.0)}, \emph{psych(v.2.4.12)}, \emph{kableExtra(v.1.4.0)}, \emph{performance(v.0.13.0)}, \emph{PerformanceAnalytics(v.2.0.8)}, \emph{quantmod(v.0.4.26)}, \emph{TTR(v.0.24.4)}, \emph{xts(v.0.14.1)}, \emph{zoo(v.1.8-12)}, \emph{tidyquant(v.1.0.10)}, \emph{car(v.3.1-3)}, \emph{carData(v.3.0-5)}, \emph{ltm(v.1.2-0)}, \emph{polycor(v.0.8-1)}, \emph{msm(v.1.8.2)}, \emph{MASS(v.7.3-64)}, \emph{lmerTest(v.3.1-3)}, \emph{ordinal(v.2023.12-4.1)}, \emph{lme4(v.1.1-36)}, \emph{Matrix(v.1.7-2)}, \emph{readxl(v.1.4.3)} and \emph{knitr(v.1.49)}
+\emph{pander(v.0.6.5)}, \emph{Hmisc(v.5.2-2)}, \emph{lubridate(v.1.9.4)}, \emph{forcats(v.1.0.0)}, \emph{stringr(v.1.5.1)}, \emph{dplyr(v.1.1.4)}, \emph{purrr(v.1.0.4)}, \emph{readr(v.2.1.5)}, \emph{tidyr(v.1.3.1)}, \emph{tibble(v.3.2.1)}, \emph{tidyverse(v.2.0.0)}, \emph{interactions(v.1.2.0)}, \emph{ggpubr(v.0.6.0)}, \emph{ggplot2(v.3.5.1)}, \emph{effectsize(v.1.0.0)}, \emph{rstatix(v.0.7.2)}, \emph{bestNormalize(v.1.9.1)}, \emph{berryFunctions(v.1.22.5)}, \emph{emmeans(v.1.10.7)}, \emph{scales(v.1.3.0)}, \emph{psych(v.2.4.12)}, \emph{kableExtra(v.1.4.0)}, \emph{performance(v.0.13.0)}, \emph{PerformanceAnalytics(v.2.0.8)}, \emph{quantmod(v.0.4.26)}, \emph{TTR(v.0.24.4)}, \emph{xts(v.0.14.1)}, \emph{zoo(v.1.8-12)}, \emph{tidyquant(v.1.0.11)}, \emph{car(v.3.1-3)}, \emph{carData(v.3.0-5)}, \emph{ltm(v.1.2-0)}, \emph{polycor(v.0.8-1)}, \emph{msm(v.1.8.2)}, \emph{MASS(v.7.3-64)}, \emph{lmerTest(v.3.1-3)}, \emph{ordinal(v.2023.12-4.1)}, \emph{lme4(v.1.1-36)}, \emph{Matrix(v.1.7-2)}, \emph{readxl(v.1.4.3)} and \emph{knitr(v.1.49)}
 
 \textbf{loaded via a namespace (and not attached):}
-\emph{rstudioapi(v.0.17.1)}, \emph{datawizard(v.1.0.0)}, \emph{magrittr(v.2.0.3)}, \emph{TH.data(v.1.1-3)}, \emph{estimability(v.1.5.1)}, \emph{farver(v.2.1.2)}, \emph{nloptr(v.2.1.1)}, \emph{rmarkdown(v.2.29)}, \emph{vctrs(v.0.6.5)}, \emph{minqa(v.1.2.8)}, \emph{base64enc(v.0.1-3)}, \emph{butcher(v.0.3.4)}, \emph{htmltools(v.0.5.8.1)}, \emph{curl(v.6.2.0)}, \emph{broom(v.1.0.7)}, \emph{cellranger(v.1.1.0)}, \emph{Formula(v.1.2-5)}, \emph{parallelly(v.1.41.0)}, \emph{htmlwidgets(v.1.6.4)}, \emph{sandwich(v.3.1-1)}, \emph{admisc(v.0.37)}, \emph{lifecycle(v.1.0.4)}, \emph{iterators(v.1.0.14)}, \emph{pkgconfig(v.2.0.3)}, \emph{R6(v.2.5.1)}, \emph{fastmap(v.1.2.0)}, \emph{rbibutils(v.2.3)}, \emph{future(v.1.34.0)}, \emph{digest(v.0.6.37)}, \emph{numDeriv(v.2016.8-1.1)}, \emph{colorspace(v.2.1-1)}, \emph{furrr(v.0.3.1)}, \emph{labeling(v.0.4.3)}, \emph{timechange(v.0.3.0)}, \emph{abind(v.1.4-8)}, \emph{compiler(v.4.4.2)}, \emph{rngtools(v.1.5.2)}, \emph{withr(v.3.0.2)}, \emph{doParallel(v.1.0.17)}, \emph{htmlTable(v.2.4.3)}, \emph{backports(v.1.5.0)}, \emph{broom.mixed(v.0.2.9.6)}, \emph{ggsignif(v.0.6.4)}, \emph{lava(v.1.8.1)}, \emph{ucminf(v.1.2.2)}, \emph{tools(v.4.4.2)}, \emph{foreign(v.0.8-88)}, \emph{RobStatTM(v.1.0.11)}, \emph{future.apply(v.1.11.3)}, \emph{nnet(v.7.3-20)}, \emph{glue(v.1.8.0)}, \emph{quadprog(v.1.5-8)}, \emph{nlme(v.3.1-167)}, \emph{grid(v.4.4.2)}, \emph{checkmate(v.2.3.2)}, \emph{cluster(v.2.1.8)}, \emph{see(v.0.10.0)}, \emph{generics(v.0.1.3)}, \emph{recipes(v.1.1.0)}, \emph{gtable(v.0.3.6)}, \emph{nortest(v.1.0-4)}, \emph{tzdb(v.0.4.0)}, \emph{class(v.7.3-23)}, \emph{hms(v.1.1.3)}, \emph{data.table(v.1.16.4)}, \emph{xml2(v.1.3.6)}, \emph{foreach(v.1.5.2)}, \emph{pillar(v.1.10.1)}, \emph{splines(v.4.4.2)}, \emph{lattice(v.0.22-6)}, \emph{survival(v.3.8-3)}, \emph{tidyselect(v.1.2.1)}, \emph{gridExtra(v.2.3)}, \emph{reformulas(v.0.4.0)}, \emph{bookdown(v.0.42)}, \emph{svglite(v.2.1.3)}, \emph{xfun(v.0.50)}, \emph{expm(v.1.0-0)}, \emph{hardhat(v.1.4.0)}, \emph{timeDate(v.4041.110)}, \emph{stringi(v.1.8.4)}, \emph{yaml(v.2.3.10)}, \emph{boot(v.1.3-31)}, \emph{evaluate(v.1.0.3)}, \emph{codetools(v.0.2-20)}, \emph{cli(v.3.6.3)}, \emph{rpart(v.4.1.24)}, \emph{xtable(v.1.8-4)}, \emph{parameters(v.0.24.1)}, \emph{systemfonts(v.1.2.1)}, \emph{Rdpack(v.2.6.2)}, \emph{munsell(v.0.5.1)}, \emph{Rcpp(v.1.0.14)}, \emph{globals(v.0.16.3)}, \emph{coda(v.0.19-4.1)}, \emph{parallel(v.4.4.2)}, \emph{gower(v.1.0.2)}, \emph{bayestestR(v.0.15.1)}, \emph{doRNG(v.1.8.6.1)}, \emph{listenv(v.0.9.1)}, \emph{viridisLite(v.0.4.2)}, \emph{mvtnorm(v.1.3-3)}, \emph{ipred(v.0.9-15)}, \emph{prodlim(v.2024.06.25)}, \emph{insight(v.1.0.1)}, \emph{rlang(v.1.1.5)}, \emph{cowplot(v.1.1.3)}, \emph{multcomp(v.1.4-28)}, \emph{mnormt(v.2.1.1)} and \emph{jtools(v.2.3.0)}
+\emph{rstudioapi(v.0.17.1)}, \emph{datawizard(v.1.0.0)}, \emph{magrittr(v.2.0.3)}, \emph{TH.data(v.1.1-3)}, \emph{estimability(v.1.5.1)}, \emph{farver(v.2.1.2)}, \emph{nloptr(v.2.1.1)}, \emph{rmarkdown(v.2.29)}, \emph{vctrs(v.0.6.5)}, \emph{minqa(v.1.2.8)}, \emph{base64enc(v.0.1-3)}, \emph{butcher(v.0.3.4)}, \emph{htmltools(v.0.5.8.1)}, \emph{curl(v.6.2.1)}, \emph{broom(v.1.0.7)}, \emph{cellranger(v.1.1.0)}, \emph{Formula(v.1.2-5)}, \emph{parallelly(v.1.42.0)}, \emph{htmlwidgets(v.1.6.4)}, \emph{sandwich(v.3.1-1)}, \emph{admisc(v.0.37)}, \emph{lifecycle(v.1.0.4)}, \emph{iterators(v.1.0.14)}, \emph{pkgconfig(v.2.0.3)}, \emph{R6(v.2.6.1)}, \emph{fastmap(v.1.2.0)}, \emph{rbibutils(v.2.3)}, \emph{future(v.1.34.0)}, \emph{digest(v.0.6.37)}, \emph{numDeriv(v.2016.8-1.1)}, \emph{colorspace(v.2.1-1)}, \emph{furrr(v.0.3.1)}, \emph{labeling(v.0.4.3)}, \emph{timechange(v.0.3.0)}, \emph{abind(v.1.4-8)}, \emph{compiler(v.4.4.2)}, \emph{rngtools(v.1.5.2)}, \emph{withr(v.3.0.2)}, \emph{doParallel(v.1.0.17)}, \emph{htmlTable(v.2.4.3)}, \emph{backports(v.1.5.0)}, \emph{broom.mixed(v.0.2.9.6)}, \emph{ggsignif(v.0.6.4)}, \emph{lava(v.1.8.1)}, \emph{ucminf(v.1.2.2)}, \emph{tools(v.4.4.2)}, \emph{foreign(v.0.8-88)}, \emph{RobStatTM(v.1.0.11)}, \emph{future.apply(v.1.11.3)}, \emph{nnet(v.7.3-20)}, \emph{glue(v.1.8.0)}, \emph{quadprog(v.1.5-8)}, \emph{nlme(v.3.1-167)}, \emph{grid(v.4.4.2)}, \emph{checkmate(v.2.3.2)}, \emph{cluster(v.2.1.8)}, \emph{see(v.0.10.0)}, \emph{generics(v.0.1.3)}, \emph{recipes(v.1.1.1)}, \emph{gtable(v.0.3.6)}, \emph{nortest(v.1.0-4)}, \emph{tzdb(v.0.4.0)}, \emph{class(v.7.3-23)}, \emph{hms(v.1.1.3)}, \emph{data.table(v.1.16.4)}, \emph{xml2(v.1.3.6)}, \emph{foreach(v.1.5.2)}, \emph{pillar(v.1.10.1)}, \emph{splines(v.4.4.2)}, \emph{lattice(v.0.22-6)}, \emph{survival(v.3.8-3)}, \emph{tidyselect(v.1.2.1)}, \emph{gridExtra(v.2.3)}, \emph{reformulas(v.0.4.0)}, \emph{bookdown(v.0.42)}, \emph{svglite(v.2.1.3)}, \emph{xfun(v.0.50)}, \emph{expm(v.1.0-0)}, \emph{hardhat(v.1.4.1)}, \emph{timeDate(v.4041.110)}, \emph{stringi(v.1.8.4)}, \emph{yaml(v.2.3.10)}, \emph{boot(v.1.3-31)}, \emph{evaluate(v.1.0.3)}, \emph{codetools(v.0.2-20)}, \emph{cli(v.3.6.4)}, \emph{rpart(v.4.1.24)}, \emph{xtable(v.1.8-4)}, \emph{parameters(v.0.24.1)}, \emph{systemfonts(v.1.2.1)}, \emph{Rdpack(v.2.6.2)}, \emph{munsell(v.0.5.1)}, \emph{Rcpp(v.1.0.14)}, \emph{globals(v.0.16.3)}, \emph{coda(v.0.19-4.1)}, \emph{parallel(v.4.4.2)}, \emph{gower(v.1.0.2)}, \emph{bayestestR(v.0.15.2)}, \emph{doRNG(v.1.8.6.1)}, \emph{listenv(v.0.9.1)}, \emph{viridisLite(v.0.4.2)}, \emph{mvtnorm(v.1.3-3)}, \emph{ipred(v.0.9-15)}, \emph{prodlim(v.2024.06.25)}, \emph{insight(v.1.0.2)}, \emph{rlang(v.1.1.5)}, \emph{cowplot(v.1.1.3)}, \emph{multcomp(v.1.4-28)}, \emph{mnormt(v.2.1.1)} and \emph{jtools(v.2.3.0)}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
