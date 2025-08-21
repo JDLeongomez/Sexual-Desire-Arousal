@@ -16,8 +16,8 @@ author:
     correspondence: false
     institute: [ueb]
 institute:
-  - costa: 'Departamento de Ciencias Sociales, Universidad de la Costa, Barranquilla 080002, Colombia.'
   - ueb: 'Faculty of Psychology, Universidad El Bosque, Bogota 110121, Colombia.'
+  - costa: 'Departamento de Ciencias Sociales, Universidad de la Costa, Barranquilla 080002, Colombia.'
   - queen: 'Department of Psychology, Queen’s University, Kingston ON K7L 3N6, Canada.'
 date: "`r Sys.setlocale('LC_TIME','en_US.UTF-8');format(Sys.Date(),'%d %B, %Y')`"
 output:
